@@ -94,7 +94,7 @@ export default function Home() {
     { label: 'On-Time Delivery', value: '97%', icon: Clock },
   ];
 
-  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
   const withBasePath = (path: string) => `${basePath}${path}`
 
   const navLinks = [
@@ -293,7 +293,7 @@ export default function Home() {
             <div className="flex items-center space-x-2 sm:space-x-8">
               <div className="flex items-center">
                 <Image
-                  src={withBasePath("/logo-fastfun-remote.png")}
+                  src={withBasePath('/logo-fastfun-remote.png')}
                   alt="FastFun Remote logo"
                   width={160}
                   height={48}
@@ -2415,7 +2415,7 @@ ${formData.get('details') ?? ''}`
             <div className="lg:col-span-2">
               <div className="flex items-center mb-6">
                 <Image
-                  src={withBasePath("/logo-fastfun-remote.png")}
+                  src={withBasePath('/logo-fastfun-remote.png')}
                   alt="FastFun Remote logo"
                   width={200}
                   height={60}
