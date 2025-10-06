@@ -376,52 +376,44 @@ export default function Home() {
               className="text-center lg:text-left"
             >
               <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight tracking-tight">
-                Expert OEM/ODM Manufacturer
-                <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl mt-2 sm:mt-4 text-orange-500 font-normal">
-                  of Custom Remote Controls & IoT Modules
-                </span>
+                In-house Factory · OEM/ODM for RF Remotes & Wi-Fi Switches
               </h1>
-              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-slate-600 mb-6 sm:mb-8 max-w-2xl leading-relaxed font-light">
-                Your End-to-End Partner for Wireless Control Solutions: From R&D to Mass Production • 15 Years Excellence • ISO 9001/14001 Certified
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-slate-600 mb-6 sm:mb-8 max-w-3xl leading-relaxed font-light">
+                433/315/868/915 MHz | Tooling + PCBA + RF Tuning | CE/FCC/RoHS | 7-Day Prototyping
               </p>
               
-              {/* Trust Badges */}
-              <div className="flex flex-wrap justify-center lg:justify-start gap-3 mb-8">
-                <div className="flex items-center bg-green-50 text-green-700 px-3 py-1 rounded-full text-sm font-medium">
-                  <Check className="h-4 w-4 mr-1" />
-                  15 Years Experience
-                </div>
-                <div className="flex items-center bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">
-                  <Users className="h-4 w-4 mr-1" />
-                  EU & US Clients
-                </div>
-                <div className="flex items-center bg-purple-50 text-purple-700 px-3 py-1 rounded-full text-sm font-medium">
-                  <Shield className="h-4 w-4 mr-1" />
-                  ISO 9001/14001
-                </div>
-                <div className="flex items-center bg-orange-50 text-orange-700 px-3 py-1 rounded-full text-sm font-medium">
-                  <Award className="h-4 w-4 mr-1" />
-                  47 NPI Projects/Year
-                </div>
+              {/* Key Points */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-8 max-w-4xl">
+                {["Custom housings & protocols", ">99% mass-production yield", "On-time delivery", "One-to-one engineer support"].map((item, idx) => (
+                  <div key={idx} className="flex items-center gap-2 rounded-full bg-orange-50 text-orange-700 px-3 py-1 text-xs sm:text-sm font-medium">
+                    <Check className="h-4 w-4" />
+                    <span>{item}</span>
+                  </div>
+                ))}
               </div>
               
+              <div className="flex items-center justify-center text-sm sm:text-base text-slate-500 mb-6 sm:mb-8 gap-3 sm:gap-4">
+                <span>Chosen by brands in 40+ countries</span>
+                <span className="hidden sm:inline text-slate-400">•</span>
+                <span>ISO9001 / CE / FCC / RoHS</span>
+              </div>
               {/* Primary CTAs */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start mb-8">
                 <Button size="lg" className="text-base sm:text-lg px-6 sm:px-8 lg:px-10 py-4 sm:py-6 bg-orange-500 hover:bg-orange-600 shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto" type="button" onClick={openRfqModal}>
-                  <span className="hidden xs:inline">Get a Custom Quote</span>
-                  <span className="xs:hidden">Get Quote</span>
+                  Get a Quote
                   <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                 </Button>
-                <Button variant="outline" size="lg" className="text-base sm:text-lg px-6 sm:px-8 lg:px-10 py-4 sm:py-6 border-slate-300 text-slate-700 hover:bg-slate-50 w-full sm:w-auto">
-                  <span className="hidden xs:inline">Wi-Fi Switch Manufacturer</span>
-                  <span className="xs:hidden">Wi-Fi Mfg</span>
-                  <Download className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
-                </Button>
-                <Button variant="outline" size="lg" className="text-base sm:text-lg px-6 sm:px-8 lg:px-10 py-4 sm:py-6 border-slate-300 text-slate-700 hover:bg-slate-50 w-full sm:w-auto">
-                  <span className="hidden xs:inline">Custom ODM Project</span>
-                  <span className="xs:hidden">Custom ODM</span>
-                  <Settings className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
-                </Button>
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
+                  <Button variant="outline" size="lg" className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-5 border-slate-300 text-slate-700 hover:bg-slate-50 w-full sm:w-auto" type="button" onClick={openRfqModal}>
+                    Request Sample
+                  </Button>
+                  <Button variant="outline" size="lg" className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-5 border-green-500 text-green-600 hover:bg-green-50 w-full sm:w-auto" type="button" onClick={() => setIsWhatsAppOpen(true)}>
+                    WhatsApp
+                  </Button>
+                  <Button variant="outline" size="lg" className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-5 border-slate-500 text-slate-700 hover:bg-slate-50 w-full sm:w-auto" type="button" onClick={() => window.open('https://weixin.qq.com/', '_blank', 'noopener')}>
+                    WeChat
+                  </Button>
+                </div>
               </div>
               
               {/* Process Promise */}
