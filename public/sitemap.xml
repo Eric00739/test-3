@@ -1,9 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://[username].github.io/nextjs_tailwind_shadcn_ts/</loc>
-    <lastmod>2025-06-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <loc>https://www.fastfunrc.com/</loc>
+  </url>
+  <url>
+    <loc>https://www.fastfunrc.com/accessories/</loc>
+  </url>
+  <url>
+    <loc>https://www.fastfunrc.com/accessories/remotes/</loc>
+  </url>
+  <url>
+    <loc>https://www.fastfunrc.com/accessories/remotes/433mhz-4-button/</loc>
   </url>
 </urlset>
+<!-- Auto-extend: inject additional <url> nodes for every new product or collection during your build/deploy step. -->

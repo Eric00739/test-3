@@ -8,23 +8,77 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
+const canonicalRuntimeScript = `(function() {
+  var canonical = document.querySelector(\"link[rel=\'canonical\']\");
+  if (!canonical || !window || !window.location) return;
+  var loc = window.location;
+  var path = loc.pathname.replace(/\\/index\\/?$/, '/');
+  if (!/\\/$/.test(path)) {
+    path += '/';
+  }
+  canonical.href = loc.origin + path + loc.search;
+})();`;
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://www.fastfunrc.com/#organization",
+  "name": "FastFunRC",
+  "alternateName": "FastFunRC · Gate & RF Remote Parts",
+  "url": "https://www.fastfunrc.com/",
+  "logo": "https://www.fastfunrc.com/assets/logo-512.png",
+  "sameAs": [
+    "https://www.linkedin.com/company/fastfunrc/"
+  ]
+};
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://www.fastfunrc.com/#website",
+  "url": "https://www.fastfunrc.com/",
+  "name": "FastFunRC",
+  "publisher": { "@id": "https://www.fastfunrc.com/#organization" },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://www.fastfunrc.com/search?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+};
+
 export const metadata: Metadata = {
-  title: "Custom Remote Control & WiFi Switch Manufacturer | FastFun Remote",
-  description: "Leading OEM/ODM manufacturer of custom remote controls, WiFi switches, and IoT modules. 15 years experience, ISO 9001 certified, 3M monthly capacity. Get your custom solution today.",
-  keywords: ["OEM manufacturer", "ODM supplier", "custom remote control", "WiFi switch manufacturer", "IoT module factory", "RF remote supplier", "garage door remote manufacturer", "smart home OEM", "wireless control solutions", "FastFun Remote"],
-  authors: [{ name: "FastFun Remote" }],
+  metadataBase: new URL("https://www.fastfunrc.com"),
+  title: "FastFunRC | OEM/ODM RF Remotes & Wi-Fi Switches",
+  description: "FastFunRC provides in-house tooling, PCBA, RF tuning, and global certifications for custom RF remotes and Wi-Fi switch solutions.",
+  keywords: [
+    "RF remote OEM",
+    "Wi-Fi switch manufacturer",
+    "custom remote control",
+    "RF PCBA",
+    "FastFunRC"
+  ],
+  authors: [{ name: "FastFunRC" }],
+  alternates: {
+    canonical: "https://www.fastfunrc.com/"
+  },
+  icons: {
+    icon: [
+      { url: "/assets/icons/favicon-32x32.png", sizes: "32x32" },
+      { url: "/assets/icons/favicon-192x192.png", sizes: "192x192" }
+    ],
+    apple: "/assets/icons/apple-touch-icon.png"
+  },
+  manifest: "/manifest.json",
   openGraph: {
-    title: "Custom Remote Control & WiFi Switch Manufacturer | FastFun Remote",
-    description: "Expert OEM/ODM manufacturer of custom remote controls and IoT modules. From R&D to mass production.",
-    url: "https://fastfunremote.com",
-    siteName: "FastFun Remote",
-    type: "website",
+    title: "FastFunRC | OEM/ODM RF Remotes & Wi-Fi Switches",
+    description: "In-house factory for RF remote controls, Wi-Fi switches, and IoT modules with CE/FCC/RoHS support.",
+    url: "https://www.fastfunrc.com/",
+    siteName: "FastFunRC",
+    type: "website"
   },
   twitter: {
     card: "summary_large_image",
-    title: "Custom Remote Control & WiFi Switch Manufacturer | FastFun Remote",
-    description: "Expert OEM/ODM manufacturer of custom remote controls and IoT modules. From R&D to mass production.",
-  },
+    title: "FastFunRC | OEM/ODM RF Remotes & Wi-Fi Switches",
+    description: "In-house factory for RF remote controls and Wi-Fi switches with global certification support."
+  }
 };
 
 export default function RootLayout({
@@ -34,6 +88,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/favicon-192x192.png" />
+        <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#0B63E5" />
+        <link rel="canonical" id="canonical-link" href="https://www.fastfunrc.com/" />
+        <script dangerouslySetInnerHTML={{ __html: canonicalRuntimeScript }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }} />
+      </head>
       <body
         className={`${inter.variable} font-sans antialiased bg-background text-foreground`}
       >
