@@ -482,39 +482,6 @@ const navLinks = [
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
-              <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center mb-4">
-                <Factory className="h-6 w-6 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">15,000 m²</h3>
-              <p className="text-slate-600">Factory Size</p>
-            </div>
-            
-            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
-              <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center mb-4">
-                <Package className="h-6 w-6 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">3,000,000</h3>
-              <p className="text-slate-600">Monthly Capacity (Pcs)</p>
-            </div>
-            
-            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
-              <div className="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center mb-4">
-                <Award className="h-6 w-6 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">ISO 9001</h3>
-              <p className="text-slate-600">BSCI Certified</p>
-            </div>
-            
-            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
-              <div className="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center mb-4">
-                <Users className="h-6 w-6 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">120+</h3>
-              <p className="text-slate-600">R&D Engineers</p>
-            </div>
-          </div>
 
           <div className="text-center">
             <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 text-lg">
