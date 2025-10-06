@@ -124,7 +124,7 @@ export default function Home() {
         {
           title: 'WiFi Smart Switch Manufacturer',
           icon: Wifi,
-          specs: 'Protocol: 2.4GHz 802.11b/g/n • Power: 10A/16A/20A • Voltage: 100-240V AC • Size: 45×45×22mm • Cert: CE/FCC/UL',
+          specs: 'Protocol: 2.4GHz 802.11b/g/n • Power: 10A/16A/20A • Voltage: 100-240V AC • Size: 45&times;45&times;22mm • Cert: CE/FCC/UL',
           features: ['App Control', 'Voice Control', 'Timer Function', 'Energy Monitoring'],
           useCase: 'Smart Home',
           certification: 'CE/FCC/UL',
@@ -134,7 +134,7 @@ export default function Home() {
         {
           title: 'WiFi Smart Socket',
           icon: Zap,
-          specs: 'Protocol: 2.4GHz 802.11b/g/n • Power: 16A max • Voltage: 100-240V AC • Size: 60×60×78mm • Cert: CE/FCC/UL',
+          specs: 'Protocol: 2.4GHz 802.11b/g/n • Power: 16A max • Voltage: 100-240V AC • Size: 60&times;60&times;78mm • Cert: CE/FCC/UL',
           features: ['Power Metering', 'Schedule', 'Overload Protection', 'Voice Control'],
           useCase: 'Home Automation',
           certification: 'CE/FCC/UL',
@@ -144,7 +144,7 @@ export default function Home() {
         {
           title: '868/915MHz Universal Remote',
           icon: Radio,
-          specs: 'Band: 868/915MHz • Modulation: ASK/FSK • Code: learning • TX: 12dBm • RX: -98dBm • Power: AAA • Size: 70×40×18mm • Cert: CE RED/FCC',
+          specs: 'Band: 868/915MHz • Modulation: ASK/FSK • Code: learning • TX: 12dBm • RX: -98dBm • Power: AAA • Size: 70&times;40&times;18mm • Cert: CE RED/FCC',
           features: ['Learning Code', 'Multi-button', 'Low Power', 'EU/US compliant'],
           useCase: 'Smart Home',
           certification: 'CE RED/FCC',
@@ -160,7 +160,7 @@ export default function Home() {
         {
           title: '433MHz Rolling Code Remote',
           icon: Radio,
-          specs: 'Band: 433.92MHz • Modulation: ASK/FSK • Code: rolling • TX: 10dBm • RX: -100dBm • Power: CR2032 • Size: 58×35×12mm • Cert: CE/FCC',
+          specs: 'Band: 433.92MHz • Modulation: ASK/FSK • Code: rolling • TX: 10dBm • RX: -100dBm • Power: CR2032 • Size: 58&times;35&times;12mm • Cert: CE/FCC',
           features: ['Rolling Code', '4-Button', '12V Battery', 'IP65'],
           useCase: 'Garage Doors',
           certification: 'CE/FCC/RoHS',
@@ -170,7 +170,7 @@ export default function Home() {
         {
           title: '315MHz Car Remote',
           icon: Settings,
-          specs: 'Band: 315MHz • Modulation: ASK • Code: fixed/rolling • TX: 8dBm • RX: -95dBm • Power: AAA • Size: 65×35×15mm • Cert: ISO 11452',
+          specs: 'Band: 315MHz • Modulation: ASK • Code: fixed/rolling • TX: 8dBm • RX: -95dBm • Power: AAA • Size: 65&times;35&times;15mm • Cert: ISO 11452',
           features: ['Keyless Entry', 'Remote Start', 'Alarm System', '433MHz'],
           useCase: 'Automotive',
           certification: 'ISO 11452',
@@ -180,7 +180,7 @@ export default function Home() {
         {
           title: 'Superheterodyne Receiver',
           icon: Wifi,
-          specs: 'Band: 433/315MHz • Modulation: ASK/FSK • Channels: 4 • RX: -110dBm • Power: 12V DC • Size: 45×25×8mm • Cert: CE/FCC',
+          specs: 'Band: 433/315MHz • Modulation: ASK/FSK • Channels: 4 • RX: -110dBm • Power: 12V DC • Size: 45&times;25&times;8mm • Cert: CE/FCC',
           features: ['Multi-channel', 'Learning Code', 'Relay Output', 'LED indicator'],
           useCase: 'Security Systems',
           certification: 'CE/FCC',
@@ -704,7 +704,7 @@ export default function Home() {
             {[
               {
                 title: 'SMT Equipment',
-                items: ['Panasonic NPM-W2 (50,000 CPH)', 'DEK Horizon', 'Reflow Oven 10-zone', 'AOI × 2'],
+                items: ['Panasonic NPM-W2 (50,000 CPH)', 'DEK Horizon', 'Reflow Oven 10-zone', 'AOI &times; 2'],
                 icon: Factory,
                 color: 'from-blue-500 to-blue-600'
               },
@@ -2096,15 +2096,84 @@ export default function Home() {
           variant="outline" 
           size="lg" 
           className="bg-white hover:bg-slate-50 shadow-lg hover:shadow-xl transition-all duration-300 rounded-full w-14 h-14 p-0 flex items-center justify-center border-2"
+          onClick={() => setIsWhatsAppOpen(true)}
         >
           <MessageCircle className="h-6 w-6 text-green-600" />
         </Button>
       </div>
 
+      {isWhatsAppOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+          <div
+            className="absolute inset-0 bg-slate-900/70"
+            onClick={() => setIsWhatsAppOpen(false)}
+            aria-hidden="true"
+          />
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="WhatsApp contact"
+            className="relative z-10 max-w-md w-full bg-white rounded-2xl shadow-2xl p-6 sm:p-8 space-y-4"
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-full bg-green-500 flex items-center justify-center text-white">
+                  <MessageCircle className="h-6 w-6" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900">Chat with our engineer on WhatsApp</h3>
+                  <p className="text-sm text-slate-500">Average response time under 10 minutes during business hours</p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsWhatsAppOpen(false)}
+                className="text-slate-400 hover:text-slate-600 transition-colors text-2xl leading-none"
+                aria-label="Close WhatsApp panel"
+              >
+                &times;
+              </button>
+            </div>
+            <div className="space-y-3 text-slate-600 text-sm leading-relaxed">
+              <p>Send us your project requirements (quantity, protocol, certification needs). Engineer <strong>Eric</strong> replies via WhatsApp within 10 minutes.</p>
+              <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 text-sm">
+                <div className="font-semibold text-slate-700">WhatsApp</div>
+                <a
+                  href="https://wa.me/8615899648898"
+                  target="_blank"
+                  rel="noopener"
+                  className="text-orange-600 font-semibold hover:underline"
+                  onClick={() => setIsWhatsAppOpen(false)}
+                >
+                  +86 158 9964 8898
+                </a>
+              </div>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-2">
+              <a
+                href="https://wa.me/8615899648898"
+                target="_blank"
+                rel="noopener"
+                className="inline-flex items-center justify-center rounded-xl bg-green-500 px-6 py-3 text-sm font-semibold text-white shadow hover:bg-green-600 transition-colors"
+                onClick={() => setIsWhatsAppOpen(false)}
+              >
+                Open WhatsApp
+              </a>
+              <Button
+                variant="outline"
+                className="border-slate-300 text-slate-700 hover:bg-slate-50"
+                onClick={() => setIsWhatsAppOpen(false)}
+              >
+                Later
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
       {/* Sticky Mobile CTA Bar */}
       <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-200 p-4 md:hidden z-40 shadow-lg">
         <div className="flex justify-around">
-          <Button variant="outline" size="sm" className="flex items-center border-slate-300 text-slate-700 hover:bg-slate-50">
+          <Button variant="outline" size="sm" className="flex items-center border-slate-300 text-slate-700 hover:bg-slate-50" onClick={() => setIsWhatsAppOpen(true)}>
             <MessageCircle className="h-4 w-4 mr-2" />
             WhatsApp
           </Button>
