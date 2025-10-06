@@ -278,10 +278,15 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-2 sm:space-x-8">
-              <div className="flex items-center space-x-2">
-                <Factory className="h-6 w-6 sm:h-8 sm:w-8 text-gray-900" />
-                <span className="text-lg sm:text-xl font-semibold text-gray-900 hidden xs:block">FastFun Remote</span>
-                <span className="text-lg sm:text-xl font-semibold text-gray-900 xs:hidden">FastFun</span>
+              <div className="flex items-center">
+                <Image
+                  src="/logo-fastfun-remote.png"
+                  alt="FastFun Remote logo"
+                  width={160}
+                  height={48}
+                  priority
+                  className="h-10 w-auto"
+                />
               </div>
               <div className="hidden md:flex space-x-4 lg:space-x-6">
                 {navLinks.map((link) => (
@@ -2230,9 +2235,14 @@ export default function Home() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
             {/* Company Info */}
             <div className="lg:col-span-2">
-              <div className="flex items-center space-x-3 mb-6">
-                <Factory className="h-10 w-10 text-orange-500" />
-                <span className="text-2xl font-bold">FastFun Remote</span>
+              <div className="flex items-center mb-6">
+                <Image
+                  src="/logo-fastfun-remote.png"
+                  alt="FastFun Remote logo"
+                  width={200}
+                  height={60}
+                  className="h-12 w-auto"
+                />
               </div>
               <p className="text-slate-300 leading-relaxed mb-6 max-w-md">
                 FastFun Remote - Your Trusted IoT Partner Since 2010. ISO-certified electronics manufacturing delivering precision smart devices with 98.7% FPY. 15 years experience, 47 NPI projects annually.
