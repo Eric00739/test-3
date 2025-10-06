@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
 const isProd = process.env.NODE_ENV === "production";
+const rawBasePath = process.env.NEXT_PUBLIC_BASE_PATH?.replace(/\/$/, "") ?? "";
+const normalizedBasePath = rawBasePath && !rawBasePath.startsWith("/")
+  ? `/${rawBasePath}`
+  : rawBasePath;
 
 const nextConfig: NextConfig = {
   // 启用严格模式以提前发现潜在问题
@@ -24,14 +28,10 @@ const nextConfig: NextConfig = {
   },
   
   // 资源前缀配置（用于GitHub Pages）
-  assetPrefix: process.env.NODE_ENV === 'production' 
-    ? '/nextjs_tailwind_shadcn_ts' 
-    : undefined,
+  assetPrefix: isProd && normalizedBasePath ? normalizedBasePath : undefined,
   
   // 基础路径配置
-  basePath: process.env.NODE_ENV === 'production' 
-    ? '/nextjs_tailwind_shadcn_ts' 
-    : undefined,
+  basePath: isProd && normalizedBasePath ? normalizedBasePath : undefined,
 };
 
 export default nextConfig;
