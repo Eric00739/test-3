@@ -86,19 +86,28 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-    const kpis = [
+      const kpis = [
     { label: 'Factory Size', value: '4,000 m²', icon: Factory },
     { label: 'Monthly Capacity (Pcs)', value: '500,000', icon: Package },
     { label: 'R&D Engineers', value: '8', icon: Users },
-    { label: 'On-Time Delivery', value: '97%', icon: Clock }
-  ]
-const navLinks = [
+    { label: 'On-Time Delivery', value: '97%', icon: Clock },
+  ];
+
+  const navLinks = [
     { label: 'Home', target: 'hero' },
     { label: 'About us', target: 'about' },
     { label: 'Products', target: 'products' },
     { label: 'Blog', target: 'blog' },
     { label: 'Contact', target: 'contact' },
-  ]
+  ];
+
+  const handleNavClick = (target: string) => {
+    const section = document.getElementById(target);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    setIsMobileMenuOpen(false);
+  };
 
   const clientLogos = [
     { name: 'EU Gate Control Brand', category: 'Garage Doors', tenure: '6 years', volume: '120k/yr' },
@@ -275,12 +284,14 @@ const navLinks = [
                 <span className="text-lg sm:text-xl font-semibold text-gray-900 xs:hidden">FastFun</span>
               </div>
               <div className="hidden md:flex space-x-4 lg:space-x-6">
-                {['Home', 'About us', 'Products', 'Blog', 'Contact'].map((item) => (
+                {navLinks.map((link) => (
                   <button
-                    key={item}
-                    className="text-gray-600 hover:text-gray-900 transition-colors text-xs sm:text-sm font-medium"
+                    key={link.target}
+                    type="button"
+                    onClick={() => handleNavClick(link.target)}
+                    className={`text-xs sm:text-sm font-medium transition-colors cursor-pointer hover:text-orange-500 ${activeSection === link.target ? 'text-orange-600 font-semibold' : 'text-gray-600'}`}
                   >
-                    {item}
+                    {link.label}
                   </button>
                 ))}
               </div>
@@ -312,13 +323,14 @@ const navLinks = [
           {/* Mobile Menu */}
           <div className={`md:hidden transition-all duration-300 ease-in-out ${isMobileMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
             <div className="py-4 border-t border-gray-100">
-              {['Home', 'About us', 'Products', 'Blog', 'Contact'].map((item) => (
+              {navLinks.map((link) => (
                 <button
-                  key={item}
-                  className="block w-full text-left py-2 px-4 text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors text-sm font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  key={link.target}
+                  type="button"
+                  className={`block w-full text-left py-2 px-4 text-sm font-medium transition-colors hover:bg-gray-50 cursor-pointer ${activeSection === link.target ? 'text-orange-600 font-semibold' : 'text-gray-600 hover:text-orange-500'}`}
+                  onClick={() => handleNavClick(link.target)}
                 >
-                  {item}
+                  {link.label}
                 </button>
               ))}
               <div className="px-4 pt-2">
