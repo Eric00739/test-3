@@ -94,6 +94,9 @@ export default function Home() {
     { label: 'On-Time Delivery', value: '97%', icon: Clock },
   ];
 
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
+  const withBasePath = (path: string) => `${basePath}${path}`
+
   const navLinks = [
     { label: 'Home', target: 'hero' },
     { label: 'About us', target: 'about' },
@@ -290,7 +293,7 @@ export default function Home() {
             <div className="flex items-center space-x-2 sm:space-x-8">
               <div className="flex items-center">
                 <Image
-                  src="/logo-fastfun-remote.png"
+                  src={withBasePath("/logo-fastfun-remote.png")}
                   alt="FastFun Remote logo"
                   width={160}
                   height={48}
@@ -317,7 +320,7 @@ export default function Home() {
                 <span className="hidden sm:inline">Catalog</span>
                 <span className="sm:hidden">Cat</span>
               </Button>
-              <Button size="sm" className="text-xs sm:text-sm px-2 sm:px-4 bg-orange-500 hover:bg-orange-600 text-white">
+              <Button size="sm" type="button" className="text-xs sm:text-sm px-2 sm:px-4 bg-orange-500 hover:bg-orange-600 text-white" onClick={openRfqModal}>
                 <span className="hidden sm:inline">Get a Custom Quote</span>
                 <span className="sm:hidden">Quote</span>
               </Button>
@@ -2412,7 +2415,7 @@ ${formData.get('details') ?? ''}`
             <div className="lg:col-span-2">
               <div className="flex items-center mb-6">
                 <Image
-                  src="/logo-fastfun-remote.png"
+                  src={withBasePath("/logo-fastfun-remote.png")}
                   alt="FastFun Remote logo"
                   width={200}
                   height={60}
