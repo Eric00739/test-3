@@ -2242,7 +2242,7 @@ const navLinks = [
                 <Send className="h-5 w-5 text-orange-500 mr-3" />
                 <div>
                   <div className="text-sm text-slate-400">Sales Email</div>
-                  <div className="font-semibold text-white">sales@aokesi.com</div>
+                  <div className="font-semibold text-white">eric@fastfunrc.com</div>
                 </div>
               </div>
               <div className="flex items-center justify-center md:justify-start">
