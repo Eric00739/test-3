@@ -15,6 +15,7 @@ export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
   const [isWhatsAppOpen, setIsWhatsAppOpen] = useState(false)
+  const [isRfqOpen, setIsRfqOpen] = useState(false)
 
   // Auto-switch testimonials
   useEffect(() => {
@@ -102,12 +103,21 @@ export default function Home() {
   ];
 
   const handleNavClick = (target: string) => {
-    const section = document.getElementById(target);
+    const section = document.getElementById(target)
     if (section) {
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
-    setIsMobileMenuOpen(false);
-  };
+    setIsMobileMenuOpen(false)
+  }
+
+  const openRfqModal = () => {
+    setIsRfqOpen(true)
+    setIsWhatsAppOpen(false)
+  }
+
+  const closeRfqModal = () => {
+    setIsRfqOpen(false)
+  }
 
   const clientLogos = [
     { name: 'EU Gate Control Brand', category: 'Garage Doors', tenure: '6 years', volume: '120k/yr' },
@@ -302,7 +312,7 @@ export default function Home() {
               </div>
             </div>
             <div className="flex items-center space-x-2 sm:space-x-4">
-              <Button variant="outline" size="sm" className="hidden sm:flex text-xs sm:text-sm">
+              <Button variant="outline" size="sm" className="hidden sm:flex text-xs sm:text-sm" type="button" onClick={openRfqModal}>
                 <Download className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                 <span className="hidden sm:inline">Catalog</span>
                 <span className="sm:hidden">Cat</span>
@@ -394,7 +404,7 @@ export default function Home() {
               
               {/* Primary CTAs */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
-                <Button size="lg" className="text-base sm:text-lg px-6 sm:px-8 lg:px-10 py-4 sm:py-6 bg-orange-500 hover:bg-orange-600 shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto">
+                <Button size="lg" className="text-base sm:text-lg px-6 sm:px-8 lg:px-10 py-4 sm:py-6 bg-orange-500 hover:bg-orange-600 shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto" type="button" onClick={openRfqModal}>
                   <span className="hidden xs:inline">Get a Custom Quote</span>
                   <span className="xs:hidden">Get Quote</span>
                   <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
@@ -850,7 +860,7 @@ export default function Home() {
                             <Package className="h-3 w-3 mr-1" />
                             Sample
                           </Button>
-                          <Button size="sm" variant="outline" className="text-xs border-orange-500 text-orange-600 hover:bg-orange-50">
+                          <Button size="sm" variant="outline" className="text-xs border-orange-500 text-orange-600 hover:bg-orange-50" type="button" onClick={openRfqModal}>
                             <Send className="h-3 w-3 mr-1" />
                             Quote
                           </Button>
@@ -1776,7 +1786,7 @@ export default function Home() {
                   <Phone className="h-5 w-5 mr-2" />
                   Consult Our Engineers
                 </Button>
-                <Button variant="outline" size="lg" className="border-slate-300 text-slate-700 hover:bg-slate-50">
+                <Button variant="outline" size="lg" className="border-slate-300 text-slate-700 hover:bg-slate-50" type="button" onClick={openRfqModal}>
                   <MessageCircle className="h-5 w-5 mr-2" />
                   Technical Discussion
                 </Button>
@@ -2172,6 +2182,171 @@ export default function Home() {
                 Later
               </Button>
             </div>
+          </div>
+        </div>
+      )}
+      {isRfqOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+          <div
+            className="absolute inset-0 bg-slate-900/70"
+            aria-hidden="true"
+            onClick={closeRfqModal}
+          />
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="RFQ form"
+            className="relative z-10 max-w-2xl w-full bg-white rounded-2xl shadow-2xl p-6 sm:p-10 space-y-6"
+          >
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-2xl font-semibold text-gray-900">Send Your RFQ to FastFun Remote</h3>
+                <p className="text-sm text-slate-500 mt-1">Tailored OEM/ODM solutions for remote controls, RF receivers, and smart IoT modules.</p>
+              </div>
+              <button
+                type="button"
+                onClick={closeRfqModal}
+                aria-label="Close RFQ panel"
+                className="text-slate-400 hover:text-slate-600 transition-colors text-2xl leading-none"
+              >
+                &times;
+              </button>
+            </div>
+            <div className="grid sm:grid-cols-3 gap-3">
+              {[
+                { title: 'ODM Remotes', detail: '433/868/915MHz rolling-code, <200 DPPM' },
+                { title: 'Smart WiFi Switches', detail: 'Tuya/ESP solutions, UL/CE ready' },
+                { title: 'OEM RF Modules', detail: 'Custom protocol, PCBA + tooling in-house' },
+              ].map((item, idx) => (
+                <div key={idx} className="rounded-xl border border-orange-100 bg-orange-50/60 px-4 py-3">
+                  <h4 className="text-sm font-semibold text-orange-700">{item.title}</h4>
+                  <p className="text-xs text-orange-600 leading-relaxed">{item.detail}</p>
+                </div>
+              ))}
+            </div>
+            <form
+              className="space-y-4"
+              onSubmit={(event) => {
+                event.preventDefault()
+                const formData = new FormData(event.currentTarget)
+                const subject = encodeURIComponent('FastFun Remote RFQ Request')
+                const body = encodeURIComponent(
+                  `Name: ${formData.get('name') ?? ''}
+Company: ${formData.get('company') ?? ''}
+Email: ${formData.get('email') ?? ''}
+Product Focus: ${formData.get('product') ?? ''}
+Annual Volume: ${formData.get('volume') ?? ''}
+Project Details:
+${formData.get('details') ?? ''}`
+                )
+                window.open(`mailto:eric@fastfunrc.com?subject=${subject}&body=${body}`)
+                closeRfqModal()
+              }}
+            >
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="text-sm font-medium text-gray-700 mb-1 block">Name *</label>
+                  <input
+                    required
+                    name="name"
+                    className="w-full rounded-xl border-2 border-slate-200 px-4 py-2.5 focus:border-orange-500 focus:ring-4 focus:ring-orange-100 transition"
+                    placeholder="Your full name"
+                    type="text"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-gray-700 mb-1 block">Email *</label>
+                  <input
+                    required
+                    name="email"
+                    className="w-full rounded-xl border-2 border-slate-200 px-4 py-2.5 focus:border-orange-500 focus:ring-4 focus:ring-orange-100 transition"
+                    placeholder="business@email.com"
+                    type="email"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-gray-700 mb-1 block">Company</label>
+                  <input
+                    name="company"
+                    className="w-full rounded-xl border-2 border-slate-200 px-4 py-2.5 focus:border-orange-500 focus:ring-4 focus:ring-orange-100 transition"
+                    placeholder="Brand / Project name"
+                    type="text"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-gray-700 mb-1 block">Product focus *</label>
+                  <select
+                    required
+                    name="product"
+                    className="w-full rounded-xl border-2 border-slate-200 px-4 py-2.5 focus:border-orange-500 focus:ring-4 focus:ring-orange-100 transition"
+                    defaultValue=""
+                  >
+                    <option value="" disabled>
+                      Select product family
+                    </option>
+                    <option>Custom RF Remote</option>
+                    <option>RF Receiver / PCBA</option>
+                    <option>Smart WiFi Switch / Socket</option>
+                    <option>Gateway / Controller</option>
+                    <option>Other OEM / ODM</option>
+                  </select>
+                </div>
+              </div>
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="text-sm font-medium text-gray-700 mb-1 block">Annual volume target</label>
+                  <select
+                    name="volume"
+                    className="w-full rounded-xl border-2 border-slate-200 px-4 py-2.5 focus:border-orange-500 focus:ring-4 focus:ring-orange-100 transition"
+                    defaultValue="1-5k"
+                  >
+                    <option>1-5k units</option>
+                    <option>5-20k units</option>
+                    <option>20-50k units</option>
+                    <option>50k+ units</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-gray-700 mb-1 block">Certification needs</label>
+                  <div className="flex flex-wrap gap-2">
+                    {['CE', 'FCC', 'UL', 'ETL', 'KC'].map((cert) => (
+                      <label key={cert} className="inline-flex items-center gap-1 text-sm text-slate-600">
+                        <input type="checkbox" name="certifications" value={cert} className="rounded border-slate-300 text-orange-500 focus:ring-orange-400" />
+                        {cert}
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div>
+                <label className="text-sm font-medium text-gray-700 mb-1 block">Project details *</label>
+                <textarea
+                  required
+                  name="details"
+                  rows={4}
+                  className="w-full rounded-xl border-2 border-slate-200 px-4 py-3 focus:border-orange-500 focus:ring-4 focus:ring-orange-100 transition"
+                  placeholder="Tell us about functionality, communication protocol, housing requirements, timeline..."
+                />
+              </div>
+              <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
+                <button
+                  type="submit"
+                  className="inline-flex items-center justify-center rounded-xl bg-orange-500 px-6 py-3 text-sm font-semibold text-white shadow hover:bg-orange-600 transition"
+                >
+                  Submit & Email RFQ
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    closeRfqModal()
+                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+                  }}
+                  className="inline-flex items-center justify-center rounded-xl border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50 transition"
+                >
+                  Go to full RFQ form
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}
