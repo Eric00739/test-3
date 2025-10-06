@@ -2256,7 +2256,7 @@ const navLinks = [
                 <Globe className="h-5 w-5 text-orange-500 mr-3" />
                 <div>
                   <div className="text-sm text-slate-400">Trade Terms</div>
-                  <div className="font-semibold text-white">FOB Dongguan • CIF Available</div>
+                  <div className="font-semibold text-white">FOB Shenzhen or Guangzhou • CIF Available • DAP Available</div>
                 </div>
               </div>
             </div>
