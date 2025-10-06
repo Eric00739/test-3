@@ -495,7 +495,7 @@ const navLinks = [
               <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center mb-4">
                 <Package className="h-6 w-6 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">500,000</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">3,000,000</h3>
               <p className="text-slate-600">Monthly Capacity (Pcs)</p>
             </div>
             
@@ -511,7 +511,7 @@ const navLinks = [
               <div className="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center mb-4">
                 <Users className="h-6 w-6 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">8</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">120+</h3>
               <p className="text-slate-600">R&D Engineers</p>
             </div>
           </div>
@@ -697,7 +697,7 @@ const navLinks = [
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">R&D & Manufacturing Excellence</h2>
             <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed px-4">
-              8 R&D engineers with 15% holding master's degrees, delivering cutting-edge IoT solutions
+              120+ R&D engineers with 15% holding master's degrees, delivering cutting-edge IoT solutions
             </p>
           </motion.div>
 
@@ -706,7 +706,7 @@ const navLinks = [
             <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-blue-600 mb-2">8</div>
+                  <div className="text-3xl font-bold text-blue-600 mb-2">120+</div>
                   <div className="text-sm text-slate-600">R&D Engineers</div>
                 </div>
                 <div className="text-center">
@@ -743,7 +743,7 @@ const navLinks = [
               },
               {
                 title: 'Monthly Output',
-                items: ['500k units capacity', 'Flexible MOQ 50pcs', 'Private Tooling', 'Fast Delivery'],
+                items: ['2.5M units capacity', 'Flexible MOQ 50pcs', 'Private Tooling', 'Fast Delivery'],
                 icon: TrendingUp,
                 color: 'from-orange-500 to-orange-600'
               }
