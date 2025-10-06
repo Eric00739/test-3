@@ -676,7 +676,7 @@ export default function Home() {
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">R&D & Manufacturing Excellence</h2>
             <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed px-4">
-              120+ R&D engineers with 15% holding master's degrees, delivering cutting-edge IoT solutions
+              8 R&D engineers with 15% holding master's degrees, delivering cutting-edge IoT solutions
             </p>
           </motion.div>
 
@@ -685,7 +685,7 @@ export default function Home() {
             <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-blue-600 mb-2">120+</div>
+                  <div className="text-3xl font-bold text-blue-600 mb-2">8</div>
                   <div className="text-sm text-slate-600">R&D Engineers</div>
                 </div>
                 <div className="text-center">
