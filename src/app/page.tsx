@@ -482,38 +482,6 @@ const navLinks = [
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
-              <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center mb-4">
-                <Factory className="h-6 w-6 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">15,000 m²</h3>
-              <p className="text-slate-600">Factory Size</p>
-            </div>
-            
-            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
-              <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center mb-4">
-                <Package className="h-6 w-6 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">500,000</h3>
-              <p className="text-slate-600">Monthly Capacity (Pcs)</p>
-            </div>
-            
-            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
-              <div className="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center mb-4">
-                <Award className="h-6 w-6 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">ISO 9001</h3>
-              <p className="text-slate-600">BSCI Certified</p>
-            </div>
-            
-            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
-              <div className="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center mb-4">
-                <Users className="h-6 w-6 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">8</h3>
-              <p className="text-slate-600">R&D Engineers</p>
-            </div>
           </div>
 
           <div className="text-center">
@@ -2117,15 +2085,59 @@ const navLinks = [
           variant="outline" 
           size="lg" 
           className="bg-white hover:bg-slate-50 shadow-lg hover:shadow-xl transition-all duration-300 rounded-full w-14 h-14 p-0 flex items-center justify-center border-2"
+          onClick={() => setIsWhatsAppOpen(true)}
         >
           <MessageCircle className="h-6 w-6 text-green-600" />
         </Button>
       </div>
 
+      {isWhatsAppOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+          <div className="absolute inset-0 bg-slate-900/70" onClick={() => setIsWhatsAppOpen(false)} aria-hidden="true" />
+          <div role="dialog" aria-modal="true" aria-label="WhatsApp contact" className="relative z-10 max-w-md w-full bg-white rounded-2xl shadow-2xl p-6 sm:p-8 space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-full bg-green-500 flex items-center justify-center text-white">
+                  <MessageCircle className="h-6 w-6" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900">Chat with our engineer on WhatsApp</h3>
+                  <p className="text-sm text-slate-500">Average response time: under 10 minutes during business hours</p>
+                </div>
+              </div>
+              <button type="button" onClick={() => setIsWhatsAppOpen(false)} className="text-slate-400 hover:text-slate-600 transition-colors" aria-label="Close WhatsApp panel">
+                <span className="text-2xl leading-none">×</span>
+              </button>
+            </div>
+            <div className="space-y-3 text-slate-600 text-sm leading-relaxed">
+              <p>Send us your project requirements (quantity, protocol, certification needs). Our engineer <strong>Eric</strong> will reply via WhatsApp within 10 minutes.</p>
+              <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 text-sm">
+                <div className="font-semibold text-slate-700">WhatsApp</div>
+                <a href="https://wa.me/8615899648898" target="_blank" rel="noopener" className="text-orange-600 font-semibold hover:underline">+86 158 9964 8898</a>
+              </div>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-2">
+              <a
+                href="https://wa.me/8615899648898"
+                target="_blank"
+                rel="noopener"
+                className="inline-flex items-center justify-center rounded-xl bg-green-500 px-6 py-3 text-sm font-semibold text-white shadow hover:bg-green-600 transition-colors"
+                onClick={() => setIsWhatsAppOpen(false)}
+              >
+                Open WhatsApp
+              </a>
+              <Button variant="outline" className="border-slate-300 text-slate-700 hover:bg-slate-50" onClick={() => setIsWhatsAppOpen(false)}>
+                Later
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
       {/* Sticky Mobile CTA Bar */}
       <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-200 p-4 md:hidden z-40 shadow-lg">
         <div className="flex justify-around">
-          <Button variant="outline" size="sm" className="flex items-center border-slate-300 text-slate-700 hover:bg-slate-50">
+          <Button variant="outline" size="sm" className="flex items-center border-slate-300 text-slate-700 hover:bg-slate-50" onClick={() => setIsWhatsAppOpen(true)}>
+
             <MessageCircle className="h-4 w-4 mr-2" />
             WhatsApp
           </Button>
