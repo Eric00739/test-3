@@ -114,7 +114,11 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
                 <div className="text-center">
                   <Image src="/assets/logo-512.png" alt="Factory montage" width={96} height={96} className="mx-auto mb-4" />
                   <p className="text-slate-600 font-medium mb-4">15s Factory Montage</p>
-                  <Button variant="outline" size="sm">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => window.open('https://youtu.be/ByoHrKslf54?si=fa2Di21q31sxnHJv', '_blank', 'noopener')}
+                  >
                     Watch video
                   </Button>
                 </div>
