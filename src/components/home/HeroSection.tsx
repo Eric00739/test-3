@@ -7,10 +7,9 @@ import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 
 const keyPoints = [
-  'Custom housings & protocols',
-  '>99% mass-production yield',
-  'On-time delivery',
-  'One-to-one engineer support',
+  'Certificate IDs on request',
+  'DFM/DFT reviews included',
+  'Pilot runs before ramp',
 ]
 
 export interface HeroSectionProps {
@@ -33,10 +32,10 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
             className="text-center lg:text-left"
           >
             <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight tracking-tight">
-              In-house Factory - OEM/ODM for RF Remotes & Wi-Fi Switches
+              OEM/ODM Manufacturing for RF Remotes, Receivers & Wi-Fi Switches
             </h1>
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-slate-600 mb-6 sm:mb-8 max-w-3xl leading-relaxed font-light">
-              433/315/868/915 MHz | Tooling + PCBA + RF Tuning | CE/FCC/RoHS | 7-Day Prototyping
+              From design to certification to mass production—one partner, full accountability.
             </p>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-8 max-w-4xl">
@@ -52,9 +51,11 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
             </div>
 
             <div className="flex items-center justify-center text-sm sm:text-base text-slate-500 mb-6 sm:mb-8 gap-3 sm:gap-4">
-              <span>Chosen by brands in 40+ countries</span>
-              <span className="hidden sm:inline text-slate-400">|</span>
-              <span>ISO9001 / CE / FCC / RoHS</span>
+              <span>Certificate IDs on request</span>
+              <span className="hidden sm:inline text-slate-400">•</span>
+              <span>DFM/DFT reviews included</span>
+              <span className="hidden sm:inline text-slate-400">•</span>
+              <span>Pilot runs before ramp</span>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start mb-8">
@@ -64,7 +65,7 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
                 type="button"
                 onClick={() => onOpenRfq('hero_quote')}
               >
-                Get a Quote
+                Get Engineering Quote
                 <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
               </Button>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
