@@ -1,15 +1,13 @@
-﻿import type { Metadata } from "next";
 import { Breadcrumb } from "@/components/seo/Breadcrumb";
 import { buildBreadcrumbJsonLd, stringifyJsonLd } from "@/lib/seo";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "RF Remote Controls | FastFunRC",
   description:
     "Browse FastFunRC RF remote controls covering 433/315/868/915 MHz with custom housings, protocols, and rapid prototyping.",
-  alternates: {
-    canonical: "https://www.fastfunrc.com/accessories/remotes/",
-  },
-};
+  path: "/accessories/remotes/",
+});
 
 const breadcrumbItems = [
   { name: "Home", url: "https://www.fastfunrc.com/" },

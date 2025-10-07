@@ -1,4 +1,4 @@
-﻿import type { Metadata, Viewport } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
@@ -8,23 +8,12 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-const canonicalRuntimeScript = `(function() {
-  var canonical = document.querySelector("link[rel='canonical']");
-  if (!canonical || typeof window === 'undefined') return;
-  var loc = window.location;
-  var path = loc.pathname.replace(/\/index\/?$/, '/');
-  if (!/\/$/.test(path)) {
-    path += '/';
-  }
-  canonical.setAttribute('href', loc.origin + path + loc.search);
-})();`;
-
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   "@id": "https://www.fastfunrc.com/#organization",
   "name": "FastFunRC",
-  "alternateName": "FastFunRC · Gate & RF Remote Parts",
+  "alternateName": "FastFunRC | Gate & RF Remote Parts",
   "url": "https://www.fastfunrc.com/",
   "logo": "https://www.fastfunrc.com/assets/logo-512.png",
   "sameAs": [
@@ -47,7 +36,10 @@ const websiteJsonLd = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0B63E5",
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#0B63E5' },
+    { media: '(prefers-color-scheme: dark)', color: '#0B63E5' },
+  ],
 };
 
 export const metadata: Metadata = {
@@ -98,11 +90,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/favicon-192x192.png" />
-        <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" />
-        <link rel="manifest" href="/manifest.json" />
-        <script dangerouslySetInnerHTML={{ __html: canonicalRuntimeScript }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
@@ -119,3 +106,8 @@ export default function RootLayout({
     </html>
   );
 }
+
+
+
+
+

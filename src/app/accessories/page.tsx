@@ -1,15 +1,13 @@
-﻿import type { Metadata } from "next";
 import { Breadcrumb } from "@/components/seo/Breadcrumb";
 import { buildBreadcrumbJsonLd, stringifyJsonLd } from "@/lib/seo";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "RF Accessories | FastFunRC",
   description:
     "Explore FastFunRC accessories for RF remote systems, gateways, and smart controllers with in-house tooling and certification support.",
-  alternates: {
-    canonical: "https://www.fastfunrc.com/accessories/",
-  },
-};
+  path: "/accessories/",
+});
 
 const breadcrumbItems = [
   { name: "Home", url: "https://www.fastfunrc.com/" },

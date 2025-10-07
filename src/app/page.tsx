@@ -1,8 +1,14 @@
-﻿'use client'
+'use client'
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
+import { HeaderBar } from '@/components/home/HeaderBar'
+import { HeroSection } from '@/components/home/HeroSection'
+import { StickyActions } from '@/components/home/StickyActions'
+import { MobileActionBar } from '@/components/home/MobileActionBar'
+import { ProductFinder } from '@/components/ProductFinder'
+import { RfqModal } from '@/components/rfq/RfqModal'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Check, Play, Phone, MessageCircle, Download, Factory, Shield, Award, TrendingUp, Clock, Package, Zap, Wifi, Cpu, Radio, Settings, ChevronRight, ArrowRight, Star, Users, Globe, BarChart3, Upload, Send } from 'lucide-react'
@@ -16,6 +22,42 @@ export default function Home() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
   const [isWhatsAppOpen, setIsWhatsAppOpen] = useState(false)
   const [isRfqOpen, setIsRfqOpen] = useState(false)
+  const [rfqSource, setRfqSource] = useState('default')
+
+  const trackEvent = (eventName: string, payload?: Record<string, unknown>) => {
+    console.log(eventName, payload ?? {})
+  }
+
+  // Performance monitoring
+  useEffect(() => {
+    if (typeof window !== 'undefined' && 'performance' in window) {
+      // Log Core Web Vitals
+      const observer = new PerformanceObserver((list) => {
+        for (const entry of list.getEntries()) {
+          if (entry.entryType === 'largest-contentful-paint') {
+            console.log(`[Performance] LCP: ${(entry as any).startTime.toFixed(2)}ms`)
+          } else if (entry.entryType === 'first-input') {
+            console.log(`[Performance] FID: ${((entry as any).processingStart - entry.startTime).toFixed(2)}ms`)
+          } else if (entry.entryType === 'layout-shift') {
+            if (!(entry as any).hadRecentInput) {
+              console.log(`[Performance] CLS: ${(entry as any).value.toFixed(4)}`)
+            }
+          }
+        }
+      })
+      
+      observer.observe({ entryTypes: ['largest-contentful-paint', 'first-input', 'layout-shift'] })
+      
+      // Log page load time
+      window.addEventListener('load', () => {
+        const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming
+        const loadTime = navigation.loadEventEnd - navigation.loadEventStart
+        console.log(`[Performance] Page load time: ${loadTime.toFixed(2)}ms`)
+      })
+      
+      return () => observer.disconnect()
+    }
+  }, [])
 
   // Auto-switch testimonials
   useEffect(() => {
@@ -23,47 +65,6 @@ export default function Home() {
       setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)
     }, 5000)
     return () => clearInterval(interval)
-  }, [])
-
-  // Structured Data for SEO
-  useEffect(() => {
-    const structuredData = {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "FastFun Remote",
-      "description": "Leading OEM/ODM manufacturer of custom remote controls, WiFi switches, and IoT modules. ISO 9001 certified with 15 years experience.",
-      "url": "https://fastfunremote.com",
-      "logo": "https://fastfunremote.com/logo.svg",
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+1-555-0123",
-        "contactType": "sales",
-        "availableLanguage": ["English"]
-      },
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Shenzhen",
-        "addressCountry": "CN"
-      },
-      "sameAs": [
-        "https://linkedin.com/company/techmanufacturing"
-      ],
-      "certification": [
-        "ISO 9001",
-        "ISO 14001", 
-        "IATF 16949",
-        "ISO 13485"
-      ]
-    }
-
-    const script = document.createElement('script')
-    script.type = 'application/ld+json'
-    script.textContent = JSON.stringify(structuredData)
-    document.head.appendChild(script)
-
-    return () => {
-      document.head.removeChild(script)
-    }
   }, [])
 
   useEffect(() => {
@@ -88,14 +89,11 @@ export default function Home() {
   }, [])
 
       const kpis = [
-    { label: 'Factory Size', value: '4,000 m²', icon: Factory },
+    { label: 'Factory Size', value: '4,000 m2', icon: Factory },
     { label: 'Monthly Capacity (Pcs)', value: '500,000', icon: Package },
     { label: 'R&D Engineers', value: '8', icon: Users },
     { label: 'On-Time Delivery', value: '97%', icon: Clock },
   ];
-
-  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
-  const withBasePath = (path: string) => `${basePath}${path}`
 
   const navLinks = [
     { label: 'Home', target: 'hero' },
@@ -113,21 +111,55 @@ export default function Home() {
     setIsMobileMenuOpen(false)
   }
 
-  const openRfqModal = () => {
+  const openRfqModal = (source: string = 'default') => {
+    if (source === 'hero_quote' || source === 'hero_sample') {
+      trackEvent('hero_cta_click', { source })
+    } else {
+      trackEvent('rfq_open', { source })
+    }
+    setRfqSource(source)
     setIsRfqOpen(true)
     setIsWhatsAppOpen(false)
   }
 
-  const closeRfqModal = () => {
-    setIsRfqOpen(false)
+  const openWhatsApp = (source: string) => {
+    trackEvent('whatsapp_click', { source })
+    setIsWhatsAppOpen(true)
   }
 
-  const clientLogos = [
-    { name: 'EU Gate Control Brand', category: 'Garage Doors', tenure: '6 years', volume: '120k/yr' },
-    { name: 'APAC Lighting Brand', category: 'Smart Lighting', tenure: '4 years', volume: '80k/yr' },
-    { name: 'US Home Automation', category: 'Smart Home', tenure: '3 years', volume: '95k/yr' },
-    { name: 'Aftermarket Auto Brand', category: 'Automotive', tenure: '5 years', volume: '65k/yr' }
-  ]
+  const openWeChat = (source: string) => {
+    trackEvent('wechat_click', { source })
+    window.open('https://weixin.qq.com/', '_blank', 'noopener')
+  }
+
+  const handleFinderQuote = (productName: string) => {
+    trackEvent('finder_use', { action: 'quote_start', product: productName })
+    openRfqModal('finder_quote')
+  }
+
+  const handleRfqSubmit = (target: string) => {
+    if (target.startsWith('mailto:')) {
+      trackEvent('rfq_submit', { source: rfqSource })
+      window.location.href = target
+      handleDownloadTemplate()
+      closeRfqModal()
+      return
+    }
+
+    trackEvent('whatsapp_click', { source: 'rfq_modal' })
+    window.open(target, '_blank', 'noopener')
+    closeRfqModal()
+  }
+
+  const handleDownloadTemplate = () => {
+    trackEvent('rfq_template_download', { source: rfqSource })
+    window.open('/assets/rfq-checklist.pdf', '_blank', 'noopener')
+  }
+
+  const closeRfqModal = () => {
+    setIsRfqOpen(false)
+    setRfqSource('default')
+  }
 
   const products = [
     {
@@ -286,278 +318,71 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-md z-50 border-b border-gray-100">
+      <HeaderBar
+        activeSection={activeSection}
+        onNavClick={handleNavClick}
+        onToggleMenu={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        onOpenRfq={openRfqModal}
+        isMobileMenuOpen={isMobileMenuOpen}
+        navLinks={navLinks}
+      />
+
+      <HeroSection onOpenRfq={openRfqModal} onWhatsApp={openWhatsApp} onWeChat={openWeChat} />
+
+      <ProductFinder onQuote={handleFinderQuote} onTrack={trackEvent} />
+
+      <section className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-2 sm:space-x-8">
-              <div className="flex items-center">
-                <Image
-                  src={withBasePath('/logo-fastfun-remote.png')}
-                  alt="FastFun Remote logo"
-                  width={160}
-                  height={48}
-                  priority
-                  className="h-10 w-auto"
-                />
-              </div>
-              <div className="hidden md:flex space-x-4 lg:space-x-6">
-                {navLinks.map((link) => (
-                  <button
-                    key={link.target}
-                    type="button"
-                    onClick={() => handleNavClick(link.target)}
-                    className={`text-xs sm:text-sm font-medium transition-colors cursor-pointer hover:text-orange-500 ${activeSection === link.target ? 'text-orange-600 font-semibold' : 'text-gray-600'}`}
-                  >
-                    {link.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-            <div className="flex items-center space-x-2 sm:space-x-4">
-              <Button variant="outline" size="sm" className="hidden sm:flex text-xs sm:text-sm" type="button" onClick={openRfqModal}>
-                <Download className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-                <span className="hidden sm:inline">Catalog</span>
-                <span className="sm:hidden">Cat</span>
-              </Button>
-              <Button size="sm" type="button" className="text-xs sm:text-sm px-2 sm:px-4 bg-orange-500 hover:bg-orange-600 text-white" onClick={openRfqModal}>
-                <span className="hidden sm:inline">Get a Custom Quote</span>
-                <span className="sm:hidden">Quote</span>
-              </Button>
+          <div className="grid gap-8 lg:grid-cols-2">
+            <div className="rounded-3xl border border-slate-200 bg-slate-50/60 p-6 sm:p-8">
+              <h3 className="text-lg font-semibold text-gray-900">How to engage FastFunRC</h3>
+              <ol className="mt-4 space-y-4 text-sm text-slate-600">
+                <li className="flex items-start gap-3">
+                  <span className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-orange-500 text-xs font-semibold text-white">1</span>
+                  <div>Share RFQ via form or WhatsApp. We acknowledge in under 12 hours.</div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-orange-500 text-xs font-semibold text-white">2</span>
+                  <div>Engineering review with feasibility, certification plan, and sample ETA.</div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-orange-500 text-xs font-semibold text-white">3</span>
+                  <div>Prototype shipment, DFM updates, and tooling launch after approval.</div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-orange-500 text-xs font-semibold text-white">4</span>
+                  <div>Mass production with 100% outgoing QC plus compliance pack for customs.</div>
+                </li>
+              </ol>
               <Button
-                variant="ghost"
-                size="sm"
-                className="md:hidden"
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                type="button"
+                className="mt-6 bg-orange-500 text-white hover:bg-orange-600"
+                onClick={() => openRfqModal('process_quote')}
               >
-                <div className="w-5 h-5 flex flex-col justify-center items-center">
-                  <span className={`bg-gray-600 block transition-all duration-300 ease-out h-0.5 w-5 rounded-sm ${isMobileMenuOpen ? 'rotate-45 translate-y-1' : '-translate-y-0.5'}`}></span>
-                  <span className={`bg-gray-600 block transition-all duration-300 ease-out h-0.5 w-5 rounded-sm my-0.5 ${isMobileMenuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
-                  <span className={`bg-gray-600 block transition-all duration-300 ease-out h-0.5 w-5 rounded-sm ${isMobileMenuOpen ? '-rotate-45 -translate-y-1' : 'translate-y-0.5'}`}></span>
-                </div>
+                Start RFQ discussion
               </Button>
             </div>
-          </div>
-          {/* Mobile Menu */}
-          <div className={`md:hidden transition-all duration-300 ease-in-out ${isMobileMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
-            <div className="py-4 border-t border-gray-100">
-              {navLinks.map((link) => (
-                <button
-                  key={link.target}
-                  type="button"
-                  className={`block w-full text-left py-2 px-4 text-sm font-medium transition-colors hover:bg-gray-50 cursor-pointer ${activeSection === link.target ? 'text-orange-600 font-semibold' : 'text-gray-600 hover:text-orange-500'}`}
-                  onClick={() => handleNavClick(link.target)}
-                >
-                  {link.label}
-                </button>
-              ))}
-              <div className="px-4 pt-2">
-                <Button variant="outline" size="sm" className="w-full mb-2 text-sm">
-                  <Download className="h-4 w-4 mr-2" />
-                  Download Catalog
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      {/* Hero Section - Enhanced */}
-      <section id="hero" className="relative pt-16 min-h-screen flex items-center">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50" />
-        
-        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-20">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Content */}
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-center lg:text-left"
-            >
-              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight tracking-tight">
-                In-house Factory · OEM/ODM for RF Remotes & Wi-Fi Switches
-              </h1>
-              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-slate-600 mb-6 sm:mb-8 max-w-3xl leading-relaxed font-light">
-                433/315/868/915 MHz | Tooling + PCBA + RF Tuning | CE/FCC/RoHS | 7-Day Prototyping
-              </p>
-              
-              {/* Key Points */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-8 max-w-4xl">
-                {["Custom housings & protocols", ">99% mass-production yield", "On-time delivery", "One-to-one engineer support"].map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-2 rounded-full bg-orange-50 text-orange-700 px-3 py-1 text-xs sm:text-sm font-medium">
-                    <Check className="h-4 w-4" />
-                    <span>{item}</span>
+            <div className="rounded-3xl border border-slate-200 bg-slate-900 p-6 sm:p-8 text-slate-100">
+              <h3 className="text-lg font-semibold text-white">Plant equipment snapshot</h3>
+              <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
+                {[["SMT lines", "3 Fuji NXT + Yamaha modular"],
+                  ["AOI & ICT", "Omron AOI, Keysight ICT"],
+                  ["RF lab", "Shielded chambers, VNA tuning"],
+                  ["Aging stations", "96-ch burn-in racks"],
+                  ["Plastic shop", "8 injection machines, silk print"],
+                  ["Final assembly", "4 lean cells, ERP traceability"]].map(([label, value]) => (
+                  <div key={label} className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <div className="text-xs uppercase tracking-wide text-white/60">{label}</div>
+                    <div className="mt-2 text-sm font-semibold text-white">{value}</div>
                   </div>
                 ))}
               </div>
-              
-              <div className="flex items-center justify-center text-sm sm:text-base text-slate-500 mb-6 sm:mb-8 gap-3 sm:gap-4">
-                <span>Chosen by brands in 40+ countries</span>
-                <span className="hidden sm:inline text-slate-400">•</span>
-                <span>ISO9001 / CE / FCC / RoHS</span>
+              <div className="mt-6 flex items-center gap-3 text-xs text-white/70">
+                <Check className="h-4 w-4 text-lime-400" />
+                Factory audited by EU/US brands with annual social compliance reports.
               </div>
-              {/* Primary CTAs */}
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start mb-8">
-                <Button size="lg" className="text-base sm:text-lg px-6 sm:px-8 lg:px-10 py-4 sm:py-6 bg-orange-500 hover:bg-orange-600 shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto" type="button" onClick={openRfqModal}>
-                  Get a Quote
-                  <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-                </Button>
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
-                  <Button variant="outline" size="lg" className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-5 border-slate-300 text-slate-700 hover:bg-slate-50 w-full sm:w-auto" type="button" onClick={openRfqModal}>
-                    Request Sample
-                  </Button>
-                  <Button variant="outline" size="lg" className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-5 border-green-500 text-green-600 hover:bg-green-50 w-full sm:w-auto" type="button" onClick={() => setIsWhatsAppOpen(true)}>
-                    WhatsApp
-                  </Button>
-                  <Button variant="outline" size="lg" className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-5 border-slate-500 text-slate-700 hover:bg-slate-50 w-full sm:w-auto" type="button" onClick={() => window.open('https://weixin.qq.com/', '_blank', 'noopener')}>
-                    WeChat
-                  </Button>
-                </div>
-              </div>
-              
-              {/* Process Promise */}
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 sm:gap-6 px-4 py-4 bg-gradient-to-r from-orange-50 to-orange-100 rounded-2xl">
-                <div className="flex items-center text-sm sm:text-base text-slate-700">
-                  <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold mr-3">1</div>
-                  <span className="font-medium">Requirements (24h)</span>
-                </div>
-                <ChevronRight className="h-4 w-4 text-orange-400 hidden sm:block" />
-                <div className="flex items-center text-sm sm:text-base text-slate-700">
-                  <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold mr-3">2</div>
-                  <span className="font-medium">Functional Sample (7-10 days)</span>
-                </div>
-                <ChevronRight className="h-4 w-4 text-orange-400 hidden sm:block" />
-                <div className="flex items-center text-sm sm:text-base text-slate-700">
-                  <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold mr-3">3</div>
-                  <span className="font-medium">Mass Production (20-30 days)</span>
-                </div>
-              </div>
-            </motion.div>
-            
-            {/* Right Content - Factory Video & Certificates */}
-            <motion.div 
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="space-y-6"
-            >
-              {/* Factory Video Placeholder */}
-              <div className="relative bg-slate-100 rounded-2xl overflow-hidden shadow-xl">
-                <div className="aspect-video flex items-center justify-center">
-                  <div className="text-center">
-                    <Factory className="h-16 w-16 text-slate-400 mx-auto mb-4" />
-                    <p className="text-slate-600 font-medium mb-4">15s Factory Montage</p>
-                    <Button variant="outline" size="sm">
-                      <Play className="h-4 w-4 mr-2" />
-                      Play Video
-                    </Button>
-                  </div>
-                </div>
-                <div className="absolute bottom-4 left-4 bg-black/70 text-white px-3 py-1 rounded-full text-xs">
-                  SMT → AOI → RF Test → Burn-in → Packing
-                </div>
-              </div>
-              
-              {/* Certificate Thumbnails */}
-              <div className="grid grid-cols-3 gap-4">
-                <div className="bg-white rounded-lg p-3 shadow-md hover:shadow-lg transition-shadow cursor-pointer">
-                  <div className="aspect-square bg-gradient-to-br from-blue-100 to-blue-200 rounded mb-2 flex items-center justify-center">
-                    <Award className="h-8 w-8 text-blue-600" />
-                  </div>
-                  <p className="text-xs font-medium text-gray-900 text-center">Business License</p>
-                  <p className="text-xs text-blue-600 text-center">View PDF</p>
-                </div>
-                <div className="bg-white rounded-lg p-3 shadow-md hover:shadow-lg transition-shadow cursor-pointer">
-                  <div className="aspect-square bg-gradient-to-br from-green-100 to-green-200 rounded mb-2 flex items-center justify-center">
-                    <Shield className="h-8 w-8 text-green-600" />
-                  </div>
-                  <p className="text-xs font-medium text-gray-900 text-center">ISO 9001</p>
-                  <p className="text-xs text-blue-600 text-center">View PDF</p>
-                </div>
-                <div className="bg-white rounded-lg p-3 shadow-md hover:shadow-lg transition-shadow cursor-pointer">
-                  <div className="aspect-square bg-gradient-to-br from-purple-100 to-purple-200 rounded mb-2 flex items-center justify-center">
-                    <Award className="h-8 w-8 text-purple-600" />
-                  </div>
-                  <p className="text-xs font-medium text-gray-900 text-center">CE RED</p>
-                  <p className="text-xs text-blue-600 text-center">View PDF</p>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Manufacturing Capabilities at a Glance */}
-      <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">Our Manufacturing Capabilities at a Glance</h2>
-            <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed px-4">
-              State-of-the-art facility with comprehensive in-house capabilities from design to delivery
-            </p>
-          </motion.div>
-
-
-          <div className="text-center">
-            <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 text-lg">
-              <Play className="h-5 w-5 mr-2" />
-              Watch Our Factory Tour Video
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* KPI & Trust Section - Second Screen */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* KPI Strip */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mb-16 sm:mb-20 lg:mb-24"
-          >
-            {kpis.map((kpi, index) => (
-              <div key={index} className="text-center group">
-                <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 mb-3 sm:mb-4 group-hover:shadow-lg transition-all duration-300">
-                  <kpi.icon className="h-6 w-6 sm:h-8 sm:w-10 lg:h-10 lg:w-10 mx-auto mb-2 sm:mb-4 text-orange-600" />
-                  <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-1 sm:mb-2">{kpi.value}</div>
-                  <div className="text-xs sm:text-sm text-slate-600 font-medium">{kpi.label}</div>
-                </div>
-              </div>
-            ))}
-          </motion.div>
-
-          {/* Client Logos */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="text-center"
-          >
-            <h3 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-8 sm:mb-12">Trusted by Industry Leaders</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-12">
-              {clientLogos.map((client, index) => (
-                <div key={index} className="group text-center">
-                  <div className="bg-slate-50 rounded-lg sm:rounded-xl p-4 sm:p-6 lg:p-8 mb-3 sm:mb-4 group-hover:bg-slate-100 transition-colors duration-300">
-                    <div className="h-12 w-12 sm:h-14 sm:w-14 lg:h-16 lg:w-16 mx-auto bg-gradient-to-br from-slate-300 to-slate-400 rounded-lg sm:rounded-xl" />
-                  </div>
-                  <div className="text-sm sm:text-base font-bold text-gray-900 mb-1">{client.name}</div>
-                  <div className="text-xs sm:text-sm text-slate-600 mb-1">{client.category}</div>
-                  <div className="text-xs text-orange-600 font-semibold">{client.tenure} • {client.volume}</div>
-                </div>
-              ))}
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -855,7 +680,7 @@ export default function Home() {
                             <Package className="h-3 w-3 mr-1" />
                             Sample
                           </Button>
-                          <Button size="sm" variant="outline" className="text-xs border-orange-500 text-orange-600 hover:bg-orange-50" type="button" onClick={openRfqModal}>
+                          <Button size="sm" variant="outline" className="text-xs border-orange-500 text-orange-600 hover:bg-orange-50" type="button" onClick={() => openRfqModal('product_highlight')}>
                             <Send className="h-3 w-3 mr-1" />
                             Quote
                           </Button>
@@ -1323,48 +1148,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Certificates Wall */}
-      <section className="py-32 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
-          >
-            <h2 className="text-5xl font-bold text-gray-900 mb-6">Certifications & Compliance</h2>
-            <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
-              Full compliance with international standards for quality and safety
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {certificates.map((cert, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="group"
-              >
-                <div className="text-center p-8 bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl hover:shadow-xl transition-all duration-300 group-hover:scale-105">
-                  <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:rotate-6 transition-transform duration-300">
-                    <Award className="h-10 w-10 text-white" />
-                  </div>
-                  <h4 className="text-lg font-bold text-gray-900 mb-2">{cert.name}</h4>
-                  <p className="text-sm text-slate-600 font-medium">{cert.category}</p>
-                  <div className="mt-4 flex justify-center">
-                    <Check className="h-5 w-5 text-green-500" />
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Testimonials */}
       <section id="testimonials" className="py-32 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1781,7 +1564,7 @@ export default function Home() {
                   <Phone className="h-5 w-5 mr-2" />
                   Consult Our Engineers
                 </Button>
-                <Button variant="outline" size="lg" className="border-slate-300 text-slate-700 hover:bg-slate-50" type="button" onClick={openRfqModal}>
+                <Button variant="outline" size="lg" className="border-slate-300 text-slate-700 hover:bg-slate-50" type="button" onClick={() => openRfqModal('footer_quote')}>
                   <MessageCircle className="h-5 w-5 mr-2" />
                   Technical Discussion
                 </Button>
@@ -2093,24 +1876,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Sticky Floating CTAs */}
-      <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
-        <Button 
-          size="lg" 
-          className="bg-orange-500 hover:bg-orange-600 shadow-lg hover:shadow-xl transition-all duration-300 rounded-full w-14 h-14 p-0 flex items-center justify-center group"
-          onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-        >
-          <ArrowRight className="h-6 w-6 group-hover:translate-x-1 transition-transform duration-300" />
-        </Button>
-        <Button 
-          variant="outline" 
-          size="lg" 
-          className="bg-white hover:bg-slate-50 shadow-lg hover:shadow-xl transition-all duration-300 rounded-full w-14 h-14 p-0 flex items-center justify-center border-2"
-          onClick={() => setIsWhatsAppOpen(true)}
-        >
-          <MessageCircle className="h-6 w-6 text-green-600" />
-        </Button>
-      </div>
+      <StickyActions
+        onContactScroll={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+        onWhatsApp={openWhatsApp}
+      />
 
       {isWhatsAppOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
@@ -2180,188 +1949,14 @@ export default function Home() {
           </div>
         </div>
       )}
-      {isRfqOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
-          <div
-            className="absolute inset-0 bg-slate-900/70"
-            aria-hidden="true"
-            onClick={closeRfqModal}
-          />
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-label="RFQ form"
-            className="relative z-10 max-w-2xl w-full bg-white rounded-2xl shadow-2xl p-6 sm:p-10 space-y-6"
-          >
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="text-2xl font-semibold text-gray-900">Send Your RFQ to FastFun Remote</h3>
-                <p className="text-sm text-slate-500 mt-1">Tailored OEM/ODM solutions for remote controls, RF receivers, and smart IoT modules.</p>
-              </div>
-              <button
-                type="button"
-                onClick={closeRfqModal}
-                aria-label="Close RFQ panel"
-                className="text-slate-400 hover:text-slate-600 transition-colors text-2xl leading-none"
-              >
-                &times;
-              </button>
-            </div>
-            <div className="grid sm:grid-cols-3 gap-3">
-              {[
-                { title: 'ODM Remotes', detail: '433/868/915MHz rolling-code, <200 DPPM' },
-                { title: 'Smart WiFi Switches', detail: 'Tuya/ESP solutions, UL/CE ready' },
-                { title: 'OEM RF Modules', detail: 'Custom protocol, PCBA + tooling in-house' },
-              ].map((item, idx) => (
-                <div key={idx} className="rounded-xl border border-orange-100 bg-orange-50/60 px-4 py-3">
-                  <h4 className="text-sm font-semibold text-orange-700">{item.title}</h4>
-                  <p className="text-xs text-orange-600 leading-relaxed">{item.detail}</p>
-                </div>
-              ))}
-            </div>
-            <form
-              className="space-y-4"
-              onSubmit={(event) => {
-                event.preventDefault()
-                const formData = new FormData(event.currentTarget)
-                const subject = encodeURIComponent('FastFun Remote RFQ Request')
-                const body = encodeURIComponent(
-                  `Name: ${formData.get('name') ?? ''}
-Company: ${formData.get('company') ?? ''}
-Email: ${formData.get('email') ?? ''}
-Product Focus: ${formData.get('product') ?? ''}
-Annual Volume: ${formData.get('volume') ?? ''}
-Project Details:
-${formData.get('details') ?? ''}`
-                )
-                window.open(`mailto:eric@fastfunrc.com?subject=${subject}&body=${body}`)
-                closeRfqModal()
-              }}
-            >
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm font-medium text-gray-700 mb-1 block">Name *</label>
-                  <input
-                    required
-                    name="name"
-                    className="w-full rounded-xl border-2 border-slate-200 px-4 py-2.5 focus:border-orange-500 focus:ring-4 focus:ring-orange-100 transition"
-                    placeholder="Your full name"
-                    type="text"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-700 mb-1 block">Email *</label>
-                  <input
-                    required
-                    name="email"
-                    className="w-full rounded-xl border-2 border-slate-200 px-4 py-2.5 focus:border-orange-500 focus:ring-4 focus:ring-orange-100 transition"
-                    placeholder="business@email.com"
-                    type="email"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-700 mb-1 block">Company</label>
-                  <input
-                    name="company"
-                    className="w-full rounded-xl border-2 border-slate-200 px-4 py-2.5 focus:border-orange-500 focus:ring-4 focus:ring-orange-100 transition"
-                    placeholder="Brand / Project name"
-                    type="text"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-700 mb-1 block">Product focus *</label>
-                  <select
-                    required
-                    name="product"
-                    className="w-full rounded-xl border-2 border-slate-200 px-4 py-2.5 focus:border-orange-500 focus:ring-4 focus:ring-orange-100 transition"
-                    defaultValue=""
-                  >
-                    <option value="" disabled>
-                      Select product family
-                    </option>
-                    <option>Custom RF Remote</option>
-                    <option>RF Receiver / PCBA</option>
-                    <option>Smart WiFi Switch / Socket</option>
-                    <option>Gateway / Controller</option>
-                    <option>Other OEM / ODM</option>
-                  </select>
-                </div>
-              </div>
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm font-medium text-gray-700 mb-1 block">Annual volume target</label>
-                  <select
-                    name="volume"
-                    className="w-full rounded-xl border-2 border-slate-200 px-4 py-2.5 focus:border-orange-500 focus:ring-4 focus:ring-orange-100 transition"
-                    defaultValue="1-5k"
-                  >
-                    <option>1-5k units</option>
-                    <option>5-20k units</option>
-                    <option>20-50k units</option>
-                    <option>50k+ units</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-700 mb-1 block">Certification needs</label>
-                  <div className="flex flex-wrap gap-2">
-                    {['CE', 'FCC', 'UL', 'ETL', 'KC'].map((cert) => (
-                      <label key={cert} className="inline-flex items-center gap-1 text-sm text-slate-600">
-                        <input type="checkbox" name="certifications" value={cert} className="rounded border-slate-300 text-orange-500 focus:ring-orange-400" />
-                        {cert}
-                      </label>
-                    ))}
-                  </div>
-                </div>
-              </div>
-              <div>
-                <label className="text-sm font-medium text-gray-700 mb-1 block">Project details *</label>
-                <textarea
-                  required
-                  name="details"
-                  rows={4}
-                  className="w-full rounded-xl border-2 border-slate-200 px-4 py-3 focus:border-orange-500 focus:ring-4 focus:ring-orange-100 transition"
-                  placeholder="Tell us about functionality, communication protocol, housing requirements, timeline..."
-                />
-              </div>
-              <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
-                <button
-                  type="submit"
-                  className="inline-flex items-center justify-center rounded-xl bg-orange-500 px-6 py-3 text-sm font-semibold text-white shadow hover:bg-orange-600 transition"
-                >
-                  Submit & Email RFQ
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    closeRfqModal()
-                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
-                  }}
-                  className="inline-flex items-center justify-center rounded-xl border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50 transition"
-                >
-                  Go to full RFQ form
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-      {/* Sticky Mobile CTA Bar */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-200 p-4 md:hidden z-40 shadow-lg">
-        <div className="flex justify-around">
-          <Button variant="outline" size="sm" className="flex items-center border-slate-300 text-slate-700 hover:bg-slate-50" onClick={() => setIsWhatsAppOpen(true)}>
-            <MessageCircle className="h-4 w-4 mr-2" />
-            WhatsApp
-          </Button>
-          <Button size="sm" className="flex items-center bg-orange-500 hover:bg-orange-600">
-            <Package className="h-4 w-4 mr-2" />
-            Samples
-          </Button>
-          <Button variant="outline" size="sm" className="flex items-center border-slate-300 text-slate-700 hover:bg-slate-50">
-            <Download className="h-4 w-4 mr-2" />
-            Catalog
-          </Button>
-        </div>
-      </div>
+      <RfqModal
+        open={isRfqOpen}
+        onClose={closeRfqModal}
+        onSubmit={handleRfqSubmit}
+        onDownloadTemplate={handleDownloadTemplate}
+      />
+      <MobileActionBar onOpenRfq={openRfqModal} onWhatsApp={openWhatsApp} />
+
 
       {/* Floating Elements for Tech Feel */}
       <div className="fixed top-32 right-8 hidden lg:block">
@@ -2407,11 +2002,12 @@ ${formData.get('details') ?? ''}`
             <div className="lg:col-span-2">
               <div className="flex items-center mb-6">
                 <Image
-                  src={withBasePath('/logo-fastfun-remote.png')}
+                  src="/logo-fastfun-remote.png"
                   alt="FastFun Remote logo"
                   width={200}
                   height={60}
                   className="h-12 w-auto"
+                  priority
                 />
               </div>
               <p className="text-slate-300 leading-relaxed mb-6 max-w-md">
