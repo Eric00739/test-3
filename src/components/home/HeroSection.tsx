@@ -87,15 +87,6 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
                 >
                   WhatsApp
                 </Button>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-5 border-slate-500 text-slate-700 hover:bg-slate-50 w-full sm:w-auto"
-                  type="button"
-                  onClick={() => onWeChat('hero')}
-                >
-                  WeChat
-                </Button>
               </div>
             </div>
 
