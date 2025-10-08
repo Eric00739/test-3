@@ -31,7 +31,7 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
             transition={{ duration: 0.8 }}
             className="text-center lg:text-left"
           >
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight tracking-tight">
+            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-3xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight tracking-tight">
               OEM/ODM Manufacturing for RF Remotes, Receivers & Wi-Fi Switches
             </h1>
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-slate-600 mb-6 sm:mb-8 max-w-3xl leading-relaxed font-light">
