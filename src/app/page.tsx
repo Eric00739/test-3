@@ -69,7 +69,7 @@ export default function Home() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['hero', 'about', 'products', 'blog', 'process', 'capabilities', 'testimonials', 'contact']
+      const sections = ['hero', 'about', 'products', 'process', 'capabilities', 'testimonials', 'contact']
       const scrollPosition = window.scrollY + 100
 
       for (const section of sections) {
@@ -99,7 +99,7 @@ export default function Home() {
     { label: 'Home', target: 'hero' },
     { label: 'About us', target: 'about' },
     { label: 'Products', target: 'products' },
-    { label: 'Blog', target: 'blog' },
+    { label: 'Blog', href: '/blog' },
     { label: 'Contact', target: 'contact' },
   ];
 

@@ -2,6 +2,7 @@
 
 import { ArrowRight, Download } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 
 export interface HeaderBarProps {
@@ -10,7 +11,7 @@ export interface HeaderBarProps {
   onToggleMenu: () => void
   onOpenRfq: (source: string) => void
   isMobileMenuOpen: boolean
-  navLinks: { label: string; target: string }[]
+  navLinks: { label: string; target?: string; href?: string }[]
 }
 
 export function HeaderBar({
@@ -31,16 +32,26 @@ export function HeaderBar({
             </div>
             <div className="hidden md:flex space-x-4 lg:space-x-6">
               {navLinks.map((link) => (
-                <button
-                  key={link.target}
-                  type="button"
-                  onClick={() => onNavClick(link.target)}
-                  className={`text-xs sm:text-sm font-medium transition-colors cursor-pointer hover:text-orange-500 ${
-                    activeSection === link.target ? 'text-orange-600 font-semibold' : 'text-gray-600'
-                  }`}
-                >
-                  {link.label}
-                </button>
+                link.href ? (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="text-xs sm:text-sm font-medium transition-colors hover:text-orange-500 text-gray-600"
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <button
+                    key={link.target}
+                    type="button"
+                    onClick={() => link.target && onNavClick(link.target)}
+                    className={`text-xs sm:text-sm font-medium transition-colors cursor-pointer hover:text-orange-500 ${
+                      link.target && activeSection === link.target ? 'text-orange-600 font-semibold' : 'text-gray-600'
+                    }`}
+                  >
+                    {link.label}
+                  </button>
+                )
               ))}
             </div>
           </div>
@@ -94,16 +105,31 @@ export function HeaderBar({
         >
           <div className="py-4 border-t border-gray-100">
             {navLinks.map((link) => (
-              <button
-                key={link.target}
-                type="button"
-                className={`block w-full text-left py-2 px-4 text-sm font-medium transition-colors hover:bg-gray-50 cursor-pointer ${
-                  activeSection === link.target ? 'text-orange-600 font-semibold' : 'text-gray-600 hover:text-orange-500'
-                }`}
-                onClick={() => onNavClick(link.target)}
-              >
-                {link.label}
-              </button>
+              link.href ? (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="block w-full text-left py-2 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-50 hover:text-orange-500"
+                  onClick={onToggleMenu}
+                >
+                  {link.label}
+                </Link>
+              ) : (
+                <button
+                  key={link.target}
+                  type="button"
+                  className={`block w-full text-left py-2 px-4 text-sm font-medium transition-colors hover:bg-gray-50 cursor-pointer ${
+                    link.target && activeSection === link.target ? 'text-orange-600 font-semibold' : 'text-gray-600 hover:text-orange-500'
+                  }`}
+                  onClick={() => {
+                    if (link.target) {
+                      onNavClick(link.target)
+                    }
+                  }}
+                >
+                  {link.label}
+                </button>
+              )
             ))}
             <div className="px-4 pt-2">
               <Button variant="outline" size="sm" className="w-full mb-2 text-sm" onClick={() => onOpenRfq('header_catalog')}
