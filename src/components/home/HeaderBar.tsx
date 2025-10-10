@@ -30,11 +30,11 @@ export function HeaderBar({
             <Image src="/logo-fastfun-remote.png" alt="FastFun Remote logo" width={160} height={48} priority className="h-10 w-auto" />
           </div>
             <div className="hidden md:flex flex-1 justify-center space-x-6 lg:space-x-8">
-              {navLinks.map((link) => (
-<<<<<<< HEAD
-                link.href ? (
+              {navLinks.map((link) => {
+                const key = link.href ?? link.target ?? link.label
+                return link.href ? (
                   <Link
-                    key={link.href}
+                    key={key}
                     href={link.href}
                     className="text-xs sm:text-sm font-medium transition-colors hover:text-orange-500 text-gray-600"
                   >
@@ -42,7 +42,7 @@ export function HeaderBar({
                   </Link>
                 ) : (
                   <button
-                    key={link.target}
+                    key={key}
                     type="button"
                     onClick={() => link.target && onNavClick(link.target)}
                     className={`text-xs sm:text-sm font-medium transition-colors cursor-pointer hover:text-orange-500 ${
@@ -52,19 +52,7 @@ export function HeaderBar({
                     {link.label}
                   </button>
                 )
-=======
-                <button
-                  key={link.target}
-                  type="button"
-                  onClick={() => onNavClick(link.target)}
-                  className={`text-sm sm:text-base font-medium transition-colors cursor-pointer hover:text-orange-500 ${
-                    activeSection === link.target ? 'text-orange-600 font-semibold' : 'text-gray-600'
-                  }`}
-                >
-                  {link.label}
-                </button>
->>>>>>> 812091bf56145ad9f34ca09414510bd0a033e12b
-              ))}
+              })}
             </div>
           <div className="flex items-center space-x-2 sm:space-x-4">
             <Button
