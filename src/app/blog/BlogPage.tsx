@@ -478,7 +478,7 @@ export function BlogPage() {
                 onChange={(event) => handleSearchChange(event.target.value)}
                 onFocus={() => setShowSuggestions(suggestions.length > 0)}
                 onBlur={() => setTimeout(() => setShowSuggestions(false), 120)}
-                placeholder="Search articles, tags, or authors鈥?
+                placeholder="Search articles, tags, or authors..."
                 className={styles.searchInput}
                 aria-label="Search blog articles"
               />
@@ -967,7 +967,7 @@ function BlogFooter() {
           </div>
         </div>
         <div className="mt-12 flex flex-col gap-4 border-t border-slate-800 pt-8 text-sm text-slate-400 sm:flex-row sm:items-center sm:justify-between">
-          <span>漏 {currentYear} FastFun Remote. All rights reserved.</span>
+          <span> {currentYear} FastFun Remote. All rights reserved.</span>
           <div className="flex flex-wrap gap-6">
             <Link href="/#contact" className="hover:text-orange-400">
               Request support
@@ -1035,9 +1035,8 @@ function formatExcerpt(excerpt: string, maxLength: number = EXCERPT_LENGTH) {
   if (clean.length <= maxLength) {
     return clean
   }
-  return `${clean.slice(0, maxLength).trimEnd()}鈥
+  return `${clean.slice(0, maxLength).trimEnd()}...`
 }
-
 function getInitials(name: string) {
   return name
     .split(" ")
@@ -1045,5 +1044,13 @@ function getInitials(name: string) {
     .join("")
     .slice(0, 2)
 }
+
+
+
+
+
+
+
+
 
 
