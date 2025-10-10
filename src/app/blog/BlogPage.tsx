@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import Image from "next/image"
 import Link from "next/link"
@@ -30,7 +30,6 @@ import {
 
 import styles from "./BlogPage.module.css"
 import { blogData, type BlogArticle } from "./BlogData"
-import logoFastFun from "@/public/logo-fastfun-remote.png"
 
 const statsNumberFormatter = new Intl.NumberFormat("en", {
   notation: "compact",
@@ -479,7 +478,7 @@ export function BlogPage() {
                 onChange={(event) => handleSearchChange(event.target.value)}
                 onFocus={() => setShowSuggestions(suggestions.length > 0)}
                 onBlur={() => setTimeout(() => setShowSuggestions(false), 120)}
-                placeholder="Search articles, tags, or authors…"
+                placeholder="Search articles, tags, or authors鈥?
                 className={styles.searchInput}
                 aria-label="Search blog articles"
               />
@@ -822,7 +821,7 @@ function BlogHeader() {
       <div className="mx-auto max-w-6xl px-4 py-4">
         <div className="flex items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-3">
-            <Image src={logoFastFun} alt="FastFun Remote logo" priority className="h-10 w-auto" />
+            <Image src="/logo-fastfun-remote.png" alt="FastFun Remote logo" priority className="h-10 w-auto" />
             <span className="sr-only">FastFun Remote homepage</span>
           </Link>
 
@@ -899,7 +898,7 @@ function BlogFooter() {
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center justify-center sm:justify-start">
-              <Image src={logoFastFun} alt="FastFun Remote logo" className="h-12 w-auto" />
+              <Image src="/logo-fastfun-remote.png" alt="FastFun Remote logo" className="h-12 w-auto" />
             </Link>
             <p className="mt-6 text-sm leading-relaxed text-slate-300">
               FastFun Remote is a trusted OEM/ODM partner delivering reliable RF remotes, receivers, and IoT solutions with ISO 9001 certified manufacturing.
@@ -968,7 +967,7 @@ function BlogFooter() {
           </div>
         </div>
         <div className="mt-12 flex flex-col gap-4 border-t border-slate-800 pt-8 text-sm text-slate-400 sm:flex-row sm:items-center sm:justify-between">
-          <span>© {currentYear} FastFun Remote. All rights reserved.</span>
+          <span>漏 {currentYear} FastFun Remote. All rights reserved.</span>
           <div className="flex flex-wrap gap-6">
             <Link href="/#contact" className="hover:text-orange-400">
               Request support
@@ -1036,7 +1035,7 @@ function formatExcerpt(excerpt: string, maxLength: number = EXCERPT_LENGTH) {
   if (clean.length <= maxLength) {
     return clean
   }
-  return `${clean.slice(0, maxLength).trimEnd()}…`
+  return `${clean.slice(0, maxLength).trimEnd()}鈥
 }
 
 function getInitials(name: string) {
@@ -1046,3 +1045,5 @@ function getInitials(name: string) {
     .join("")
     .slice(0, 2)
 }
+
+

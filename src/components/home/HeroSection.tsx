@@ -1,14 +1,14 @@
-﻿'use client'
+﻿"use client";
 
-import { ArrowRight, Check, ChevronRight } from 'lucide-react'
-import { motion } from 'framer-motion'
-import Image from 'next/image'
-import { Button } from '@/components/ui/button'
+import { ArrowRight, Check, ChevronRight } from "lucide-react"
+import { motion } from "framer-motion"
+import Image from "next/image"
+import { Button } from "@/components/ui/button"
 
 const keyPoints = [
-  'Certificate IDs on request',
-  'DFM/DFT reviews included',
-  'Pilot runs before ramp',
+  "Certificate IDs on request",
+  "DFM/DFT reviews included",
+  "Pilot runs before ramp",
 ]
 
 export interface HeroSectionProps {
@@ -51,9 +51,9 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
 
             <div className="flex items-center justify-center text-sm sm:text-base text-slate-500 mb-6 sm:mb-8 gap-3 sm:gap-4">
               <span>Certificate IDs on request</span>
-              <span className="hidden sm:inline text-slate-400">·</span>
+              <span className="hidden sm:inline text-slate-400">|</span>
               <span>DFM/DFT reviews included</span>
-              <span className="hidden sm:inline text-slate-400">·</span>
+              <span className="hidden sm:inline text-slate-400">|</span>
               <span>Pilot runs before ramp</span>
             </div>
 
@@ -62,7 +62,7 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
                 size="lg"
                 className="text-base sm:text-lg px-6 sm:px-8 lg:px-10 py-4 sm:py-6 bg-orange-500 hover:bg-orange-600 shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto"
                 type="button"
-                onClick={() => onOpenRfq('hero_quote')}
+                onClick={() => onOpenRfq("hero_quote")}
               >
                 Talk to sales
                 <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
@@ -72,7 +72,7 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
                 size="lg"
                 className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-5 border-green-500 text-green-600 hover:bg-green-50 w-full sm:w-auto"
                 type="button"
-                onClick={() => onWhatsApp('hero')}
+                onClick={() => onWhatsApp("hero")}
               >
                 WhatsApp sales team
               </Button>
@@ -117,22 +117,22 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
                     variant="outline"
                     size="sm"
                     className="border-white/60 text-white hover:bg-white/10"
-                    onClick={() => window.open('https://youtu.be/ByoHrKslf54?si=fa2Di21q31sxnHJv', '_blank', 'noopener')}
+                    onClick={() => window.open("https://youtu.be/ByoHrKslf54?si=fa2Di21q31sxnHJv", "_blank", "noopener")}
                   >
                     Watch video
                   </Button>
                 </div>
               </div>
               <div className="absolute bottom-4 left-4 bg-black/70 text-white px-3 py-1 rounded-full text-xs">
-                SMT · AOI · RF Test · Burn-in · Packing
+                SMT | AOI | RF Test | Burn-in | Packing
               </div>
             </div>
 
             <div className="grid grid-cols-3 gap-4">
-              {['Business License', 'ISO Certifications', 'Client Audits'].map((item) => (
+              {["Business License", "ISO Certifications", "Client Audits"].map((item) => (
                 <div key={item} className="bg-white rounded-lg p-3 shadow hover:shadow-lg transition-shadow text-center">
                   <div className="aspect-square bg-gradient-to-br from-slate-100 to-slate-200 rounded mb-2 flex items-center justify-center">
-                    <span className="font-semibold text-slate-600 text-sm">{item.split(' ')[0]}</span>
+                    <span className="font-semibold text-slate-600 text-sm">{item.split(" ")[0]}</span>
                   </div>
                   <p className="text-xs font-medium text-gray-900">{item}</p>
                   <p className="text-xs text-blue-600">View PDF</p>
