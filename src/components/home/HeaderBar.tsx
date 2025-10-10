@@ -4,6 +4,7 @@ import { ArrowRight, Download } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import logoFastFun from '@/public/logo-fastfun-remote.png'
 
 export interface HeaderBarProps {
   activeSection: string
@@ -27,7 +28,7 @@ export function HeaderBar({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
-            <Image src="/logo-fastfun-remote.png" alt="FastFun Remote logo" width={160} height={48} priority className="h-10 w-auto" />
+            <Image src={logoFastFun} alt="FastFun Remote logo" priority className="h-10 w-auto" />
           </div>
             <div className="hidden md:flex flex-1 justify-center space-x-6 lg:space-x-8">
               {navLinks.map((link) => {

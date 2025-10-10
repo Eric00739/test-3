@@ -30,6 +30,7 @@ import {
 
 import styles from "./BlogPage.module.css"
 import { blogData, type BlogArticle } from "./BlogData"
+import logoFastFun from "@/public/logo-fastfun-remote.png"
 
 const statsNumberFormatter = new Intl.NumberFormat("en", {
   notation: "compact",
@@ -821,7 +822,7 @@ function BlogHeader() {
       <div className="mx-auto max-w-6xl px-4 py-4">
         <div className="flex items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-3">
-            <Image src="/logo-fastfun-remote.png" alt="FastFun Remote logo" width={160} height={48} priority className="h-10 w-auto" />
+            <Image src={logoFastFun} alt="FastFun Remote logo" priority className="h-10 w-auto" />
             <span className="sr-only">FastFun Remote homepage</span>
           </Link>
 
@@ -898,7 +899,7 @@ function BlogFooter() {
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center justify-center sm:justify-start">
-              <Image src="/logo-fastfun-remote.png" alt="FastFun Remote logo" width={200} height={60} className="h-12 w-auto" />
+              <Image src={logoFastFun} alt="FastFun Remote logo" className="h-12 w-auto" />
             </Link>
             <p className="mt-6 text-sm leading-relaxed text-slate-300">
               FastFun Remote is a trusted OEM/ODM partner delivering reliable RF remotes, receivers, and IoT solutions with ISO 9001 certified manufacturing.

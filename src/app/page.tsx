@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Script from 'next/script'
+import logoFastFun from '@/public/logo-fastfun-remote.png'
 import { Button } from '@/components/ui/button'
 import { HeaderBar } from '@/components/home/HeaderBar'
 import { HeroSection } from '@/components/home/HeroSection'
@@ -156,7 +157,7 @@ export default function Home() {
     {
       question: 'What is your warranty and RMA process?',
       answer:
-        'Standard warranty: 12 months for all products. Extended warranty (24 months) available for bulk orders. RMA process: Report issue within warranty period â†’ Return analysis â†’ Replacement/refund within 7 days. DPPM rate: <500.',
+        'Standard warranty: 12 months for all products. Extended warranty (24 months) available for bulk orders. RMA process: Report issue within warranty period â†?Return analysis â†?Replacement/refund within 7 days. DPPM rate: <500.',
     },
   ]
 
@@ -284,7 +285,7 @@ export default function Home() {
         {
           title: 'WiFi Smart Switch Manufacturer',
           icon: Wifi,
-          specs: 'Protocol: 2.4GHz 802.11b/g/n â€¢ Power: 10A/16A/20A â€¢ Voltage: 100-240V AC â€¢ Size: 45&times;45&times;22mm â€¢ Cert: CE/FCC/UL',
+          specs: 'Protocol: 2.4GHz 802.11b/g/n â€?Power: 10A/16A/20A â€?Voltage: 100-240V AC â€?Size: 45&times;45&times;22mm â€?Cert: CE/FCC/UL',
           features: ['App Control', 'Voice Control', 'Timer Function', 'Energy Monitoring'],
           useCase: 'Smart Home',
           certification: 'CE/FCC/UL',
@@ -294,7 +295,7 @@ export default function Home() {
         {
           title: 'WiFi Smart Socket',
           icon: Zap,
-          specs: 'Protocol: 2.4GHz 802.11b/g/n â€¢ Power: 16A max â€¢ Voltage: 100-240V AC â€¢ Size: 60&times;60&times;78mm â€¢ Cert: CE/FCC/UL',
+          specs: 'Protocol: 2.4GHz 802.11b/g/n â€?Power: 16A max â€?Voltage: 100-240V AC â€?Size: 60&times;60&times;78mm â€?Cert: CE/FCC/UL',
           features: ['Power Metering', 'Schedule', 'Overload Protection', 'Voice Control'],
           useCase: 'Home Automation',
           certification: 'CE/FCC/UL',
@@ -304,7 +305,7 @@ export default function Home() {
         {
           title: '868/915MHz Universal Remote',
           icon: Radio,
-          specs: 'Band: 868/915MHz â€¢ Modulation: ASK/FSK â€¢ Code: learning â€¢ TX: 12dBm â€¢ RX: -98dBm â€¢ Power: AAA â€¢ Size: 70&times;40&times;18mm â€¢ Cert: CE RED/FCC',
+          specs: 'Band: 868/915MHz â€?Modulation: ASK/FSK â€?Code: learning â€?TX: 12dBm â€?RX: -98dBm â€?Power: AAA â€?Size: 70&times;40&times;18mm â€?Cert: CE RED/FCC',
           features: ['Learning Code', 'Multi-button', 'Low Power', 'EU/US compliant'],
           useCase: 'Smart Home',
           certification: 'CE RED/FCC',
@@ -320,7 +321,7 @@ export default function Home() {
         {
           title: '433MHz Rolling Code Remote',
           icon: Radio,
-          specs: 'Band: 433.92MHz â€¢ Modulation: ASK/FSK â€¢ Code: rolling â€¢ TX: 10dBm â€¢ RX: -100dBm â€¢ Power: CR2032 â€¢ Size: 58&times;35&times;12mm â€¢ Cert: CE/FCC',
+          specs: 'Band: 433.92MHz â€?Modulation: ASK/FSK â€?Code: rolling â€?TX: 10dBm â€?RX: -100dBm â€?Power: CR2032 â€?Size: 58&times;35&times;12mm â€?Cert: CE/FCC',
           features: ['Rolling Code', '4-Button', '12V Battery', 'IP65'],
           useCase: 'Garage Doors',
           certification: 'CE/FCC/RoHS',
@@ -330,7 +331,7 @@ export default function Home() {
         {
           title: '315MHz Car Remote',
           icon: Settings,
-          specs: 'Band: 315MHz â€¢ Modulation: ASK â€¢ Code: fixed/rolling â€¢ TX: 8dBm â€¢ RX: -95dBm â€¢ Power: AAA â€¢ Size: 65&times;35&times;15mm â€¢ Cert: ISO 11452',
+          specs: 'Band: 315MHz â€?Modulation: ASK â€?Code: fixed/rolling â€?TX: 8dBm â€?RX: -95dBm â€?Power: AAA â€?Size: 65&times;35&times;15mm â€?Cert: ISO 11452',
           features: ['Keyless Entry', 'Remote Start', 'Alarm System', '433MHz'],
           useCase: 'Automotive',
           certification: 'ISO 11452',
@@ -340,7 +341,7 @@ export default function Home() {
         {
           title: 'Superheterodyne Receiver',
           icon: Wifi,
-          specs: 'Band: 433/315MHz â€¢ Modulation: ASK/FSK â€¢ Channels: 4 â€¢ RX: -110dBm â€¢ Power: 12V DC â€¢ Size: 45&times;25&times;8mm â€¢ Cert: CE/FCC',
+          specs: 'Band: 433/315MHz â€?Modulation: ASK/FSK â€?Channels: 4 â€?RX: -110dBm â€?Power: 12V DC â€?Size: 45&times;25&times;8mm â€?Cert: CE/FCC',
           features: ['Multi-channel', 'Learning Code', 'Relay Output', 'LED indicator'],
           useCase: 'Security Systems',
           certification: 'CE/FCC',
@@ -356,7 +357,7 @@ export default function Home() {
         {
           title: 'RF Kit (Transmitter + Receiver)',
           icon: Package,
-          specs: 'Band: 433MHz â€¢ Modulation: ASK â€¢ Code: pre-paired â€¢ TX: 10dBm â€¢ RX: -105dBm â€¢ Power: CR2032/12V â€¢ Cert: RoHS',
+          specs: 'Band: 433MHz â€?Modulation: ASK â€?Code: pre-paired â€?TX: 10dBm â€?RX: -105dBm â€?Power: CR2032/12V â€?Cert: RoHS',
           features: ['Pre-paired', 'Ready to Use', 'Custom Frequencies', 'Technical Support'],
           useCase: 'DIY Projects',
           certification: 'RoHS Compliant',
@@ -1863,7 +1864,7 @@ export default function Home() {
             <div className="bg-gradient-to-r from-orange-50 to-orange-100 rounded-2xl p-6 mb-8">
               <div className="flex items-center justify-center mb-4">
                 <Shield className="h-6 w-6 text-orange-600 mr-2" />
-                <span className="text-lg font-semibold text-orange-800">Engineer replies within 24 hours â€¢ NDA available â€¢ Support EU/FCC certification</span>
+                <span className="text-lg font-semibold text-orange-800">Engineer replies within 24 hours â€?NDA available â€?Support EU/FCC certification</span>
               </div>
             </div>
           </motion.div>
@@ -2023,7 +2024,7 @@ export default function Home() {
                 {/* Privacy Notice */}
                 <div className="text-center text-xs text-slate-500 mt-6">
                   <p>By submitting this form, you agree to our Privacy Policy. We protect your data and never share it with third parties.</p>
-                  <p className="mt-1">Protected by reCAPTCHA â€¢ Google Privacy Policy â€¢ Terms of Service</p>
+                  <p className="mt-1">Protected by reCAPTCHA â€?Google Privacy Policy â€?Terms of Service</p>
                 </div>
               </form>
             </Card>
@@ -2157,7 +2158,7 @@ export default function Home() {
             <div className="lg:col-span-2">
               <div className="flex items-center mb-6">
                 <Image
-                  src="/logo-fastfun-remote.png"
+                  src={logoFastFun}
                   alt="FastFun Remote logo"
                   width={200}
                   height={60}
@@ -2235,7 +2236,7 @@ export default function Home() {
                 <Globe className="h-5 w-5 text-orange-500 mr-3" />
                 <div>
                   <div className="text-sm text-slate-400">Trade Terms</div>
-                  <div className="font-semibold text-white">FOB Shenzhen or Guangzhou â€¢ CIF Available â€¢ DAP Available</div>
+                  <div className="font-semibold text-white">FOB Shenzhen or Guangzhou â€?CIF Available â€?DAP Available</div>
                 </div>
               </div>
             </div>
