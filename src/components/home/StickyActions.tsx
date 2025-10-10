@@ -33,10 +33,10 @@ export function StickyActions({ onContactScroll, onWhatsApp }: StickyActionsProp
         size="lg"
         className="flex items-center gap-2 rounded-full border-2 border-slate-200 bg-white px-6 py-4 text-base font-semibold text-slate-700 shadow-lg transition-all duration-300 hover:bg-slate-50 hover:shadow-xl"
         onClick={() => onWhatsApp('floating_button')}
-        aria-label="Open WhatsApp quick chat"
+        aria-label="Request a sales callback on WhatsApp"
       >
         <MessageCircle className="h-5 w-5 text-green-600" aria-hidden="true" />
-        <span className="text-green-600">Chat on WhatsApp</span>
+        <span className="text-green-600">Request WhatsApp callback</span>
       </Button>
     </div>
   )

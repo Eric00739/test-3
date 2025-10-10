@@ -1,5 +1,4 @@
-'use client';
-
+﻿'use client'
 
 import { ArrowRight, Check, ChevronRight } from 'lucide-react'
 import { motion } from 'framer-motion'
@@ -52,9 +51,9 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
 
             <div className="flex items-center justify-center text-sm sm:text-base text-slate-500 mb-6 sm:mb-8 gap-3 sm:gap-4">
               <span>Certificate IDs on request</span>
-              <span className="hidden sm:inline text-slate-400">•</span>
+              <span className="hidden sm:inline text-slate-400">·</span>
               <span>DFM/DFT reviews included</span>
-              <span className="hidden sm:inline text-slate-400">•</span>
+              <span className="hidden sm:inline text-slate-400">·</span>
               <span>Pilot runs before ramp</span>
             </div>
 
@@ -65,29 +64,18 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
                 type="button"
                 onClick={() => onOpenRfq('hero_quote')}
               >
-                Get Engineering Quote
+                Talk to sales
                 <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
               </Button>
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-5 border-slate-300 text-slate-700 hover:bg-slate-50 w-full sm:w-auto"
-                  type="button"
-                  onClick={() => onOpenRfq('hero_sample')}
-                >
-                  Request Sample
-                </Button>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-5 border-green-500 text-green-600 hover:bg-green-50 w-full sm:w-auto"
-                  type="button"
-                  onClick={() => onWhatsApp('hero')}
-                >
-                  WhatsApp
-                </Button>
-              </div>
+              <Button
+                variant="outline"
+                size="lg"
+                className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-5 border-green-500 text-green-600 hover:bg-green-50 w-full sm:w-auto"
+                type="button"
+                onClick={() => onWhatsApp('hero')}
+              >
+                WhatsApp sales team
+              </Button>
             </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 sm:gap-6 px-4 py-4 bg-gradient-to-r from-orange-50 to-orange-100 rounded-2xl">
@@ -109,14 +97,26 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
             transition={{ duration: 0.8, delay: 0.2 }}
             className="space-y-6"
           >
-            <div className="relative bg-slate-100 rounded-2xl overflow-hidden shadow-xl">
-              <div className="aspect-video flex items-center justify-center">
-                <div className="text-center">
-                  <Image src="/assets/logo-512.png" alt="Factory montage" width={96} height={96} className="mx-auto mb-4" />
-                  <p className="text-slate-600 font-medium mb-4">15s Factory Montage</p>
+            <div className="relative overflow-hidden rounded-2xl shadow-xl">
+              <div className="relative aspect-video">
+                <Image
+                  src="https://img.youtube.com/vi/ByoHrKslf54/maxresdefault.jpg"
+                  alt="FastFunRC SMT line snapshot"
+                  fill
+                  className="object-cover"
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+                <div className="absolute inset-0 bg-slate-900/30 backdrop-blur-[1px]" />
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 text-center text-white px-6">
+                  <span className="rounded-full border border-white/40 bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.35em]">
+                    Factory line
+                  </span>
+                  <p className="text-lg font-semibold sm:text-xl">15s Factory Montage</p>
                   <Button
                     variant="outline"
                     size="sm"
+                    className="border-white/60 text-white hover:bg-white/10"
                     onClick={() => window.open('https://youtu.be/ByoHrKslf54?si=fa2Di21q31sxnHJv', '_blank', 'noopener')}
                   >
                     Watch video
@@ -124,7 +124,7 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
                 </div>
               </div>
               <div className="absolute bottom-4 left-4 bg-black/70 text-white px-3 py-1 rounded-full text-xs">
-                SMT - AOI - RF Test - Burn-in - Packing
+                SMT · AOI · RF Test · Burn-in · Packing
               </div>
             </div>
 

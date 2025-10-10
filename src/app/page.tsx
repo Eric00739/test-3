@@ -466,7 +466,7 @@ export default function Home() {
                 className="bg-white text-slate-900 hover:bg-slate-100"
                 onClick={() => openRfqModal('trust_cta')}
               >
-                Book engineering intro
+                Talk to sales
               </Button>
               <Button
                 variant="outline"
@@ -474,7 +474,7 @@ export default function Home() {
                 className="border-white/40 text-white hover:bg-white/10"
                 onClick={() => openWhatsApp('trust_whatsapp')}
               >
-                WhatsApp 24h response
+                Request a callback
               </Button>
             </div>
           </div>
@@ -540,7 +540,7 @@ export default function Home() {
                 className="mt-6 bg-orange-500 text-white hover:bg-orange-600"
                 onClick={() => openRfqModal('process_quote')}
               >
-                Start RFQ discussion
+                Request detailed proposal
               </Button>
             </div>
             <div className="rounded-3xl border border-slate-200 bg-slate-900 p-6 sm:p-8 text-slate-100">
