@@ -1,30 +1,31 @@
 "use client"
 
+import Image from "next/image"
+import Link from "next/link"
 import { useEffect, useMemo, useState } from "react"
-import { BookOpen, Calendar, Clock3, Eye, Heart, FileText, Minus, Plus, Search, Share2, Tag, TrendingUp, User, X } from "lucide-react"
+import {
+  BookOpen,
+  Calendar,
+  Clock3,
+  Eye,
+  Factory,
+  FileText,
+  Globe,
+  Heart,
+  Minus,
+  Phone,
+  Plus,
+  Search,
+  Send,
+  Share2,
+  Shield,
+  Tag,
+  User,
+  X,
+} from "lucide-react"
 
 import styles from "./BlogPage.module.css"
 import { blogData, type BlogArticle } from "./BlogData"
-
-const stats = [
-  { icon: <TrendingUp size={22} />, label: "Published Articles", value: 256 },
-  { icon: <User size={22} />, label: "Expert Authors", value: 48 },
-  { icon: <Eye size={22} />, label: "Monthly Readers", value: 125_000 },
-  { icon: <AwardIcon />, label: "Industry Awards", value: 15 },
-]
-
-function AwardIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
-      <path d="M15.24 10.76a4 4 0 1 1-6.48 0" />
-      <path d="M17 10a5 5 0 1 0-10 0" />
-      <path d="M12 19.6V22" />
-      <path d="M7 21h10" />
-      <path d="m4 12 1.5 2.7" />
-      <path d="m20 12-1.5 2.7" />
-    </svg>
-  )
-}
 
 const statsNumberFormatter = new Intl.NumberFormat("en", {
   notation: "compact",
@@ -83,6 +84,18 @@ export function BlogPage() {
       })),
     ]
   }, [])
+
+  const totalArticles = blogData.length
+  const totalViews = blogData.reduce((acc, item) => acc + item.views, 0)
+  const totalLikes = blogData.reduce((acc, item) => acc + item.likes, 0)
+  const totalAuthors = new Set(blogData.map((item) => item.author)).size
+
+  const stats = [
+    { icon: <BookOpen size={22} />, label: "Published Articles", value: totalArticles },
+    { icon: <User size={22} />, label: "Contributing Authors", value: totalAuthors },
+    { icon: <Eye size={22} />, label: "Total Article Views", value: totalViews },
+    { icon: <Heart size={22} />, label: "Reader Likes Logged", value: totalLikes },
+  ]
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 800)
@@ -291,13 +304,15 @@ export function BlogPage() {
 
   return (
     <div className={styles.page}>
+      <BlogHeader />
       <div className={styles.animatedBackground} aria-hidden>
         <div className={`${styles.orb} ${styles.orbPrimary}`} />
         <div className={`${styles.orb} ${styles.orbAccent}`} />
         <div className={`${styles.orb} ${styles.orbHighlight}`} />
       </div>
 
-      <header className={`${styles.section} ${styles.hero}`}>
+      <main className="relative z-10 pb-24">
+        <header className={`${styles.section} ${styles.hero}`}>
         <span className={styles.badge}>
           <RocketIcon /> Innovation Hub
         </span>
@@ -523,6 +538,9 @@ export function BlogPage() {
           </>
         )}
       </section>
+    </main>
+
+      <BlogFooter />
 
       {modalArticle && (
         <div className={styles.modal} role="dialog" aria-modal="true" aria-labelledby="modal-title">
@@ -612,6 +630,133 @@ export function BlogPage() {
         {toast.message}
       </div>
     </div>
+  )
+}
+
+function BlogHeader() {
+  return (
+    <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/90 backdrop-blur">
+      <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between">
+        <Link href="/" className="flex items-center justify-center sm:justify-start">
+          <Image src="/logo-fastfun-remote.png" alt="FastFun Remote logo" width={160} height={48} priority className="h-10 w-auto" />
+          <span className="sr-only">FastFun Remote homepage</span>
+        </Link>
+        <nav className="flex flex-wrap items-center justify-center gap-4 text-sm font-semibold text-slate-600 sm:justify-end">
+          <Link href="/" className="transition-colors hover:text-orange-500">
+            Home
+          </Link>
+          <Link href="/blog" aria-current="page" className="text-orange-500">
+            Blog
+          </Link>
+          <Link href="/#products" className="transition-colors hover:text-orange-500">
+            Products
+          </Link>
+          <Link href="/#contact" className="transition-colors hover:text-orange-500">
+            Contact
+          </Link>
+        </nav>
+        <Link
+          href="mailto:eric@fastfunrc.com"
+          className="hidden sm:inline-flex items-center gap-2 rounded-full bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow transition-colors hover:bg-orange-600"
+        >
+          <Send size={16} />
+          Email Us
+        </Link>
+      </div>
+    </header>
+  )
+}
+
+function BlogFooter() {
+  const currentYear = new Date().getFullYear()
+
+  return (
+    <footer className="bg-slate-900 text-white">
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
+          <div className="lg:col-span-2">
+            <Link href="/" className="flex items-center justify-center sm:justify-start">
+              <Image src="/logo-fastfun-remote.png" alt="FastFun Remote logo" width={200} height={60} className="h-12 w-auto" />
+            </Link>
+            <p className="mt-6 text-sm leading-relaxed text-slate-300">
+              FastFun Remote is a trusted OEM/ODM partner delivering reliable RF remotes, receivers, and IoT solutions with ISO 9001 certified manufacturing.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-4 text-sm text-slate-400">
+              <span className="flex items-center gap-2">
+                <Globe className="h-4 w-4 text-orange-400" />
+                Global shipping support
+              </span>
+              <span className="flex items-center gap-2">
+                <Shield className="h-4 w-4 text-orange-400" />
+                ISO 9001 certified
+              </span>
+            </div>
+          </div>
+          <div>
+            <h3 className="mb-4 text-lg font-semibold">Quick links</h3>
+            <ul className="space-y-3 text-sm text-slate-300">
+              <li>
+                <Link href="/" className="hover:text-orange-400">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="hover:text-orange-400">
+                  Blog
+                </Link>
+              </li>
+              <li>
+                <Link href="/#products" className="hover:text-orange-400">
+                  Products
+                </Link>
+              </li>
+              <li>
+                <Link href="/#process" className="hover:text-orange-400">
+                  Process
+                </Link>
+              </li>
+              <li>
+                <Link href="/#contact" className="hover:text-orange-400">
+                  Contact
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="mb-4 text-lg font-semibold">Contact</h3>
+            <ul className="space-y-4 text-sm text-slate-300">
+              <li className="flex items-start gap-3">
+                <Phone className="mt-1 h-5 w-5 text-orange-400" />
+                <a href="tel:+8615899648898" className="hover:text-orange-400">
+                  +86 158 9964 8898
+                </a>
+              </li>
+              <li className="flex items-start gap-3">
+                <Send className="mt-1 h-5 w-5 text-orange-400" />
+                <a href="mailto:eric@fastfunrc.com" className="hover:text-orange-400">
+                  eric@fastfunrc.com
+                </a>
+              </li>
+              <li className="flex items-start gap-3">
+                <Factory className="mt-1 h-5 w-5 text-orange-400" />
+                <span>8F, Building 1, Huawei Ke Valley, Dalingshan Town, Dongguan, Guangdong, China</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div className="mt-12 flex flex-col gap-4 border-t border-slate-800 pt-8 text-sm text-slate-400 sm:flex-row sm:items-center sm:justify-between">
+          <span>© {currentYear} FastFun Remote. All rights reserved.</span>
+          <div className="flex flex-wrap gap-6">
+            <Link href="/#contact" className="hover:text-orange-400">
+              Request support
+            </Link>
+            <Link href="/#products" className="hover:text-orange-400">
+              View products
+            </Link>
+          </div>
+        </div>
+      </div>
+    </footer>
   )
 }
 
