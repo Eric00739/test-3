@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import Script from 'next/script'
 import { Button } from '@/components/ui/button'
 import { HeaderBar } from '@/components/home/HeaderBar'
 import { HeroSection } from '@/components/home/HeroSection'
@@ -88,12 +89,126 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-      const kpis = [
+  const kpis = [
     { label: 'Factory Size', value: '4,000 m2', icon: Factory },
     { label: 'Monthly Capacity (Pcs)', value: '500,000', icon: Package },
     { label: 'R&D Engineers', value: '8', icon: Users },
     { label: 'On-Time Delivery', value: '97%', icon: Clock },
-  ];
+  ]
+
+  const partnerHighlights = [
+    { name: 'Nice Automation', region: 'EU Gate Systems' },
+    { name: 'LiftMaster OEM', region: 'North America' },
+    { name: 'Somfy Projects', region: 'Smart Shades' },
+    { name: 'Tuya Select', region: 'IoT Alliances' },
+    { name: 'CAME Custom', region: 'Industrial Access' },
+  ]
+
+  const trustSignals = [
+    {
+      icon: Award,
+      headline: '47 NPIs / year',
+      description: 'Dedicated RF & IoT launches handled from spec to shipment.',
+    },
+    {
+      icon: Shield,
+      headline: 'Compliance Lab',
+      description: 'CE RED, FCC Part 15, UKCA pre-check and accredited partners.',
+    },
+    {
+      icon: TrendingUp,
+      headline: '98.7% FPY',
+      description: 'Traceable PCBA, AOI, RF tuning & 100% outgoing QC.',
+    },
+    {
+      icon: Globe,
+      headline: '28 export markets',
+      description: 'Custom packaging, multilingual manuals and drop-ship support.',
+    },
+  ]
+
+  const faqItems = [
+    {
+      question: 'What is your MOQ and pricing structure?',
+      answer:
+        'MOQ starts from 50 units for standard products. Pricing: 50-100 units: $2.50-3.00/unit, 500-1000 units: $1.80-2.20/unit, 5000+ units: $0.90-1.20/unit. Volume discounts available for larger orders.',
+    },
+    {
+      question: 'What are your lead times for samples and mass production?',
+      answer:
+        'Sample lead time: 7-10 days for standard products, 10-15 days for custom samples. Mass production: 20-30 days after sample approval. Rush orders available with 15% surcharge.',
+    },
+    {
+      question: 'Which frequency bands and protocols do you support?',
+      answer:
+        'We support 315MHz, 433.92MHz, 868MHz, and 915MHz bands. Protocols: Fixed code, Rolling code (EV1527, PT2262), Learning code, ASK/FSK modulation. Custom frequency development available.',
+    },
+    {
+      question: 'What certifications can you provide for our target market?',
+      answer:
+        'We provide CE (RED EN 300 220), FCC Part 15, RoHS, REACH, ISO 9001:2015, and IATF 16949:2016 certifications. Additional certifications (UL, ETL, etc.) can be obtained based on requirements.',
+    },
+    {
+      question: 'What customization options are available for ODM projects?',
+      answer:
+        'Full ODM support: Private tooling, custom PCB design, firmware development, custom housing (injection molding), logo printing, custom packaging, custom frequency/protocol development. MOQ for private tooling: 1000-5000 units depending on complexity.',
+    },
+    {
+      question: 'What is your warranty and RMA process?',
+      answer:
+        'Standard warranty: 12 months for all products. Extended warranty (24 months) available for bulk orders. RMA process: Report issue within warranty period → Return analysis → Replacement/refund within 7 days. DPPM rate: <500.',
+    },
+  ]
+
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  }
+
+  const manufacturingServiceJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'OEM/ODM RF Remote & Wi-Fi Switch Manufacturing',
+    serviceType: 'Electronics Manufacturing Services',
+    provider: {
+      '@type': 'Organization',
+      name: 'FastFunRC',
+      url: 'https://www.fastfunrc.com/',
+    },
+    areaServed: [
+      { '@type': 'Country', name: 'United States' },
+      { '@type': 'Country', name: 'Germany' },
+      { '@type': 'Country', name: 'Australia' },
+      { '@type': 'Country', name: 'China' },
+    ],
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'RF Remote & IoT Manufacturing',
+      itemListElement: [
+        { '@type': 'Service', name: 'Custom RF Remote Controls' },
+        { '@type': 'Service', name: 'RF Receiver Boards & Modules' },
+        { '@type': 'Service', name: 'Wi-Fi Switches & Smart Sockets' },
+      ],
+    },
+    termsOfService: 'https://www.fastfunrc.com/#contact',
+    availableChannel: {
+      '@type': 'ServiceChannel',
+      servicePhone: {
+        '@type': 'ContactPoint',
+        telephone: '+86 158 9964 8898',
+        contactType: 'sales',
+        areaServed: 'Global',
+      },
+    },
+  }
 
   const navLinks = [
     { label: 'Home', target: 'hero' },
@@ -328,6 +443,71 @@ export default function Home() {
       />
 
       <HeroSection onOpenRfq={openRfqModal} onWhatsApp={openWhatsApp} onWeChat={openWeChat} />
+
+      <section className="bg-slate-900 py-16 sm:py-20">
+        <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-3xl space-y-4">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
+                Trusted OEM / ODM partner
+              </span>
+              <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                Access-control giants and IoT scale-ups build on FastFunRC production
+              </h2>
+              <p className="text-base text-white/70 sm:text-lg">
+                From remote transmitters and receivers to Wi-Fi switchgear, we handle tooling, PCBA, RF tuning, and certification
+                under one roof so your launch team stays focused on product-market fit.
+              </p>
+            </div>
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+              <Button
+                size="lg"
+                className="bg-white text-slate-900 hover:bg-slate-100"
+                onClick={() => openRfqModal('trust_cta')}
+              >
+                Book engineering intro
+              </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                className="border-white/40 text-white hover:bg-white/10"
+                onClick={() => openWhatsApp('trust_whatsapp')}
+              >
+                WhatsApp 24h response
+              </Button>
+            </div>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+            {partnerHighlights.map((partner) => (
+              <div
+                key={partner.name}
+                className="rounded-2xl border border-white/10 bg-white/5 px-5 py-6 text-center text-white shadow-[0_18px_30px_-20px_rgba(15,23,42,0.65)]"
+              >
+                <div className="text-sm font-semibold sm:text-base">{partner.name}</div>
+                <div className="mt-1 text-xs uppercase tracking-wide text-white/60">{partner.region}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+            {trustSignals.map(({ icon: Icon, headline, description }) => (
+              <div
+                key={headline}
+                className="flex items-start gap-4 rounded-3xl border border-white/10 bg-white/5 p-5 text-white shadow-[0_25px_40px_-28px_rgba(14,165,233,0.55)]"
+              >
+                <div className="rounded-full bg-white/15 p-3">
+                  <Icon className="h-5 w-5 text-orange-300" aria-hidden="true" />
+                </div>
+                <div>
+                  <div className="text-lg font-semibold">{headline}</div>
+                  <p className="mt-1 text-sm text-white/70">{description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <ProductFinder onQuote={handleFinderQuote} onTrack={trackEvent} />
 
@@ -1460,32 +1640,7 @@ export default function Home() {
           </motion.div>
 
           <div className="space-y-4">
-            {[
-              {
-                question: "What is your MOQ and pricing structure?",
-                answer: "MOQ starts from 50 units for standard products. Pricing: 50-100 units: $2.50-3.00/unit, 500-1000 units: $1.80-2.20/unit, 5000+ units: $0.90-1.20/unit. Volume discounts available for larger orders."
-              },
-              {
-                question: "What are your lead times for samples and mass production?",
-                answer: "Sample lead time: 7-10 days for standard products, 10-15 days for custom samples. Mass production: 20-30 days after sample approval. Rush orders available with 15% surcharge."
-              },
-              {
-                question: "Which frequency bands and protocols do you support?",
-                answer: "We support 315MHz, 433.92MHz, 868MHz, and 915MHz bands. Protocols: Fixed code, Rolling code (EV1527, PT2262), Learning code, ASK/FSK modulation. Custom frequency development available."
-              },
-              {
-                question: "What certifications can you provide for our target market?",
-                answer: "We provide CE (RED EN 300 220), FCC Part 15, RoHS, REACH, ISO 9001:2015, and IATF 16949:2016 certifications. Additional certifications (UL, ETL, etc.) can be obtained based on requirements."
-              },
-              {
-                question: "What customization options are available for ODM projects?",
-                answer: "Full ODM support: Private tooling, custom PCB design, firmware development, custom housing (injection molding), logo printing, custom packaging, custom frequency/protocol development. MOQ for private tooling: 1000-5000 units depending on complexity."
-              },
-              {
-                question: "What is your warranty and RMA process?",
-                answer: "Standard warranty: 12 months for all products. Extended warranty (24 months) available for bulk orders. RMA process: Report issue within warranty period → Return analysis → Replacement/refund within 7 days. DPPM rate: <500."
-              }
-            ].map((faq, index) => (
+            {faqItems.map((faq, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -2007,7 +2162,7 @@ export default function Home() {
                   width={200}
                   height={60}
                   className="h-12 w-auto"
-                  priority
+                  loading="lazy"
                 />
               </div>
               <p className="text-slate-300 leading-relaxed mb-6 max-w-md">
@@ -2101,6 +2256,13 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      <Script id="faq-structured-data" strategy="afterInteractive" type="application/ld+json">
+        {JSON.stringify(faqJsonLd)}
+      </Script>
+      <Script id="service-structured-data" strategy="afterInteractive" type="application/ld+json">
+        {JSON.stringify(manufacturingServiceJsonLd)}
+      </Script>
     </div>
   )
 }

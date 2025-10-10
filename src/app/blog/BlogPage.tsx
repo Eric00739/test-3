@@ -9,10 +9,13 @@ import {
   Clock3,
   Eye,
   Factory,
+  Facebook,
   FileText,
   Globe,
   Heart,
+  Linkedin,
   Minus,
+  Menu,
   Phone,
   Plus,
   Search,
@@ -20,6 +23,7 @@ import {
   Share2,
   Shield,
   Tag,
+  Twitter,
   User,
   X,
 } from "lucide-react"
@@ -54,6 +58,18 @@ interface ToastState {
 }
 
 const INITIAL_COUNT = 6
+const EXCERPT_LENGTH = 160
+
+type SortOption = "newest" | "views" | "likes"
+type SharePlatform = "linkedin" | "facebook" | "twitter"
+
+const sortOptions: { value: SortOption; label: string }[] = [
+  { value: "newest", label: "Latest" },
+  { value: "views", label: "Most Viewed" },
+  { value: "likes", label: "Top Rated" },
+]
+
+const FALLBACK_ORIGIN = "https://fastfunrc.com"
 
 export function BlogPage() {
   const [category, setCategory] = useState<string>("all")
@@ -68,6 +84,7 @@ export function BlogPage() {
   const [suggestions, setSuggestions] = useState<Suggestion[]>([])
   const [showSuggestions, setShowSuggestions] = useState(false)
   const [showScrollTop, setShowScrollTop] = useState(false)
+  const [sortOption, setSortOption] = useState<SortOption>("newest")
 
   const categories = useMemo(() => {
     const counts = blogData.reduce<Record<string, number>>((acc, item) => {
@@ -96,6 +113,20 @@ export function BlogPage() {
     { icon: <Eye size={22} />, label: "Total Article Views", value: totalViews },
     { icon: <Heart size={22} />, label: "Reader Likes Logged", value: totalLikes },
   ]
+
+  const topTags = useMemo(() => {
+    const counts = blogData.reduce<Record<string, number>>((acc, article) => {
+      article.tags.forEach((tag) => {
+        acc[tag] = (acc[tag] ?? 0) + 1
+      })
+      return acc
+    }, {})
+
+    return Object.entries(counts)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 8)
+      .map(([tag]) => tag)
+  }, [])
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 800)
@@ -142,7 +173,7 @@ export function BlogPage() {
   }, [])
 
   const filteredArticles = useMemo(() => {
-    let result = blogData
+    let result = [...blogData]
     if (category !== "all") {
       result = result.filter((article) => article.category === category)
     }
@@ -159,8 +190,24 @@ export function BlogPage() {
       })
     }
 
+    const likeLookup = likes
+
+    result.sort((a, b) => {
+      if (sortOption === "views") {
+        return b.views - a.views || toDate(b.date).getTime() - toDate(a.date).getTime()
+      }
+
+      if (sortOption === "likes") {
+        const likeA = likeLookup[a.id] ?? a.likes
+        const likeB = likeLookup[b.id] ?? b.likes
+        return likeB - likeA || toDate(b.date).getTime() - toDate(a.date).getTime()
+      }
+
+      return toDate(b.date).getTime() - toDate(a.date).getTime()
+    })
+
     return result
-  }, [category, searchTerm])
+  }, [category, searchTerm, sortOption, likes])
 
   const visibleArticles = useMemo(() => filteredArticles.slice(0, displayedCount), [filteredArticles, displayedCount])
 
@@ -216,6 +263,18 @@ export function BlogPage() {
     showToast(value === "all" ? "Showing all articles" : `Filtered by ${value}`)
   }
 
+  const handleSortChange = (value: SortOption) => {
+    setSortOption(value)
+    setDisplayedCount(INITIAL_COUNT)
+    if (value === "views") {
+      showToast("Showing most viewed articles")
+    } else if (value === "likes") {
+      showToast("Showing top rated articles")
+    } else {
+      showToast("Sorted by latest articles")
+    }
+  }
+
   const handleSearchChange = (value: string) => {
     setSearchTerm(value)
   }
@@ -268,11 +327,12 @@ export function BlogPage() {
 
   const handleShare = async (article: BlogArticle) => {
     const url = typeof window !== "undefined" ? `${window.location.origin}/blog#article-${article.id}` : ""
+    const summary = formatExcerpt(article.excerpt, 120)
     if (navigator.share) {
       try {
         await navigator.share({
           title: article.title,
-          text: article.excerpt,
+          text: summary,
           url,
         })
         showToast("Shared successfully")
@@ -296,6 +356,36 @@ export function BlogPage() {
       showToast("Link copied to clipboard")
     } catch {
       showToast("Could not copy link")
+    }
+  }
+
+  const openShareWindow = (platform: SharePlatform, article: BlogArticle) => {
+    if (typeof window === "undefined") {
+      return
+    }
+
+    const origin = window.location?.origin ?? FALLBACK_ORIGIN
+    const articleUrl = `${origin}/blog#article-${article.id}`
+    const encodedUrl = encodeURIComponent(articleUrl)
+    const encodedTitle = encodeURIComponent(article.title)
+
+    let shareUrl = ""
+    let label = ""
+
+    if (platform === "linkedin") {
+      shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodedUrl}&title=${encodedTitle}`
+      label = "LinkedIn"
+    } else if (platform === "facebook") {
+      shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`
+      label = "Facebook"
+    } else if (platform === "twitter") {
+      shareUrl = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`
+      label = "X"
+    }
+
+    if (shareUrl) {
+      window.open(shareUrl, "_blank", "noopener,noreferrer,width=600,height=540")
+      showToast(`Shared to ${label}`)
     }
   }
 
@@ -334,56 +424,100 @@ export function BlogPage() {
 
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>Explore Categories</h2>
+        <p className={styles.categoryHint}>Choose a category to tailor the insights you see.</p>
         <div className={styles.categories}>
           {categories.map((item) => (
             <button
               key={item.key}
               type="button"
-              className={`${styles.category} ${category === item.key ? styles.categoryActive : ""}`}
+              className={styles.category}
+              data-active={category === item.key}
+              aria-pressed={category === item.key}
               onClick={() => handleCategoryChange(item.key)}
             >
-              <Plus size={16} />
+              {category === item.key ? <Minus size={16} /> : <Plus size={16} />}
               {item.label}
               <span className={styles.categoryCount}>{item.count}</span>
             </button>
           ))}
         </div>
+        {!!topTags.length && (
+          <div className={styles.quickFilters}>
+            <span className={styles.quickFiltersLabel}>Popular tags:</span>
+            <div className={styles.quickFiltersChips}>
+              {topTags.map((tag) => (
+                <button
+                  key={tag}
+                  type="button"
+                  className={styles.quickFiltersChip}
+                  onClick={() => {
+                    setSearchTerm(`#${tag}`)
+                    showToast(`Showing articles tagged with #${tag}`)
+                  }}
+                >
+                  #{tag}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </section>
 
       <section className={styles.section}>
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-10">
-          <h2 className={styles.sectionTitle}>Latest Articles</h2>
-          <div className={styles.search}>
-            <input
-              value={searchTerm}
-              onChange={(event) => handleSearchChange(event.target.value)}
-              onFocus={() => setShowSuggestions(suggestions.length > 0)}
-              onBlur={() => setTimeout(() => setShowSuggestions(false), 120)}
-              placeholder="Search articles, tags, or authors…"
-              className={styles.searchInput}
-              aria-label="Search blog articles"
-            />
-            <Search size={18} className={styles.searchIcon} aria-hidden />
-            <div className={`${styles.suggestions} ${showSuggestions ? styles.suggestionsVisible : ""}`}>
-              {suggestions.map((suggestion) => (
-                <button
-                  key={`${suggestion.type}-${suggestion.text}`}
-                  type="button"
-                  className={styles.suggestionItem}
-                  onMouseDown={(event) => event.preventDefault()}
-                  onClick={() => handleSuggestionSelect(suggestion)}
-                >
-                  {suggestionIcons[suggestion.type]}
-                  <span>{suggestion.text}</span>
-                </button>
-              ))}
-              {!suggestions.length && searchTerm && (
-                <div className={styles.suggestionItem}>
-                  <Minus size={16} />
-                  No results for "{searchTerm}"
-                </div>
-              )}
+        <div className={styles.toolbar}>
+          <div className={styles.toolbarHeading}>
+            <h2 className={styles.sectionTitle}>Latest Articles</h2>
+            <span className={styles.articleCount} aria-live="polite">
+              {filteredCount} {filteredCount === 1 ? "article" : "articles"}
+            </span>
+          </div>
+          <div className={styles.toolbarControls}>
+            <div className={styles.search}>
+              <input
+                value={searchTerm}
+                onChange={(event) => handleSearchChange(event.target.value)}
+                onFocus={() => setShowSuggestions(suggestions.length > 0)}
+                onBlur={() => setTimeout(() => setShowSuggestions(false), 120)}
+                placeholder="Search articles, tags, or authors…"
+                className={styles.searchInput}
+                aria-label="Search blog articles"
+              />
+              <Search size={18} className={styles.searchIcon} aria-hidden />
+              <div className={`${styles.suggestions} ${showSuggestions ? styles.suggestionsVisible : ""}`}>
+                {suggestions.map((suggestion) => (
+                  <button
+                    key={`${suggestion.type}-${suggestion.text}`}
+                    type="button"
+                    className={styles.suggestionItem}
+                    onMouseDown={(event) => event.preventDefault()}
+                    onClick={() => handleSuggestionSelect(suggestion)}
+                  >
+                    {suggestionIcons[suggestion.type]}
+                    <span>{suggestion.text}</span>
+                  </button>
+                ))}
+                {!suggestions.length && searchTerm && (
+                  <div className={styles.suggestionItem}>
+                    <Minus size={16} />
+                    No results for "{searchTerm}"
+                  </div>
+                )}
+              </div>
             </div>
+            <label className={styles.sortControl}>
+              <span className="sr-only">Sort articles</span>
+              <select
+                value={sortOption}
+                onChange={(event) => handleSortChange(event.target.value as SortOption)}
+                className={styles.sortSelect}
+              >
+                {sortOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
           </div>
         </div>
 
@@ -410,7 +544,14 @@ export function BlogPage() {
                   className={`${styles.card} ${article.featured ? styles.cardFeatured : ""}`}
                 >
                   <div className={styles.cardImage}>
-                    <img src={article.image} alt={article.title} loading="lazy" />
+                    <Image
+                      src={article.image}
+                      alt={article.title}
+                      fill
+                      className={styles.cardImageMedia}
+                      sizes="(min-width: 1280px) 360px, (min-width: 1024px) 320px, (min-width: 640px) 45vw, 90vw"
+                      priority={article.featured}
+                    />
                     <span className={styles.categoryBadge}>{article.category}</span>
                   </div>
 
@@ -439,7 +580,7 @@ export function BlogPage() {
 
                     <div>
                       <h3 className={styles.cardTitle}>{article.title}</h3>
-                      <p className={styles.excerpt}>{article.excerpt}</p>
+                      <p className={styles.excerpt}>{formatExcerpt(article.excerpt)}</p>
                     </div>
 
                     <div className={styles.tags}>
@@ -483,10 +624,36 @@ export function BlogPage() {
                           type="button"
                           className={styles.iconButton}
                           onClick={() => handleShare(article)}
-                          aria-label="Share article"
+                          aria-label="Copy article link"
                         >
                           <Share2 size={18} />
                         </button>
+                        <div className={styles.socialLinks} role="group" aria-label="Share on social media">
+                          <button
+                            type="button"
+                            className={styles.socialButton}
+                            onClick={() => openShareWindow("linkedin", article)}
+                            aria-label="Share on LinkedIn"
+                          >
+                            <Linkedin size={16} />
+                          </button>
+                          <button
+                            type="button"
+                            className={styles.socialButton}
+                            onClick={() => openShareWindow("facebook", article)}
+                            aria-label="Share on Facebook"
+                          >
+                            <Facebook size={16} />
+                          </button>
+                          <button
+                            type="button"
+                            className={styles.socialButton}
+                            onClick={() => openShareWindow("twitter", article)}
+                            aria-label="Share on X"
+                          >
+                            <Twitter size={16} />
+                          </button>
+                        </div>
                         <button
                           type="button"
                           className={styles.iconButton}
@@ -571,7 +738,14 @@ export function BlogPage() {
                 </span>
               </div>
 
-              <img src={modalArticle.image} alt="" className={styles.modalImage} />
+              <Image
+                src={modalArticle.image}
+                alt={modalArticle.title}
+                width={960}
+                height={640}
+                className={styles.modalImage}
+                sizes="(min-width: 1024px) 960px, 100vw"
+              />
 
               <div className={styles.modalContentText} dangerouslySetInnerHTML={{ __html: modalArticle.content }} />
 
@@ -634,34 +808,82 @@ export function BlogPage() {
 }
 
 function BlogHeader() {
+  const [menuOpen, setMenuOpen] = useState(false)
+  const navigation = [
+    { href: "/", label: "Home" },
+    { href: "/blog", label: "Blog", current: true },
+    { href: "/#products", label: "Products" },
+    { href: "/#contact", label: "Contact" },
+  ]
+
   return (
     <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/90 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between">
-        <Link href="/" className="flex items-center justify-center sm:justify-start">
-          <Image src="/logo-fastfun-remote.png" alt="FastFun Remote logo" width={160} height={48} priority className="h-10 w-auto" />
-          <span className="sr-only">FastFun Remote homepage</span>
-        </Link>
-        <nav className="flex flex-wrap items-center justify-center gap-4 text-sm font-semibold text-slate-600 sm:justify-end">
-          <Link href="/" className="transition-colors hover:text-orange-500">
-            Home
+      <div className="mx-auto max-w-6xl px-4 py-4">
+        <div className="flex items-center justify-between gap-4">
+          <Link href="/" className="flex items-center gap-3">
+            <Image src="/logo-fastfun-remote.png" alt="FastFun Remote logo" width={160} height={48} priority className="h-10 w-auto" />
+            <span className="sr-only">FastFun Remote homepage</span>
           </Link>
-          <Link href="/blog" aria-current="page" className="text-orange-500">
-            Blog
-          </Link>
-          <Link href="/#products" className="transition-colors hover:text-orange-500">
-            Products
-          </Link>
-          <Link href="/#contact" className="transition-colors hover:text-orange-500">
-            Contact
-          </Link>
-        </nav>
-        <Link
-          href="mailto:eric@fastfunrc.com"
-          className="hidden sm:inline-flex items-center gap-2 rounded-full bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow transition-colors hover:bg-orange-600"
-        >
-          <Send size={16} />
-          Email Us
-        </Link>
+
+          <nav className="hidden items-center gap-6 text-sm font-semibold text-slate-600 sm:flex">
+            {navigation.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                aria-current={item.current ? "page" : undefined}
+                className={item.current ? "text-orange-500" : "transition-colors hover:text-orange-500"}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+
+          <div className="hidden items-center gap-3 sm:flex">
+            <Link
+              href="mailto:eric@fastfunrc.com"
+              className="inline-flex items-center gap-2 rounded-full bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow transition-colors hover:bg-orange-600"
+            >
+              <Send size={16} />
+              Email Us
+            </Link>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setMenuOpen((prev) => !prev)}
+            className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white p-2 text-slate-600 transition-colors hover:bg-slate-50 sm:hidden"
+            aria-label="Toggle navigation"
+            aria-expanded={menuOpen}
+          >
+            {menuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
+
+        {menuOpen && (
+          <div className="mt-3 space-y-3 border-t border-slate-200 pt-3 sm:hidden">
+            <nav className="flex flex-col gap-2 text-sm font-semibold text-slate-600">
+              {navigation.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={item.current ? "page" : undefined}
+                  className="rounded-lg px-3 py-2 transition-colors hover:bg-slate-100 hover:text-orange-500"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+            <Link
+              href="mailto:eric@fastfunrc.com"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow transition-colors hover:bg-orange-600"
+              onClick={() => setMenuOpen(false)}
+            >
+              <Send size={16} />
+              Email Us
+            </Link>
+          </div>
+        )}
       </div>
     </header>
   )
@@ -796,12 +1018,24 @@ function ArrowUpIcon() {
   )
 }
 
+function toDate(value: string) {
+  return new Date(value)
+}
+
 function formatDate(input: string) {
   return new Intl.DateTimeFormat("en", {
     month: "short",
     day: "numeric",
     year: "numeric",
   }).format(new Date(input))
+}
+
+function formatExcerpt(excerpt: string, maxLength: number = EXCERPT_LENGTH) {
+  const clean = excerpt.replace(/\s+/g, " ").trim()
+  if (clean.length <= maxLength) {
+    return clean
+  }
+  return `${clean.slice(0, maxLength).trimEnd()}…`
 }
 
 function getInitials(name: string) {

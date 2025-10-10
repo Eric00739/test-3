@@ -14,27 +14,29 @@ export function StickyActions({ onContactScroll, onWhatsApp }: StickyActionsProp
     <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3" aria-live="polite">
       <Button
         size="lg"
-        className="bg-orange-500 hover:bg-orange-600 shadow-lg hover:shadow-xl transition-all duration-300 rounded-full w-14 h-14 p-0 flex items-center justify-center group"
+        className="group flex items-center gap-2 rounded-full bg-orange-500 px-6 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:shadow-xl hover:bg-orange-600"
         onClick={onContactScroll}
         aria-label="Jump to contact section"
       >
+        <span>Get custom quote</span>
         <motion.span
           aria-hidden="true"
           animate={{ x: [0, 4, 0] }}
           transition={{ duration: 1.6, repeat: Infinity }}
           className="inline-flex"
         >
-          <ArrowRight className="h-6 w-6 text-white" />
+          <ArrowRight className="h-5 w-5" />
         </motion.span>
       </Button>
       <Button
         variant="outline"
         size="lg"
-        className="bg-white hover:bg-slate-50 shadow-lg hover:shadow-xl transition-all duration-300 rounded-full w-14 h-14 p-0 flex items-center justify-center border-2"
+        className="flex items-center gap-2 rounded-full border-2 border-slate-200 bg-white px-6 py-4 text-base font-semibold text-slate-700 shadow-lg transition-all duration-300 hover:bg-slate-50 hover:shadow-xl"
         onClick={() => onWhatsApp('floating_button')}
         aria-label="Open WhatsApp quick chat"
       >
-        <MessageCircle className="h-6 w-6 text-green-600" aria-hidden="true" />
+        <MessageCircle className="h-5 w-5 text-green-600" aria-hidden="true" />
+        <span className="text-green-600">Chat on WhatsApp</span>
       </Button>
     </div>
   )
