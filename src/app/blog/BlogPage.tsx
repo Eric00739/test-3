@@ -3,6 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useMemo, useState } from "react"
+import { Button } from "@/components/ui/button"
 import {
   BookOpen,
   Calendar,
@@ -14,6 +15,8 @@ import {
   Globe,
   Heart,
   Linkedin,
+  Mail,
+  MessageCircle,
   Minus,
   Menu,
   Phone,
@@ -403,13 +406,13 @@ export function BlogPage() {
       </div>
 
       <main className="relative z-10 pb-24">
-        {/* Simplified Search Section */}
+        {/* Simplified Hero Section */}
         <section className="bg-white py-8 sm:py-12">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8">
-              <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">FastFunRC Blog</h1>
+              <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">RF/IoT Development & Certification Guide</h1>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Expert insights on RF remotes, IoT solutions, and OEM/ODM manufacturing
+                Practical insights on RF remotes, IoT solutions, and OEM/ODM manufacturing
               </p>
             </div>
             <div className="max-w-2xl mx-auto">
@@ -446,6 +449,76 @@ export function BlogPage() {
                 </div>
               </div>
             </div>
+            
+            {/* Advanced Filters */}
+            <div className="mt-6 flex flex-wrap justify-center gap-2">
+              <div className="flex flex-wrap gap-2">
+                {categories.map((cat) => (
+                  <button
+                    key={cat.key}
+                    type="button"
+                    onClick={() => handleCategoryChange(cat.key)}
+                    className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+                      category === cat.key
+                        ? 'bg-orange-500 text-white'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                  >
+                    {cat.label}
+                  </button>
+                ))}
+              </div>
+              <div className="flex items-center gap-2 ml-4">
+                <span className="text-xs text-gray-600">Sort:</span>
+                <select
+                  value={sortOption}
+                  onChange={(event) => handleSortChange(event.target.value as SortOption)}
+                  className="border border-gray-300 rounded-md px-2 py-1 text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+                >
+                  {sortOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Featured Articles */}
+        <section className="py-8 bg-gray-50">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Featured Topics</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {visibleArticles.slice(0, 4).map((article) => (
+                <div key={article.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                  <div className="relative h-32">
+                    <Image
+                      src={article.image}
+                      alt={article.title}
+                      fill
+                      className="object-cover"
+                      sizes="(min-width: 1280px) 240px, (min-width: 1024px) 220px, (min-width: 640px) 45vw, 90vw"
+                    />
+                    <span className="absolute top-2 right-2 bg-orange-500 text-white text-xs px-2 py-1 rounded">
+                      {article.category}
+                    </span>
+                  </div>
+                  <div className="p-4">
+                    <h3 className="text-sm font-semibold text-gray-900 mb-2 line-clamp-2">{article.title}</h3>
+                    <p className="text-xs text-gray-600 mb-2 line-clamp-2">{formatExcerpt(article.excerpt, 60)}</p>
+                    <div className="flex items-center text-xs text-gray-500">
+                      <span>{article.author}</span>
+                      <span className="mx-1">•</span>
+                      <span>{formatDate(article.date)}</span>
+                      <span className="mx-1">•</span>
+                      <span>{article.readTime}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -453,45 +526,11 @@ export function BlogPage() {
         <section className="py-12">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4 sm:mb-0">Latest Articles</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4 sm:mb-0">All Articles</h2>
               <div className="flex items-center gap-4">
                 <span className="text-sm text-gray-500" aria-live="polite">
                   {filteredCount} {filteredCount === 1 ? "article" : "articles"}
                 </span>
-                <label className="flex items-center gap-2">
-                  <span className="text-sm text-gray-600">Sort:</span>
-                  <select
-                    value={sortOption}
-                    onChange={(event) => handleSortChange(event.target.value as SortOption)}
-                    className="border border-gray-300 rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
-                  >
-                    {sortOptions.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-              </div>
-            </div>
-
-            {/* Category Filter */}
-            <div className="mb-8">
-              <div className="flex flex-wrap gap-2">
-                {categories.map((cat) => (
-                  <button
-                    key={cat.key}
-                    type="button"
-                    onClick={() => handleCategoryChange(cat.key)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                      category === cat.key
-                        ? 'bg-orange-500 text-white'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}
-                  >
-                    {cat.label} ({cat.count})
-                  </button>
-                ))}
               </div>
             </div>
 
@@ -614,17 +653,38 @@ export function BlogPage() {
                   ))}
                 </div>
 
-                {hasMore && (
-                  <div className="text-center mt-12">
+                {/* Pagination */}
+                <div className="flex justify-center mt-12">
+                  <div className="flex items-center gap-2">
                     <button
                       type="button"
-                      onClick={handleLoadMore}
-                      className="px-6 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors"
+                      disabled={displayedCount <= INITIAL_COUNT}
+                      onClick={() => setDisplayedCount(Math.max(INITIAL_COUNT, displayedCount - INITIAL_COUNT))}
+                      className={`px-3 py-2 rounded-md text-sm font-medium ${
+                        displayedCount <= INITIAL_COUNT
+                          ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                          : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
+                      }`}
                     >
-                      Load more articles
+                      Previous
+                    </button>
+                    <span className="px-3 py-2 text-sm text-gray-700">
+                      {Math.ceil(displayedCount / INITIAL_COUNT)} of {Math.ceil(filteredCount / INITIAL_COUNT)}
+                    </span>
+                    <button
+                      type="button"
+                      disabled={displayedCount >= filteredCount}
+                      onClick={() => setDisplayedCount(Math.min(filteredCount, displayedCount + INITIAL_COUNT))}
+                      className={`px-3 py-2 rounded-md text-sm font-medium ${
+                        displayedCount >= filteredCount
+                          ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                          : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
+                      }`}
+                    >
+                      Next
                     </button>
                   </div>
-                )}
+                </div>
 
                 {!filteredCount && (
                   <div className="text-center py-12">
@@ -648,8 +708,59 @@ export function BlogPage() {
         </section>
     </main>
 
-    {/* Simple Footer */}
-    <BlogFooter />
+    {/* Simple Subscription Bar */}
+    <section className="py-8 bg-gray-50">
+      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <h3 className="text-lg font-semibold text-gray-900 mb-1">Get the latest RF/IoT insights</h3>
+            <p className="text-sm text-gray-600">Subscribe to our newsletter for expert tips and industry updates</p>
+          </div>
+          <div className="flex gap-3">
+            <Button
+              variant="outline"
+              className="border-orange-500 text-orange-500 hover:bg-orange-50"
+              onClick={() => window.open('mailto:eric@fastfunrc.com?subject=Newsletter Subscription')}
+            >
+              <Mail size={16} className="mr-2" />
+              Subscribe
+            </Button>
+            <Button
+              className="bg-orange-500 hover:bg-orange-600 text-white"
+              onClick={() => window.open('https://wa.me/8615899648898?text=Hi, I would like to discuss RF/IoT solutions')}
+            >
+              <MessageCircle size={16} className="mr-2" />
+              Chat with Engineer
+            </Button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Minimal Footer */}
+    <footer className="bg-slate-900 text-white py-8">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <Link href="/" className="flex items-center">
+              <Image src="/logo-fastfun-remote.png" alt="FastFun Remote logo" className="h-8 w-auto" />
+            </Link>
+            <span className="text-sm text-slate-400">© {new Date().getFullYear()} FastFun Remote</span>
+          </div>
+          <div className="flex gap-6">
+            <Link href="/blog" className="text-slate-400 hover:text-orange-400 transition-colors text-sm">
+              Blog
+            </Link>
+            <Link href="/#products" className="text-slate-400 hover:text-orange-400 transition-colors text-sm">
+              Products
+            </Link>
+            <Link href="/#contact" className="text-slate-400 hover:text-orange-400 transition-colors text-sm">
+              Contact
+            </Link>
+          </div>
+        </div>
+      </div>
+    </footer>
 
       {modalArticle && (
         <div className={styles.modal} role="dialog" aria-modal="true" aria-labelledby="modal-title">
@@ -858,64 +969,64 @@ function BlogFooter() {
             </div>
           </div>
           <div>
-            <h3 className="mb-4 text-lg font-semibold">Quick links</h3>
+            <h3 className="mb-4 text-lg font-semibold text-white">Quick links</h3>
             <ul className="space-y-3 text-sm text-slate-300">
               <li>
-                <Link href="/" className="hover:text-orange-400">
+                <Link href="/" className="text-slate-300 hover:text-orange-400 transition-colors">
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="/blog" className="hover:text-orange-400">
+                <Link href="/blog" className="text-slate-300 hover:text-orange-400 transition-colors">
                   Blog
                 </Link>
               </li>
               <li>
-                <Link href="/#products" className="hover:text-orange-400">
+                <Link href="/#products" className="text-slate-300 hover:text-orange-400 transition-colors">
                   Products
                 </Link>
               </li>
               <li>
-                <Link href="/#process" className="hover:text-orange-400">
+                <Link href="/#process" className="text-slate-300 hover:text-orange-400 transition-colors">
                   Process
                 </Link>
               </li>
               <li>
-                <Link href="/#contact" className="hover:text-orange-400">
+                <Link href="/#contact" className="text-slate-300 hover:text-orange-400 transition-colors">
                   Contact
                 </Link>
               </li>
             </ul>
           </div>
           <div>
-            <h3 className="mb-4 text-lg font-semibold">Contact</h3>
+            <h3 className="mb-4 text-lg font-semibold text-white">Contact</h3>
             <ul className="space-y-4 text-sm text-slate-300">
               <li className="flex items-start gap-3">
                 <Phone className="mt-1 h-5 w-5 text-orange-400" />
-                <a href="tel:+8615899648898" className="hover:text-orange-400">
+                <a href="tel:+8615899648898" className="text-slate-300 hover:text-orange-400 transition-colors">
                   +86 158 9964 8898
                 </a>
               </li>
               <li className="flex items-start gap-3">
                 <Send className="mt-1 h-5 w-5 text-orange-400" />
-                <a href="mailto:eric@fastfunrc.com" className="hover:text-orange-400">
+                <a href="mailto:eric@fastfunrc.com" className="text-slate-300 hover:text-orange-400 transition-colors">
                   eric@fastfunrc.com
                 </a>
               </li>
               <li className="flex items-start gap-3">
                 <Factory className="mt-1 h-5 w-5 text-orange-400" />
-                <span>8F, Building 1, Huawei Ke Valley, Dalingshan Town, Dongguan, Guangdong, China</span>
+                <span className="text-slate-300">8F, Building 1, Huawei Ke Valley, Dalingshan Town, Dongguan, Guangdong, China</span>
               </li>
             </ul>
           </div>
         </div>
         <div className="mt-12 flex flex-col gap-4 border-t border-slate-800 pt-8 text-sm text-slate-400 sm:flex-row sm:items-center sm:justify-between">
-          <span> {currentYear} FastFun Remote. All rights reserved.</span>
+          <span className="text-slate-400"> {currentYear} FastFun Remote. All rights reserved.</span>
           <div className="flex flex-wrap gap-6">
-            <Link href="/#contact" className="hover:text-orange-400">
+            <Link href="/#contact" className="text-slate-400 hover:text-orange-400 transition-colors">
               Request support
             </Link>
-            <Link href="/#products" className="hover:text-orange-400">
+            <Link href="/#products" className="text-slate-400 hover:text-orange-400 transition-colors">
               View products
             </Link>
           </div>
