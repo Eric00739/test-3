@@ -309,19 +309,21 @@ export default function ProductsPage() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <Button 
-                size="lg" 
-                className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 text-lg"
+              <Button
+                size="lg"
+                className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 text-lg shadow-lg"
                 onClick={() => openRfqModal('hero_consultation')}
+                style={{ color: 'white' }}
               >
                 <Phone className="h-5 w-5 mr-2" />
                 Consult Our Engineers
               </Button>
-              <Button 
-                variant="outline" 
-                size="lg" 
-                className="border-white text-white hover:bg-white hover:text-slate-900 px-8 py-4 text-lg"
+              <Button
+                variant="outline"
+                size="lg"
+                className="border-white text-white hover:bg-white hover:text-slate-900 px-8 py-4 text-lg shadow-lg"
                 onClick={() => document.getElementById('categories')?.scrollIntoView({ behavior: 'smooth' })}
+                style={{ color: 'white' }}
               >
                 Explore Categories
                 <ArrowRight className="h-5 w-5 ml-2" />
@@ -434,9 +436,10 @@ export default function ProductsPage() {
                     </div>
 
                     {/* CTA Button */}
-                    <Button 
-                      className={`w-full bg-gradient-to-r ${category.color} hover:opacity-90 text-white`}
+                    <Button
+                      className={`w-full bg-gradient-to-r ${category.color} hover:opacity-90 text-white shadow-lg`}
                       onClick={() => handleCategoryClick(category.id)}
+                      style={{ color: 'white' }}
                     >
                       {category.ctaText}
                       <ArrowRight className="h-4 w-4 ml-2" />
@@ -652,7 +655,11 @@ export default function ProductsPage() {
                 </div>
                 <h3 className="text-lg font-semibold mb-2">Download Catalog</h3>
                 <p className="text-sm text-blue-100 mb-4">Complete product specifications and pricing</p>
-                <Button variant="outline" className="border-white text-white hover:bg-white hover:text-slate-900 w-full">
+                <Button
+                  variant="outline"
+                  className="border-white text-white hover:bg-white hover:text-slate-900 w-full"
+                  style={{ color: 'white' }}
+                >
                   Download PDF
                 </Button>
               </div>
@@ -663,7 +670,11 @@ export default function ProductsPage() {
                 </div>
                 <h3 className="text-lg font-semibold mb-2">Quick Consultation</h3>
                 <p className="text-sm text-blue-100 mb-4">15-minute call with our product experts</p>
-                <Button className="bg-green-500 hover:bg-green-600 text-white w-full" onClick={() => openRfqModal('quick_consult')}>
+                <Button
+                  className="bg-green-500 hover:bg-green-600 text-white w-full shadow-lg"
+                  onClick={() => openRfqModal('quick_consult')}
+                  style={{ color: 'white' }}
+                >
                   Schedule Call
                 </Button>
               </div>
@@ -674,25 +685,31 @@ export default function ProductsPage() {
                 </div>
                 <h3 className="text-lg font-semibold mb-2">Get Quote</h3>
                 <p className="text-sm text-blue-100 mb-4">Custom pricing for your project requirements</p>
-                <Button className="bg-blue-500 hover:bg-blue-600 text-white w-full" onClick={() => openRfqModal('product_quote')}>
+                <Button
+                  className="bg-blue-500 hover:bg-blue-600 text-white w-full shadow-lg"
+                  onClick={() => openRfqModal('product_quote')}
+                  style={{ color: 'white' }}
+                >
                   Request Quote
                 </Button>
               </div>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg" 
-                className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 text-lg"
+              <Button
+                size="lg"
+                className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 text-lg shadow-lg"
                 onClick={() => openRfqModal('main_cta')}
+                style={{ color: 'white' }}
               >
                 <Phone className="h-5 w-5 mr-2" />
                 Contact Sales Team
               </Button>
-              <Button 
-                variant="outline" 
-                size="lg" 
-                className="border-white text-white hover:bg-white hover:text-slate-900 px-8 py-4 text-lg"
+              <Button
+                variant="outline"
+                size="lg"
+                className="border-white text-white hover:bg-white hover:text-slate-900 px-8 py-4 text-lg shadow-lg"
+                style={{ color: 'white' }}
               >
                 <MessageCircle className="h-5 w-5 mr-2" />
                 WhatsApp Support
