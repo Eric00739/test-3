@@ -38,6 +38,28 @@ export default function Home() {
     console.log(eventName, payload ?? {})
   }
 
+  // Data definitions
+  const testimonials = [
+    {
+      quote: 'FastFun Remote delivered exceptional quality with 42% faster time-to-market. Their engineering team solved our RF challenges that other vendors couldn\'t.',
+      company: 'Leading EU Gate Control Brand',
+      result: '42% Faster Time-to-Market',
+      savings: '€2.3M Savings Over 3 Years'
+    },
+    {
+      quote: 'The reliability is outstanding - 99.8% field reliability with zero warranty claims. Their responsive engineering support made all the difference.',
+      company: 'US Home Automation Company',
+      result: '99.8% Field Reliability',
+      savings: '$1.8M Reduction in Support Costs'
+    },
+    {
+      quote: 'From concept to production in just 12 weeks. Their in-house testing and certification expertise saved us months of development time.',
+      company: 'APAC Lighting Brand',
+      result: 'DPPM Under 200',
+      savings: '30% Cost Reduction vs Local Manufacturing'
+    }
+  ]
+
   // Performance monitoring
   useEffect(() => {
     if (typeof window !== 'undefined' && 'performance' in window) {
@@ -75,7 +97,7 @@ export default function Home() {
       setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)
     }, 5000)
     return () => clearInterval(interval)
-  }, [])
+  }, [testimonials])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -432,26 +454,6 @@ export default function Home() {
     }
   ]
 
-  const testimonials = [
-    {
-      quote: 'FastFun Remote delivered exceptional quality with 42% faster time-to-market. Their engineering team solved our RF challenges that other vendors couldn\'t.',
-      company: 'Leading EU Gate Control Brand',
-      result: '42% Faster Time-to-Market',
-      savings: '€2.3M Savings Over 3 Years'
-    },
-    {
-      quote: 'The reliability is outstanding - 99.8% field reliability with zero warranty claims. Their responsive engineering support made all the difference.',
-      company: 'US Home Automation Company',
-      result: '99.8% Field Reliability',
-      savings: '$1.8M Reduction in Support Costs'
-    },
-    {
-      quote: 'From concept to production in just 12 weeks. Their in-house testing and certification expertise saved us months of development time.',
-      company: 'APAC Lighting Brand',
-      result: 'DPPM Under 200',
-      savings: '30% Cost Reduction vs Local Manufacturing'
-    }
-  ]
 
   return (
     <div className="min-h-screen bg-white">
