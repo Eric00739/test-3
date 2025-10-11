@@ -1720,7 +1720,7 @@ export default function Home() {
                   <Phone className="h-5 w-5 mr-2" />
                   Consult Our Engineers
                 </Button>
-                <Button variant="outline" size="lg" className="border-slate-300 text-slate-700 hover:bg-slate-50" type="button" onClick={() => openRfqModal('footer_quote')}>
+                <Button variant="outline" size="lg" className="border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900" type="button" onClick={() => openRfqModal('footer_quote')}>
                   <MessageCircle className="h-5 w-5 mr-2" />
                   Technical Discussion
                 </Button>
@@ -2015,7 +2015,7 @@ export default function Home() {
                     <Send className="h-5 w-5 mr-2" />
                     Submit Request
                   </Button>
-                  <Button variant="outline" size="lg" className="border-slate-300 text-slate-700 hover:bg-slate-50 px-8 py-4 text-lg">
+                  <Button variant="outline" size="lg" className="border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900 px-8 py-4 text-lg">
                     <Download className="h-5 w-5 mr-2" />
                     Download NDA Template
                   </Button>
@@ -2096,7 +2096,7 @@ export default function Home() {
               </a>
               <Button
                 variant="outline"
-                className="border-slate-300 text-slate-700 hover:bg-slate-50"
+                className="border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900"
                 onClick={() => setIsWhatsAppOpen(false)}
               >
                 Later

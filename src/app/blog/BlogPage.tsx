@@ -70,8 +70,8 @@ type SharePlatform = "linkedin" | "facebook" | "twitter"
 
 const sortOptions: { value: SortOption; label: string }[] = [
   { value: "newest", label: "Latest" },
-  { value: "views", label: "Most Viewed" },
-  { value: "likes", label: "Top Rated" },
+  { value: "views", label: "Most Read" },
+  { value: "likes", label: "Editor's Pick" },
 ]
 
 const FALLBACK_ORIGIN = "https://fastfunrc.com"
@@ -90,6 +90,9 @@ export function BlogPage() {
   const [showSuggestions, setShowSuggestions] = useState(false)
   const [showScrollTop, setShowScrollTop] = useState(false)
   const [sortOption, setSortOption] = useState<SortOption>("newest")
+  const [selectedTags, setSelectedTags] = useState<string[]>([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const ITEMS_PER_PAGE = 12
 
   const categories = useMemo(() => {
     const counts = blogData.reduce<Record<string, number>>((acc, item) => {
@@ -214,7 +217,11 @@ export function BlogPage() {
     return result
   }, [category, searchTerm, sortOption, likes])
 
-  const visibleArticles = useMemo(() => filteredArticles.slice(0, displayedCount), [filteredArticles, displayedCount])
+  const totalPages = Math.ceil(filteredArticles.length / ITEMS_PER_PAGE)
+  const visibleArticles = useMemo(() => {
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
+    return filteredArticles.slice(startIndex, startIndex + ITEMS_PER_PAGE)
+  }, [filteredArticles, currentPage])
 
   useEffect(() => {
     if (!searchTerm) {
@@ -264,17 +271,37 @@ export function BlogPage() {
 
   const handleCategoryChange = (value: string) => {
     setCategory(value)
-    setDisplayedCount(INITIAL_COUNT)
+    setCurrentPage(1)
     showToast(value === "all" ? "Showing all articles" : `Filtered by ${value}`)
+  }
+
+  const handleTagToggle = (tag: string) => {
+    setSelectedTags(prev => {
+      if (prev.includes(tag)) {
+        return prev.filter(t => t !== tag)
+      } else {
+        return [...prev, tag]
+      }
+    })
+    setCurrentPage(1)
+  }
+
+  const clearAllFilters = () => {
+    setCategory("all")
+    setSelectedTags([])
+    setSearchTerm("")
+    setSortOption("newest")
+    setCurrentPage(1)
+    showToast("All filters cleared")
   }
 
   const handleSortChange = (value: SortOption) => {
     setSortOption(value)
-    setDisplayedCount(INITIAL_COUNT)
+    setCurrentPage(1)
     if (value === "views") {
-      showToast("Showing most viewed articles")
+      showToast("Showing most read articles")
     } else if (value === "likes") {
-      showToast("Showing top rated articles")
+      showToast("Showing editor's picks")
     } else {
       showToast("Sorted by latest articles")
     }
@@ -309,8 +336,10 @@ export function BlogPage() {
     }
   }
 
-  const handleLoadMore = () => {
-    setDisplayedCount((prev) => prev + 3)
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page)
+    // Scroll to top of articles list
+    document.getElementById('articles-list')?.scrollIntoView({ behavior: 'smooth' })
   }
 
   const toggleSave = (articleId: number) => {
@@ -409,6 +438,19 @@ export function BlogPage() {
         {/* Simplified Hero Section */}
         <section className="bg-white py-8 sm:py-12">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            {/* Breadcrumb */}
+            <nav className="flex items-center text-sm text-gray-500 mb-4" aria-label="Breadcrumb">
+              <Link href="/" className="hover:text-gray-700 transition-colors">Home</Link>
+              <span className="mx-2">/</span>
+              <span className="text-gray-900">Blog</span>
+              {category !== "all" && (
+                <>
+                  <span className="mx-2">/</span>
+                  <span className="text-gray-900">{category}</span>
+                </>
+              )}
+            </nav>
+            
             <div className="text-center mb-8">
               <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">RF/IoT Development & Certification Guide</h1>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">
