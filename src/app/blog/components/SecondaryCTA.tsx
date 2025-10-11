@@ -189,14 +189,14 @@ export function SecondaryCTA() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               variant="outline"
-              className="border-white text-white hover:bg-white hover:text-orange-600 px-6 py-3 rounded-full font-medium flex items-center gap-2"
+              className="bg-white text-orange-600 hover:bg-orange-50 border-white hover:border-orange-200 px-6 py-3 rounded-full font-bold flex items-center gap-2 shadow-lg"
             >
               <Calendar size={18} />
               Schedule Consultation
             </Button>
             <Button
               variant="outline"
-              className="border-white text-white hover:bg-white hover:text-orange-600 px-6 py-3 rounded-full font-medium flex items-center gap-2"
+              className="bg-white text-orange-600 hover:bg-orange-50 border-white hover:border-orange-200 px-6 py-3 rounded-full font-bold flex items-center gap-2 shadow-lg"
             >
               <Phone size={18} />
               Call Us Now
