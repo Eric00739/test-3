@@ -3,34 +3,27 @@
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useMemo, useState } from "react"
-import { Button } from "@/components/ui/button"
 import {
   BookOpen,
   Calendar,
   Clock3,
   Eye,
-  Factory,
   Facebook,
-  FileText,
-  Globe,
   Heart,
   Linkedin,
   Mail,
   MessageCircle,
   Minus,
-  Menu,
-  Phone,
   Plus,
   Search,
-  Send,
   Share2,
-  Shield,
   Tag,
   Twitter,
   User,
   X,
 } from "lucide-react"
 
+import { Button } from "@/components/ui/button"
 import styles from "./BlogPage.module.css"
 import { blogData, type BlogArticle } from "./BlogData"
 
@@ -90,9 +83,6 @@ export function BlogPage() {
   const [showSuggestions, setShowSuggestions] = useState(false)
   const [showScrollTop, setShowScrollTop] = useState(false)
   const [sortOption, setSortOption] = useState<SortOption>("newest")
-  const [selectedTags, setSelectedTags] = useState<string[]>([])
-  const [currentPage, setCurrentPage] = useState(1)
-  const ITEMS_PER_PAGE = 12
 
   const categories = useMemo(() => {
     const counts = blogData.reduce<Record<string, number>>((acc, item) => {
@@ -108,32 +98,6 @@ export function BlogPage() {
         count,
       })),
     ]
-  }, [])
-
-  const totalArticles = blogData.length
-  const totalViews = blogData.reduce((acc, item) => acc + item.views, 0)
-  const totalLikes = blogData.reduce((acc, item) => acc + item.likes, 0)
-  const totalAuthors = new Set(blogData.map((item) => item.author)).size
-
-  const stats = [
-    { icon: <BookOpen size={22} />, label: "Published Articles", value: totalArticles },
-    { icon: <User size={22} />, label: "Contributing Authors", value: totalAuthors },
-    { icon: <Eye size={22} />, label: "Total Article Views", value: totalViews },
-    { icon: <Heart size={22} />, label: "Reader Likes Logged", value: totalLikes },
-  ]
-
-  const topTags = useMemo(() => {
-    const counts = blogData.reduce<Record<string, number>>((acc, article) => {
-      article.tags.forEach((tag) => {
-        acc[tag] = (acc[tag] ?? 0) + 1
-      })
-      return acc
-    }, {})
-
-    return Object.entries(counts)
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 8)
-      .map(([tag]) => tag)
   }, [])
 
   useEffect(() => {
@@ -217,11 +181,23 @@ export function BlogPage() {
     return result
   }, [category, searchTerm, sortOption, likes])
 
-  const totalPages = Math.ceil(filteredArticles.length / ITEMS_PER_PAGE)
-  const visibleArticles = useMemo(() => {
-    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
-    return filteredArticles.slice(startIndex, startIndex + ITEMS_PER_PAGE)
-  }, [filteredArticles, currentPage])
+  const featuredArticles = useMemo(() => {
+    const highlighted = filteredArticles.filter((article) => article.featured)
+    if (highlighted.length >= 4) {
+      return highlighted.slice(0, 4)
+    }
+
+    const fallback = filteredArticles
+      .filter((article) => !article.featured)
+      .sort((a, b) => b.views - a.views || toDate(b.date).getTime() - toDate(a.date).getTime())
+
+    return [...highlighted, ...fallback].slice(0, 4)
+  }, [filteredArticles])
+
+  const visibleArticles = useMemo(
+    () => filteredArticles.slice(0, displayedCount),
+    [filteredArticles, displayedCount],
+  )
 
   useEffect(() => {
     if (!searchTerm) {
@@ -271,33 +247,13 @@ export function BlogPage() {
 
   const handleCategoryChange = (value: string) => {
     setCategory(value)
-    setCurrentPage(1)
+    setDisplayedCount(INITIAL_COUNT)
     showToast(value === "all" ? "Showing all articles" : `Filtered by ${value}`)
-  }
-
-  const handleTagToggle = (tag: string) => {
-    setSelectedTags(prev => {
-      if (prev.includes(tag)) {
-        return prev.filter(t => t !== tag)
-      } else {
-        return [...prev, tag]
-      }
-    })
-    setCurrentPage(1)
-  }
-
-  const clearAllFilters = () => {
-    setCategory("all")
-    setSelectedTags([])
-    setSearchTerm("")
-    setSortOption("newest")
-    setCurrentPage(1)
-    showToast("All filters cleared")
   }
 
   const handleSortChange = (value: SortOption) => {
     setSortOption(value)
-    setCurrentPage(1)
+    setDisplayedCount(INITIAL_COUNT)
     if (value === "views") {
       showToast("Showing most read articles")
     } else if (value === "likes") {
@@ -309,6 +265,7 @@ export function BlogPage() {
 
   const handleSearchChange = (value: string) => {
     setSearchTerm(value)
+    setDisplayedCount(INITIAL_COUNT)
   }
 
   const handleSuggestionSelect = (suggestion: Suggestion) => {
@@ -336,11 +293,6 @@ export function BlogPage() {
     }
   }
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page)
-    // Scroll to top of articles list
-    document.getElementById('articles-list')?.scrollIntoView({ behavior: 'smooth' })
-  }
 
   const toggleSave = (articleId: number) => {
     setSavedArticles((prev) => {
@@ -424,7 +376,6 @@ export function BlogPage() {
   }
 
   const filteredCount = filteredArticles.length
-  const hasMore = displayedCount < filteredCount
 
   return (
     <div className={styles.page}>
@@ -532,35 +483,39 @@ export function BlogPage() {
         <section className="py-8 bg-gray-50">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Featured Topics</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {visibleArticles.slice(0, 4).map((article) => (
-                <div key={article.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                  <div className="relative h-32">
-                    <Image
-                      src={article.image}
-                      alt={article.title}
-                      fill
-                      className="object-cover"
-                      sizes="(min-width: 1280px) 240px, (min-width: 1024px) 220px, (min-width: 640px) 45vw, 90vw"
-                    />
-                    <span className="absolute top-2 right-2 bg-orange-500 text-white text-xs px-2 py-1 rounded">
-                      {article.category}
-                    </span>
-                  </div>
-                  <div className="p-4">
-                    <h3 className="text-sm font-semibold text-gray-900 mb-2 line-clamp-2">{article.title}</h3>
-                    <p className="text-xs text-gray-600 mb-2 line-clamp-2">{formatExcerpt(article.excerpt, 60)}</p>
-                    <div className="flex items-center text-xs text-gray-500">
-                      <span>{article.author}</span>
-                      <span className="mx-1">•</span>
-                      <span>{formatDate(article.date)}</span>
-                      <span className="mx-1">•</span>
-                      <span>{article.readTime}</span>
+            {featuredArticles.length ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {featuredArticles.map((article) => (
+                  <div key={article.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                    <div className="relative h-32">
+                      <Image
+                        src={article.image}
+                        alt={article.title}
+                        fill
+                        className="object-cover"
+                        sizes="(min-width: 1280px) 240px, (min-width: 1024px) 220px, (min-width: 640px) 45vw, 90vw"
+                      />
+                      <span className="absolute top-2 right-2 bg-orange-500 text-white text-xs px-2 py-1 rounded">
+                        {article.category}
+                      </span>
+                    </div>
+                    <div className="p-4">
+                      <h3 className="text-sm font-semibold text-gray-900 mb-2 line-clamp-2">{article.title}</h3>
+                      <p className="text-xs text-gray-600 mb-2 line-clamp-2">{formatExcerpt(article.excerpt, 60)}</p>
+                      <div className="flex items-center text-xs text-gray-500">
+                        <span>{article.author}</span>
+                        <span className="mx-1 text-gray-300" aria-hidden="true">&middot;</span>
+                        <span>{formatDate(article.date)}</span>
+                        <span className="mx-1 text-gray-300" aria-hidden="true">&middot;</span>
+                        <span>{article.readTime}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-gray-500">No highlighted articles for the current filters.</p>
+            )}
           </div>
         </section>
 
@@ -618,12 +573,11 @@ export function BlogPage() {
                       <div className="p-6">
                         <div className="flex items-center text-sm text-gray-500 mb-3">
                           <span>{article.author}</span>
-                          <span className="mx-2">•</span>
+                          <span className="mx-2 text-gray-300" aria-hidden="true">&middot;</span>
                           <span>{formatDate(article.date)}</span>
-                          <span className="mx-2">•</span>
+                          <span className="mx-2 text-gray-300" aria-hidden="true">&middot;</span>
                           <span>{article.readTime}</span>
                         </div>
-
                         <h3 className="text-xl font-semibold text-gray-900 mb-3">{article.title}</h3>
                         <p className="text-gray-600 mb-4">{formatExcerpt(article.excerpt)}</p>
 
@@ -900,192 +854,6 @@ export function BlogPage() {
       </div>
 
     </div>
-  )
-}
-
-function BlogHeader() {
-  const [menuOpen, setMenuOpen] = useState(false)
-  const navigation = [
-    { href: "/", label: "Home" },
-    { href: "/blog", label: "Blog", current: true },
-    { href: "/#products", label: "Products" },
-    { href: "/#contact", label: "Contact" },
-  ]
-
-  return (
-    <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/90 backdrop-blur">
-      <div className="mx-auto max-w-6xl px-4 py-4">
-        <div className="flex items-center justify-between gap-4">
-          <Link href="/" className="flex items-center gap-3">
-            <Image src="/logo-fastfun-remote.png" alt="FastFun Remote logo" priority className="h-10 w-auto" width={160} height={48} sizes="(max-width: 768px) 120px, 160px" />
-            <span className="sr-only">FastFun Remote homepage</span>
-          </Link>
-
-          <nav className="hidden items-center gap-6 text-sm font-semibold text-slate-600 sm:flex">
-            {navigation.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                aria-current={item.current ? "page" : undefined}
-                className={item.current ? "text-orange-500" : "transition-colors hover:text-orange-500"}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-
-          <div className="hidden items-center gap-3 sm:flex">
-            <Link
-              href="mailto:eric@fastfunrc.com"
-              className="inline-flex items-center gap-2 rounded-full bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow transition-colors hover:bg-orange-600"
-            >
-              <Send size={16} />
-              Email Us
-            </Link>
-          </div>
-
-          <button
-            type="button"
-            onClick={() => setMenuOpen((prev) => !prev)}
-            className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white p-2 text-slate-600 transition-colors hover:bg-slate-50 sm:hidden"
-            aria-label="Toggle navigation"
-            aria-expanded={menuOpen}
-          >
-            {menuOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
-        </div>
-
-        {menuOpen && (
-          <div className="mt-3 space-y-3 border-t border-slate-200 pt-3 sm:hidden">
-            <nav className="flex flex-col gap-2 text-sm font-semibold text-slate-600">
-              {navigation.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  aria-current={item.current ? "page" : undefined}
-                  className="rounded-lg px-3 py-2 transition-colors hover:bg-slate-100 hover:text-orange-500"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
-            <Link
-              href="mailto:eric@fastfunrc.com"
-              className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow transition-colors hover:bg-orange-600"
-              onClick={() => setMenuOpen(false)}
-            >
-              <Send size={16} />
-              Email Us
-            </Link>
-          </div>
-        )}
-      </div>
-    </header>
-  )
-}
-
-function BlogFooter() {
-  const currentYear = new Date().getFullYear()
-
-  return (
-    <footer className="bg-slate-900 text-white">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
-          <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center justify-center sm:justify-start">
-              <Image src="/logo-fastfun-remote.png" alt="FastFun Remote logo" className="h-12 w-auto" width={200} height={60} sizes="(max-width: 768px) 150px, 200px" />
-            </Link>
-            <p className="mt-6 text-sm leading-relaxed text-slate-300">
-              FastFun Remote is a trusted OEM/ODM partner delivering reliable RF remotes, receivers, and IoT solutions with ISO 9001 certified manufacturing.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-4 text-sm text-slate-400">
-              <span className="flex items-center gap-2">
-                <Globe className="h-4 w-4 text-orange-400" />
-                Global shipping support
-              </span>
-              <span className="flex items-center gap-2">
-                <Shield className="h-4 w-4 text-orange-400" />
-                ISO 9001 certified
-              </span>
-            </div>
-          </div>
-          <div>
-            <h3 className="mb-4 text-lg font-semibold text-white">Quick links</h3>
-            <ul className="space-y-3 text-sm text-slate-300">
-              <li>
-                <Link href="/" className="text-slate-300 hover:text-orange-400 transition-colors">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link href="/blog" className="text-slate-300 hover:text-orange-400 transition-colors">
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link href="/#products" className="text-slate-300 hover:text-orange-400 transition-colors">
-                  Products
-                </Link>
-              </li>
-              <li>
-                <Link href="/#process" className="text-slate-300 hover:text-orange-400 transition-colors">
-                  Process
-                </Link>
-              </li>
-              <li>
-                <Link href="/#contact" className="text-slate-300 hover:text-orange-400 transition-colors">
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="mb-4 text-lg font-semibold text-white">Contact</h3>
-            <ul className="space-y-4 text-sm text-slate-300">
-              <li className="flex items-start gap-3">
-                <Phone className="mt-1 h-5 w-5 text-orange-400" />
-                <a href="tel:+8615899648898" className="text-slate-300 hover:text-orange-400 transition-colors">
-                  +86 158 9964 8898
-                </a>
-              </li>
-              <li className="flex items-start gap-3">
-                <Send className="mt-1 h-5 w-5 text-orange-400" />
-                <a href="mailto:eric@fastfunrc.com" className="text-slate-300 hover:text-orange-400 transition-colors">
-                  eric@fastfunrc.com
-                </a>
-              </li>
-              <li className="flex items-start gap-3">
-                <Factory className="mt-1 h-5 w-5 text-orange-400" />
-                <span className="text-slate-300">8F, Building 1, Huawei Ke Valley, Dalingshan Town, Dongguan, Guangdong, China</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className="mt-12 flex flex-col gap-4 border-t border-slate-800 pt-8 text-sm text-slate-400 sm:flex-row sm:items-center sm:justify-between">
-          <span className="text-slate-400"> {currentYear} FastFun Remote. All rights reserved.</span>
-          <div className="flex flex-wrap gap-6">
-            <Link href="/#contact" className="text-slate-400 hover:text-orange-400 transition-colors">
-              Request support
-            </Link>
-            <Link href="/#products" className="text-slate-400 hover:text-orange-400 transition-colors">
-              View products
-            </Link>
-          </div>
-        </div>
-      </div>
-    </footer>
-  )
-}
-
-function RocketIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
-      <path d="m4 13-1 4 4-1 10-10a3 3 0 1 0-4.2-4.3L4 13Z" />
-      <path d="m2 22 5-5" />
-      <path d="M4 13a3.32 3.32 0 1 0 4.7 4.7" />
-      <path d="m7.5 10.5 2 2" />
-    </svg>
   )
 }
 
