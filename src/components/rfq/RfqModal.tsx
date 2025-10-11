@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect, useRef, useMemo } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import { MessageCircle, Send, Check, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -212,196 +212,190 @@ export function RfqModal({ open, onClose, onSubmit, onDownloadTemplate }: RfqMod
     }
   }, [open]);
 
+  // 条件渲染而不是使用AnimatePresence
+  if (!open) return null;
+
   return (
-    <AnimatePresence>
-      {open && (
-        <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center px-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
-          <motion.button
-            type="button"
-            className="absolute inset-0 bg-slate-900/70"
-            onClick={onClose}
-            aria-label="Close RFQ overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          />
-          
-          <motion.div
-            role="dialog"
-            aria-modal="true"
-            aria-label="Request a custom quotation"
-            className="relative z-10 w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl"
-            style={{ maxHeight: '420px' }}
-            initial={{ scale: 0.95, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.95, opacity: 0 }}
-          >
-            {/* 成功状态 */}
-            {isSubmitted ? (
-              <div className="text-center py-8">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Check className="h-8 w-8 text-green-600" />
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  Thanks! Check your inbox
-                </h3>
-                <p className="text-sm text-slate-600">
-                  Reply with any drawings/BOM. Typical response <12h.
-                </p>
-              </div>
-            ) : (
-              <>
-                {/* Header */}
-                <header className="mb-6 text-center">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-1">
-                    Get your RFQ in 24h
-                  </h3>
-                  <p className="text-sm text-slate-500">
-                    Two quick fields. We'll reply within 12 hours.
-                  </p>
-                </header>
+    <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+      <motion.button
+        type="button"
+        className="absolute inset-0 bg-slate-900/70"
+        onClick={onClose}
+        aria-label="Close RFQ overlay"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      />
+      
+      <motion.div
+        role="dialog"
+        aria-modal="true"
+        aria-label="Request a custom quotation"
+        className="relative z-10 w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl"
+        style={{ maxHeight: '420px' }}
+        initial={{ scale: 0.95, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.95, opacity: 0 }}
+      >
+        {/* 成功状态 */}
+        {isSubmitted ? (
+          <div className="text-center py-8">
+            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Check className="h-8 w-8 text-green-600" />
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              Thanks! Check your inbox
+            </h3>
+            <p className="text-sm text-slate-600">
+              Reply with any drawings/BOM. Typical response less than 12h.
+            </p>
+          </div>
+        ) : (
+          <>
+            {/* Header */}
+            <header className="mb-6 text-center">
+              <h3 className="text-xl font-semibold text-gray-900 mb-1">
+                Get your RFQ in 24h
+              </h3>
+              <p className="text-sm text-slate-500">
+                Two quick fields. We'll reply within 12 hours.
+              </p>
+            </header>
 
-                {/* Honeypot field (hidden from users) */}
-                <input
-                  ref={honeypotRef}
-                  type="text"
-                  name="website"
-                  className="sr-only"
-                  tabIndex={-1}
-                  autoComplete="off"
+            {/* Honeypot field (hidden from users) */}
+            <input
+              ref={honeypotRef}
+              type="text"
+              name="website"
+              className="sr-only"
+              tabIndex={-1}
+              autoComplete="off"
+            />
+
+            {/* Form */}
+            <div className="space-y-4">
+              {/* Email field */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Email <span className="text-orange-500">*</span>
+                </label>
+                <Input
+                  ref={emailInputRef}
+                  type="email"
+                  value={email}
+                  onChange={handleEmailChange}
+                  onKeyDown={(e) => handleKeyDown(e, 'email')}
+                  placeholder="you@company.com"
+                  autoComplete="email"
+                  className={emailError ? 'border-red-500' : ''}
+                  aria-required="true"
                 />
-
-                {/* Form */}
-                <div className="space-y-4">
-                  {/* Email field */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Email <span className="text-orange-500">*</span>
-                    </label>
-                    <Input
-                      ref={emailInputRef}
-                      type="email"
-                      value={email}
-                      onChange={handleEmailChange}
-                      onKeyDown={(e) => handleKeyDown(e, 'email')}
-                      placeholder="you@company.com"
-                      autoComplete="email"
-                      className={emailError ? 'border-red-500' : ''}
-                      aria-required="true"
-                    />
-                    {emailError && (
-                      <p className="mt-1 text-xs text-red-600 flex items-center">
-                        <AlertCircle className="h-3 w-3 mr-1" />
-                        {emailError}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Name field */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Name <span className="text-orange-500">*</span>
-                    </label>
-                    <Input
-                      ref={nameInputRef}
-                      type="text"
-                      value={name}
-                      onChange={handleNameChange}
-                      onKeyDown={(e) => handleKeyDown(e, 'name')}
-                      placeholder="Your name"
-                      autoComplete="name"
-                      className={nameError ? 'border-red-500' : ''}
-                      aria-required="true"
-                    />
-                    {nameError && (
-                      <p className="mt-1 text-xs text-red-600 flex items-center">
-                        <AlertCircle className="h-3 w-3 mr-1" />
-                        {nameError}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Country field (optional) */}
-                  <div className="relative">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Country/Region
-                    </label>
-                    <Input
-                      ref={countryInputRef}
-                      type="text"
-                      value={country}
-                      onChange={handleCountryChange}
-                      onKeyDown={(e) => handleKeyDown(e, 'country')}
-                      onFocus={() => setShowCountryDropdown(true)}
-                      placeholder="Country (optional)"
-                      onBlur={() => setTimeout(() => setShowCountryDropdown(false), 200)}
-                    />
-                    
-                    {/* Country dropdown */}
-                    {showCountryDropdown && country && (
-                      <div className="absolute z-20 w-full mt-1 bg-white border border-gray-200 rounded-md shadow-lg max-h-40 overflow-y-auto">
-                        {filteredCountries.map((countryName) => (
-                          <button
-                            key={countryName}
-                            type="button"
-                            className="w-full text-left px-3 py-2 text-sm hover:bg-gray-100 focus:bg-gray-100 focus:outline-none"
-                            onClick={() => selectCountry(countryName)}
-                          >
-                            {countryName}
-                          </button>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Submit button */}
-                <Button
-                  type="button"
-                  onClick={handleSubmit}
-                  className="w-full mt-6 bg-orange-500 hover:bg-orange-600 text-white"
-                  style={{ color: 'white' }}
-                >
-                  <Send className="h-4 w-4 mr-2" />
-                  Send my RFQ
-                </Button>
-
-                {/* Footer links */}
-                <div className="mt-4 text-center">
-                  <p className="text-xs text-slate-500 mb-2">
-                    Need to attach files or an NDA? Reply to the confirmation email.
+                {emailError && (
+                  <p className="mt-1 text-xs text-red-600 flex items-center">
+                    <AlertCircle className="h-3 w-3 mr-1" />
+                    {emailError}
                   </p>
-                  <div className="flex justify-center gap-4 text-xs">
-                    <a 
-                      href="#" 
-                      className="text-slate-500 hover:text-slate-700"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        // 这里可以添加隐私政策链接
-                      }}
-                    >
-                      Privacy
-                    </a>
-                    <button
-                      type="button"
-                      className="text-green-600 hover:text-green-700"
-                      onClick={() => onSubmit('https://wa.me/8615899648898')}
-                    >
-                      <MessageCircle className="h-3 w-3 inline mr-1" />
-                      Chat on WhatsApp
-                    </button>
+                )}
+              </div>
+
+              {/* Name field */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Name <span className="text-orange-500">*</span>
+                </label>
+                <Input
+                  ref={nameInputRef}
+                  type="text"
+                  value={name}
+                  onChange={handleNameChange}
+                  onKeyDown={(e) => handleKeyDown(e, 'name')}
+                  placeholder="Your name"
+                  autoComplete="name"
+                  className={nameError ? 'border-red-500' : ''}
+                  aria-required="true"
+                />
+                {nameError && (
+                  <p className="mt-1 text-xs text-red-600 flex items-center">
+                    <AlertCircle className="h-3 w-3 mr-1" />
+                    {nameError}
+                  </p>
+                )}
+              </div>
+
+              {/* Country field (optional) */}
+              <div className="relative">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Country/Region
+                </label>
+                <Input
+                  ref={countryInputRef}
+                  type="text"
+                  value={country}
+                  onChange={handleCountryChange}
+                  onKeyDown={(e) => handleKeyDown(e, 'country')}
+                  onFocus={() => setShowCountryDropdown(true)}
+                  placeholder="Country (optional)"
+                  onBlur={() => setTimeout(() => setShowCountryDropdown(false), 200)}
+                />
+                
+                {/* Country dropdown */}
+                {showCountryDropdown && country && (
+                  <div className="absolute z-20 w-full mt-1 bg-white border border-gray-200 rounded-md shadow-lg max-h-40 overflow-y-auto">
+                    {filteredCountries.map((countryName) => (
+                      <button
+                        key={countryName}
+                        type="button"
+                        className="w-full text-left px-3 py-2 text-sm hover:bg-gray-100 focus:bg-gray-100 focus:outline-none"
+                        onClick={() => selectCountry(countryName)}
+                      >
+                        {countryName}
+                      </button>
+                    ))}
                   </div>
-                </div>
-              </>
-            )}
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+                )}
+              </div>
+            </div>
+
+            {/* Submit button */}
+            <Button
+              type="button"
+              onClick={handleSubmit}
+              className="w-full mt-6 bg-orange-500 hover:bg-orange-600 text-white"
+              style={{ color: 'white' }}
+            >
+              <Send className="h-4 w-4 mr-2" />
+              Send my RFQ
+            </Button>
+
+            {/* Footer links */}
+            <div className="mt-4 text-center">
+              <p className="text-xs text-slate-500 mb-2">
+                Need to attach files or an NDA? Reply to the confirmation email.
+              </p>
+              <div className="flex justify-center gap-4 text-xs">
+                <a 
+                  href="#" 
+                  className="text-slate-500 hover:text-slate-700"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    // 这里可以添加隐私政策链接
+                  }}
+                >
+                  Privacy
+                </a>
+                <button
+                  type="button"
+                  className="text-green-600 hover:text-green-700"
+                  onClick={() => onSubmit('https://wa.me/8615899648898')}
+                >
+                  <MessageCircle className="h-3 w-3 inline mr-1" />
+                  Chat on WhatsApp
+                </button>
+              </div>
+            </div>
+          </>
+        )}
+      </motion.div>
+    </div>
   );
 }
