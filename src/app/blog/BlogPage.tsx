@@ -785,7 +785,7 @@ export function BlogPage() {
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             <Link href="/" className="flex items-center">
-              <Image src="/logo-fastfun-remote.png" alt="FastFun Remote logo" className="h-8 w-auto" />
+              <Image src="/logo-fastfun-remote.png" alt="FastFun Remote logo" className="h-8 w-auto" width={120} height={36} sizes="(max-width: 768px) 96px, 120px" />
             </Link>
             <span className="text-sm text-slate-400">© {new Date().getFullYear()} FastFun Remote</span>
           </div>
@@ -917,7 +917,7 @@ function BlogHeader() {
       <div className="mx-auto max-w-6xl px-4 py-4">
         <div className="flex items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-3">
-            <Image src="/logo-fastfun-remote.png" alt="FastFun Remote logo" priority className="h-10 w-auto" />
+            <Image src="/logo-fastfun-remote.png" alt="FastFun Remote logo" priority className="h-10 w-auto" width={160} height={48} sizes="(max-width: 768px) 120px, 160px" />
             <span className="sr-only">FastFun Remote homepage</span>
           </Link>
 
@@ -994,7 +994,7 @@ function BlogFooter() {
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center justify-center sm:justify-start">
-              <Image src="/logo-fastfun-remote.png" alt="FastFun Remote logo" className="h-12 w-auto" />
+              <Image src="/logo-fastfun-remote.png" alt="FastFun Remote logo" className="h-12 w-auto" width={200} height={60} sizes="(max-width: 768px) 150px, 200px" />
             </Link>
             <p className="mt-6 text-sm leading-relaxed text-slate-300">
               FastFun Remote is a trusted OEM/ODM partner delivering reliable RF remotes, receivers, and IoT solutions with ISO 9001 certified manufacturing.

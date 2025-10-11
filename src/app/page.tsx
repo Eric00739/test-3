@@ -3,21 +3,29 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Script from 'next/script'
-import logoFastFun from '@/public/logo-fastfun-remote.png'
 import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { motion } from 'framer-motion'
 import { HeaderBar } from '@/components/home/HeaderBar'
 import { HeroSection } from '@/components/home/HeroSection'
 import { StickyActions } from '@/components/home/StickyActions'
 import { MobileActionBar } from '@/components/home/MobileActionBar'
 import { ProductFinder } from '@/components/ProductFinder'
 import { RfqModal } from '@/components/rfq/RfqModal'
-import { Card, CardContent } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Check, Play, Phone, MessageCircle, Download, Factory, Shield, Award, TrendingUp, Clock, Package, Zap, Wifi, Cpu, Radio, Settings, ChevronRight, ArrowRight, Star, Users, Globe, BarChart3, Upload, Send } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { TrustSection } from '@/components/home/TrustSection'
+import { ProductsSection } from '@/components/home/ProductsSection'
+import { ProcessSection } from '@/components/home/ProcessSection'
+import { CapabilitiesSection } from '@/components/home/CapabilitiesSection'
+import { TestimonialsSection } from '@/components/home/TestimonialsSection'
+import { FAQSection } from '@/components/home/FAQSection'
+import { ContactSection } from '@/components/home/ContactSection'
+import { CaseStudiesSection } from '@/components/home/CaseStudiesSection'
+import { FactoryTourSection } from '@/components/home/FactoryTourSection'
+import { ProcessTimelineSection } from '@/components/home/ProcessTimelineSection'
+import { Phone, MessageCircle, Globe, Factory, Check, Clock, Star, Users, Cpu, Shield, Award, Radio, Wifi, Zap, Package, Settings, Download, Send, ChevronRight, Car } from 'lucide-react'
 
 export default function Home() {
-  const [isPlaying, setIsPlaying] = useState(false)
   const [activeSection, setActiveSection] = useState('hero')
   const [currentTestimonial, setCurrentTestimonial] = useState(0)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -90,43 +98,6 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const kpis = [
-    { label: 'Factory Size', value: '4,000 m2', icon: Factory },
-    { label: 'Monthly Capacity (Pcs)', value: '500,000', icon: Package },
-    { label: 'R&D Engineers', value: '8', icon: Users },
-    { label: 'On-Time Delivery', value: '97%', icon: Clock },
-  ]
-
-  const partnerHighlights = [
-    { name: 'Nice Automation', region: 'EU Gate Systems' },
-    { name: 'LiftMaster OEM', region: 'North America' },
-    { name: 'Somfy Projects', region: 'Smart Shades' },
-    { name: 'Tuya Select', region: 'IoT Alliances' },
-    { name: 'CAME Custom', region: 'Industrial Access' },
-  ]
-
-  const trustSignals = [
-    {
-      icon: Award,
-      headline: '47 NPIs / year',
-      description: 'Dedicated RF & IoT launches handled from spec to shipment.',
-    },
-    {
-      icon: Shield,
-      headline: 'Compliance Lab',
-      description: 'CE RED, FCC Part 15, UKCA pre-check and accredited partners.',
-    },
-    {
-      icon: TrendingUp,
-      headline: '98.7% FPY',
-      description: 'Traceable PCBA, AOI, RF tuning & 100% outgoing QC.',
-    },
-    {
-      icon: Globe,
-      headline: '28 export markets',
-      description: 'Custom packaging, multilingual manuals and drop-ship support.',
-    },
-  ]
 
   const faqItems = [
     {
@@ -277,159 +248,209 @@ export default function Home() {
     setRfqSource('default')
   }
 
-  const products = [
+  // Data definitions
+  const partnerHighlights = [
+    { name: 'Somfy', region: 'France' },
+    { name: 'Chamberlain', region: 'USA' },
+    { name: 'NICE', region: 'Italy' },
+    { name: 'Hörmann', region: 'Germany' },
+    { name: 'Marantec', region: 'Germany' }
+  ]
+
+  const trustSignals = [
     {
-      category: 'Smart Home & Appliance Controls',
-      description: 'For brands in the home electronics sector',
-      items: [
-        {
-          title: 'WiFi Smart Switch Manufacturer',
-          icon: Wifi,
-          specs: 'Protocol: 2.4GHz 802.11b/g/n • Power: 10A/16A/20A • Voltage: 100-240V AC • Size: 45&times;45&times;22mm • Cert: CE/FCC/UL',
-          features: ['App Control', 'Voice Control', 'Timer Function', 'Energy Monitoring'],
-          useCase: 'Smart Home',
-          certification: 'CE/FCC/UL',
-          color: 'from-indigo-500 to-indigo-600',
-          details: '2.4GHz 802.11b/g/n, 10A/16A/20A options, Tuya/Smart Life compatible'
-        },
-        {
-          title: 'WiFi Smart Socket',
-          icon: Zap,
-          specs: 'Protocol: 2.4GHz 802.11b/g/n • Power: 16A max • Voltage: 100-240V AC • Size: 60&times;60&times;78mm • Cert: CE/FCC/UL',
-          features: ['Power Metering', 'Schedule', 'Overload Protection', 'Voice Control'],
-          useCase: 'Home Automation',
-          certification: 'CE/FCC/UL',
-          color: 'from-cyan-500 to-cyan-600',
-          details: '2.4GHz, 16A max load, 卤1% energy metering accuracy'
-        },
-        {
-          title: '868/915MHz Universal Remote',
-          icon: Radio,
-          specs: 'Band: 868/915MHz • Modulation: ASK/FSK • Code: learning • TX: 12dBm • RX: -98dBm • Power: AAA • Size: 70&times;40&times;18mm • Cert: CE RED/FCC',
-          features: ['Learning Code', 'Multi-button', 'Low Power', 'EU/US compliant'],
-          useCase: 'Smart Home',
-          certification: 'CE RED/FCC',
-          color: 'from-green-500 to-green-600',
-          details: '868.3MHz (EU) / 915MHz (US), -98dBm sensitivity, 100m range'
-        }
-      ]
+      icon: Factory,
+      headline: '15+ Years Manufacturing',
+      description: 'ISO 9001:2015 certified with 47 NPI projects annually'
     },
     {
-      category: 'Industrial & Automotive Remote Systems',
-      description: 'For industrial and automotive clients',
-      items: [
-        {
-          title: '433MHz Rolling Code Remote',
-          icon: Radio,
-          specs: 'Band: 433.92MHz • Modulation: ASK/FSK • Code: rolling • TX: 10dBm • RX: -100dBm • Power: CR2032 • Size: 58&times;35&times;12mm • Cert: CE/FCC',
-          features: ['Rolling Code', '4-Button', '12V Battery', 'IP65'],
-          useCase: 'Garage Doors',
-          certification: 'CE/FCC/RoHS',
-          color: 'from-blue-500 to-blue-600',
-          details: 'EV1527/PT2262 compatible, 433.92MHz 卤100kHz, -100dBm sensitivity'
-        },
-        {
-          title: '315MHz Car Remote',
-          icon: Settings,
-          specs: 'Band: 315MHz • Modulation: ASK • Code: fixed/rolling • TX: 8dBm • RX: -95dBm • Power: AAA • Size: 65&times;35&times;15mm • Cert: ISO 11452',
-          features: ['Keyless Entry', 'Remote Start', 'Alarm System', '433MHz'],
-          useCase: 'Automotive',
-          certification: 'ISO 11452',
-          color: 'from-red-500 to-red-600',
-          details: 'Immobilizer compatible, 315MHz 卤150kHz, -95dBm sensitivity'
-        },
-        {
-          title: 'Superheterodyne Receiver',
-          icon: Wifi,
-          specs: 'Band: 433/315MHz • Modulation: ASK/FSK • Channels: 4 • RX: -110dBm • Power: 12V DC • Size: 45&times;25&times;8mm • Cert: CE/FCC',
-          features: ['Multi-channel', 'Learning Code', 'Relay Output', 'LED indicator'],
-          useCase: 'Security Systems',
-          certification: 'CE/FCC',
-          color: 'from-purple-500 to-purple-600',
-          details: '433.92MHz 卤100kHz, -110dBm sensitivity, 4-channel output'
-        }
-      ]
+      icon: Shield,
+      headline: '98.7% FPY Rate',
+      description: 'Industry-leading quality with DPPM under 500'
     },
     {
-      category: 'Custom WiFi & Bluetooth Modules',
-      description: 'For developers needing wireless integration',
-      items: [
-        {
-          title: 'RF Kit (Transmitter + Receiver)',
-          icon: Package,
-          specs: 'Band: 433MHz • Modulation: ASK • Code: pre-paired • TX: 10dBm • RX: -105dBm • Power: CR2032/12V • Cert: RoHS',
-          features: ['Pre-paired', 'Ready to Use', 'Custom Frequencies', 'Technical Support'],
-          useCase: 'DIY Projects',
-          certification: 'RoHS Compliant',
-          color: 'from-orange-500 to-orange-600',
-          details: '433MHz paired set, 100m range, includes transmitter and receiver'
-        }
-      ]
+      icon: Globe,
+      headline: 'Global Compliance',
+      description: 'CE, FCC, RoHS, REACH certified for worldwide markets'
+    },
+    {
+      icon: Users,
+      headline: 'Dedicated Engineering',
+      description: '8 R&D engineers with 15% holding master\'s degrees'
     }
   ]
 
   const processSteps = [
-    { 
-      phase: 'Discovery', 
-      duration: '1-2 weeks', 
-      deliverables: 'Requirements analysis, Technical feasibility',
+    {
       icon: Users,
+      phase: 'Requirements',
+      duration: '1-2 days',
+      deliverables: 'Technical analysis, feasibility study, cost estimation',
       color: 'from-blue-500 to-blue-600'
     },
-    { 
-      phase: 'Prototyping', 
-      duration: '2-3 weeks', 
-      deliverables: 'Functional prototype, Initial testing',
+    {
       icon: Cpu,
+      phase: 'Engineering',
+      duration: '1-2 weeks',
+      deliverables: 'Custom design, prototyping, technical specifications',
       color: 'from-green-500 to-green-600'
     },
-    { 
-      phase: 'Compliance', 
-      duration: '3-4 weeks', 
-      deliverables: 'Certification testing, Documentation',
+    {
       icon: Shield,
+      phase: 'Validation',
+      duration: '2-3 weeks',
+      deliverables: 'Sample testing, compliance verification, design freeze',
       color: 'from-purple-500 to-purple-600'
     },
-    { 
-      phase: 'Mass Production', 
-      duration: '6-8 weeks', 
-      deliverables: 'Full-scale production, Quality assurance',
-      icon: Factory,
+    {
+      icon: Package,
+      phase: 'Production',
+      duration: '4-6 weeks',
+      deliverables: 'Mass production, quality control, global shipping',
       color: 'from-orange-500 to-orange-600'
     }
   ]
 
   const capabilities = [
-    { category: 'RF Design', items: ['Antenna Design', 'RF Testing', 'EMC/EMI', 'Protocol Stack'] },
-    { category: 'Laboratory', items: ['Signal Analysis', 'Environmental Testing', 'Reliability Testing', 'Compliance Testing'] },
-    { category: 'Manufacturing', items: ['SMT Lines', 'AOI/AXI', 'Wave Soldering', 'Conformal Coating'] },
-    { category: 'Quality', items: ['ISO 9001', 'IATF 16949', 'Medical ISO 13485', 'Statistical Process Control'] }
+    {
+      category: 'RF Solutions',
+      items: ['315/433MHz Remotes', 'Rolling Code', 'Learning Code', 'Multi-channel Receivers']
+    },
+    {
+      category: 'Smart Home',
+      items: ['WiFi Switches', 'Smart Sockets', 'Gateways', 'Mobile Apps']
+    },
+    {
+      category: 'Automotive',
+      items: ['Keyless Entry', 'Alarm Systems', 'Remote Start', 'Immobilizers']
+    },
+    {
+      category: 'Industrial',
+      items: ['Garage Doors', 'Gate Controls', 'Access Control', 'RFID Systems']
+    }
+  ]
+
+  const products = [
+    {
+      category: 'RF Remote Controls',
+      description: 'High-performance wireless remotes with extended range and reliability',
+      items: [
+        {
+          title: '433MHz 4-Button Remote',
+          icon: Radio,
+          color: 'from-blue-500 to-blue-600',
+          specs: 'Frequency: 433.92MHz | Range: 100m | Battery: 27A 12V',
+          features: ['Rolling Code', 'IP65', 'CE/FCC', 'Custom Logo'],
+          useCase: 'Garage Doors',
+          certification: 'CE RED',
+        },
+        {
+          title: '315MHz Car Remote',
+          icon: Car,
+          color: 'from-green-500 to-green-600',
+          specs: 'Frequency: 315MHz | Range: 50m | Battery: CR2032 3V',
+          features: ['Immobilizer', 'Flip Design', 'Panic Button', 'VALET'],
+          useCase: 'Automotive',
+          certification: 'FCC Part 15',
+        },
+        {
+          title: '8-Channel Universal',
+          icon: Settings,
+          color: 'from-purple-500 to-purple-600',
+          specs: 'Frequency: 433/868MHz | Range: 150m | Battery: AAA 1.5V×2',
+          features: ['Learning Code', 'Backlit', 'Multi-device', 'LCD Display'],
+          useCase: 'Smart Home',
+          certification: 'CE RED',
+        }
+      ]
+    },
+    {
+      category: 'RF Receivers & Kits',
+      description: 'High-sensitivity receivers with easy integration options',
+      items: [
+        {
+          title: 'Superheterodyne Receiver',
+          icon: Wifi,
+          color: 'from-orange-500 to-orange-600',
+          specs: 'Frequency: 433.92MHz | Sensitivity: -110dBm | Voltage: 5-12V DC',
+          features: ['4 Channels', 'Relay Output', 'Learning Code', 'Easy Wiring'],
+          useCase: 'Gate Control',
+          certification: 'CE RED',
+        },
+        {
+          title: 'RF Control Kit',
+          icon: Package,
+          color: 'from-red-500 to-red-600',
+          specs: '1x Remote + 1x Receiver | Range: 100m | Battery Included',
+          features: ['Plug & Play', 'Pairing Guide', 'Mounting Hardware', 'User Manual'],
+          useCase: 'Lighting Control',
+          certification: 'CE/FCC',
+        },
+        {
+          title: 'Multi-frequency Receiver',
+          icon: Zap,
+          color: 'from-indigo-500 to-indigo-600',
+          specs: 'Frequency: 315/433/868MHz | Sensitivity: -108dBm | Output: 4 Relays',
+          features: ['Auto Scan', 'Wide Range', 'DIN Rail', 'LED Status'],
+          useCase: 'Industrial',
+          certification: 'CE RED',
+        }
+      ]
+    },
+    {
+      category: 'WiFi Smart Solutions',
+      description: 'IoT-enabled devices with app control and automation',
+      items: [
+        {
+          title: 'WiFi Light Switch',
+          icon: Wifi,
+          color: 'from-teal-500 to-teal-600',
+          specs: 'Voltage: 90-250V AC | Power: 1200W | WiFi: 2.4GHz',
+          features: ['App Control', 'Voice Control', 'Timer', 'Energy Monitor'],
+          useCase: 'Smart Home',
+          certification: 'CE/FCC/UL',
+        },
+        {
+          title: 'WiFi Smart Socket',
+          icon: Zap,
+          color: 'from-cyan-500 to-cyan-600',
+          specs: 'Voltage: 90-250V AC | Power: 16A | WiFi: 2.4GHz',
+          features: ['Energy Monitor', 'Schedule', 'Voice Control', 'Overload Protection'],
+          useCase: 'Home Automation',
+          certification: 'CE/FCC/UL',
+        },
+        {
+          title: 'WiFi Gateway Hub',
+          icon: Globe,
+          color: 'from-emerald-500 to-emerald-600',
+          specs: 'Protocol: Zigbee/Z-Wave/WiFi | Range: 50m | Power: 5V DC',
+          features: ['Multi-protocol', 'Local Control', 'Cloud Backup', 'Scene Control'],
+          useCase: 'Smart Home',
+          certification: 'CE/FCC',
+        }
+      ]
+    }
   ]
 
   const testimonials = [
     {
-      company: 'SmartHome Inc.',
-      result: '42% faster time-to-market',
-      quote: 'Their engineering team helped us reduce our development cycle from 6 to 3.5 months. The quality is exceptional.',
-      savings: '$1.2M saved in development costs'
+      quote: 'FastFun Remote delivered exceptional quality with 42% faster time-to-market. Their engineering team solved our RF challenges that other vendors couldn\'t.',
+      company: 'Leading EU Gate Control Brand',
+      result: '42% Faster Time-to-Market',
+      savings: '€2.3M Savings Over 3 Years'
     },
     {
-      company: 'Industrial Controls Ltd.',
-      result: '99.8% field reliability',
-      quote: 'We\'ve shipped over 500,000 units with DPPM under 200. Their quality control is second to none.',
-      savings: 'Zero warranty claims in 24 months'
+      quote: 'The reliability is outstanding - 99.8% field reliability with zero warranty claims. Their responsive engineering support made all the difference.',
+      company: 'US Home Automation Company',
+      result: '99.8% Field Reliability',
+      savings: '$1.8M Reduction in Support Costs'
+    },
+    {
+      quote: 'From concept to production in just 12 weeks. Their in-house testing and certification expertise saved us months of development time.',
+      company: 'APAC Lighting Brand',
+      result: 'DPPM Under 200',
+      savings: '30% Cost Reduction vs Local Manufacturing'
     }
-  ]
-
-  const certificates = [
-    { name: 'ISO 9001', category: 'Quality Management' },
-    { name: 'ISO 14001', category: 'Environmental' },
-    { name: 'IATF 16949', category: 'Automotive' },
-    { name: 'ISO 13485', category: 'Medical' },
-    { name: 'FCC Part 15', category: 'US Compliance' },
-    { name: 'CE RED', category: 'EU Compliance' },
-    { name: 'RoHS', category: 'Environmental' },
-    { name: 'REACH', category: 'Chemical Safety' }
   ]
 
   return (
@@ -445,603 +466,17 @@ export default function Home() {
 
       <HeroSection onOpenRfq={openRfqModal} onWhatsApp={openWhatsApp} onWeChat={openWeChat} />
 
-      <section className="bg-slate-900 py-16 sm:py-20">
-        <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-3xl space-y-4">
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
-                Trusted OEM / ODM partner
-              </span>
-              <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-                Access-control giants and IoT scale-ups build on FastFunRC production
-              </h2>
-              <p className="text-base text-white/70 sm:text-lg">
-                From remote transmitters and receivers to Wi-Fi switchgear, we handle tooling, PCBA, RF tuning, and certification
-                under one roof so your launch team stays focused on product-market fit.
-              </p>
-            </div>
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Button
-                size="lg"
-                className="bg-white text-slate-900 hover:bg-slate-100"
-                onClick={() => openRfqModal('trust_cta')}
-              >
-                Talk to sales
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="border-white/40 text-white hover:bg-white/10"
-                onClick={() => openWhatsApp('trust_whatsapp')}
-              >
-                Request a callback
-              </Button>
-            </div>
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-            {partnerHighlights.map((partner) => (
-              <div
-                key={partner.name}
-                className="rounded-2xl border border-white/10 bg-white/5 px-5 py-6 text-center text-white shadow-[0_18px_30px_-20px_rgba(15,23,42,0.65)]"
-              >
-                <div className="text-sm font-semibold sm:text-base">{partner.name}</div>
-                <div className="mt-1 text-xs uppercase tracking-wide text-white/60">{partner.region}</div>
-              </div>
-            ))}
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-            {trustSignals.map(({ icon: Icon, headline, description }) => (
-              <div
-                key={headline}
-                className="flex items-start gap-4 rounded-3xl border border-white/10 bg-white/5 p-5 text-white shadow-[0_25px_40px_-28px_rgba(14,165,233,0.55)]"
-              >
-                <div className="rounded-full bg-white/15 p-3">
-                  <Icon className="h-5 w-5 text-orange-300" aria-hidden="true" />
-                </div>
-                <div>
-                  <div className="text-lg font-semibold">{headline}</div>
-                  <p className="mt-1 text-sm text-white/70">{description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <TrustSection onOpenRfq={openRfqModal} onWhatsApp={openWhatsApp} />
 
       <ProductFinder onQuote={handleFinderQuote} onTrack={trackEvent} />
 
-      <section className="py-12 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-8 lg:grid-cols-2">
-            <div className="rounded-3xl border border-slate-200 bg-slate-50/60 p-6 sm:p-8">
-              <h3 className="text-lg font-semibold text-gray-900">How to engage FastFunRC</h3>
-              <ol className="mt-4 space-y-4 text-sm text-slate-600">
-                <li className="flex items-start gap-3">
-                  <span className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-orange-500 text-xs font-semibold text-white">1</span>
-                  <div>Share RFQ via form or WhatsApp. We acknowledge in under 12 hours.</div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-orange-500 text-xs font-semibold text-white">2</span>
-                  <div>Engineering review with feasibility, certification plan, and sample ETA.</div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-orange-500 text-xs font-semibold text-white">3</span>
-                  <div>Prototype shipment, DFM updates, and tooling launch after approval.</div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-orange-500 text-xs font-semibold text-white">4</span>
-                  <div>Mass production with 100% outgoing QC plus compliance pack for customs.</div>
-                </li>
-              </ol>
-              <Button
-                type="button"
-                className="mt-6 bg-orange-500 text-white hover:bg-orange-600"
-                onClick={() => openRfqModal('process_quote')}
-              >
-                Request detailed proposal
-              </Button>
-            </div>
-            <div className="rounded-3xl border border-slate-200 bg-slate-900 p-6 sm:p-8 text-slate-100">
-              <h3 className="text-lg font-semibold text-white">Plant equipment snapshot</h3>
-              <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
-                {[["SMT lines", "3 Fuji NXT + Yamaha modular"],
-                  ["AOI & ICT", "Omron AOI, Keysight ICT"],
-                  ["RF lab", "Shielded chambers, VNA tuning"],
-                  ["Aging stations", "96-ch burn-in racks"],
-                  ["Plastic shop", "8 injection machines, silk print"],
-                  ["Final assembly", "4 lean cells, ERP traceability"]].map(([label, value]) => (
-                  <div key={label} className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                    <div className="text-xs uppercase tracking-wide text-white/60">{label}</div>
-                    <div className="mt-2 text-sm font-semibold text-white">{value}</div>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-6 flex items-center gap-3 text-xs text-white/70">
-                <Check className="h-4 w-4 text-lime-400" />
-                Factory audited by EU/US brands with annual social compliance reports.
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <ProcessSection onOpenRfq={openRfqModal} />
 
-      {/* Customization Capabilities Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
-          >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">What We Customize</h2>
-            <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed px-4">
-              Full customization capabilities with transparent MOQ and pricing
-            </p>
-          </motion.div>
+      <CapabilitiesSection />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            {[
-              {
-                title: 'Private Tooling',
-                description: 'Custom housing design and manufacturing',
-                moq: '3,000 units',
-                cost: 'From $2,800',
-                icon: Settings,
-                color: 'from-blue-500 to-blue-600',
-                features: ['Custom 3D design', 'Injection molding', 'Brand colors', 'Logo printing']
-              },
-              {
-                title: 'Key Layout & Membrane',
-                description: 'Custom button arrangement and membrane design',
-                moq: '1,000 units',
-                cost: 'From $800',
-                icon: Radio,
-                color: 'from-green-500 to-green-600',
-                features: ['Custom button count', 'Membrane design', 'Backlight options', 'Tactile feedback']
-              },
-              {
-                title: 'Protocol & Pairing',
-                description: 'Custom RF protocol and pairing methods',
-                moq: '500 units',
-                cost: 'From $1,200',
-                icon: Wifi,
-                color: 'from-purple-500 to-purple-600',
-                features: ['Rolling code', 'Learning code', 'Custom encryption', 'Multi-device pairing']
-              },
-              {
-                title: 'RF Range & Performance',
-                description: 'Extended range and anti-interference optimization',
-                moq: '1,000 units',
-                cost: 'From $600',
-                icon: Zap,
-                color: 'from-orange-500 to-orange-600',
-                features: ['150-300m range', 'Anti-interference', 'Power optimization', 'Multi-frequency']
-              },
-              {
-                title: 'Receiver/Gateway Matching',
-                description: 'Custom receiver modules and gateways',
-                moq: '500 units',
-                cost: 'From $1,500',
-                icon: Package,
-                color: 'from-red-500 to-red-600',
-                features: ['Custom receivers', 'Gateway integration', 'Protocol matching', 'Network topology']
-              },
-              {
-                title: 'Branding & Packaging',
-                description: 'Custom packaging and brand integration',
-                moq: '500 units',
-                cost: 'From $400',
-                icon: Award,
-                color: 'from-indigo-500 to-indigo-600',
-                features: ['Custom packaging', 'User manual', 'Brand colors', 'Multi-language']
-              }
-            ].map((service, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <Card className="p-6 border-0 shadow-lg hover:shadow-xl transition-all duration-300 h-full">
-                  <div className={`w-16 h-16 bg-gradient-to-br ${service.color} rounded-2xl flex items-center justify-center mb-4`}>
-                    <service.icon className="h-8 w-8 text-white" />
-                  </div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">{service.title}</h3>
-                  <p className="text-sm text-slate-600 mb-4">{service.description}</p>
-                  
-                  <div className="space-y-2 mb-4">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-slate-500">MOQ:</span>
-                      <span className="font-semibold text-orange-600">{service.moq}</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-slate-500">Cost:</span>
-                      <span className="font-semibold text-gray-900">{service.cost}</span>
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-1">
-                    {service.features.map((feature, idx) => (
-                      <div key={idx} className="flex items-center text-xs text-slate-600">
-                        <Check className="h-3 w-3 text-green-500 mr-2" />
-                        {feature}
-                      </div>
-                    ))}
-                  </div>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ProductsSection onOpenRfq={openRfqModal} />
 
-      {/* Factory Capabilities Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
-          >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">R&D & Manufacturing Excellence</h2>
-            <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed px-4">
-              8 R&D engineers with 15% holding master's degrees, delivering cutting-edge IoT solutions
-            </p>
-          </motion.div>
-
-          {/* R&D Team Section */}
-          <div className="mb-16">
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-blue-600 mb-2">8</div>
-                  <div className="text-sm text-slate-600">R&D Engineers</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-indigo-600 mb-2">15%</div>
-                  <div className="text-sm text-slate-600">Master's Degrees</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-purple-600 mb-2">47</div>
-                  <div className="text-sm text-slate-600">NPI Projects/Year</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {[
-              {
-                title: 'SMT Equipment',
-                items: ['Panasonic NPM-W2 (50,000 CPH)', 'DEK Horizon', 'Reflow Oven 10-zone', 'AOI &times; 2'],
-                icon: Factory,
-                color: 'from-blue-500 to-blue-600'
-              },
-              {
-                title: 'Testing Equipment',
-                items: ['Anritsu MS2690A (26.5GHz)', 'EN 300 220 Test', 'FCC Part 15', 'Shielded Room'],
-                icon: Shield,
-                color: 'from-green-500 to-green-600'
-              },
-              {
-                title: 'Quality Control',
-                items: ['100% RF Power Test', 'Frequency Deviation Check', 'AQL 0.65/1.0', 'DPPM < 500'],
-                icon: Award,
-                color: 'from-purple-500 to-purple-600'
-              },
-              {
-                title: 'Monthly Output',
-                items: ['2.5M units capacity', 'Flexible MOQ 50pcs', 'Private Tooling', 'Fast Delivery'],
-                icon: TrendingUp,
-                color: 'from-orange-500 to-orange-600'
-              }
-            ].map((capability, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <Card className="p-6 text-center border-0 shadow-lg hover:shadow-xl transition-all duration-300 h-full">
-                  <div className={`w-16 h-16 bg-gradient-to-br ${capability.color} rounded-2xl flex items-center justify-center mx-auto mb-4`}>
-                    <capability.icon className="h-8 w-8 text-white" />
-                  </div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-4">{capability.title}</h3>
-                  <ul className="space-y-2">
-                    {capability.items.map((item, idx) => (
-                      <li key={idx} className="text-sm text-slate-600 flex items-center justify-center">
-                        <Check className="h-3 w-3 text-green-500 mr-2" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Products Section */}
-      <section id="products" className="py-32 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
-          >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">Our Custom OEM/ODM Solutions</h2>
-            <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed px-4">
-              Industry-specific wireless control solutions tailored to your application requirements
-            </p>
-          </motion.div>
-
-          {products.map((category, categoryIndex) => (
-            <div key={categoryIndex} className="mb-20">
-              <h3 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-2 sm:mb-3 flex items-center px-4">
-                <div className="h-px bg-slate-300 flex-1 mr-4 sm:mr-6" />
-                <span className="px-2 sm:px-4">{category.category}</span>
-                <div className="h-px bg-slate-300 flex-1 ml-4 sm:ml-6" />
-              </h3>
-              <p className="text-center text-slate-600 mb-6 sm:mb-8 px-4">{category.description}</p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                {category.items.map((product, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                  >
-                    <Card className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-white">
-                      <div className={`h-2 sm:h-3 bg-gradient-to-r ${product.color}`} />
-                      <div className="p-4 sm:p-6 lg:p-8">
-                        {/* Product Image Display */}
-                        <div className="relative mb-4 sm:mb-6 bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl sm:rounded-2xl p-6 sm:p-8 h-40 sm:h-48 flex items-center justify-center overflow-hidden">
-                          <div className={`absolute inset-0 bg-gradient-to-br ${product.color} opacity-5`}></div>
-                          <div className={`w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br ${product.color} rounded-2xl flex items-center justify-center`}>
-                            <product.icon className="h-8 w-8 sm:h-10 sm:w-10 text-white" />
-                          </div>
-                          {/* Certification Badges */}
-                          <div className="absolute top-2 sm:top-3 right-2 sm:right-3 flex gap-1">
-                            {product.certification && (
-                              <div className="bg-green-500 text-white text-xs px-1.5 py-0.5 rounded font-semibold">
-                                {product.certification.includes('CE') ? 'CE' : product.certification.includes('FCC') ? 'FCC' : 'ISO'}
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                        
-                        <div className={`w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-gradient-to-br ${product.color} rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                          <product.icon className="h-6 w-6 sm:h-7 sm:w-7 lg:h-8 lg:w-8 text-white" />
-                        </div>
-                        <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">{product.title}</h3>
-                        
-                        {/* Engineering Specs */}
-                        <div className="bg-slate-50 rounded-lg p-3 mb-4">
-                          <p className="text-xs text-slate-600 font-mono leading-relaxed">{product.specs}</p>
-                        </div>
-                        
-                        <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-6">
-                          {product.features.map((feature, idx) => (
-                            <Badge key={idx} variant="secondary" className="bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors text-xs sm:text-sm">
-                              {feature}
-                            </Badge>
-                          ))}
-                        </div>
-                        
-                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center pt-3 sm:pt-4 border-t border-slate-100 gap-2 mb-4">
-                          <div>
-                            <div className="text-xs sm:text-sm text-slate-500 mb-1">Use Case</div>
-                            <div className="font-semibold text-gray-900 text-sm sm:text-base">{product.useCase}</div>
-                          </div>
-                          <div className="text-left sm:text-right">
-                            <div className="text-xs sm:text-sm text-slate-500 mb-1">Certification</div>
-                            <div className="font-semibold text-green-600 text-sm sm:text-base">{product.certification}</div>
-                          </div>
-                        </div>
-                        
-                        {/* Standardized Action Buttons */}
-                        <div className="grid grid-cols-3 gap-2">
-                          <Button size="sm" className="text-xs bg-blue-500 hover:bg-blue-600">
-                            <Download className="h-3 w-3 mr-1" />
-                            Datasheet
-                          </Button>
-                          <Button size="sm" variant="outline" className="text-xs border-green-500 text-green-600 hover:bg-green-50">
-                            <Package className="h-3 w-3 mr-1" />
-                            Sample
-                          </Button>
-                          <Button size="sm" variant="outline" className="text-xs border-orange-500 text-orange-600 hover:bg-orange-50" type="button" onClick={() => openRfqModal('product_highlight')}>
-                            <Send className="h-3 w-3 mr-1" />
-                            Quote
-                          </Button>
-                        </div>
-                      </div>
-                    </Card>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Industry Applications & Case Studies */}
-      <section className="py-20 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
-          >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">Industry Applications & Success Stories</h2>
-            <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed px-4">
-              Discover how we've helped leading companies solve their wireless control challenges
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-            {/* Case Study 1 */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              viewport={{ once: true }}
-            >
-              <Card className="p-8 bg-white shadow-lg hover:shadow-xl transition-shadow h-full">
-                <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center mr-4">
-                    <Radio className="h-6 w-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-900">Garage Door Remote Control</h3>
-                    <p className="text-sm text-slate-600">Leading EU Gate Control Brand</p>
-                  </div>
-                </div>
-                <div className="bg-blue-50 rounded-lg p-4 mb-4">
-                  <h4 className="font-semibold text-blue-900 mb-2">Challenge:</h4>
-                  <p className="text-sm text-blue-800">Needed a custom 433MHz rolling code remote with extended range and weather resistance for European market.</p>
-                </div>
-                <div className="bg-green-50 rounded-lg p-4 mb-4">
-                  <h4 className="font-semibold text-green-900 mb-2">Solution:</h4>
-                  <p className="text-sm text-green-800">Developed custom RF module with -100dBm sensitivity, IP65 housing, and EV1527 compatibility. 3-day prototyping, 15-day tooling.</p>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="text-sm">
-                    <span className="font-semibold text-gray-900">Result:</span>
-                    <span className="text-green-600 ml-2">42% faster time-to-market</span>
-                  </div>
-                  <Badge variant="secondary" className="bg-blue-100 text-blue-700">6 Year Partnership</Badge>
-                </div>
-              </Card>
-            </motion.div>
-
-            {/* Case Study 2 */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              <Card className="p-8 bg-white shadow-lg hover:shadow-xl transition-shadow h-full">
-                <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center mr-4">
-                    <Wifi className="h-6 w-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-900">Smart Light Switch</h3>
-                    <p className="text-sm text-slate-600">US Home Automation Company</p>
-                  </div>
-                </div>
-                <div className="bg-blue-50 rounded-lg p-4 mb-4">
-                  <h4 className="font-semibold text-blue-900 mb-2">Challenge:</h4>
-                  <p className="text-sm text-blue-800">Required WiFi smart switch with energy monitoring, voice control compatibility, and UL certification for US market.</p>
-                </div>
-                <div className="bg-green-50 rounded-lg p-4 mb-4">
-                  <h4 className="font-semibold text-green-900 mb-2">Solution:</h4>
-                  <p className="text-sm text-green-800">Created 2.4GHz 802.11b/g/n module with 卤1% energy metering, Tuya/Smart Life compatibility, and UL/CE/FCC certification.</p>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="text-sm">
-                    <span className="font-semibold text-gray-900">Result:</span>
-                    <span className="text-green-600 ml-2">99.8% field reliability</span>
-                  </div>
-                  <Badge variant="secondary" className="bg-green-100 text-green-700">3 Year Partnership</Badge>
-                </div>
-              </Card>
-            </motion.div>
-
-            {/* Case Study 3 */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              viewport={{ once: true }}
-            >
-              <Card className="p-8 bg-white shadow-lg hover:shadow-xl transition-shadow h-full">
-                <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center mr-4">
-                    <Settings className="h-6 w-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-900">Automotive Keyless Entry</h3>
-                    <p className="text-sm text-slate-600">Aftermarket Auto Brand</p>
-                  </div>
-                </div>
-                <div className="bg-blue-50 rounded-lg p-4 mb-4">
-                  <h4 className="font-semibold text-blue-900 mb-2">Challenge:</h4>
-                  <p className="text-sm text-blue-800">Needed 315MHz remote with immobilizer compatibility, extended battery life, and ISO 11452 certification.</p>
-                </div>
-                <div className="bg-green-50 rounded-lg p-4 mb-4">
-                  <h4 className="font-semibold text-green-900 mb-2">Solution:</h4>
-                  <p className="text-sm text-green-800">Engineered custom RF module with 30% longer battery life, immobilizer compatibility, and -95dBm sensitivity.</p>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="text-sm">
-                    <span className="font-semibold text-gray-900">Result:</span>
-                    <span className="text-green-600 ml-2">Zero warranty claims</span>
-                  </div>
-                  <Badge variant="secondary" className="bg-purple-100 text-purple-700">5 Year Partnership</Badge>
-                </div>
-              </Card>
-            </motion.div>
-
-            {/* Case Study 4 */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              viewport={{ once: true }}
-            >
-              <Card className="p-8 bg-white shadow-lg hover:shadow-xl transition-shadow h-full">
-                <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center mr-4">
-                    <Zap className="h-6 w-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-900">Smart Lighting Control</h3>
-                    <p className="text-sm text-slate-600">APAC Lighting Brand</p>
-                  </div>
-                </div>
-                <div className="bg-blue-50 rounded-lg p-4 mb-4">
-                  <h4 className="font-semibold text-blue-900 mb-2">Challenge:</h4>
-                  <p className="text-sm text-blue-800">Required multi-channel RF receiver with learning code functionality for smart lighting systems in Asian market.</p>
-                </div>
-                <div className="bg-green-50 rounded-lg p-4 mb-4">
-                  <h4 className="font-semibold text-green-900 mb-2">Solution:</h4>
-                  <p className="text-sm text-green-800">Developed 4-channel superheterodyne receiver with -110dBm sensitivity, learning code, and relay output for easy integration.</p>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="text-sm">
-                    <span className="font-semibold text-gray-900">Result:</span>
-                    <span className="text-green-600 ml-2">DPPM under 200</span>
-                  </div>
-                  <Badge variant="secondary" className="bg-orange-100 text-orange-700">4 Year Partnership</Badge>
-                </div>
-              </Card>
-            </motion.div>
-          </div>
-
-          <div className="text-center">
-            <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white">
-              <Download className="h-5 w-5 mr-2" />
-              Download Full Case Studies
-            </Button>
-          </div>
-        </div>
-      </section>
+      <CaseStudiesSection />
 
       {/* Testing Capabilities Section */}
       <section className="py-20 bg-white">
@@ -1438,191 +873,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Factory Tour Gallery */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Factory Tour</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              State-of-the-art facilities with advanced manufacturing capabilities
-            </p>
-          </div>
+      <FactoryTourSection />
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                title: 'SMT Production Line',
-                machine: 'Panasonic NPM-W2',
-                capacity: '50,000 CPH',
-                yield: '99.8%',
-                description: 'High-speed surface mount technology with automated optical inspection'
-              },
-              {
-                title: 'Testing Laboratory',
-                machine: 'Keysight N9030B',
-                capacity: '26.5 GHz Analysis',
-                yield: '100% QC Pass',
-                description: 'Comprehensive RF testing and signal analysis capabilities'
-              },
-              {
-                title: 'Assembly Line',
-                machine: 'Selective Soldering',
-                capacity: '1,000 units/day',
-                yield: '99.5%',
-                description: 'Automated assembly with conformal coating and final testing'
-              },
-              {
-                title: 'Environmental Testing',
-                machine: 'Climatic Chambers',
-                capacity: '-40掳C to +85掳C',
-                yield: 'Validated Reliability',
-                description: 'Temperature, humidity, and vibration testing for harsh environments'
-              },
-              {
-                title: 'Quality Control',
-                machine: '3D AOI Systems',
-                capacity: '100% Inspection',
-                yield: 'Zero Defects',
-                description: 'Automated optical inspection with machine learning defect detection'
-              },
-              {
-                title: 'Packaging & Logistics',
-                machine: 'Automated Packing',
-                capacity: '5,000 units/day',
-                yield: '99.9% Accuracy',
-                description: 'Custom packaging solutions with global shipping capabilities'
-              }
-            ].map((facility, index) => (
-              <Card key={index} className="overflow-hidden group hover:shadow-xl transition-shadow">
-                <div className="bg-gray-100 h-48 flex items-center justify-center relative overflow-hidden">
-                  <Factory className="h-16 w-16 text-gray-400 group-hover:scale-110 transition-transform" />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
-                </div>
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">{facility.title}</h3>
-                  <div className="space-y-1 text-sm text-gray-600 mb-3">
-                    <div><span className="font-medium">Equipment:</span> {facility.machine}</div>
-                    <div><span className="font-medium">Capacity:</span> {facility.capacity}</div>
-                    <div><span className="font-medium">Yield:</span> <span className="text-green-600 font-semibold">{facility.yield}</span></div>
-                  </div>
-                  <p className="text-sm text-gray-600">{facility.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* R&D & Testing Timeline */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">R&D & Testing Timeline</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Complete 6-stage development process from concept to mass production in just 12 weeks
-            </p>
-          </div>
-
-          {/* Timeline */}
-          <div className="relative">
-            {/* Progress Line */}
-            <div className="absolute top-1/2 left-0 right-0 h-1 bg-slate-200 rounded-full -translate-y-1/2" />
-            <div className="absolute top-1/2 left-0 h-1 bg-gradient-to-r from-blue-500 via-green-500 via-purple-500 to-orange-500 rounded-full -translate-y-1/2" 
-                 style={{ width: '100%' }} />
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 relative">
-              {[
-                {
-                  phase: 'Feasibility',
-                  duration: '1-2 weeks',
-                  deliverables: 'Technical analysis, Cost estimation, Risk assessment',
-                  icon: Users,
-                  color: 'from-blue-500 to-blue-600',
-                  metrics: 'Success rate: 95%'
-                },
-                {
-                  phase: 'EVT',
-                  duration: '2-3 weeks',
-                  deliverables: 'Functional prototype, Initial testing, Design validation',
-                  icon: Cpu,
-                  color: 'from-green-500 to-green-600',
-                  metrics: 'Prototype success: 88%'
-                },
-                {
-                  phase: 'EMC/RF Testing',
-                  duration: '3-4 weeks',
-                  deliverables: 'EN 300 220 / FCC Part 15, Certification preparation',
-                  icon: Shield,
-                  color: 'from-purple-500 to-purple-600',
-                  metrics: 'First-pass yield: 92%'
-                },
-                {
-                  phase: 'PVT',
-                  duration: '2-3 weeks',
-                  deliverables: 'Pilot production, Process validation, Quality setup',
-                  icon: Factory,
-                  color: 'from-orange-500 to-orange-600',
-                  metrics: 'Process yield: 96%'
-                },
-                {
-                  phase: 'Reliability',
-                  duration: '2-3 weeks',
-                  deliverables: 'Drop test, HT/LT test, Salt-spray, Vibration',
-                  icon: Award,
-                  color: 'from-red-500 to-red-600',
-                  metrics: 'Reliability pass: 99%'
-                },
-                {
-                  phase: 'Mass Production',
-                  duration: 'Ongoing',
-                  deliverables: 'Full-scale production, Quality assurance, Shipping',
-                  icon: Package,
-                  color: 'from-indigo-500 to-indigo-600',
-                  metrics: 'FPY 98.7% | RMA 0.38% (Q4 2024)'
-                }
-              ].map((step, index) => (
-                <div key={index} className="relative">
-                  {/* Timeline Node */}
-                  <div className="flex flex-col items-center">
-                    <div className={`w-16 h-16 bg-gradient-to-br ${step.color} rounded-full flex items-center justify-center shadow-lg relative z-10 mb-4`}>
-                      <step.icon className="h-8 w-8 text-white" />
-                    </div>
-                    <div className="text-center">
-                      <h3 className="text-lg font-bold text-gray-900 mb-2">{step.phase}</h3>
-                      <div className={`inline-block px-3 py-1 bg-gradient-to-r ${step.color} text-white rounded-full text-xs font-semibold mb-2`}>
-                        {step.duration}
-                      </div>
-                      <p className="text-sm text-slate-600 leading-relaxed mb-2">{step.deliverables}</p>
-                      <div className="text-xs font-semibold text-green-600 bg-green-50 px-2 py-1 rounded">
-                        {step.metrics}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Key Metrics Summary */}
-          <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card className="p-6 text-center">
-              <div className="text-3xl font-bold text-green-600 mb-2">98.7%</div>
-              <div className="text-sm text-gray-600 mb-1">Final Production Yield (FPY)</div>
-              <div className="text-xs text-slate-500">Industry average: 95-96%</div>
-            </Card>
-            <Card className="p-6 text-center">
-              <div className="text-3xl font-bold text-blue-600 mb-2">0.38%</div>
-              <div className="text-sm text-gray-600 mb-1">RMA Rate (Q4 2024)</div>
-              <div className="text-xs text-slate-500">Industry average: 1-2%</div>
-            </Card>
-            <Card className="p-6 text-center">
-              <div className="text-3xl font-bold text-purple-600 mb-2">12 weeks</div>
-              <div className="text-sm text-gray-600 mb-1">Total Development Time</div>
-              <div className="text-xs text-slate-500">From concept to MP</div>
-            </Card>
-          </div>
-        </div>
-      </section>
+      <ProcessTimelineSection />
 
         {/* FAQ Section */}
       <section className="py-32 bg-slate-50">
@@ -1845,192 +1098,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* RFQ Form Section */}
-      <section id="contact" className="py-32 bg-gradient-to-br from-slate-50 to-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
-          >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">Request Your Quote</h2>
-            <p className="text-base sm:text-lg md:text-xl text-slate-600 mb-8 sm:mb-12 max-w-4xl mx-auto leading-relaxed px-4">
-              Get pricing and samples within 24 hours
-            </p>
-            
-            {/* Form Promise */}
-            <div className="bg-gradient-to-r from-orange-50 to-orange-100 rounded-2xl p-6 mb-8">
-              <div className="flex items-center justify-center mb-4">
-                <Shield className="h-6 w-6 text-orange-600 mr-2" />
-                <span className="text-lg font-semibold text-orange-800">Engineer replies within 24 hours • NDA available • Support EU/FCC certification</span>
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            <Card className="p-8 sm:p-12 bg-white shadow-2xl border-0">
-              <form className="space-y-6">
-                {/* Step 1: Required Information */}
-                <div className="bg-slate-50 rounded-xl p-6">
-                  <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center">
-                    <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold mr-3">1</div>
-                    Required Information (20 seconds)
-                  </h3>
-                  
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-900 mb-3">
-                        Email *
-                      </label>
-                      <input
-                        type="email"
-                        className="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:ring-4 focus:ring-orange-100 focus:border-orange-500 transition-all duration-300"
-                        placeholder="your@email.com"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-900 mb-3">
-                        Country/Region *
-                      </label>
-                      <select className="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:ring-4 focus:ring-orange-100 focus:border-orange-500 transition-all duration-300" required>
-                        <option>Select Country</option>
-                        <option>United States</option>
-                        <option>United Kingdom</option>
-                        <option>Germany</option>
-                        <option>France</option>
-                        <option>Italy</option>
-                        <option>Spain</option>
-                        <option>Netherlands</option>
-                        <option>Poland</option>
-                        <option>Canada</option>
-                        <option>Australia</option>
-                        <option>Japan</option>
-                        <option>South Korea</option>
-                        <option>Other</option>
-                      </select>
-                    </div>
-                  </div>
-                  
-                  <div className="grid md:grid-cols-2 gap-6 mt-6">
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-900 mb-3">
-                        Product Type *
-                      </label>
-                      <select className="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:ring-4 focus:ring-orange-100 focus:border-orange-500 transition-all duration-300" required>
-                        <option>Select Product</option>
-                        <option>RF Remote Controls</option>
-                        <option>RF Receivers</option>
-                        <option>RF Kits</option>
-                        <option>Car Remotes</option>
-                        <option>Wi-Fi Switches</option>
-                        <option>Wi-Fi Sockets</option>
-                        <option>Custom ODM Project</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-900 mb-3">
-                        Target Quantity *
-                      </label>
-                      <select className="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:ring-4 focus:ring-orange-100 focus:border-orange-500 transition-all duration-300" required>
-                        <option>Select Quantity</option>
-                        <option>50-100 units</option>
-                        <option>100-500 units</option>
-                        <option>500-1000 units</option>
-                        <option>1000-5000 units</option>
-                        <option>5000+ units</option>
-                      </select>
-                    </div>
-                  </div>
-                  
-                  <div className="mt-6">
-                    <label className="block text-sm font-semibold text-gray-900 mb-3">
-                      Attachment (Optional)
-                    </label>
-                    <div className="border-2 border-dashed border-slate-300 rounded-xl p-6 text-center hover:border-orange-400 transition-colors">
-                      <Upload className="h-8 w-8 text-slate-400 mx-auto mb-2" />
-                      <p className="text-sm text-slate-600">Drop files here or click to upload</p>
-                      <p className="text-xs text-slate-500 mt-1">PDF, DOC, DWG, STEP files (Max 10MB)</p>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Step 2: Optional Information */}
-                <div className="bg-slate-50 rounded-xl p-6">
-                  <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center">
-                    <div className="w-8 h-8 bg-slate-400 rounded-full flex items-center justify-center text-white font-bold mr-3">2</div>
-                    Additional Information (Optional)
-                  </h3>
-                  
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-900 mb-3">
-                        Application Scenario
-                      </label>
-                      <textarea
-                        className="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:ring-4 focus:ring-orange-100 focus:border-orange-500 transition-all duration-300"
-                        rows={3}
-                        placeholder="Describe your application (e.g., garage door control, smart lighting, etc.)"
-                      />
-                    </div>
-                    
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-semibold text-gray-900 mb-3">
-                          Certification Requirements
-                        </label>
-                        <select className="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:ring-4 focus:ring-orange-100 focus:border-orange-500 transition-all duration-300">
-                          <option>None</option>
-                          <option>CE Only</option>
-                          <option>FCC Only</option>
-                          <option>CE + FCC</option>
-                          <option>UL Required</option>
-                          <option>Other</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label className="block text-sm font-semibold text-gray-900 mb-3">
-                          Expected Lead Time
-                        </label>
-                        <select className="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:ring-4 focus:ring-orange-100 focus:border-orange-500 transition-all duration-300">
-                          <option>Standard (20-30 days)</option>
-                          <option>Expedited (15-20 days)</option>
-                          <option>Rush (7-10 days)</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Submit Button */}
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button size="lg" className="bg-orange-500 hover:bg-orange-600 px-8 py-4 text-lg">
-                    <Send className="h-5 w-5 mr-2" />
-                    Submit Request
-                  </Button>
-                  <Button variant="outline" size="lg" className="border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900 px-8 py-4 text-lg">
-                    <Download className="h-5 w-5 mr-2" />
-                    Download NDA Template
-                  </Button>
-                </div>
-                
-                {/* Privacy Notice */}
-                <div className="text-center text-xs text-slate-500 mt-6">
-                  <p>By submitting this form, you agree to our Privacy Policy. We protect your data and never share it with third parties.</p>
-                  <p className="mt-1">Protected by reCAPTCHA • Google Privacy Policy • Terms of Service</p>
-                </div>
-              </form>
-            </Card>
-          </motion.div>
-        </div>
-      </section>
+      <ContactSection onOpenRfq={openRfqModal} />
 
       <StickyActions
         onContactScroll={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
@@ -2164,6 +1232,7 @@ export default function Home() {
                   height={60}
                   className="h-12 w-auto"
                   loading="lazy"
+                  sizes="(max-width: 768px) 150px, 200px"
                 />
               </div>
               <p className="text-slate-300 leading-relaxed mb-6 max-w-md">

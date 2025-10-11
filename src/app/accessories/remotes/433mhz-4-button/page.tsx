@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { QuoteButtons } from "@/components/seo/QuoteButtons";
-import { Breadcrumb } from "@/components/seo/Breadcrumb";
-import { buildBreadcrumbJsonLd, stringifyJsonLd } from "@/lib/seo";
+import { AccessoriesLayout } from "@/components/accessories/AccessoriesLayout";
 import { createPageMetadata } from "@/lib/metadata";
 
 export const metadata = createPageMetadata({
@@ -19,12 +18,13 @@ const breadcrumbItems = [
 ];
 
 export default function Remote433Page() {
-  const jsonLd = stringifyJsonLd(buildBreadcrumbJsonLd(breadcrumbItems));
-
   return (
-    <main className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd }} />
-      <Breadcrumb items={breadcrumbItems} className="mb-6" />
+    <AccessoriesLayout
+      title="433MHz 4-Button RF Remote"
+      description="Compact ABS housing with custom key layout, rolling and fixed code firmware options, optional matched receiver module, and full certification support."
+      breadcrumbItems={breadcrumbItems}
+      className="max-w-5xl"
+    >
       <article className="grid gap-10 md:grid-cols-2">
         <div className="relative aspect-square overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
           <Image
@@ -50,6 +50,6 @@ export default function Remote433Page() {
           <QuoteButtons productName="433MHz 4-Button RF Remote" />
         </div>
       </article>
-    </main>
+    </AccessoriesLayout>
   );
 }
