@@ -31,16 +31,7 @@ import {
 import styles from "./BlogPage.module.css"
 import { blogData, type BlogArticle } from "./BlogData"
 
-// Import new components
-import { HeroSection } from "./components/HeroSection"
-import { CategoryGrid } from "./components/CategoryGrid"
-import { FeaturedSection } from "./components/FeaturedSection"
-import { FeaturedCollection } from "./components/FeaturedCollection"
-import { TrustSection } from "./components/TrustSection"
-import { SupportCenter } from "./components/SupportCenter"
-import { SecondaryCTA } from "./components/SecondaryCTA"
-import { InstantCommunication } from "./components/InstantCommunication"
-import { StickyNavigation } from "./components/StickyNavigation"
+// Import only needed components
 
 const statsNumberFormatter = new Intl.NumberFormat("en", {
   notation: "compact",
@@ -405,7 +396,6 @@ export function BlogPage() {
 
   return (
     <div className={styles.page}>
-      <BlogHeader />
       <div className={styles.animatedBackground} aria-hidden>
         <div className={`${styles.orb} ${styles.orbPrimary}`} />
         <div className={`${styles.orb} ${styles.orbAccent}`} />
@@ -413,49 +403,16 @@ export function BlogPage() {
       </div>
 
       <main className="relative z-10 pb-24">
-        {/* Hero Section */}
-        <div id="hero">
-          <HeroSection onSearch={handleSearchChange} />
-        </div>
-
-        {/* Category Grid */}
-        <div id="categories">
-          <CategoryGrid
-            onCategorySelect={handleCategoryChange}
-            onTagFilter={(tags) => {
-              if (tags.length > 0) {
-                setSearchTerm(tags.map(tag => `#${tag}`).join(" "))
-                showToast(`Filtered by tags: ${tags.join(", ")}`)
-              }
-            }}
-          />
-        </div>
-
-        {/* Featured Section */}
-        <div id="featured">
-          <FeaturedSection />
-        </div>
-
-        {/* Featured Collection */}
-        <div id="collection">
-          <FeaturedCollection />
-        </div>
-
-        {/* Trust Section */}
-        <div id="trust">
-          <TrustSection />
-        </div>
-
-        {/* Original Blog Articles Section */}
-        <section className={styles.section}>
-          <div className={styles.toolbar}>
-            <div className={styles.toolbarHeading}>
-              <h2 className={styles.sectionTitle}>Latest Articles</h2>
-              <span className={styles.articleCount} aria-live="polite">
-                {filteredCount} {filteredCount === 1 ? "article" : "articles"}
-              </span>
+        {/* Simplified Search Section */}
+        <section className="bg-white py-8 sm:py-12">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-8">
+              <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">FastFunRC Blog</h1>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Expert insights on RF remotes, IoT solutions, and OEM/ODM manufacturing
+              </p>
             </div>
-            <div className={styles.toolbarControls}>
+            <div className="max-w-2xl mx-auto">
               <div className={styles.search}>
                 <input
                   value={searchTerm}
@@ -488,217 +445,210 @@ export function BlogPage() {
                   )}
                 </div>
               </div>
-              <label className={styles.sortControl}>
-                <span className="sr-only">Sort articles</span>
-                <select
-                  value={sortOption}
-                  onChange={(event) => handleSortChange(event.target.value as SortOption)}
-                  className={styles.sortSelect}
-                >
-                  {sortOptions.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </label>
             </div>
           </div>
+        </section>
 
-        {isLoading ? (
-          <div className={styles.blogGrid}>
-            {[...Array(6)].map((_, index) => (
-              <article key={index} className={styles.skeletonCard}>
-                <div className={styles.skeletonImage} />
-                <div className={styles.skeletonBody}>
-                  <div className={styles.skeletonLine} />
-                  <div className={`${styles.skeletonLine} ${styles.skeletonLineShort}`} />
-                  <div className={styles.skeletonLine} />
-                </div>
-              </article>
-            ))}
-          </div>
-        ) : (
-          <>
-            <div className={styles.blogGrid}>
-              {visibleArticles.map((article) => (
-                <article
-                  key={article.id}
-                  id={`article-${article.id}`}
-                  className={`${styles.card} ${article.featured ? styles.cardFeatured : ""}`}
-                >
-                  <div className={styles.cardImage}>
-                    <Image
-                      src={article.image}
-                      alt={article.title}
-                      fill
-                      className={styles.cardImageMedia}
-                      sizes="(min-width: 1280px) 360px, (min-width: 1024px) 320px, (min-width: 640px) 45vw, 90vw"
-                      priority={article.featured}
-                    />
-                    <span className={styles.categoryBadge}>{article.category}</span>
+        {/* Blog Articles Section */}
+        <section className="py-12">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4 sm:mb-0">Latest Articles</h2>
+              <div className="flex items-center gap-4">
+                <span className="text-sm text-gray-500" aria-live="polite">
+                  {filteredCount} {filteredCount === 1 ? "article" : "articles"}
+                </span>
+                <label className="flex items-center gap-2">
+                  <span className="text-sm text-gray-600">Sort:</span>
+                  <select
+                    value={sortOption}
+                    onChange={(event) => handleSortChange(event.target.value as SortOption)}
+                    className="border border-gray-300 rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  >
+                    {sortOptions.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              </div>
+            </div>
+
+            {/* Category Filter */}
+            <div className="mb-8">
+              <div className="flex flex-wrap gap-2">
+                {categories.map((cat) => (
+                  <button
+                    key={cat.key}
+                    type="button"
+                    onClick={() => handleCategoryChange(cat.key)}
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                      category === cat.key
+                        ? 'bg-orange-500 text-white'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                  >
+                    {cat.label} ({cat.count})
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {isLoading ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[...Array(6)].map((_, index) => (
+                  <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden animate-pulse">
+                    <div className="h-48 bg-gray-200"></div>
+                    <div className="p-6">
+                      <div className="h-4 bg-gray-200 rounded mb-2"></div>
+                      <div className="h-4 bg-gray-200 rounded w-3/4 mb-4"></div>
+                      <div className="h-3 bg-gray-200 rounded mb-2"></div>
+                      <div className="h-3 bg-gray-200 rounded w-5/6"></div>
+                    </div>
                   </div>
-
-                  <div className={styles.cardContent}>
-                    <div className={styles.meta}>
-                      <button
-                        type="button"
-                        className={styles.author}
-                        onClick={() => {
-                          setSearchTerm(article.author)
-                          showToast(`Showing articles by ${article.author}`)
-                        }}
-                      >
-                        <span className={styles.avatar}>{getInitials(article.author)}</span>
-                        <span>{article.author}</span>
-                      </button>
-                      <span>
-                        <Calendar size={16} className="inline-block mr-2 text-slate-400" aria-hidden />
-                        {formatDate(article.date)}
-                      </span>
-                      <span>
-                        <Clock3 size={16} className="inline-block mr-2 text-slate-400" aria-hidden />
-                        {article.readTime}
-                      </span>
-                    </div>
-
-                    <div>
-                      <h3 className={styles.cardTitle}>{article.title}</h3>
-                      <p className={styles.excerpt}>{formatExcerpt(article.excerpt)}</p>
-                    </div>
-
-                    <div className={styles.tags}>
-                      {article.tags.map((tag) => (
-                        <button
-                          key={tag}
-                          type="button"
-                          className={styles.tag}
-                          onClick={() => {
-                            setSearchTerm(`#${tag}`)
-                            showToast(`Showing articles tagged with #${tag}`)
-                          }}
-                        >
-                          #{tag}
-                        </button>
-                      ))}
-                    </div>
-
-                    <div className={styles.cardFooter}>
-                      <div className={styles.stats}>
-                        <span className={styles.stat}>
-                          <Eye size={16} />
-                          {statsNumberFormatter.format(article.views)}
+                ))}
+              </div>
+            ) : (
+              <>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {visibleArticles.map((article) => (
+                    <article
+                      key={article.id}
+                      id={`article-${article.id}`}
+                      className={`bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow ${
+                        article.featured ? 'ring-2 ring-orange-500' : ''
+                      }`}
+                    >
+                      <div className="relative h-48">
+                        <Image
+                          src={article.image}
+                          alt={article.title}
+                          fill
+                          className="object-cover"
+                          sizes="(min-width: 1280px) 360px, (min-width: 1024px) 320px, (min-width: 640px) 45vw, 90vw"
+                          priority={article.featured}
+                        />
+                        <span className="absolute top-4 right-4 bg-orange-500 text-white text-xs px-2 py-1 rounded">
+                          {article.category}
                         </span>
-                        <button type="button" className={styles.stat} onClick={() => handleLike(article.id)}>
-                          <Heart size={16} />
-                          {statsNumberFormatter.format(likes[article.id] ?? article.likes)}
-                        </button>
                       </div>
 
-                      <div className={styles.actions}>
-                        <button
-                          type="button"
-                          className={`${styles.iconButton} ${savedArticles.includes(article.id) ? styles.iconButtonActive : ""}`}
-                          onClick={() => toggleSave(article.id)}
-                          aria-label={savedArticles.includes(article.id) ? "Remove article from saved articles" : "Save article"}
-                        >
-                          <BookmarkIcon filled={savedArticles.includes(article.id)} />
-                        </button>
-                        <button
-                          type="button"
-                          className={styles.iconButton}
-                          onClick={() => handleShare(article)}
-                          aria-label="Copy article link"
-                        >
-                          <Share2 size={18} />
-                        </button>
-                        <div className={styles.socialLinks} role="group" aria-label="Share on social media">
-                          <button
-                            type="button"
-                            className={styles.socialButton}
-                            onClick={() => openShareWindow("linkedin", article)}
-                            aria-label="Share on LinkedIn"
-                          >
-                            <Linkedin size={16} />
-                          </button>
-                          <button
-                            type="button"
-                            className={styles.socialButton}
-                            onClick={() => openShareWindow("facebook", article)}
-                            aria-label="Share on Facebook"
-                          >
-                            <Facebook size={16} />
-                          </button>
-                          <button
-                            type="button"
-                            className={styles.socialButton}
-                            onClick={() => openShareWindow("twitter", article)}
-                            aria-label="Share on X"
-                          >
-                            <Twitter size={16} />
-                          </button>
+                      <div className="p-6">
+                        <div className="flex items-center text-sm text-gray-500 mb-3">
+                          <span>{article.author}</span>
+                          <span className="mx-2">•</span>
+                          <span>{formatDate(article.date)}</span>
+                          <span className="mx-2">•</span>
+                          <span>{article.readTime}</span>
                         </div>
-                        <button
-                          type="button"
-                          className={styles.iconButton}
-                          onClick={() => setModalArticle(article)}
-                          aria-label="Open article preview"
-                        >
-                          <FileText size={18} />
-                        </button>
-                        <button
-                          type="button"
-                          className={styles.iconButton}
-                          onClick={() => setReadingArticle(article)}
-                          aria-label="Open reading mode"
-                        >
-                          <BookOpen size={18} />
-                        </button>
+
+                        <h3 className="text-xl font-semibold text-gray-900 mb-3">{article.title}</h3>
+                        <p className="text-gray-600 mb-4">{formatExcerpt(article.excerpt)}</p>
+
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          {article.tags.map((tag) => (
+                            <button
+                              key={tag}
+                              type="button"
+                              className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded hover:bg-gray-200 transition-colors"
+                              onClick={() => {
+                                setSearchTerm(`#${tag}`)
+                                showToast(`Showing articles tagged with #${tag}`)
+                              }}
+                            >
+                              #{tag}
+                            </button>
+                          ))}
+                        </div>
+
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-4 text-sm text-gray-500">
+                            <span className="flex items-center gap-1">
+                              <Eye size={16} />
+                              {statsNumberFormatter.format(article.views)}
+                            </span>
+                            <button
+                              type="button"
+                              className="flex items-center gap-1 hover:text-orange-500 transition-colors"
+                              onClick={() => handleLike(article.id)}
+                            >
+                              <Heart size={16} />
+                              {statsNumberFormatter.format(likes[article.id] ?? article.likes)}
+                            </button>
+                          </div>
+
+                          <div className="flex items-center gap-2">
+                            <button
+                              type="button"
+                              className={`p-2 rounded ${
+                                savedArticles.includes(article.id)
+                                  ? 'text-orange-500 bg-orange-50'
+                                  : 'text-gray-400 hover:text-gray-600'
+                              }`}
+                              onClick={() => toggleSave(article.id)}
+                              aria-label={savedArticles.includes(article.id) ? "Remove from saved" : "Save article"}
+                            >
+                              <BookmarkIcon filled={savedArticles.includes(article.id)} />
+                            </button>
+                            <button
+                              type="button"
+                              className="p-2 text-gray-400 hover:text-gray-600"
+                              onClick={() => handleShare(article)}
+                              aria-label="Share article"
+                            >
+                              <Share2 size={18} />
+                            </button>
+                            <button
+                              type="button"
+                              className="p-2 text-gray-400 hover:text-gray-600"
+                              onClick={() => setReadingArticle(article)}
+                              aria-label="Read article"
+                            >
+                              <BookOpen size={18} />
+                            </button>
+                          </div>
+                        </div>
                       </div>
-                    </div>
+                    </article>
+                  ))}
+                </div>
+
+                {hasMore && (
+                  <div className="text-center mt-12">
+                    <button
+                      type="button"
+                      onClick={handleLoadMore}
+                      className="px-6 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors"
+                    >
+                      Load more articles
+                    </button>
                   </div>
-                </article>
-              ))}
-            </div>
+                )}
 
-            {hasMore && (
-              <div className={styles.loadMore}>
-                <button type="button" onClick={handleLoadMore}>
-                  Load more articles
-                </button>
-              </div>
+                {!filteredCount && (
+                  <div className="text-center py-12">
+                    <p className="text-gray-500 mb-4">No articles found for your filters.</p>
+                    <button
+                      type="button"
+                      className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors"
+                      onClick={() => {
+                        setCategory("all")
+                        setSearchTerm("")
+                        setDisplayedCount(INITIAL_COUNT)
+                      }}
+                    >
+                      Reset filters
+                    </button>
+                  </div>
+                )}
+              </>
             )}
-
-            {!filteredCount && (
-              <div className="mt-16 text-center text-slate-500">
-                <p>No articles found for your filters.</p>
-                <button
-                  type="button"
-                  className="mt-4 inline-flex items-center gap-2 rounded-full bg-slate-900 px-5 py-2 text-sm font-medium text-white shadow"
-                  onClick={() => {
-                    setCategory("all")
-                    setSearchTerm("")
-                    setDisplayedCount(INITIAL_COUNT)
-                  }}
-                >
-                  <X size={16} />
-                  Reset filters
-                </button>
-              </div>
-            )}
-          </>
-        )}
-      </section>
+          </div>
+        </section>
     </main>
 
-    {/* Support Center */}
-    <div id="support">
-      <SupportCenter />
-    </div>
-
-    {/* Secondary CTA */}
-    <SecondaryCTA />
-
+    {/* Simple Footer */}
     <BlogFooter />
 
       {modalArticle && (
@@ -796,11 +746,6 @@ export function BlogPage() {
         {toast.message}
       </div>
 
-      {/* Sticky Navigation */}
-      <StickyNavigation />
-
-      {/* Instant Communication */}
-      <InstantCommunication />
     </div>
   )
 }
