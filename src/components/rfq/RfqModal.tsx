@@ -2,9 +2,10 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { MessageCircle, Send, Check, AlertCircle } from 'lucide-react';
+import { MessageCircle, Send, Check, AlertCircle, Upload, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 
 export interface RfqModalProps {
   open: boolean;
@@ -33,6 +34,8 @@ export function RfqModal({ open, onClose, onSubmit, onDownloadTemplate }: RfqMod
   const [nameError, setNameError] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [lastSubmitTime, setLastSubmitTime] = useState(0);
+  const [message, setMessage] = useState('');
+  const [attachedFiles, setAttachedFiles] = useState<File[]>([]);
   
   const emailInputRef = useRef<HTMLInputElement>(null);
   const nameInputRef = useRef<HTMLInputElement>(null);
@@ -167,6 +170,8 @@ export function RfqModal({ open, onClose, onSubmit, onDownloadTemplate }: RfqMod
       `Name: ${name}`,
       `Email: ${email}`,
       country && `Country: ${country}`,
+      message && `Message: ${message}`,
+      attachedFiles.length > 0 && `Attachments: ${attachedFiles.map(f => f.name).join(', ')}`,
       '',
       `Please send me your product catalog and current pricing information.`,
       '',
@@ -199,6 +204,8 @@ export function RfqModal({ open, onClose, onSubmit, onDownloadTemplate }: RfqMod
     setEmail('');
     setName('');
     setCountry('');
+    setMessage('');
+    setAttachedFiles([]);
     setEmailError('');
     setNameError('');
     setShowCountryDropdown(false);
@@ -231,8 +238,8 @@ export function RfqModal({ open, onClose, onSubmit, onDownloadTemplate }: RfqMod
         role="dialog"
         aria-modal="true"
         aria-label="Request a custom quotation"
-        className="relative z-10 w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl"
-        style={{ maxHeight: '420px' }}
+        className="relative z-10 w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl overflow-y-auto"
+        style={{ maxHeight: '600px' }}
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
@@ -350,6 +357,63 @@ export function RfqModal({ open, onClose, onSubmit, onDownloadTemplate }: RfqMod
                       >
                         {countryName}
                       </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Message field */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Message (optional)
+                </label>
+                <Textarea
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  placeholder="Tell us about your project requirements..."
+                  rows={3}
+                  className="resize-none"
+                />
+              </div>
+
+              {/* File upload */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Attachments (optional)
+                </label>
+                <div className="border-2 border-dashed border-slate-300 rounded-lg p-4 text-center hover:border-orange-400 transition-colors">
+                  <input
+                    type="file"
+                    id="file-upload"
+                    multiple
+                    className="hidden"
+                    onChange={(e) => {
+                      const files = Array.from(e.target.files || []);
+                      setAttachedFiles(prev => [...prev, ...files]);
+                      e.target.value = '';
+                    }}
+                  />
+                  <label htmlFor="file-upload" className="cursor-pointer">
+                    <Upload className="h-8 w-8 text-slate-400 mx-auto mb-2" />
+                    <p className="text-sm text-slate-600">Click to upload or drag and drop</p>
+                    <p className="text-xs text-slate-500 mt-1">PDF, DOC, DWG, STEP files (Max 10MB)</p>
+                  </label>
+                </div>
+                
+                {/* Display attached files */}
+                {attachedFiles.length > 0 && (
+                  <div className="mt-2 space-y-1">
+                    {attachedFiles.map((file, index) => (
+                      <div key={index} className="flex items-center justify-between bg-slate-50 rounded p-2 text-xs">
+                        <span className="truncate flex-1 mr-2">{file.name}</span>
+                        <button
+                          type="button"
+                          onClick={() => setAttachedFiles(prev => prev.filter((_, i) => i !== index))}
+                          className="text-red-500 hover:text-red-700"
+                        >
+                          <X className="h-3 w-3" />
+                        </button>
+                      </div>
                     ))}
                   </div>
                 )}
