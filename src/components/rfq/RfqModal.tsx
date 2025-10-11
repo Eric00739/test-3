@@ -238,8 +238,8 @@ export function RfqModal({ open, onClose, onSubmit, onDownloadTemplate }: RfqMod
         role="dialog"
         aria-modal="true"
         aria-label="Request a custom quotation"
-        className="relative z-10 w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl overflow-y-auto"
-        style={{ maxHeight: '600px' }}
+        className="relative z-10 w-full max-w-lg sm:max-w-xl rounded-2xl bg-white p-6 shadow-2xl overflow-y-auto"
+        style={{ maxHeight: '700px' }}
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
@@ -247,15 +247,27 @@ export function RfqModal({ open, onClose, onSubmit, onDownloadTemplate }: RfqMod
         {/* 成功状态 */}
         {isSubmitted ? (
           <div className="text-center py-8">
-            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Check className="h-8 w-8 text-green-600" />
+            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Check className="h-10 w-10 text-green-600" />
             </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
-              Thanks! Check your inbox
+            <h3 className="text-2xl font-bold text-gray-900 mb-3">
+              RFQ Sent Successfully!
             </h3>
-            <p className="text-sm text-slate-600">
-              Reply with any drawings/BOM. Typical response less than 12h.
+            <p className="text-base text-slate-600 mb-4">
+              Thank you for your inquiry. Our engineering team will review your requirements and respond within 12 hours.
             </p>
+            <div className="bg-green-50 rounded-lg p-4 mb-4">
+              <p className="text-sm text-green-800 font-medium">
+                Next: Check your email for confirmation. You can reply directly with additional files or questions.
+              </p>
+            </div>
+            <Button
+              onClick={onClose}
+              className="bg-green-600 hover:bg-green-700 text-white"
+              style={{ color: 'white' }}
+            >
+              Got it
+            </Button>
           </div>
         ) : (
           <>
@@ -370,8 +382,8 @@ export function RfqModal({ open, onClose, onSubmit, onDownloadTemplate }: RfqMod
                 <Textarea
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Tell us about your project requirements..."
-                  rows={3}
+                  placeholder="Tell us about your project requirements, such as product specifications, quantity, target market, certification needs, or any technical questions..."
+                  rows={5}
                   className="resize-none"
                 />
               </div>
