@@ -4,7 +4,8 @@ import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Download, Package, Send, Wifi, Radio, Settings, Zap } from "lucide-react"
+import { Download, Package, Send, Wifi, Radio, Settings, Zap, ArrowRight } from "lucide-react"
+import Link from "next/link"
 
 interface ProductsSectionProps {
   onOpenRfq: (source: string) => void
@@ -113,9 +114,15 @@ export function ProductsSection({ onOpenRfq }: ProductsSectionProps) {
           className="text-center mb-20"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">Our Custom OEM/ODM Solutions</h2>
-          <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed px-4">
+          <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed px-4 mb-6">
             Industry-specific wireless control solutions tailored to your application requirements
           </p>
+          <Link href="/products">
+            <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white">
+              View All Product Categories
+              <ArrowRight className="h-5 w-5 ml-2" />
+            </Button>
+          </Link>
         </motion.div>
 
         {products.map((category, categoryIndex) => (

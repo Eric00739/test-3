@@ -207,7 +207,7 @@ export default function Home() {
   const navLinks = [
     { label: 'Home', target: 'hero' },
     { label: 'About us', target: 'about' },
-    { label: 'Products', target: 'products' },
+    { label: 'Products', href: '/products' },
     { label: 'Blog', href: '/blog' },
     { label: 'Contact', target: 'contact' },
   ];
@@ -1256,13 +1256,13 @@ export default function Home() {
             <div>
               <h3 className="text-lg font-semibold mb-6">Products</h3>
               <ul className="space-y-3">
-                <li><a href="#" className="text-slate-300 hover:text-orange-500 transition-colors">RF Remote Controls</a></li>
-                <li><a href="#" className="text-slate-300 hover:text-orange-500 transition-colors">RF Receivers</a></li>
-                <li><a href="#" className="text-slate-300 hover:text-orange-500 transition-colors">RF Kits</a></li>
-                <li><a href="#" className="text-slate-300 hover:text-orange-500 transition-colors">Car Remotes</a></li>
-                <li><a href="#" className="text-slate-300 hover:text-orange-500 transition-colors">Wi-Fi Switches</a></li>
-                <li><a href="#" className="text-slate-300 hover:text-orange-500 transition-colors">Wi-Fi Sockets</a></li>
-                <li><a href="#" className="text-slate-300 hover:text-orange-500 transition-colors">Custom OEM/ODM</a></li>
+                <li><a href="/products" className="text-slate-300 hover:text-orange-500 transition-colors">RF Remote Controls</a></li>
+                <li><a href="/products" className="text-slate-300 hover:text-orange-500 transition-colors">RF Receivers</a></li>
+                <li><a href="/products" className="text-slate-300 hover:text-orange-500 transition-colors">RF Kits</a></li>
+                <li><a href="/products" className="text-slate-300 hover:text-orange-500 transition-colors">Car Remotes</a></li>
+                <li><a href="/products" className="text-slate-300 hover:text-orange-500 transition-colors">Wi-Fi Switches</a></li>
+                <li><a href="/products" className="text-slate-300 hover:text-orange-500 transition-colors">Wi-Fi Sockets</a></li>
+                <li><a href="/products" className="text-slate-300 hover:text-orange-500 transition-colors">Custom OEM/ODM</a></li>
               </ul>
             </div>
 
