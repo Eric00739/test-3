@@ -31,6 +31,17 @@ import {
 import styles from "./BlogPage.module.css"
 import { blogData, type BlogArticle } from "./BlogData"
 
+// Import new components
+import { HeroSection } from "./components/HeroSection"
+import { CategoryGrid } from "./components/CategoryGrid"
+import { FeaturedSection } from "./components/FeaturedSection"
+import { FeaturedCollection } from "./components/FeaturedCollection"
+import { TrustSection } from "./components/TrustSection"
+import { SupportCenter } from "./components/SupportCenter"
+import { SecondaryCTA } from "./components/SecondaryCTA"
+import { InstantCommunication } from "./components/InstantCommunication"
+import { StickyNavigation } from "./components/StickyNavigation"
+
 const statsNumberFormatter = new Intl.NumberFormat("en", {
   notation: "compact",
   maximumFractionDigits: 1,
@@ -402,124 +413,97 @@ export function BlogPage() {
       </div>
 
       <main className="relative z-10 pb-24">
-        <header className={`${styles.section} ${styles.hero}`}>
-        <span className={styles.badge}>
-          <RocketIcon /> Innovation Hub
-        </span>
-        <h1 className={styles.heroTitle}>Welcome to FastFunRC Blog</h1>
-        <p className={styles.heroSubtitle}>
-          Discover cutting-edge insights, industry trends, and expert perspectives on RC technology and innovation.
-        </p>
-      </header>
-
-      <section className={`${styles.section} ${styles.statsGrid}`} aria-label="Blog statistics">
-        {stats.map((item) => (
-          <article key={item.label} className={styles.statCard}>
-            <div className={styles.statIcon}>{item.icon}</div>
-            <div className={styles.statNumber}>{statsNumberFormatter.format(item.value)}</div>
-            <div className={styles.statLabel}>{item.label}</div>
-          </article>
-        ))}
-      </section>
-
-      <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>Explore Categories</h2>
-        <p className={styles.categoryHint}>Choose a category to tailor the insights you see.</p>
-        <div className={styles.categories}>
-          {categories.map((item) => (
-            <button
-              key={item.key}
-              type="button"
-              className={styles.category}
-              data-active={category === item.key}
-              aria-pressed={category === item.key}
-              onClick={() => handleCategoryChange(item.key)}
-            >
-              {category === item.key ? <Minus size={16} /> : <Plus size={16} />}
-              {item.label}
-              <span className={styles.categoryCount}>{item.count}</span>
-            </button>
-          ))}
+        {/* Hero Section */}
+        <div id="hero">
+          <HeroSection onSearch={handleSearchChange} />
         </div>
-        {!!topTags.length && (
-          <div className={styles.quickFilters}>
-            <span className={styles.quickFiltersLabel}>Popular tags:</span>
-            <div className={styles.quickFiltersChips}>
-              {topTags.map((tag) => (
-                <button
-                  key={tag}
-                  type="button"
-                  className={styles.quickFiltersChip}
-                  onClick={() => {
-                    setSearchTerm(`#${tag}`)
-                    showToast(`Showing articles tagged with #${tag}`)
-                  }}
-                >
-                  #{tag}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-      </section>
 
-      <section className={styles.section}>
-        <div className={styles.toolbar}>
-          <div className={styles.toolbarHeading}>
-            <h2 className={styles.sectionTitle}>Latest Articles</h2>
-            <span className={styles.articleCount} aria-live="polite">
-              {filteredCount} {filteredCount === 1 ? "article" : "articles"}
-            </span>
-          </div>
-          <div className={styles.toolbarControls}>
-            <div className={styles.search}>
-              <input
-                value={searchTerm}
-                onChange={(event) => handleSearchChange(event.target.value)}
-                onFocus={() => setShowSuggestions(suggestions.length > 0)}
-                onBlur={() => setTimeout(() => setShowSuggestions(false), 120)}
-                placeholder="Search articles, tags, or authors..."
-                className={styles.searchInput}
-                aria-label="Search blog articles"
-              />
-              <Search size={18} className={styles.searchIcon} aria-hidden />
-              <div className={`${styles.suggestions} ${showSuggestions ? styles.suggestionsVisible : ""}`}>
-                {suggestions.map((suggestion) => (
-                  <button
-                    key={`${suggestion.type}-${suggestion.text}`}
-                    type="button"
-                    className={styles.suggestionItem}
-                    onMouseDown={(event) => event.preventDefault()}
-                    onClick={() => handleSuggestionSelect(suggestion)}
-                  >
-                    {suggestionIcons[suggestion.type]}
-                    <span>{suggestion.text}</span>
-                  </button>
-                ))}
-                {!suggestions.length && searchTerm && (
-                  <div className={styles.suggestionItem}>
-                    <Minus size={16} />
-                    No results for "{searchTerm}"
-                  </div>
-                )}
+        {/* Category Grid */}
+        <div id="categories">
+          <CategoryGrid
+            onCategorySelect={handleCategoryChange}
+            onTagFilter={(tags) => {
+              if (tags.length > 0) {
+                setSearchTerm(tags.map(tag => `#${tag}`).join(" "))
+                showToast(`Filtered by tags: ${tags.join(", ")}`)
+              }
+            }}
+          />
+        </div>
+
+        {/* Featured Section */}
+        <div id="featured">
+          <FeaturedSection />
+        </div>
+
+        {/* Featured Collection */}
+        <div id="collection">
+          <FeaturedCollection />
+        </div>
+
+        {/* Trust Section */}
+        <div id="trust">
+          <TrustSection />
+        </div>
+
+        {/* Original Blog Articles Section */}
+        <section className={styles.section}>
+          <div className={styles.toolbar}>
+            <div className={styles.toolbarHeading}>
+              <h2 className={styles.sectionTitle}>Latest Articles</h2>
+              <span className={styles.articleCount} aria-live="polite">
+                {filteredCount} {filteredCount === 1 ? "article" : "articles"}
+              </span>
+            </div>
+            <div className={styles.toolbarControls}>
+              <div className={styles.search}>
+                <input
+                  value={searchTerm}
+                  onChange={(event) => handleSearchChange(event.target.value)}
+                  onFocus={() => setShowSuggestions(suggestions.length > 0)}
+                  onBlur={() => setTimeout(() => setShowSuggestions(false), 120)}
+                  placeholder="Search articles, tags, or authors..."
+                  className={styles.searchInput}
+                  aria-label="Search blog articles"
+                />
+                <Search size={18} className={styles.searchIcon} aria-hidden />
+                <div className={`${styles.suggestions} ${showSuggestions ? styles.suggestionsVisible : ""}`}>
+                  {suggestions.map((suggestion) => (
+                    <button
+                      key={`${suggestion.type}-${suggestion.text}`}
+                      type="button"
+                      className={styles.suggestionItem}
+                      onMouseDown={(event) => event.preventDefault()}
+                      onClick={() => handleSuggestionSelect(suggestion)}
+                    >
+                      {suggestionIcons[suggestion.type]}
+                      <span>{suggestion.text}</span>
+                    </button>
+                  ))}
+                  {!suggestions.length && searchTerm && (
+                    <div className={styles.suggestionItem}>
+                      <Minus size={16} />
+                      No results for "{searchTerm}"
+                    </div>
+                  )}
+                </div>
               </div>
+              <label className={styles.sortControl}>
+                <span className="sr-only">Sort articles</span>
+                <select
+                  value={sortOption}
+                  onChange={(event) => handleSortChange(event.target.value as SortOption)}
+                  className={styles.sortSelect}
+                >
+                  {sortOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
             </div>
-            <label className={styles.sortControl}>
-              <span className="sr-only">Sort articles</span>
-              <select
-                value={sortOption}
-                onChange={(event) => handleSortChange(event.target.value as SortOption)}
-                className={styles.sortSelect}
-              >
-                {sortOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </label>
           </div>
-        </div>
 
         {isLoading ? (
           <div className={styles.blogGrid}>
@@ -707,7 +691,15 @@ export function BlogPage() {
       </section>
     </main>
 
-      <BlogFooter />
+    {/* Support Center */}
+    <div id="support">
+      <SupportCenter />
+    </div>
+
+    {/* Secondary CTA */}
+    <SecondaryCTA />
+
+    <BlogFooter />
 
       {modalArticle && (
         <div className={styles.modal} role="dialog" aria-modal="true" aria-labelledby="modal-title">
@@ -803,6 +795,12 @@ export function BlogPage() {
       <div className={`${styles.toast} ${toast.visible ? styles.toastVisible : ""}`} role="status">
         {toast.message}
       </div>
+
+      {/* Sticky Navigation */}
+      <StickyNavigation />
+
+      {/* Instant Communication */}
+      <InstantCommunication />
     </div>
   )
 }
