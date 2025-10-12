@@ -41,7 +41,7 @@ export default function Home() {
   }
 
   // Data definitions
-  const testimonials = [
+const testimonials = [
     {
       quote: 'FastFun Remote delivered exceptional quality with 42% faster time-to-market. Their engineering team solved our RF challenges that other vendors couldn\'t.',
       company: 'Leading EU Gate Control Brand',
@@ -184,8 +184,8 @@ export default function Home() {
       { '@type': 'Country', name: 'Germany' },
       { '@type': 'Country', name: 'Australia' },
       { '@type': 'Country', name: 'China' },
-    ],
-    hasOfferCatalog: {
+  ],
+  hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'RF Remote & IoT Manufacturing',
       itemListElement: [
@@ -213,6 +213,30 @@ export default function Home() {
     { label: 'Blog', href: '/blog' },
     { label: 'Contact', href: '/contact' },
   ];
+
+  const factoryGallery = [
+    {
+      id: 'factory-image-01',
+      // TODO: replace `src` with production factory hero image #1 (recommended 1600x1000 WebP)
+      src: 'https://images.unsplash.com/photo-1582719478181-2cf4e1b95b05?auto=format&fit=crop&w=1600&h=1000&q=80&fm=webp',
+      title: 'SMT Production Floor',
+      description: 'Inline SMT assembly with automated optical inspection (AOI) for RF remotes.'
+    },
+    {
+      id: 'factory-image-02',
+      // TODO: replace `src` with production factory hero image #2 (recommended 1600x1000 WebP)
+      src: 'https://images.unsplash.com/photo-1580894897200-8eafc15323c7?auto=format&fit=crop&w=1600&h=1000&q=80&fm=webp',
+      title: 'Quality & RF Calibration Lab',
+      description: 'Shielded rooms with spectrum analysis and functional burn-in racks.'
+    },
+    {
+      id: 'factory-image-03',
+      // TODO: replace `src` with production factory hero image #3 (recommended 1600x1000 WebP)
+      src: 'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1600&h=1000&q=80&fm=webp',
+      title: 'Final Assembly & Packaging',
+      description: 'Dedicated clean line for remote controls, receivers, and smart switch kitting.'
+    }
+  ]
 
   const handleNavClick = (target: string) => {
     const section = document.getElementById(target)
@@ -484,6 +508,56 @@ export default function Home() {
         />
 
       <HeroSection onOpenRfq={openRfqModal} onWhatsApp={openWhatsApp} onWeChat={openWeChat} />
+
+      {/* Factory Gallery */}
+      <section className="bg-slate-50 py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <Badge className="mb-4 bg-orange-500/10 text-orange-600 border border-orange-500/30">Inside FastFunRC</Badge>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">Factory Capability Snapshot</h2>
+            <p className="text-base sm:text-lg text-slate-600 max-w-3xl mx-auto">
+              A quick look at our SMT lines, RF calibration labs, and outbound packaging areas supporting 47 new product
+              introductions every year.
+            </p>
+          </motion.div>
+
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {factoryGallery.map((item, index) => (
+              <motion.figure
+                key={item.id}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="group relative overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-2xl transition-shadow"
+              >
+                <div className="relative h-64">
+                  <Image
+                    src={item.src}
+                    alt={item.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                    loading={index === 0 ? 'eager' : 'lazy'}
+                    priority={index === 0}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                    <h3 className="text-lg font-semibold">{item.title}</h3>
+                    <p className="mt-2 text-sm text-white/80">{item.description}</p>
+                  </div>
+                </div>
+              </motion.figure>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <TrustSection onOpenRfq={openRfqModal} onWhatsApp={openWhatsApp} />
 
