@@ -18,11 +18,11 @@ export function SiteFooter({ className = "" }: SiteFooterProps) {
               <Image
                 src="/logo.svg"
                 alt="FastFun Remote wordmark"
-                width={220}
-                height={64}
+                width={300}
+                height={72}
                 className="h-10 sm:h-12 w-auto"
                 loading="lazy"
-                sizes="(max-width: 768px) 180px, 220px"
+                sizes="(max-width: 768px) 180px, 300px"
               />
             </Link>
             <p className="text-slate-300 leading-relaxed mb-6 max-w-md">

@@ -30,11 +30,11 @@ export function HeaderBar({
             <Image
               src="/logo.svg"
               alt="FastFun Remote wordmark"
-              width={220}
-              height={60}
+              width={300}
+              height={72}
               priority
               className="h-8 sm:h-10 lg:h-12 w-auto"
-              sizes="(max-width: 640px) 150px, (max-width: 1024px) 200px, 220px"
+              sizes="(max-width: 640px) 150px, (max-width: 1024px) 200px, 300px"
             />
           </Link>
           <div className="hidden md:flex flex-1 justify-center space-x-6 lg:space-x-8">

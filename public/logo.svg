@@ -11,10 +11,10 @@
   <rect width="320" height="72" fill="none"/>
   <g transform="translate(16 16)">
     <path d="M0 44h150" fill="none" stroke="url(#fastfun-shadow)" stroke-width="6" stroke-linecap="round" opacity=".2"/>
-    <text x="0" y="37" font-family="'Poppins', 'Segoe UI', Arial, sans-serif" font-style="italic" font-weight="700" font-size="40" fill="#1f1f2d" letter-spacing="0.5">
+    <text x="0" y="37" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-style="italic" font-weight="700" font-size="40" fill="#1f1f2d" letter-spacing="0.5">
       FastFun
     </text>
-    <text x="167" y="37" font-family="'Poppins', 'Segoe UI', Arial, sans-serif" font-weight="800" font-size="40" fill="#ff7a00" letter-spacing="0.5">
+    <text x="167" y="37" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-weight="800" font-size="40" fill="#ff7a00" letter-spacing="0.5">
       remote
     </text>
   </g>

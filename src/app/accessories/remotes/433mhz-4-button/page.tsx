@@ -30,9 +30,10 @@ export default function Remote433Page() {
           <Image
             src="/logo.svg"
             alt="FastFunRC 433MHz 4-button remote"
-            fill
+            width={300}
+            height={72}
             className="object-contain p-8"
-            sizes="(max-width: 768px) 100vw, 50vw"
+            sizes="(max-width: 768px) 100vw, 300px"
             priority
           />
         </div>
