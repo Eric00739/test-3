@@ -211,7 +211,7 @@ export default function Home() {
     { label: 'About us', target: 'about' },
     { label: 'Products', href: '/products' },
     { label: 'Blog', href: '/blog' },
-    { label: 'Contact', target: 'contact' },
+    { label: 'Contact', href: '/contact' },
   ];
 
   const handleNavClick = (target: string) => {
