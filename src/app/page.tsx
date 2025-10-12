@@ -261,11 +261,12 @@ export default function Home() {
         // Handle fallback to email client
         trackEvent('rfq_fallback_email', { source: rfqSource })
         window.location.href = result.data.mailtoUrl
-      } else {
-        // Handle WhatsApp click
-        trackEvent('whatsapp_click', { source: 'rfq_modal' })
-        window.open('https://wa.me/8615899648898', '_blank', 'noopener')
+        return
       }
+
+      // Handle WhatsApp click from modal CTA
+      trackEvent('whatsapp_click', { source: 'rfq_modal' })
+      window.open('https://wa.me/8615899648898', '_blank', 'noopener')
       closeRfqModal()
     } else if (result.status === 'error') {
       // Error is already displayed in the modal, no additional action needed
