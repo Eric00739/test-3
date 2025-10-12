@@ -14,7 +14,7 @@ const organizationJsonLd = {
   "name": "FastFunRC",
   "alternateName": "FastFunRC | Gate & RF Remote Parts",
   "url": "https://www.fastfunrc.com/",
-  "logo": "https://www.fastfunrc.com/logo-fastfun-remote.png",
+  "logo": "https://www.fastfunrc.com/logo.svg",
   "sameAs": [
     "https://www.linkedin.com/company/fastfunrc/"
   ]

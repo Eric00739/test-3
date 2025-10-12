@@ -19,7 +19,7 @@
       "type": "image/png"
     },
     {
-      "src": "/assets/logo-512.png",
+      "src": "/logo.svg",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"

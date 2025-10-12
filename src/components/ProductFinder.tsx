@@ -43,7 +43,7 @@ const PRODUCTS: Product[] = [
     application: 'Gate & Garage',
     bullets: ['<200 DPPM mass production', 'EV1527/PT2262 compatible', 'Custom logo tooling in 21 days'],
     datasheetUrl: '#remote-433-datasheet',
-    image: '/assets/logo-512.png',
+    image: '/logo.svg',
   },
   {
     id: 'remote-868-slim',
@@ -57,7 +57,7 @@ const PRODUCTS: Product[] = [
     application: 'Smart Home',
     bullets: ['Machined aluminium bezel', 'ASK/FSK selectable', 'Custom Pantone finishing'],
     datasheetUrl: '#remote-868-datasheet',
-    image: '/assets/logo-512.png',
+    image: '/logo.svg',
   },
   {
     id: 'wifi-switch-tuya',
@@ -71,7 +71,7 @@ const PRODUCTS: Product[] = [
     application: 'Smart Lighting',
     bullets: ['Triac/relay options', 'UL94 V-0 enclosure', 'Cloud OTA ready'],
     datasheetUrl: '#wifi-switch-datasheet',
-    image: '/assets/logo-512.png',
+    image: '/logo.svg',
   },
   {
     id: 'ble-remote',
@@ -85,7 +85,7 @@ const PRODUCTS: Product[] = [
     application: 'Access Control',
     bullets: ['AES encrypted BLE link', 'Rechargeable Li-ion', 'Metal keypad with backlight'],
     datasheetUrl: '#ble-remote-datasheet',
-    image: '/assets/logo-512.png',
+    image: '/logo.svg',
   },
   {
     id: 'receiver-industrial',
@@ -99,7 +99,7 @@ const PRODUCTS: Product[] = [
     application: 'Industrial Automation',
     bullets: ['-110 dBm sensitivity', 'Din rail ready case', 'Conformal coated PCB'],
     datasheetUrl: '#receiver-datasheet',
-    image: '/assets/logo-512.png',
+    image: '/logo.svg',
   },
   {
     id: 'rf-module-oem',
@@ -113,7 +113,7 @@ const PRODUCTS: Product[] = [
     application: 'OEM Integration',
     bullets: ['ASK/FSK selectable', 'Auto antenna matching', 'Design to certification support'],
     datasheetUrl: '#rf-module-datasheet',
-    image: '/assets/logo-512.png',
+    image: '/logo.svg',
   },
 ];
 

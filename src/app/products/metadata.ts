@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://www.fastfunrc.com/assets/logo-512.png",
+        url: "https://www.fastfunrc.com/logo.svg",
         width: 512,
         height: 512,
         alt: "FastFunRC Product Categories"
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Product Categories | FastFunRC - RF Remotes & WiFi Solutions",
     description: "Explore our comprehensive product portfolio including RF Remote Controls, RF Receivers, RF Kits, Car Remotes, WiFi Switches, WiFi Sockets, and Infrared Beams. Custom OEM/ODM solutions available.",
-    images: ["https://www.fastfunrc.com/assets/logo-512.png"]
+    images: ["https://www.fastfunrc.com/logo.svg"]
   },
   alternates: {
     canonical: "/products",
@@ -103,6 +103,6 @@ export const productCategoriesJsonLd = {
     "@type": "Organization",
     "name": "FastFunRC",
     "url": "https://www.fastfunrc.com",
-    "logo": "https://www.fastfunrc.com/assets/logo-512.png"
+    "logo": "https://www.fastfunrc.com/logo.svg"
   }
 };

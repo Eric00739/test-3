@@ -217,7 +217,7 @@ export function ProductsSection({ onOpenRfq }: ProductsSectionProps) {
                               application: product.useCase,
                               bullets: product.features || [],
                               datasheetUrl: '#datasheet',
-                              image: '/assets/logo-512.png',
+                              image: '/logo.svg',
                               color: product.color
                             };
                             addToComparison(comparisonProduct);
