@@ -205,15 +205,13 @@ const testimonials = [
   const factoryGallery = [
     {
       id: 'factory-image-01',
-      // TODO: replace `src` with production factory hero image #1 (recommended 1600x1000 WebP)
-      src: 'https://images.unsplash.com/photo-1582719478181-2cf4e1b95b05?auto=format&fit=crop&w=1600&h=1000&q=80&fm=webp',
+      src: '/images/smt-production-line.webp',
       title: 'SMT Production Line',
       description: 'Dongguan 8,000m² facility | 5 SMT lines | 200K units/month capacity'
     },
     {
       id: 'factory-image-02',
-      // TODO: replace `src` with production factory hero image #2 (recommended 1600x1000 WebP)
-      src: 'https://images.unsplash.com/photo-1580894897200-8eafc15323c7?auto=format&fit=crop&w=1600&h=1000&q=80&fm=webp',
+      src: '/images/rf-shielded-test-lab.webp',
       title: 'RF Shielded Test Lab',
       description: '2 certified shielded rooms | FCC/CE pre-certification | Anritsu MS2690A analyzer'
     }
@@ -578,8 +576,8 @@ const testimonials = [
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                    loading={index === 0 ? 'eager' : 'lazy'}
-                    priority={index === 0}
+                    loading="lazy"
+                    quality={85}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-6 text-white">

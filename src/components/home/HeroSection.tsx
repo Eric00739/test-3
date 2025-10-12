@@ -100,7 +100,7 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
             <div className="relative overflow-hidden rounded-2xl shadow-xl">
               <div className="relative aspect-video">
                 <Image
-                  src="https://img.youtube.com/vi/ByoHrKslf54/maxresdefault.jpg"
+                  src="/images/factory-montage.webp"
                   alt="FastFunRC SMT line snapshot"
                   fill
                   className="object-cover"
