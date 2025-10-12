@@ -47,55 +47,55 @@ export function FAQSection({ onOpenRfq }: FAQSectionProps) {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
 
   return (
-    <section className="py-32 bg-slate-50">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div 
+    <section className="py-16 bg-slate-50">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-20"
+          className="text-center mb-12"
         >
-          <h2 className="text-5xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
-          <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
-            Common questions about our RF & IoT control solutions and manufacturing process
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+          <p className="text-base sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
+            Common questions about our RF & IoT control solutions
           </p>
         </motion.div>
 
-        <div className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
           {faqItems.map((faq, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{ duration: 0.5, delay: index * 0.05 }}
               viewport={{ once: true }}
             >
-              <Card className="overflow-hidden bg-white shadow-lg hover:shadow-xl transition-all duration-300 border-0">
+              <Card className="overflow-hidden bg-white shadow hover:shadow-lg transition-all duration-300 border-0 h-full">
                 <button
                   onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
-                  className="w-full p-6 text-left focus:outline-none focus:ring-4 focus:ring-orange-100 rounded-lg"
+                  className="w-full p-4 text-left focus:outline-none focus:ring-4 focus:ring-orange-100 rounded-lg"
                 >
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-4">
-                      <div className="flex-shrink-0 w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
-                        <span className="text-orange-600 font-semibold text-sm">Q{index + 1}</span>
+                    <div className="flex items-center space-x-3">
+                      <div className="flex-shrink-0 w-7 h-7 bg-orange-100 rounded-full flex items-center justify-center">
+                        <span className="text-orange-600 font-semibold text-xs">{index + 1}</span>
                       </div>
-                      <h3 className="text-lg font-bold text-gray-900 pr-4">{faq.question}</h3>
+                      <h3 className="text-base font-bold text-gray-900 pr-3">{faq.question}</h3>
                     </div>
-                    <ChevronRight 
-                      className={`h-5 w-5 text-gray-400 transition-transform duration-300 flex-shrink-0 ${
+                    <ChevronRight
+                      className={`h-4 w-4 text-gray-400 transition-transform duration-300 flex-shrink-0 ${
                         expandedFaq === index ? 'rotate-90' : ''
                       }`}
                     />
                   </div>
                 </button>
                 <div className={`overflow-hidden transition-all duration-300 ${
-                  expandedFaq === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                  expandedFaq === index ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
                 }`}>
-                  <div className="px-6 pb-6 pt-2">
-                    <div className="pl-12">
-                      <p className="text-slate-600 leading-relaxed">{faq.answer}</p>
+                  <div className="px-4 pb-4 pt-1">
+                    <div className="pl-10">
+                      <p className="text-sm text-slate-600 leading-relaxed">{faq.answer}</p>
                     </div>
                   </div>
                 </div>
@@ -104,47 +104,24 @@ export function FAQSection({ onOpenRfq }: FAQSectionProps) {
           ))}
         </div>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
           viewport={{ once: true }}
-          className="text-center mt-16"
+          className="text-center"
         >
-          <Card className="p-8 bg-gradient-to-r from-blue-50 to-indigo-50 border-0">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Meet Our Core R&D and Engineering Team</h3>
-            <p className="text-slate-600 mb-6">Our expert engineers with 15+ years experience are ready to develop your custom wireless solutions</p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <Cpu className="h-8 w-8 text-white" />
-                </div>
-                <h4 className="font-semibold text-gray-900 mb-1">Lead RF Engineer</h4>
-                <p className="text-sm text-slate-600">15+ years RF design experience</p>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <Wifi className="h-8 w-8 text-white" />
-                </div>
-                <h4 className="font-semibold text-gray-900 mb-1">IoT Specialist</h4>
-                <p className="text-sm text-slate-600">WiFi/BLE protocol expert</p>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <Settings className="h-8 w-8 text-white" />
-                </div>
-                <h4 className="font-semibold text-gray-900 mb-1">Project Manager</h4>
-                <p className="text-sm text-slate-600">Dedicated support for every client</p>
-              </div>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-orange-500 hover:bg-orange-600">
-                <Phone className="h-5 w-5 mr-2" />
-                Consult Our Engineers
+          <Card className="p-6 bg-gradient-to-r from-blue-50 to-indigo-50 border-0">
+            <h3 className="text-xl font-bold text-gray-900 mb-3">Still have questions?</h3>
+            <p className="text-sm text-slate-600 mb-4">Our expert engineers are ready to help with your project requirements</p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Button size="sm" className="bg-orange-500 hover:bg-orange-600" onClick={() => onOpenRfq('faq_consult')}>
+                <Phone className="h-4 w-4 mr-2" />
+                Consult Engineers
               </Button>
-              <Button variant="outline" size="lg" className="border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900" type="button" onClick={() => onOpenRfq('footer_quote')}>
-                <MessageCircle className="h-5 w-5 mr-2" />
-                Technical Discussion
+              <Button variant="outline" size="sm" className="border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900" type="button" onClick={() => onOpenRfq('faq_quote')}>
+                <MessageCircle className="h-4 w-4 mr-2" />
+                Get Quote
               </Button>
             </div>
           </Card>
