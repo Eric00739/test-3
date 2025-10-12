@@ -15,7 +15,6 @@ export interface RfqModalProps {
     message?: string;
     data?: any;
   }) => void;
-  onDownloadTemplate: () => void;
   source?: string;
 }
 
@@ -29,7 +28,7 @@ const COUNTRIES = [
   'South Africa', 'Egypt', 'Israel', 'Turkey', 'Russia', 'Ukraine'
 ];
 
-export function RfqModal({ open, onClose, onSubmit, onDownloadTemplate, source = 'default' }: RfqModalProps) {
+export function RfqModal({ open, onClose, onSubmit, source = 'default' }: RfqModalProps) {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [country, setCountry] = useState('');

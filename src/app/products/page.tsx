@@ -743,7 +743,6 @@ export default function ProductsPage() {
         open={isRfqOpen}
         onClose={closeRfqModal}
         onSubmit={handleRfqSubmit}
-        onDownloadTemplate={() => window.open('/assets/rfq-checklist.pdf', '_blank', 'noopener')}
         source={rfqSource}
       />
 

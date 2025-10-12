@@ -255,7 +255,6 @@ export default function Home() {
   }) => {
     if (result.status === 'success') {
       trackEvent('rfq_submit', { source: rfqSource })
-      handleDownloadTemplate()
       closeRfqModal()
     } else if (result.status === 'whatsapp') {
       if (result.data?.mailtoUrl) {
@@ -272,11 +271,6 @@ export default function Home() {
       // Error is already displayed in the modal, no additional action needed
       console.error('RFQ submission error:', result.message)
     }
-  }
-
-  const handleDownloadTemplate = () => {
-    trackEvent('rfq_template_download', { source: rfqSource })
-    window.open('/assets/rfq-checklist.pdf', '_blank', 'noopener')
   }
 
   const closeRfqModal = () => {
@@ -1194,7 +1188,6 @@ export default function Home() {
         open={isRfqOpen}
         onClose={closeRfqModal}
         onSubmit={handleRfqSubmit}
-        onDownloadTemplate={handleDownloadTemplate}
         source={rfqSource}
       />
       <MobileActionBar onOpenRfq={openRfqModal} onWhatsApp={openWhatsApp} />
