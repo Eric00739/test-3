@@ -49,18 +49,6 @@ const testimonials = [
       company: 'US Home Automation Company',
       result: '99.8% Field Reliability',
       savings: '$1.8M Reduction in Support Costs'
-    },
-    {
-      quote: 'Their RF/IoT co-design team helped us launch a dual-protocol smart socket without schedule slips or compliance issues.',
-      company: 'APAC Lighting Solutions',
-      result: 'Zero Certification Rejections',
-      savings: 'Launched 3 SKUs in 12 Weeks'
-    },
-    {
-      quote: 'FastFunRC absorbed our legacy tooling and improved DPPM to under 300, keeping our automotive clients delighted.',
-      company: 'Global Automotive Aftermarket Brand',
-      result: '60% Fewer Warranty Returns',
-      savings: '$950K Annual Service Cost Reduction'
     }
   ]
 
@@ -219,15 +207,15 @@ const testimonials = [
       id: 'factory-image-01',
       // TODO: replace `src` with production factory hero image #1 (recommended 1600x1000 WebP)
       src: 'https://images.unsplash.com/photo-1582719478181-2cf4e1b95b05?auto=format&fit=crop&w=1600&h=1000&q=80&fm=webp',
-      title: 'SMT Production Floor',
-      description: 'Inline SMT assembly with automated optical inspection (AOI) for RF remotes.'
+      title: 'SMT Production Line',
+      description: 'Dongguan 8,000m² facility | 5 SMT lines | 200K units/month capacity'
     },
     {
       id: 'factory-image-02',
       // TODO: replace `src` with production factory hero image #2 (recommended 1600x1000 WebP)
       src: 'https://images.unsplash.com/photo-1580894897200-8eafc15323c7?auto=format&fit=crop&w=1600&h=1000&q=80&fm=webp',
-      title: 'Quality & RF Calibration Lab',
-      description: 'Shielded rooms with spectrum analysis and functional burn-in racks.'
+      title: 'RF Shielded Test Lab',
+      description: '2 certified shielded rooms | FCC/CE pre-certification | Anritsu MS2690A analyzer'
     }
   ]
 
@@ -502,6 +490,60 @@ const testimonials = [
 
       <HeroSection onOpenRfq={openRfqModal} onWhatsApp={openWhatsApp} onWeChat={openWeChat} />
 
+      {/* Key Metrics Section - High Value Density */}
+      <section className="py-16 bg-gradient-to-b from-white to-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: Factory,
+                value: '15+ Years',
+                label: 'Manufacturing Experience',
+                description: 'ISO 9001:2015 certified with 47 NPI projects annually'
+              },
+              {
+                icon: Shield,
+                value: '99.8%',
+                label: 'Field Reliability',
+                description: 'Industry-leading quality with DPPM under 500'
+              },
+              {
+                icon: MessageCircle,
+                value: '24h',
+                label: 'Response SLA',
+                description: 'Dedicated engineering support for all projects'
+              }
+            ].map((metric, index) => (
+              <motion.div
+                key={metric.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="text-center"
+              >
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl mb-4">
+                  <metric.icon className="h-8 w-8 text-white" />
+                </div>
+                <div className="text-3xl font-bold text-gray-900 mb-2">{metric.value}</div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">{metric.label}</h3>
+                <p className="text-sm text-slate-600 max-w-xs mx-auto">{metric.description}</p>
+              </motion.div>
+            ))}
+          </div>
+          
+          <div className="mt-12 text-center">
+            <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3" onClick={() => openRfqModal('hero_metrics')}>
+              <Send className="h-5 w-5 mr-2" />
+              Start Your Project
+            </Button>
+            <p className="mt-3 text-sm text-slate-500">
+              Average response time: <span className="font-semibold text-orange-600">under 10 minutes</span>
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Factory Gallery */}
       <section className="bg-slate-50 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -512,11 +554,10 @@ const testimonials = [
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <Badge className="mb-4 bg-orange-500/10 text-orange-600 border border-orange-500/30">Inside FastFunRC</Badge>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">Factory Capability Snapshot</h2>
+            <Badge className="mb-4 bg-orange-500/10 text-orange-600 border border-orange-500/30">Manufacturing Excellence</Badge>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">Our Production Facilities</h2>
             <p className="text-base sm:text-lg text-slate-600 max-w-3xl mx-auto">
-              A quick look at our SMT lines, RF calibration labs, and outbound packaging areas supporting 47 new product
-              introductions every year.
+              8,000m² state-of-the-art facility in Dongguan, supporting 47 new product introductions annually
             </p>
           </motion.div>
 
@@ -575,108 +616,58 @@ const testimonials = [
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-            {/* Testing Capabilities */}
-            <div>
-              <h3 className="text-xl font-bold text-gray-900 mb-6">Testing Capabilities</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6">
-                  <h4 className="text-lg font-semibold text-blue-900 mb-3">EU Compliance</h4>
-                  <div className="space-y-2">
-                    <div className="flex items-center">
-                      <Check className="h-4 w-4 text-blue-600 mr-2" />
-                      <span className="text-sm text-slate-700">EN 300 220 Standard</span>
-                    </div>
-                    <div className="flex items-center">
-                      <Check className="h-4 w-4 text-blue-600 mr-2" />
-                      <span className="text-sm text-slate-700">CE RED Certification</span>
-                    </div>
-                    <div className="flex items-center">
-                      <Check className="h-4 w-4 text-blue-600 mr-2" />
-                      <span className="text-sm text-slate-700">RF Power Testing</span>
-                    </div>
-                    <div className="flex items-center">
-                      <Check className="h-4 w-4 text-blue-600 mr-2" />
-                      <span className="text-sm text-slate-700">Frequency Deviation</span>
-                    </div>
-                  </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {/* Testing Equipment Cards */}
+            {[
+              {
+                title: 'Anritsu MS2690A',
+                spec: '26.5GHz Spectrum Analyzer',
+                usage: 'RF Power & Emission Testing',
+                icon: Zap,
+                color: 'from-blue-500 to-blue-600'
+              },
+              {
+                title: 'Shielded Rooms',
+                spec: '2 x 3×3×3m Chambers',
+                usage: 'FCC/CE Pre-certification',
+                icon: Shield,
+                color: 'from-green-500 to-green-600'
+              },
+              {
+                title: 'EN 300 220',
+                spec: 'EU Compliance Standard',
+                usage: '433MHz Device Certification',
+                icon: Award,
+                color: 'from-purple-500 to-purple-600'
+              },
+              {
+                title: 'FCC Part 15',
+                spec: 'US Compliance Standard',
+                usage: '315/433MHz Device Certification',
+                icon: Globe,
+                color: 'from-orange-500 to-orange-600'
+              }
+            ].map((item, index) => (
+              <Card key={index} className="p-5 border-0 shadow hover:shadow-lg transition-all duration-300 h-full">
+                <div className={`w-12 h-12 bg-gradient-to-br ${item.color} rounded-xl flex items-center justify-center mb-4`}>
+                  <item.icon className="h-6 w-6 text-white" />
                 </div>
-                
-                <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6">
-                  <h4 className="text-lg font-semibold text-green-900 mb-3">US Compliance</h4>
-                  <div className="space-y-2">
-                    <div className="flex items-center">
-                      <Check className="h-4 w-4 text-green-600 mr-2" />
-                      <span className="text-sm text-slate-700">FCC Part 15 Certification</span>
-                    </div>
-                    <div className="flex items-center">
-                      <Check className="h-4 w-4 text-green-600 mr-2" />
-                      <span className="text-sm text-slate-700">Anritsu MS2690A (26.5GHz)</span>
-                    </div>
-                    <div className="flex items-center">
-                      <Check className="h-4 w-4 text-green-600 mr-2" />
-                      <span className="text-sm text-slate-700">Shielded Room Testing</span>
-                    </div>
-                    <div className="flex items-center">
-                      <Check className="h-4 w-4 text-green-600 mr-2" />
-                      <span className="text-sm text-slate-700">Spurious Emissions</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Key Certifications */}
-            <div>
-              <h3 className="text-xl font-bold text-gray-900 mb-6">Key Certifications</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {[
-                  {
-                    title: 'CE (RED EN 300 220)',
-                    description: 'For 433 MHz remotes',
-                    color: 'from-blue-500 to-blue-600'
-                  },
-                  {
-                    title: 'FCC Part 15',
-                    description: 'For 315/433 MHz devices',
-                    color: 'from-green-500 to-green-600'
-                  },
-                  {
-                    title: 'ISO 9001:2015',
-                    description: 'Quality Management System',
-                    color: 'from-purple-500 to-purple-600'
-                  },
-                  {
-                    title: 'RoHS Compliance',
-                    description: 'Environmental Protection',
-                    color: 'from-orange-500 to-orange-600'
-                  }
-                ].map((cert, index) => (
-                  <Card key={index} className="p-4 border-0 shadow hover:shadow-lg transition-all duration-300">
-                    <div className="flex items-start space-x-3">
-                      <div className={`w-10 h-10 bg-gradient-to-br ${cert.color} rounded-lg flex items-center justify-center flex-shrink-0`}>
-                        <Award className="h-5 w-5 text-white" />
-                      </div>
-                      <div>
-                        <h4 className="text-base font-bold text-gray-900 mb-1">{cert.title}</h4>
-                        <p className="text-xs text-slate-600">{cert.description}</p>
-                      </div>
-                    </div>
-                  </Card>
-                ))}
-              </div>
-              
-              <div className="mt-6 text-center">
-                <Button variant="outline" size="sm" className="border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900">
-                  View All Certifications
-                </Button>
-              </div>
-            </div>
+                <h3 className="text-lg font-bold text-gray-900 mb-1">{item.title}</h3>
+                <p className="text-sm font-semibold text-slate-700 mb-2">{item.spec}</p>
+                <p className="text-xs text-slate-600">{item.usage}</p>
+              </Card>
+            ))}
+          </div>
+          
+          <div className="text-center">
+            <Button variant="outline" size="sm" className="border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900">
+              View All Certifications
+            </Button>
           </div>
         </div>
       </section>
 
-      {/* Products Matrix - Simplified and integrated with Capabilities */}
+      {/* Industry Solutions Section */}
       <section id="capabilities" className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -686,60 +677,86 @@ const testimonials = [
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Our Capabilities & Products</h2>
+            <Badge className="mb-4 bg-orange-500/10 text-orange-600 border border-orange-500/30">Industry Solutions</Badge>
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Tailored Solutions By Industry</h2>
             <p className="text-base sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
-              End-to-end manufacturing with in-house engineering and testing
+              End-to-end manufacturing with in-house engineering and testing for your specific market
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {capabilities.map((capability, index) => (
-              <Card key={index} className="p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">{capability.category}</h3>
-                <ul className="space-y-2">
-                  {capability.items.map((item, idx) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            {[
+              {
+                title: 'Smart Home & IoT',
+                icon: Wifi,
+                color: 'from-blue-500 to-blue-600',
+                solutions: [
+                  'WiFi Switches & Smart Sockets',
+                  'RF Remote Control Systems',
+                  'Mobile App Integration',
+                  'Voice Control Compatibility'
+                ],
+                description: 'Complete home automation solutions with mobile app control'
+              },
+              {
+                title: 'Automotive Security',
+                icon: Car,
+                color: 'from-green-500 to-green-600',
+                solutions: [
+                  'Keyless Entry Systems',
+                  'Alarm & Immobilizer Modules',
+                  'Remote Start Solutions',
+                  'Fob Programming Services'
+                ],
+                description: 'OEM-grade automotive security with rolling code encryption'
+              },
+              {
+                title: 'Industrial Access',
+                icon: Factory,
+                color: 'from-purple-500 to-purple-600',
+                solutions: [
+                  'Gate & Barrier Controls',
+                  'Garage Door Operators',
+                  'Industrial Remotes',
+                  'RFID Integration Systems'
+                ],
+                description: 'Heavy-duty solutions for industrial environments'
+              },
+              {
+                title: 'Lighting Control',
+                icon: Zap,
+                color: 'from-orange-500 to-orange-600',
+                solutions: [
+                  'Wireless Lighting Switches',
+                  'Dimmer Control Modules',
+                  'Scene Controllers',
+                  'Commercial Lighting Solutions'
+                ],
+                description: 'Energy-efficient wireless control for commercial spaces'
+              }
+            ].map((industry, index) => (
+              <Card key={index} className="p-6 border-0 shadow-lg hover:shadow-xl transition-all duration-300 h-full">
+                <div className={`w-14 h-14 bg-gradient-to-br ${industry.color} rounded-xl flex items-center justify-center mb-4`}>
+                  <industry.icon className="h-7 w-7 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{industry.title}</h3>
+                <p className="text-sm text-slate-600 mb-4">{industry.description}</p>
+                <ul className="space-y-2 mb-4">
+                  {industry.solutions.map((solution, idx) => (
                     <li key={idx} className="flex items-center text-sm text-gray-600">
                       <Check className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
-                      {item}
+                      {solution}
                     </li>
                   ))}
                 </ul>
+                <Button variant="outline" size="sm" className="w-full border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900" onClick={() => openRfqModal(`industry_${index}`)}>
+                  Get Quote
+                </Button>
               </Card>
             ))}
           </div>
           
-          {/* Representative Products */}
-          <div className="text-center mb-8">
-            <h3 className="text-xl font-bold text-gray-900 mb-4">Featured Products</h3>
-            <p className="text-slate-600 mb-8">Examples of our most popular solutions</p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {products.slice(0, 3).map((category, catIndex) => (
-              <Card key={catIndex} className="overflow-hidden bg-white shadow-lg hover:shadow-xl transition-all duration-300 border-0">
-                <div className={`h-2 bg-gradient-to-r ${category.items[0].color}`} />
-                <div className="p-6">
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">{category.category}</h3>
-                  <p className="text-sm text-slate-600 mb-4">{category.description}</p>
-                  <div className="space-y-3">
-                    {category.items.slice(0, 2).map((product, prodIndex) => (
-                      <div key={prodIndex} className="flex items-center space-x-3">
-                        <div className={`w-8 h-8 bg-gradient-to-br ${product.color} rounded-lg flex items-center justify-center`}>
-                          <product.icon className="h-4 w-4 text-white" />
-                        </div>
-                        <div>
-                          <h4 className="text-sm font-semibold text-gray-900">{product.title}</h4>
-                          <p className="text-xs text-slate-500">{product.useCase}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </div>
-          
-          <div className="text-center mt-8">
+          <div className="text-center">
             <Button variant="outline" className="border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900">
               View Complete Product Catalog
             </Button>
@@ -780,13 +797,13 @@ const testimonials = [
             ))}
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3 mb-16">
+          <div className="grid gap-6 md:grid-cols-2 mb-16">
             {testimonials.map((testimonial, index) => (
               <motion.div
                 key={`${testimonial.company}-${index}`}
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: (index % 3) * 0.1 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
                 <Card className="h-full bg-white/95 shadow-lg hover:shadow-xl transition-shadow border border-slate-200/60">
@@ -802,7 +819,7 @@ const testimonials = [
                       </div>
                     </div>
                     <p className="text-base text-slate-700 italic leading-relaxed mb-6">
-                      “{testimonial.quote}”
+                      "{testimonial.quote}"
                     </p>
                     <div className="mt-auto">
                       <div className="text-sm uppercase tracking-wide text-slate-500">{testimonial.company}</div>
@@ -812,6 +829,14 @@ const testimonials = [
                 </Card>
               </motion.div>
             ))}
+          </div>
+          
+          <div className="text-center">
+            <Button variant="outline" className="border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900" asChild>
+              <a href="/blog">
+                View Complete Success Stories
+              </a>
+            </Button>
           </div>
 
           {/* Competitor Comparison */}
