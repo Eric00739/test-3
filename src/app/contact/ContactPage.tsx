@@ -21,6 +21,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { HeaderBar } from "@/components/home/HeaderBar"
 import { Breadcrumb } from "@/components/seo/Breadcrumb"
+import { SiteFooter } from "@/components/layout/SiteFooter"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 
@@ -636,6 +637,7 @@ export function ContactPage() {
           </div>
         </div>
       </section>
+      <SiteFooter className="pt-0" />
     </div>
   )
 }

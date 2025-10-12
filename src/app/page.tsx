@@ -25,6 +25,7 @@ import { FactoryTourSection } from '@/components/home/FactoryTourSection'
 import { ProcessTimelineSection } from '@/components/home/ProcessTimelineSection'
 import { ComparisonProvider } from '@/contexts/ComparisonContext'
 import { ComparisonBar } from '@/components/product/ComparisonBar'
+import { SiteFooter } from '@/components/layout/SiteFooter'
 import { Phone, MessageCircle, Globe, Factory, Check, Clock, Star, Users, Cpu, Shield, Award, Radio, Wifi, Zap, Package, Settings, Download, Send, ChevronRight, Car } from 'lucide-react'
 
 export default function Home() {
@@ -1311,114 +1312,7 @@ const testimonials = [
         </motion.div>
       </div>
 
-      {/* Footer */}
-      <footer className="bg-slate-900 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-            {/* Company Info */}
-            <div className="lg:col-span-2">
-              <div className="flex items-center mb-6">
-                <Image
-                  src="/logo.svg"
-                  alt="FastFun Remote logo"
-                  width={200}
-                  height={60}
-                  className="h-12 w-auto"
-                  loading="lazy"
-                  sizes="(max-width: 768px) 150px, 200px"
-                />
-              </div>
-              <p className="text-slate-300 leading-relaxed mb-6 max-w-md">
-                FastFun Remote - Your Trusted IoT Partner Since 2010. ISO-certified electronics manufacturing delivering precision smart devices with 98.7% FPY. 15 years experience, 47 NPI projects annually.
-              </p>
-              <div className="flex space-x-4">
-                <div className="flex items-center text-sm text-slate-400">
-                  <Globe className="h-4 w-4 mr-2" />
-                  Global Shipping
-                </div>
-                <div className="flex items-center text-sm text-slate-400">
-                  <Shield className="h-4 w-4 mr-2" />
-                  ISO 9001 Certified
-                </div>
-              </div>
-            </div>
-
-            {/* Products */}
-            <div>
-              <h3 className="text-lg font-semibold mb-6">Products</h3>
-              <ul className="space-y-3">
-                <li><a href="/products" className="text-slate-300 hover:text-orange-500 transition-colors">RF Remote Controls</a></li>
-                <li><a href="/products" className="text-slate-300 hover:text-orange-500 transition-colors">RF Receivers</a></li>
-                <li><a href="/products" className="text-slate-300 hover:text-orange-500 transition-colors">RF Kits</a></li>
-                <li><a href="/products" className="text-slate-300 hover:text-orange-500 transition-colors">Car Remotes</a></li>
-                <li><a href="/products" className="text-slate-300 hover:text-orange-500 transition-colors">Wi-Fi Switches</a></li>
-                <li><a href="/products" className="text-slate-300 hover:text-orange-500 transition-colors">Wi-Fi Sockets</a></li>
-                <li><a href="/products" className="text-slate-300 hover:text-orange-500 transition-colors">Custom OEM/ODM</a></li>
-              </ul>
-            </div>
-
-            {/* Support */}
-            <div>
-              <h3 className="text-lg font-semibold mb-6">Support</h3>
-              <ul className="space-y-3">
-                <li><a href="#" className="text-slate-300 hover:text-orange-500 transition-colors">Technical Documentation</a></li>
-                <li><a href="#" className="text-slate-300 hover:text-orange-500 transition-colors">Compliance Certificates</a></li>
-                <li><a href="#" className="text-slate-300 hover:text-orange-500 transition-colors">Quality Assurance</a></li>
-                <li><a href="#" className="text-slate-300 hover:text-orange-500 transition-colors">Factory Tour</a></li>
-                <li><a href="#" className="text-slate-300 hover:text-orange-500 transition-colors">Contact Support</a></li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Contact Info */}
-          <div className="border-t border-slate-800 pt-8 mb-8">
-            <div className="grid md:grid-cols-4 gap-8 text-center md:text-left">
-              <div className="flex items-center justify-center md:justify-start">
-                <Phone className="h-5 w-5 text-orange-500 mr-3" />
-                <div>
-                  <div className="text-sm text-slate-400">Direct Phone</div>
-                  <div className="font-semibold text-white">+86 15899648898</div>
-                </div>
-              </div>
-              <div className="flex items-center justify-center md:justify-start">
-                <Send className="h-5 w-5 text-orange-500 mr-3" />
-                <div>
-                  <div className="text-sm text-slate-400">Sales Email</div>
-                  <div className="font-semibold text-white">eric@fastfunrc.com</div>
-                </div>
-              </div>
-              <div className="flex items-center justify-center md:justify-start">
-                <Factory className="h-5 w-5 text-orange-500 mr-3" />
-                <div>
-                  <div className="text-sm text-slate-400">Factory Address</div>
-                  <div className="font-semibold text-white">8F, Building 1, Huawei Ke Valley, Dalingshan Town, Dongguan, Guangdong, China</div>
-                </div>
-              </div>
-              <div className="flex items-center justify-center md:justify-start">
-                <Globe className="h-5 w-5 text-orange-500 mr-3" />
-                <div>
-                  <div className="text-sm text-slate-400">Trade Terms</div>
-                  <div className="font-semibold text-white">FOB Shenzhen or Guangzhou • CIF Available • DAP Available</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom Bar */}
-          <div className="border-t border-slate-800 pt-8">
-            <div className="flex flex-col md:flex-row justify-between items-center">
-              <div className="text-slate-400 text-sm mb-4 md:mb-0">
-                漏2025 FastFun Remote. All rights reserved.
-              </div>
-              <div className="flex space-x-6">
-                <a href="#" className="text-slate-400 hover:text-orange-500 transition-colors text-sm">Privacy Policy</a>
-                <a href="#" className="text-slate-400 hover:text-orange-500 transition-colors text-sm">Terms of Service</a>
-                <a href="#" className="text-slate-400 hover:text-orange-500 transition-colors text-sm">Compliance</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
 
       <Script id="faq-structured-data" strategy="afterInteractive" type="application/ld+json">
         {JSON.stringify(faqJsonLd)}

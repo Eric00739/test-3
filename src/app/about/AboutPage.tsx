@@ -31,6 +31,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { HeaderBar } from "@/components/home/HeaderBar"
 import { Breadcrumb } from "@/components/seo/Breadcrumb"
+import { SiteFooter } from "@/components/layout/SiteFooter"
 
 // Team members data
 const teamMembers = [
@@ -504,6 +505,7 @@ export function AboutPage() {
           </div>
         </div>
       </section>
+      <SiteFooter className="pt-0" />
     </div>
   )
 }

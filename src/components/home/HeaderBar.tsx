@@ -25,18 +25,18 @@ export function HeaderBar({
   return (
     <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-md z-50 border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <div className="flex items-center">
+        <div className="flex justify-between items-center h-16 sm:h-20">
+          <Link href="/" className="flex items-center gap-2 mr-2" aria-label="FastFun Remote home">
             <Image
-              src="/logo.svg"
-              alt="FastFun Remote logo"
-              width={160}
-              height={48}
+              src="/logo-fastfun-remote.png"
+              alt="FastFun Remote wordmark"
+              width={220}
+              height={60}
               priority
-              className="h-10 w-auto"
-              sizes="(max-width: 768px) 120px, 160px"
+              className="h-8 sm:h-10 lg:h-12 w-auto"
+              sizes="(max-width: 640px) 150px, (max-width: 1024px) 200px, 220px"
             />
-          </div>
+          </Link>
           <div className="hidden md:flex flex-1 justify-center space-x-6 lg:space-x-8">
             {navLinks.map((link) => {
               const key = link.href ?? link.target ?? link.label

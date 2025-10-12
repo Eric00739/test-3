@@ -26,6 +26,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { HeaderBar } from "@/components/home/HeaderBar"
 import { Breadcrumb } from "@/components/seo/Breadcrumb"
+import { SiteFooter } from "@/components/layout/SiteFooter"
 import styles from "./BlogPage.module.css"
 import { blogData, type BlogArticle } from "./BlogData"
 
@@ -788,30 +789,7 @@ export function BlogPage() {
       </div>
     </section>
 
-    {/* Minimal Footer */}
-    <footer className="bg-slate-900 text-white py-8">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
-            <Link href="/" className="flex items-center">
-              <Image src="/logo.svg" alt="FastFun Remote logo" className="h-8 w-auto" width={120} height={36} sizes="(max-width: 768px) 96px, 120px" />
-            </Link>
-            <span className="text-sm text-slate-400">© {new Date().getFullYear()} FastFun Remote</span>
-          </div>
-          <div className="flex gap-6">
-            <Link href="/blog" className="text-slate-400 hover:text-orange-400 transition-colors text-sm">
-              Blog
-            </Link>
-            <Link href="/#products" className="text-slate-400 hover:text-orange-400 transition-colors text-sm">
-              Products
-            </Link>
-            <Link href="/#contact" className="text-slate-400 hover:text-orange-400 transition-colors text-sm">
-              Contact
-            </Link>
-          </div>
-        </div>
-      </div>
-    </footer>
+    <SiteFooter />
 
       {modalArticle && (
         <div className={styles.modal} role="dialog" aria-modal="true" aria-labelledby="modal-title">
