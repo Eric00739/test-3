@@ -255,12 +255,18 @@ export default function ProductsPage() {
   }
 
   const handleRfqSubmit = (result: {
-    status: 'success' | 'error' | 'whatsapp';
+    status: 'success' | 'error' | 'whatsapp' | 'mailto';
     message?: string;
     data?: any;
   }) => {
     if (result.status === 'success') {
       closeRfqModal()
+    } else if (result.status === 'mailto') {
+      const mailtoUrl: string | undefined = result.data?.mailtoUrl
+      if (mailtoUrl) {
+        window.location.href = mailtoUrl
+      }
+      return
     } else if (result.status === 'whatsapp') {
       if (result.data?.mailtoUrl) {
         // Handle fallback to email client

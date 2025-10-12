@@ -249,13 +249,20 @@ export default function Home() {
   }
 
   const handleRfqSubmit = (result: {
-    status: 'success' | 'error' | 'whatsapp';
+    status: 'success' | 'error' | 'whatsapp' | 'mailto';
     message?: string;
     data?: any;
   }) => {
     if (result.status === 'success') {
       trackEvent('rfq_submit', { source: rfqSource })
       closeRfqModal()
+    } else if (result.status === 'mailto') {
+      const mailtoUrl: string | undefined = result.data?.mailtoUrl
+      if (mailtoUrl) {
+        trackEvent('rfq_fallback_email', { source: rfqSource })
+        window.location.href = mailtoUrl
+      }
+      return
     } else if (result.status === 'whatsapp') {
       if (result.data?.mailtoUrl) {
         // Handle fallback to email client

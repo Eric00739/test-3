@@ -6,7 +6,6 @@ import Link from "next/link"
 import {
   Building,
   Clock,
-  Envelope,
   Globe,
   MapPin,
   MessageCircle,
@@ -271,7 +270,7 @@ export function ContactPage() {
             <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-center mb-4">
                 <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
-                  <Envelope className="h-6 w-6 text-blue-600" />
+                  <Mail className="h-6 w-6 text-blue-600" />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900">Email</h3>
               </div>
@@ -338,7 +337,7 @@ export function ContactPage() {
                       Email *
                     </label>
                     <div className="relative">
-                      <Envelope className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                       <Input
                         id="email"
                         name="email"
@@ -562,7 +561,7 @@ export function ContactPage() {
                   </div>
                   
                   <div className="flex items-center">
-                    <Envelope className="h-4 w-4 text-gray-400 mr-2 flex-shrink-0" />
+                    <Mail className="h-4 w-4 text-gray-400 mr-2 flex-shrink-0" />
                     <span className="text-sm text-gray-600">{office.email}</span>
                   </div>
                   
