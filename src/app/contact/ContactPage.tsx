@@ -80,7 +80,7 @@ const faqItems = [
   },
   {
     question: "What's your minimum order quantity (MOQ)?",
-    answer: "MOQ varies by product complexity and customization requirements. For standard products, MOQ starts at 1,000 units. Custom projects typically begin at 5,000 units, but we can discuss flexible options for strategic partnerships."
+    answer: "MOQ varies by product complexity and customization requirements. For standard products, MOQ starts at 50 units with flexible volume discounts. Custom projects typically require 1000-5000 units depending on complexity, but we can discuss flexible options for strategic partnerships."
   },
   {
     question: "Do you offers technical support after purchase?",

@@ -16,42 +16,42 @@ const customizationServices = [
     title: 'Private Tooling',
     description: 'Custom housing design and manufacturing',
     moq: '3,000 units',
-    cost: 'From $2,800',
+    cost: 'Competitive pricing',
     features: ['Custom 3D design', 'Injection molding', 'Brand colors', 'Logo printing']
   },
   {
     title: 'Key Layout & Membrane',
     description: 'Custom button arrangement and membrane design',
     moq: '1,000 units',
-    cost: 'From $800',
+    cost: 'Competitive pricing',
     features: ['Custom button count', 'Membrane design', 'Backlight options', 'Tactile feedback']
   },
   {
     title: 'Protocol & Pairing',
     description: 'Custom RF protocol and pairing methods',
     moq: '500 units',
-    cost: 'From $1,200',
+    cost: 'Competitive pricing',
     features: ['Rolling code', 'Learning code', 'Custom encryption', 'Multi-device pairing']
   },
   {
     title: 'RF Range & Performance',
     description: 'Extended range and anti-interference optimization',
     moq: '1,000 units',
-    cost: 'From $600',
+    cost: 'Competitive pricing',
     features: ['150-300m range', 'Anti-interference', 'Power optimization', 'Multi-frequency']
   },
   {
     title: 'Receiver/Gateway Matching',
     description: 'Custom receiver modules and gateways',
     moq: '500 units',
-    cost: 'From $1,500',
+    cost: 'Competitive pricing',
     features: ['Custom receivers', 'Gateway integration', 'Protocol matching', 'Network topology']
   },
   {
     title: 'Branding & Packaging',
     description: 'Custom packaging and brand integration',
     moq: '500 units',
-    cost: 'From $400',
+    cost: 'Competitive pricing',
     features: ['Custom packaging', 'User manual', 'Brand colors', 'Multi-language']
   }
 ]

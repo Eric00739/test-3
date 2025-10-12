@@ -128,7 +128,7 @@ const testimonials = [
     {
       question: 'What is your MOQ and pricing structure?',
       answer:
-        'MOQ starts from 50 units for standard products. Pricing: 50-100 units: $2.50-3.00/unit, 500-1000 units: $1.80-2.20/unit, 5000+ units: $0.90-1.20/unit. Volume discounts available for larger orders.',
+        'MOQ starts from 50 units for standard products with flexible volume discounts. Our direct manufacturing model offers significant cost advantages compared to local sourcing, with pricing structures tailored to your specific requirements and order volume.',
     },
     {
       question: 'What are your lead times for samples and mass production?',
