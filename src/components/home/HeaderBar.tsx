@@ -27,7 +27,15 @@ export function HeaderBar({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
-            <Image src="/logo-fastfun-remote.png" alt="FastFun Remote logo" width={160} height={48} priority className="h-10 w-auto" sizes="(max-width: 768px) 120px, 160px" />
+            <Image
+              src="/logo.svg"
+              alt="FastFun Remote logo"
+              width={160}
+              height={48}
+              priority
+              className="h-10 w-auto"
+              sizes="(max-width: 768px) 120px, 160px"
+            />
           </div>
           <div className="hidden md:flex flex-1 justify-center space-x-6 lg:space-x-8">
             {navLinks.map((link) => {

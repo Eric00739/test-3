@@ -24,6 +24,8 @@ import {
 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
+import { HeaderBar } from "@/components/home/HeaderBar"
+import { Breadcrumb } from "@/components/seo/Breadcrumb"
 import styles from "./BlogPage.module.css"
 import { blogData, type BlogArticle } from "./BlogData"
 
@@ -83,6 +85,32 @@ export function BlogPage() {
   const [showSuggestions, setShowSuggestions] = useState(false)
   const [showScrollTop, setShowScrollTop] = useState(false)
   const [sortOption, setSortOption] = useState<SortOption>("newest")
+  
+  // HeaderBar state
+  const [activeSection, setActiveSection] = useState("")
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  
+  const navLinks = [
+    { label: "Home", href: "/" },
+    { label: "Products", href: "/#products" },
+    { label: "About", href: "/#about" },
+    { label: "Blog", href: "/blog" },
+    { label: "Contact", href: "/#contact" },
+  ]
+  
+  const handleNavClick = (target: string) => {
+    setActiveSection(target)
+    setIsMobileMenuOpen(false)
+  }
+  
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen)
+  }
+  
+  const handleOpenRfq = (source: string) => {
+    // Handle RFQ modal opening
+    console.log(`Open RFQ from ${source}`)
+  }
 
   const categories = useMemo(() => {
     const counts = blogData.reduce<Record<string, number>>((acc, item) => {
@@ -385,29 +413,56 @@ export function BlogPage() {
         <div className={`${styles.orb} ${styles.orbHighlight}`} />
       </div>
 
+      {/* Header */}
+      <HeaderBar
+        activeSection={activeSection}
+        onNavClick={handleNavClick}
+        onToggleMenu={toggleMobileMenu}
+        onOpenRfq={handleOpenRfq}
+        isMobileMenuOpen={isMobileMenuOpen}
+        navLinks={navLinks}
+      />
+
       <main className="relative z-10 pb-24">
-        {/* Simplified Hero Section */}
-        <section className="bg-white py-8 sm:py-12">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            {/* Breadcrumb */}
-            <nav className="flex items-center text-sm text-gray-500 mb-4" aria-label="Breadcrumb">
-              <Link href="/" className="hover:text-gray-700 transition-colors">Home</Link>
-              <span className="mx-2">/</span>
-              <span className="text-gray-900">Blog</span>
-              {category !== "all" && (
-                <>
-                  <span className="mx-2">/</span>
-                  <span className="text-gray-900">{category}</span>
-                </>
-              )}
-            </nav>
-            
-            <div className="text-center mb-8">
-              <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">RF/IoT Development & Certification Guide</h1>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Practical insights on RF remotes, IoT solutions, and OEM/ODM manufacturing
-              </p>
+        {/* Hero Section with Image */}
+        <section className="relative h-80 sm:h-96">
+          <div className="absolute inset-0">
+            <Image
+              src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1920&h=600&fit=crop&crop=entropy&auto=format"
+              alt="RF/IoT Technology"
+              fill
+              className="object-cover"
+              priority
+              sizes="100vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60" />
+          </div>
+          
+          <div className="relative z-10 h-full flex flex-col justify-center px-4 sm:px-6 lg:px-8">
+            <div className="max-w-6xl mx-auto w-full">
+              {/* Breadcrumb */}
+              <Breadcrumb
+                items={[
+                  { name: "Home", url: "/" },
+                  { name: "Blog", url: "/blog" }
+                ]}
+                currentLabel={category !== "all" ? category : undefined}
+                className="mb-6 text-white/80"
+              />
+              
+              <div className="text-center">
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">RF/IoT Development & Certification Guide</h1>
+                <p className="text-lg sm:text-xl text-white/90 max-w-3xl mx-auto">
+                  Practical insights on RF remotes, IoT solutions, and OEM/ODM manufacturing
+                </p>
+              </div>
             </div>
+          </div>
+        </section>
+
+        {/* Search and Filters Section */}
+        <section className="bg-white py-8 sm:py-12 -mt-16 relative z-20">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl mx-auto">
               <div className={styles.search}>
                 <input
@@ -739,7 +794,7 @@ export function BlogPage() {
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             <Link href="/" className="flex items-center">
-              <Image src="/logo-fastfun-remote.png" alt="FastFun Remote logo" className="h-8 w-auto" width={120} height={36} sizes="(max-width: 768px) 96px, 120px" />
+              <Image src="/logo.svg" alt="FastFun Remote logo" className="h-8 w-auto" width={120} height={36} sizes="(max-width: 768px) 96px, 120px" />
             </Link>
             <span className="text-sm text-slate-400">© {new Date().getFullYear()} FastFun Remote</span>
           </div>

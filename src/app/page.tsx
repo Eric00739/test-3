@@ -1238,7 +1238,7 @@ export default function Home() {
             <div className="lg:col-span-2">
               <div className="flex items-center mb-6">
                 <Image
-                  src="/logo-fastfun-remote.png"
+                  src="/logo.svg"
                   alt="FastFun Remote logo"
                   width={200}
                   height={60}
