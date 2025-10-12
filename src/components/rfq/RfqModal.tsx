@@ -173,8 +173,8 @@ export function RfqModal({ open, onClose, onSubmit, source = 'default' }: RfqMod
     // 记录提交时间
     setLastSubmitTime(now);
     
-    // 设置提交状态
-    setIsSubmitting(true);
+      // 设置提交状态
+      setIsSubmitting(true);
     
     // 构建邮件内容
     const body = [
@@ -217,7 +217,7 @@ export function RfqModal({ open, onClose, onSubmit, source = 'default' }: RfqMod
       setIsSubmitting(false);
       // 打开邮件客户端
       window.location.href = mailtoUrl;
-    }, 1500);
+    }, 2200);
   };
 
   // 重置表单
@@ -269,28 +269,24 @@ export function RfqModal({ open, onClose, onSubmit, source = 'default' }: RfqMod
       >
         {/* 成功状态 */}
         {isSubmitted ? (
-          <div className="text-center py-8">
+          <div className="text-center py-10">
             <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Send className="h-10 w-10 text-green-600" />
+              <Check className="h-10 w-10 text-green-600" />
             </div>
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
-              Opening Your Email Client
+              RFQ Sent Successfully!
             </h3>
             <p className="text-base text-slate-600 mb-4">
-              We're preparing your RFQ details. Your email client will open automatically with the information pre-filled.
+              Thanks for reaching out. Our engineering team will respond within 24 hours.
             </p>
             <div className="bg-blue-50 rounded-lg p-4 mb-4">
               <p className="text-sm text-blue-800 font-medium">
-                Just click "Send" in your email client to submit your request to our team.
+                We&apos;re opening your email client now. Just press “Send” in the email window to complete the request.
               </p>
             </div>
-            <Button
-              onClick={onClose}
-              className="bg-green-600 hover:bg-green-700 text-white"
-              style={{ color: 'white' }}
-            >
-              Got it
-            </Button>
+            <p className="text-xs text-slate-400">
+              This dialog will close automatically.
+            </p>
           </div>
         ) : (
           <>
