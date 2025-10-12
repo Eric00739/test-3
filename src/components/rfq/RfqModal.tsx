@@ -10,8 +10,13 @@ import { Textarea } from '@/components/ui/textarea';
 export interface RfqModalProps {
   open: boolean;
   onClose: () => void;
-  onSubmit: (mailtoUrl: string) => void;
+  onSubmit: (result: {
+    status: 'success' | 'error' | 'whatsapp';
+    message?: string;
+    data?: any;
+  }) => void;
   onDownloadTemplate: () => void;
+  source?: string;
 }
 
 // 常见国家列表
@@ -24,7 +29,7 @@ const COUNTRIES = [
   'South Africa', 'Egypt', 'Israel', 'Turkey', 'Russia', 'Ukraine'
 ];
 
-export function RfqModal({ open, onClose, onSubmit, onDownloadTemplate }: RfqModalProps) {
+export function RfqModal({ open, onClose, onSubmit, onDownloadTemplate, source = 'default' }: RfqModalProps) {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [country, setCountry] = useState('');
@@ -33,6 +38,8 @@ export function RfqModal({ open, onClose, onSubmit, onDownloadTemplate }: RfqMod
   const [emailError, setEmailError] = useState('');
   const [nameError, setNameError] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const [lastSubmitTime, setLastSubmitTime] = useState(0);
   const [message, setMessage] = useState('');
   const [attachedFiles, setAttachedFiles] = useState<File[]>([]);
@@ -140,10 +147,13 @@ export function RfqModal({ open, onClose, onSubmit, onDownloadTemplate }: RfqMod
   };
 
   // 提交表单
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // 防止重复提交（8秒内只能提交一次）
     const now = Date.now();
     if (now - lastSubmitTime < 8000) return;
+    
+    // 清除之前的错误
+    setSubmitError('');
     
     // 验证必填字段
     let hasError = false;
@@ -161,42 +171,79 @@ export function RfqModal({ open, onClose, onSubmit, onDownloadTemplate }: RfqMod
     // 检查honeypot字段（防止垃圾邮件）
     if (honeypotRef.current?.value) return;
     
-    // 构建邮件内容
-    const body = [
-      `Hi FastFunRC team,`,
-      '',
-      `I'd like to request a quotation for your wireless control solutions.`,
-      '',
-      `Name: ${name}`,
-      `Email: ${email}`,
-      country && `Country: ${country}`,
-      message && `Message: ${message}`,
-      attachedFiles.length > 0 && `Attachments: ${attachedFiles.map(f => f.name).join(', ')}`,
-      '',
-      `Please send me your product catalog and current pricing information.`,
-      '',
-      `Thank you!`
-    ].filter(Boolean).join('\n');
-    
-    const params = new URLSearchParams({
-      subject: 'RFQ received — we\'ll reply within 12h',
-      body,
-    });
-    
-    const mailtoUrl = `mailto:eric@fastfunrc.com?${params.toString()}`;
-    
     // 记录提交时间
     setLastSubmitTime(now);
     
-    // 显示成功状态
-    setIsSubmitted(true);
+    // 设置提交状态
+    setIsSubmitting(true);
     
-    // 延迟关闭弹窗
-    setTimeout(() => {
-      onSubmit(mailtoUrl);
-      onClose();
-      setIsSubmitted(false);
-    }, 2000);
+    try {
+      // 构建FormData
+      const formData = new FormData();
+      formData.append('name', name.trim());
+      formData.append('email', email.trim());
+      if (country.trim()) {
+        formData.append('country', country.trim());
+      }
+      if (message.trim()) {
+        formData.append('message', message.trim());
+      }
+      formData.append('source', source);
+      
+      // 添加附件
+      attachedFiles.forEach((file) => {
+        formData.append('attachments', file);
+      });
+      
+      // 发送请求到API
+      const response = await fetch('/api/rfq', {
+        method: 'POST',
+        body: formData,
+      });
+      
+      const result = await response.json();
+      
+      if (response.ok && result.success) {
+        // 成功提交
+        setIsSubmitted(true);
+        
+        // 延迟关闭弹窗并通知父组件
+        setTimeout(() => {
+          onSubmit({
+            status: 'success',
+            message: 'RFQ submitted successfully',
+            data: { email, name }
+          });
+          onClose();
+          setIsSubmitted(false);
+          setIsSubmitting(false);
+        }, 2000);
+      } else {
+        // 提交失败
+        const errorMessage = result.error || 'Failed to submit RFQ. Please try again.';
+        setSubmitError(errorMessage);
+        setIsSubmitting(false);
+        
+        // 通知父组件错误状态
+        onSubmit({
+          status: 'error',
+          message: errorMessage,
+          data: { email, name }
+        });
+      }
+    } catch (error) {
+      console.error('RFQ submission error:', error);
+      const errorMessage = 'Network error. Please try again or use WhatsApp.';
+      setSubmitError(errorMessage);
+      setIsSubmitting(false);
+      
+      // 通知父组件错误状态
+      onSubmit({
+        status: 'error',
+        message: errorMessage,
+        data: { email, name }
+      });
+    }
   };
 
   // 重置表单
@@ -210,6 +257,8 @@ export function RfqModal({ open, onClose, onSubmit, onDownloadTemplate }: RfqMod
     setNameError('');
     setShowCountryDropdown(false);
     setIsSubmitted(false);
+    setIsSubmitting(false);
+    setSubmitError('');
   };
 
   // 关闭弹窗时重置
@@ -432,15 +481,32 @@ export function RfqModal({ open, onClose, onSubmit, onDownloadTemplate }: RfqMod
               </div>
             </div>
 
+            {/* Error message */}
+            {submitError && (
+              <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+                <p className="text-sm text-red-700">{submitError}</p>
+              </div>
+            )}
+            
             {/* Submit button */}
             <Button
               type="button"
               onClick={handleSubmit}
-              className="w-full mt-6 bg-orange-500 hover:bg-orange-600 text-white"
+              disabled={isSubmitting}
+              className="w-full mt-6 bg-orange-500 hover:bg-orange-600 text-white disabled:opacity-50"
               style={{ color: 'white' }}
             >
-              <Send className="h-4 w-4 mr-2" />
-              Send my RFQ
+              {isSubmitting ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                  Sending...
+                </>
+              ) : (
+                <>
+                  <Send className="h-4 w-4 mr-2" />
+                  Send my RFQ
+                </>
+              )}
             </Button>
 
             {/* Footer links */}
@@ -449,8 +515,8 @@ export function RfqModal({ open, onClose, onSubmit, onDownloadTemplate }: RfqMod
                 Need to attach files or an NDA? Reply to the confirmation email.
               </p>
               <div className="flex justify-center gap-4 text-xs">
-                <a 
-                  href="#" 
+                <a
+                  href="#"
                   className="text-slate-500 hover:text-slate-700"
                   onClick={(e) => {
                     e.preventDefault();
@@ -462,7 +528,7 @@ export function RfqModal({ open, onClose, onSubmit, onDownloadTemplate }: RfqMod
                 <button
                   type="button"
                   className="text-green-600 hover:text-green-700"
-                  onClick={() => onSubmit('https://wa.me/8615899648898')}
+                  onClick={() => onSubmit({ status: 'whatsapp', message: 'User prefers WhatsApp communication' })}
                 >
                   <MessageCircle className="h-3 w-3 inline mr-1" />
                   Chat on WhatsApp

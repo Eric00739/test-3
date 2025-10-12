@@ -9,6 +9,8 @@ import { HeaderBar } from '@/components/home/HeaderBar'
 import { StickyActions } from '@/components/home/StickyActions'
 import { MobileActionBar } from '@/components/home/MobileActionBar'
 import { RfqModal } from '@/components/rfq/RfqModal'
+import { ComparisonProvider } from '@/contexts/ComparisonContext'
+import { ComparisonBar } from '@/components/product/ComparisonBar'
 import Script from 'next/script'
 import { productCategoriesJsonLd } from './metadata'
 import {
@@ -252,26 +254,33 @@ export default function ProductsPage() {
     openRfqModal(`category_${categoryId}`)
   }
 
-  const handleRfqSubmit = (target: string) => {
-    if (target.startsWith('mailto:')) {
-      window.location.href = target
+  const handleRfqSubmit = (result: {
+    status: 'success' | 'error' | 'whatsapp';
+    message?: string;
+    data?: any;
+  }) => {
+    if (result.status === 'success') {
       closeRfqModal()
-      return
+    } else if (result.status === 'whatsapp') {
+      window.open('https://wa.me/8615899648898', '_blank', 'noopener')
+      closeRfqModal()
+    } else if (result.status === 'error') {
+      // Error is already displayed in the modal, no additional action needed
+      console.error('RFQ submission error:', result.message)
     }
-    window.open(target, '_blank', 'noopener')
-    closeRfqModal()
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <HeaderBar
-        activeSection={activeSection}
-        onNavClick={handleNavClick}
-        onToggleMenu={() => {}}
-        onOpenRfq={openRfqModal}
-        isMobileMenuOpen={false}
-        navLinks={navLinks}
-      />
+    <ComparisonProvider>
+      <div className="min-h-screen bg-white">
+        <HeaderBar
+          activeSection={activeSection}
+          onNavClick={handleNavClick}
+          onToggleMenu={() => {}}
+          onOpenRfq={openRfqModal}
+          isMobileMenuOpen={false}
+          navLinks={navLinks}
+        />
 
       {/* Hero Banner */}
       <section id="hero" className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white">
@@ -729,6 +738,7 @@ export default function ProductsPage() {
         onClose={closeRfqModal}
         onSubmit={handleRfqSubmit}
         onDownloadTemplate={() => window.open('/assets/rfq-checklist.pdf', '_blank', 'noopener')}
+        source={rfqSource}
       />
 
       <MobileActionBar onOpenRfq={openRfqModal} onWhatsApp={() => window.open('https://wa.me/8615899648898', '_blank', 'noopener')} />
@@ -740,6 +750,9 @@ export default function ProductsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productCategoriesJsonLd) }}
       />
-    </div>
+      
+      <ComparisonBar />
+      </div>
+    </ComparisonProvider>
   )
 }

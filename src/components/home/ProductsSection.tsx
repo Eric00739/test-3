@@ -4,8 +4,9 @@ import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Download, Package, Send, Wifi, Radio, Settings, Zap, ArrowRight } from "lucide-react"
+import { Download, Package, Send, Wifi, Radio, Settings, Zap, ArrowRight, Plus } from "lucide-react"
 import Link from "next/link"
+import { useComparison } from "@/contexts/ComparisonContext"
 
 interface ProductsSectionProps {
   onOpenRfq: (source: string) => void
@@ -103,6 +104,7 @@ const products = [
 ]
 
 export function ProductsSection({ onOpenRfq }: ProductsSectionProps) {
+  const { addToComparison, isProductSelected } = useComparison();
   return (
     <section id="products" className="py-32 bg-slate-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -134,7 +136,11 @@ export function ProductsSection({ onOpenRfq }: ProductsSectionProps) {
             </h3>
             <p className="text-center text-slate-600 mb-6 sm:mb-8 px-4">{category.description}</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-              {category.items.map((product, index) => (
+              {category.items.map((product, index) => {
+                // Generate a consistent product ID for both comparison and selection state
+                const productId = product.title.toLowerCase().replace(/\s+/g, '-');
+                
+                return (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
@@ -191,7 +197,41 @@ export function ProductsSection({ onOpenRfq }: ProductsSectionProps) {
                       </div>
                       
                       {/* Standardized Action Buttons */}
-                      <div className="grid grid-cols-3 gap-2">
+                      <div className="grid grid-cols-2 gap-2">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className={`text-xs ${isProductSelected(productId) ? 'bg-blue-50 border-blue-600 text-blue-700' : 'border-blue-500 text-blue-600 hover:bg-blue-50'}`}
+                          type="button"
+                          onClick={() => {
+                            // Convert product to the format expected by ComparisonContext
+                            const comparisonProduct = {
+                              id: productId,
+                              name: product.title,
+                              description: product.details || product.specs || '',
+                              protocol: product.specs?.includes('Wi-Fi') ? 'Wi-Fi' : product.specs?.includes('RF') ? 'RF' : 'Unknown',
+                              band: product.specs?.match(/(\d+(?:\.\d+)?\s*MHz|\d+(?:\.\d+)?\s*GHz)/)?.[0] || 'Unknown',
+                              keys: product.specs?.includes('Touch') ? 'Touch pad' : product.specs?.match(/(\d+)\s*(?:keys?|buttons?)/i)?.[0] || 'Unknown',
+                              housing: product.specs?.match(/(ABS|Aluminum|PC V0|Zinc alloy|IP\d+)/)?.[0] || 'Unknown',
+                              cert: product.certification,
+                              application: product.useCase,
+                              bullets: product.features || [],
+                              datasheetUrl: '#datasheet',
+                              image: '/assets/logo-512.png',
+                              color: product.color
+                            };
+                            addToComparison(comparisonProduct);
+                          }}
+                        >
+                          <Plus className="h-3 w-3 mr-1" />
+                          {isProductSelected(productId) ? 'Added' : 'Compare'}
+                        </Button>
+                        <Button size="sm" variant="outline" className="text-xs border-orange-500 text-orange-600 hover:bg-orange-50" type="button" onClick={() => onOpenRfq('product_highlight')}>
+                          <Send className="h-3 w-3 mr-1" />
+                          Quote
+                        </Button>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2 mt-2">
                         <Button size="sm" className="text-xs bg-blue-500 hover:bg-blue-600">
                           <Download className="h-3 w-3 mr-1" />
                           Datasheet
@@ -200,15 +240,12 @@ export function ProductsSection({ onOpenRfq }: ProductsSectionProps) {
                           <Package className="h-3 w-3 mr-1" />
                           Sample
                         </Button>
-                        <Button size="sm" variant="outline" className="text-xs border-orange-500 text-orange-600 hover:bg-orange-50" type="button" onClick={() => onOpenRfq('product_highlight')}>
-                          <Send className="h-3 w-3 mr-1" />
-                          Quote
-                        </Button>
                       </div>
                     </div>
                   </Card>
                 </motion.div>
-              ))}
+                );
+              })}
             </div>
           </div>
         ))}

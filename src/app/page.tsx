@@ -23,6 +23,8 @@ import { ContactSection } from '@/components/home/ContactSection'
 import { CaseStudiesSection } from '@/components/home/CaseStudiesSection'
 import { FactoryTourSection } from '@/components/home/FactoryTourSection'
 import { ProcessTimelineSection } from '@/components/home/ProcessTimelineSection'
+import { ComparisonProvider } from '@/contexts/ComparisonContext'
+import { ComparisonBar } from '@/components/product/ComparisonBar'
 import { Phone, MessageCircle, Globe, Factory, Check, Clock, Star, Users, Cpu, Shield, Award, Radio, Wifi, Zap, Package, Settings, Download, Send, ChevronRight, Car } from 'lucide-react'
 
 export default function Home() {
@@ -246,18 +248,23 @@ export default function Home() {
     openRfqModal('finder_quote')
   }
 
-  const handleRfqSubmit = (target: string) => {
-    if (target.startsWith('mailto:')) {
+  const handleRfqSubmit = (result: {
+    status: 'success' | 'error' | 'whatsapp';
+    message?: string;
+    data?: any;
+  }) => {
+    if (result.status === 'success') {
       trackEvent('rfq_submit', { source: rfqSource })
-      window.location.href = target
       handleDownloadTemplate()
       closeRfqModal()
-      return
+    } else if (result.status === 'whatsapp') {
+      trackEvent('whatsapp_click', { source: 'rfq_modal' })
+      window.open('https://wa.me/8615899648898', '_blank', 'noopener')
+      closeRfqModal()
+    } else if (result.status === 'error') {
+      // Error is already displayed in the modal, no additional action needed
+      console.error('RFQ submission error:', result.message)
     }
-
-    trackEvent('whatsapp_click', { source: 'rfq_modal' })
-    window.open(target, '_blank', 'noopener')
-    closeRfqModal()
   }
 
   const handleDownloadTemplate = () => {
@@ -456,15 +463,16 @@ export default function Home() {
 
 
   return (
-    <div className="min-h-screen bg-white">
-      <HeaderBar
-        activeSection={activeSection}
-        onNavClick={handleNavClick}
-        onToggleMenu={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        onOpenRfq={openRfqModal}
-        isMobileMenuOpen={isMobileMenuOpen}
-        navLinks={navLinks}
-      />
+    <ComparisonProvider>
+      <div className="min-h-screen bg-white">
+        <HeaderBar
+          activeSection={activeSection}
+          onNavClick={handleNavClick}
+          onToggleMenu={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          onOpenRfq={openRfqModal}
+          isMobileMenuOpen={isMobileMenuOpen}
+          navLinks={navLinks}
+        />
 
       <HeroSection onOpenRfq={openRfqModal} onWhatsApp={openWhatsApp} onWeChat={openWeChat} />
 
@@ -1180,6 +1188,7 @@ export default function Home() {
         onClose={closeRfqModal}
         onSubmit={handleRfqSubmit}
         onDownloadTemplate={handleDownloadTemplate}
+        source={rfqSource}
       />
       <MobileActionBar onOpenRfq={openRfqModal} onWhatsApp={openWhatsApp} />
 
@@ -1335,7 +1344,10 @@ export default function Home() {
       <Script id="service-structured-data" strategy="afterInteractive" type="application/ld+json">
         {JSON.stringify(manufacturingServiceJsonLd)}
       </Script>
-    </div>
+      
+      <ComparisonBar />
+      </div>
+    </ComparisonProvider>
   )
 }
 

@@ -5,7 +5,8 @@ import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Download, Filter, RefreshCcw, Sparkles } from 'lucide-react';
+import { Download, Filter, RefreshCcw, Sparkles, Plus } from 'lucide-react';
+import { useComparison } from '@/contexts/ComparisonContext';
 
 export interface ProductFinderProps {
   onQuote: (productName: string) => void;
@@ -128,6 +129,7 @@ const FILTER_LABELS: Record<FilterKey, string> = {
 const ALL_VALUE = 'All';
 
 export function ProductFinder({ onQuote, onTrack }: ProductFinderProps) {
+  const { addToComparison, isProductSelected } = useComparison();
   const [filters, setFilters] = useState<Record<FilterKey, string>>({
     protocol: ALL_VALUE,
     band: ALL_VALUE,
@@ -293,7 +295,7 @@ export function ProductFinder({ onQuote, onTrack }: ProductFinderProps) {
                   ))}
                 </ul>
 
-                <div className="mt-auto grid grid-cols-2 gap-2">
+                <div className="mt-auto grid grid-cols-3 gap-2">
                   <Button
                     type="button"
                     variant="outline"
@@ -302,6 +304,18 @@ export function ProductFinder({ onQuote, onTrack }: ProductFinderProps) {
                   >
                     <Download className="mr-2 h-4 w-4" />
                     Datasheet
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className={`border-blue-500 ${isProductSelected(product.id) ? 'bg-blue-50 border-blue-600 text-blue-700' : 'text-blue-600 hover:bg-blue-50'}`}
+                    onClick={() => {
+                      onTrack('finder_use', { action: 'compare_click', product: product.name });
+                      addToComparison(product);
+                    }}
+                  >
+                    <Plus className="mr-2 h-4 w-4" />
+                    {isProductSelected(product.id) ? 'Added' : 'Compare'}
                   </Button>
                   <Button
                     type="button"
