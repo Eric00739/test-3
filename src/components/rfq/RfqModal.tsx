@@ -464,7 +464,6 @@ export function RfqModal({ open, onClose, onSubmit, source = 'default' }: RfqMod
               onClick={handleSubmit}
               disabled={isSubmitting}
               className="w-full mt-6 bg-orange-500 hover:bg-orange-600 text-white disabled:opacity-50"
-              style={{ color: 'white' }}
             >
               {isSubmitting ? (
                 <>

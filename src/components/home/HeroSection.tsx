@@ -116,7 +116,7 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
                   <Button
                     variant="outline"
                     size="sm"
-                    className="border-white/80 bg-white/15 text-white hover:bg-white/30 hover:text-white"
+                    className="border-white/80 bg-white/15 text-white hover:bg-white/30 hover:!text-white"
                     onClick={() => window.open("https://youtu.be/ByoHrKslf54?si=fa2Di21q31sxnHJv", "_blank", "noopener")}
                   >
                     Watch video

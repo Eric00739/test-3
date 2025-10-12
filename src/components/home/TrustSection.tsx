@@ -67,7 +67,7 @@ export function TrustSection({ onOpenRfq, onWhatsApp }: TrustSectionProps) {
             <Button
               variant="outline"
               size="lg"
-              className="border-white/70 bg-transparent text-white hover:bg-white/15 hover:border-white"
+              className="border-white/70 bg-transparent text-white hover:bg-white/15 hover:!text-white hover:border-white"
               onClick={() => onWhatsApp('trust_whatsapp')}
             >
               Request a callback

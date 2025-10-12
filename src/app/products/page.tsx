@@ -335,7 +335,6 @@ export default function ProductsPage() {
                 size="lg"
                 className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 text-lg shadow-lg"
                 onClick={() => openRfqModal('hero_consultation')}
-                style={{ color: 'white' }}
               >
                 <Phone className="h-5 w-5 mr-2" />
                 Consult Our Engineers
@@ -343,9 +342,8 @@ export default function ProductsPage() {
               <Button
                 variant="outline"
                 size="lg"
-                className="border-white text-white hover:bg-white hover:text-slate-900 px-8 py-4 text-lg shadow-lg"
+                className="border-white text-white hover:bg-white hover:!text-slate-900 px-8 py-4 text-lg shadow-lg"
                 onClick={() => document.getElementById('categories')?.scrollIntoView({ behavior: 'smooth' })}
-                style={{ color: 'white' }}
               >
                 Explore Categories
                 <ArrowRight className="h-5 w-5 ml-2" />
@@ -461,7 +459,6 @@ export default function ProductsPage() {
                     <Button
                       className={`w-full bg-gradient-to-r ${category.color} hover:opacity-90 text-white shadow-lg`}
                       onClick={() => handleCategoryClick(category.id)}
-                      style={{ color: 'white' }}
                     >
                       {category.ctaText}
                       <ArrowRight className="h-4 w-4 ml-2" />
@@ -679,8 +676,7 @@ export default function ProductsPage() {
                 <p className="text-sm text-blue-100 mb-4">Complete product specifications and pricing</p>
                 <Button
                   variant="outline"
-                  className="border-white text-white hover:bg-white hover:text-slate-900 w-full"
-                  style={{ color: 'white' }}
+                  className="border-white text-white hover:bg-white hover:!text-slate-900 w-full"
                 >
                   Download PDF
                 </Button>
@@ -695,7 +691,6 @@ export default function ProductsPage() {
                 <Button
                   className="bg-green-500 hover:bg-green-600 text-white w-full shadow-lg"
                   onClick={() => openRfqModal('quick_consult')}
-                  style={{ color: 'white' }}
                 >
                   Schedule Call
                 </Button>
@@ -710,7 +705,6 @@ export default function ProductsPage() {
                 <Button
                   className="bg-blue-500 hover:bg-blue-600 text-white w-full shadow-lg"
                   onClick={() => openRfqModal('product_quote')}
-                  style={{ color: 'white' }}
                 >
                   Request Quote
                 </Button>
@@ -722,7 +716,6 @@ export default function ProductsPage() {
                 size="lg"
                 className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 text-lg shadow-lg"
                 onClick={() => openRfqModal('main_cta')}
-                style={{ color: 'white' }}
               >
                 <Phone className="h-5 w-5 mr-2" />
                 Contact Sales Team
@@ -730,8 +723,7 @@ export default function ProductsPage() {
               <Button
                 variant="outline"
                 size="lg"
-                className="border-white text-white hover:bg-white hover:text-slate-900 px-8 py-4 text-lg shadow-lg"
-                style={{ color: 'white' }}
+                className="border-white text-white hover:bg-white hover:!text-slate-900 px-8 py-4 text-lg shadow-lg"
               >
                 <MessageCircle className="h-5 w-5 mr-2" />
                 WhatsApp Support

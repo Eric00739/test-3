@@ -497,7 +497,7 @@ export function AboutPage() {
               size="lg"
               variant="outline"
               onClick={() => window.open('https://wa.me/8615899648898?text=Hi, I would like to discuss a partnership with FastFunRC')}
-              className="border-white text-white hover:bg-white hover:text-orange-600"
+              className="border-white text-white hover:bg-white hover:!text-orange-600"
             >
               <MessageCircle className="mr-2 h-5 w-5" />
               WhatsApp Us
