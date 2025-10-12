@@ -262,7 +262,13 @@ export default function ProductsPage() {
     if (result.status === 'success') {
       closeRfqModal()
     } else if (result.status === 'whatsapp') {
-      window.open('https://wa.me/8615899648898', '_blank', 'noopener')
+      if (result.data?.mailtoUrl) {
+        // Handle fallback to email client
+        window.location.href = result.data.mailtoUrl
+      } else {
+        // Handle WhatsApp click
+        window.open('https://wa.me/8615899648898', '_blank', 'noopener')
+      }
       closeRfqModal()
     } else if (result.status === 'error') {
       // Error is already displayed in the modal, no additional action needed

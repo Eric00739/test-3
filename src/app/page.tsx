@@ -258,8 +258,15 @@ export default function Home() {
       handleDownloadTemplate()
       closeRfqModal()
     } else if (result.status === 'whatsapp') {
-      trackEvent('whatsapp_click', { source: 'rfq_modal' })
-      window.open('https://wa.me/8615899648898', '_blank', 'noopener')
+      if (result.data?.mailtoUrl) {
+        // Handle fallback to email client
+        trackEvent('rfq_fallback_email', { source: rfqSource })
+        window.location.href = result.data.mailtoUrl
+      } else {
+        // Handle WhatsApp click
+        trackEvent('whatsapp_click', { source: 'rfq_modal' })
+        window.open('https://wa.me/8615899648898', '_blank', 'noopener')
+      }
       closeRfqModal()
     } else if (result.status === 'error') {
       // Error is already displayed in the modal, no additional action needed

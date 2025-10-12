@@ -1,6 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
-import type { Attachment } from 'nodemailer/lib/mailer';
+
+// Only import nodemailer when running in Node.js environment
+let nodemailer: any;
+let AttachmentType: any;
+
+if (typeof window === 'undefined') {
+  try {
+    nodemailer = require('nodemailer');
+    AttachmentType = require('nodemailer/lib/mailer').Attachment;
+  } catch (error) {
+    console.warn('nodemailer not available, falling back to client-side submission');
+  }
+}
 
 export const runtime = 'nodejs';
 
@@ -93,6 +104,28 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Check if nodemailer is available
+    if (!nodemailer) {
+      // Fallback for environments without nodemailer (like GitHub Pages)
+      // Store the form data for client-side processing
+      const formDataObj: Record<string, any> = {
+        name: name.trim(),
+        email: email.trim(),
+        country: typeof country === 'string' ? country.trim() : undefined,
+        message: typeof message === 'string' ? message.trim() : undefined,
+        source: typeof source === 'string' ? source.trim() : undefined,
+        userAgent: request.headers.get('user-agent') ?? undefined,
+      };
+
+      // Return with a flag to indicate client-side processing is needed
+      return NextResponse.json({
+        success: false,
+        fallback: true,
+        message: 'Please use your email client to submit this RFQ',
+        formData: formDataObj
+      });
+    }
+
     const smtpPort = Number(process.env.RFQ_SMTP_PORT ?? 587);
 
     const transporter = nodemailer.createTransport({
@@ -115,7 +148,7 @@ export async function POST(request: NextRequest) {
           filename: item.name || `attachment-${index + 1}`,
           content: buffer,
           contentType: item.type || undefined,
-        } satisfies Attachment;
+        } as typeof AttachmentType;
       }),
     );
 
@@ -128,7 +161,7 @@ export async function POST(request: NextRequest) {
       userAgent: request.headers.get('user-agent') ?? undefined,
     });
 
-    const attachmentList = attachments.filter(Boolean) as Attachment[];
+    const attachmentList = attachments.filter(Boolean) as typeof AttachmentType[];
 
     await transporter.sendMail({
       from: ensureEnv('RFQ_FROM_EMAIL'),

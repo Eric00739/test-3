@@ -177,73 +177,48 @@ export function RfqModal({ open, onClose, onSubmit, onDownloadTemplate, source =
     // 设置提交状态
     setIsSubmitting(true);
     
-    try {
-      // 构建FormData
-      const formData = new FormData();
-      formData.append('name', name.trim());
-      formData.append('email', email.trim());
-      if (country.trim()) {
-        formData.append('country', country.trim());
-      }
-      if (message.trim()) {
-        formData.append('message', message.trim());
-      }
-      formData.append('source', source);
-      
-      // 添加附件
-      attachedFiles.forEach((file) => {
-        formData.append('attachments', file);
-      });
-      
-      // 发送请求到API
-      const response = await fetch('/api/rfq', {
-        method: 'POST',
-        body: formData,
-      });
-      
-      const result = await response.json();
-      
-      if (response.ok && result.success) {
-        // 成功提交
-        setIsSubmitted(true);
-        
-        // 延迟关闭弹窗并通知父组件
-        setTimeout(() => {
-          onSubmit({
-            status: 'success',
-            message: 'RFQ submitted successfully',
-            data: { email, name }
-          });
-          onClose();
-          setIsSubmitted(false);
-          setIsSubmitting(false);
-        }, 2000);
-      } else {
-        // 提交失败
-        const errorMessage = result.error || 'Failed to submit RFQ. Please try again.';
-        setSubmitError(errorMessage);
-        setIsSubmitting(false);
-        
-        // 通知父组件错误状态
-        onSubmit({
-          status: 'error',
-          message: errorMessage,
-          data: { email, name }
-        });
-      }
-    } catch (error) {
-      console.error('RFQ submission error:', error);
-      const errorMessage = 'Network error. Please try again or use WhatsApp.';
-      setSubmitError(errorMessage);
+    // 构建邮件内容
+    const body = [
+      `Hi FastFunRC team,`,
+      '',
+      `I'd like to request a quotation for your wireless control solutions.`,
+      '',
+      `Name: ${name}`,
+      `Email: ${email}`,
+      country && `Country: ${country}`,
+      message && `Message: ${message}`,
+      attachedFiles.length > 0 && `Attachments: ${attachedFiles.map(f => f.name).join(', ')}`,
+      '',
+      `Please send me your product catalog and current pricing information.`,
+      '',
+      `Thank you!`
+    ].filter(Boolean).join('\n');
+    
+    const params = new URLSearchParams({
+      subject: 'RFQ received — we\'ll reply within 12h',
+      body,
+    });
+    
+    const mailtoUrl = `mailto:eric@fastfunrc.com?${params.toString()}`;
+    
+    // 通知父组件
+    onSubmit({
+      status: 'whatsapp',
+      message: 'Opening email client...',
+      data: { mailtoUrl }
+    });
+    
+    // 设置成功状态
+    setIsSubmitted(true);
+    
+    // 延迟关闭弹窗和打开邮件客户端
+    setTimeout(() => {
+      onClose();
+      setIsSubmitted(false);
       setIsSubmitting(false);
-      
-      // 通知父组件错误状态
-      onSubmit({
-        status: 'error',
-        message: errorMessage,
-        data: { email, name }
-      });
-    }
+      // 打开邮件客户端
+      window.location.href = mailtoUrl;
+    }, 1500);
   };
 
   // 重置表单
@@ -288,7 +263,7 @@ export function RfqModal({ open, onClose, onSubmit, onDownloadTemplate, source =
         aria-modal="true"
         aria-label="Request a custom quotation"
         className="relative z-10 w-full max-w-lg sm:max-w-xl rounded-2xl bg-white p-6 shadow-2xl overflow-y-auto"
-        style={{ maxHeight: '700px' }}
+        style={{ maxHeight: '700px' } as any}
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
@@ -297,17 +272,17 @@ export function RfqModal({ open, onClose, onSubmit, onDownloadTemplate, source =
         {isSubmitted ? (
           <div className="text-center py-8">
             <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Check className="h-10 w-10 text-green-600" />
+              <Send className="h-10 w-10 text-green-600" />
             </div>
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
-              RFQ Sent Successfully!
+              Opening Your Email Client
             </h3>
             <p className="text-base text-slate-600 mb-4">
-              Thank you for your inquiry. Our engineering team will review your requirements and respond within 12 hours.
+              We're preparing your RFQ details. Your email client will open automatically with the information pre-filled.
             </p>
-            <div className="bg-green-50 rounded-lg p-4 mb-4">
-              <p className="text-sm text-green-800 font-medium">
-                Next: Check your email for confirmation. You can reply directly with additional files or questions.
+            <div className="bg-blue-50 rounded-lg p-4 mb-4">
+              <p className="text-sm text-blue-800 font-medium">
+                Just click "Send" in your email client to submit your request to our team.
               </p>
             </div>
             <Button
