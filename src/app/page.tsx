@@ -54,12 +54,6 @@ const testimonials = [
       company: 'US Home Automation Company',
       result: '99.8% Field Reliability',
       savings: '$1.8M Reduction in Support Costs'
-    },
-    {
-      quote: 'From concept to production in just 12 weeks. Their in-house testing and certification expertise saved us months of development time.',
-      company: 'APAC Lighting Brand',
-      result: 'DPPM Under 200',
-      savings: '30% Cost Reduction vs Local Manufacturing'
     }
   ]
 
@@ -229,13 +223,6 @@ const testimonials = [
       src: 'https://images.unsplash.com/photo-1580894897200-8eafc15323c7?auto=format&fit=crop&w=1600&h=1000&q=80&fm=webp',
       title: 'Quality & RF Calibration Lab',
       description: 'Shielded rooms with spectrum analysis and functional burn-in racks.'
-    },
-    {
-      id: 'factory-image-03',
-      // TODO: replace `src` with production factory hero image #3 (recommended 1600x1000 WebP)
-      src: 'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1600&h=1000&q=80&fm=webp',
-      title: 'Final Assembly & Packaging',
-      description: 'Dedicated clean line for remote controls, receivers, and smart switch kitting.'
     }
   ]
 
@@ -572,275 +559,140 @@ const testimonials = [
 
       <CaseStudiesSection />
 
-      {/* Testing Capabilities Section */}
+      {/* Quality & Compliance Section - Combined */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-20"
+            className="text-center mb-16"
           >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">Testing & Certification Capabilities</h2>
-            <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed px-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Quality & Compliance</h2>
+            <p className="text-base sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
               Full compliance testing with EN 300 220 and FCC Part 15 certification capabilities
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8">
-              <h3 className="text-xl font-bold text-blue-900 mb-4">EU Compliance Testing</h3>
-              <div className="space-y-3">
-                <div className="flex items-center">
-                  <Check className="h-5 w-5 text-blue-600 mr-3" />
-                  <span className="text-slate-700">EN 300 220 Standard</span>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+            {/* Testing Capabilities */}
+            <div>
+              <h3 className="text-xl font-bold text-gray-900 mb-6">Testing Capabilities</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6">
+                  <h4 className="text-lg font-semibold text-blue-900 mb-3">EU Compliance</h4>
+                  <div className="space-y-2">
+                    <div className="flex items-center">
+                      <Check className="h-4 w-4 text-blue-600 mr-2" />
+                      <span className="text-sm text-slate-700">EN 300 220 Standard</span>
+                    </div>
+                    <div className="flex items-center">
+                      <Check className="h-4 w-4 text-blue-600 mr-2" />
+                      <span className="text-sm text-slate-700">CE RED Certification</span>
+                    </div>
+                    <div className="flex items-center">
+                      <Check className="h-4 w-4 text-blue-600 mr-2" />
+                      <span className="text-sm text-slate-700">RF Power Testing</span>
+                    </div>
+                    <div className="flex items-center">
+                      <Check className="h-4 w-4 text-blue-600 mr-2" />
+                      <span className="text-sm text-slate-700">Frequency Deviation</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center">
-                  <Check className="h-5 w-5 text-blue-600 mr-3" />
-                  <span className="text-slate-700">CE RED Certification</span>
-                </div>
-                <div className="flex items-center">
-                  <Check className="h-5 w-5 text-blue-600 mr-3" />
-                  <span className="text-slate-700">RF Power Testing</span>
-                </div>
-                <div className="flex items-center">
-                  <Check className="h-5 w-5 text-blue-600 mr-3" />
-                  <span className="text-slate-700">Frequency Deviation</span>
+                
+                <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6">
+                  <h4 className="text-lg font-semibold text-green-900 mb-3">US Compliance</h4>
+                  <div className="space-y-2">
+                    <div className="flex items-center">
+                      <Check className="h-4 w-4 text-green-600 mr-2" />
+                      <span className="text-sm text-slate-700">FCC Part 15 Certification</span>
+                    </div>
+                    <div className="flex items-center">
+                      <Check className="h-4 w-4 text-green-600 mr-2" />
+                      <span className="text-sm text-slate-700">Anritsu MS2690A (26.5GHz)</span>
+                    </div>
+                    <div className="flex items-center">
+                      <Check className="h-4 w-4 text-green-600 mr-2" />
+                      <span className="text-sm text-slate-700">Shielded Room Testing</span>
+                    </div>
+                    <div className="flex items-center">
+                      <Check className="h-4 w-4 text-green-600 mr-2" />
+                      <span className="text-sm text-slate-700">Spurious Emissions</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-            
-            <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-8">
-              <h3 className="text-xl font-bold text-green-900 mb-4">US Compliance Testing</h3>
-              <div className="space-y-3">
-                <div className="flex items-center">
-                  <Check className="h-5 w-5 text-green-600 mr-3" />
-                  <span className="text-slate-700">FCC Part 15 Certification</span>
-                </div>
-                <div className="flex items-center">
-                  <Check className="h-5 w-5 text-green-600 mr-3" />
-                  <span className="text-slate-700">Anritsu MS2690A (26.5GHz)</span>
-                </div>
-                <div className="flex items-center">
-                  <Check className="h-5 w-5 text-green-600 mr-3" />
-                  <span className="text-slate-700">Shielded Room Testing</span>
-                </div>
-                <div className="flex items-center">
-                  <Check className="h-5 w-5 text-green-600 mr-3" />
-                  <span className="text-slate-700">Spurious Emissions</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Certifications Section */}
-      <section className="py-20 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
-          >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">Certifications & Compliance</h2>
-            <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed px-4">
-              Full compliance with international standards and regulations
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                title: 'CE (RED EN 300 220)',
-                description: 'For 433 MHz remotes',
-                certNo: 'XXXXXX',
-                issuer: 'T脺V S脺D',
-                validTo: '2026-12-31',
-                download: true,
-                color: 'from-blue-500 to-blue-600'
-              },
-              {
-                title: 'FCC Part 15',
-                description: 'For 315/433 MHz devices',
-                certNo: 'FCC ID: XXXXXX',
-                issuer: 'FCC',
-                validTo: '2025-12-31',
-                download: true,
-                color: 'from-green-500 to-green-600'
-              },
-              {
-                title: 'ISO 9001:2015',
-                description: 'Quality Management System',
-                certNo: 'ISO 9001:2015',
-                issuer: 'SGS',
-                validTo: '2025-08-31',
-                download: true,
-                color: 'from-purple-500 to-purple-600'
-              },
-              {
-                title: 'RoHS Compliance',
-                description: 'Environmental Protection',
-                certNo: 'RoHS 2011/65/EU',
-                issuer: 'Intertek',
-                validTo: '2025-12-31',
-                download: true,
-                color: 'from-orange-500 to-orange-600'
-              },
-              {
-                title: 'REACH Compliance',
-                description: 'Chemical Safety',
-                certNo: 'REACH 1907/2006',
-                issuer: 'Bureau Veritas',
-                validTo: '2025-12-31',
-                download: true,
-                color: 'from-red-500 to-red-600'
-              },
-              {
-                title: 'IATF 16949:2016',
-                description: 'Automotive Quality Management',
-                certNo: 'IATF 16949:2016',
-                issuer: 'T脺V Rheinland',
-                validTo: '2025-10-31',
-                download: true,
-                color: 'from-indigo-500 to-indigo-600'
-              }
-            ].map((cert, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <Card className="p-6 border-0 shadow-lg hover:shadow-xl transition-all duration-300 h-full">
-                  <div className={`w-12 h-12 bg-gradient-to-br ${cert.color} rounded-xl flex items-center justify-center mb-4`}>
-                    <Award className="h-6 w-6 text-white" />
-                  </div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">{cert.title}</h3>
-                  <p className="text-sm text-slate-600 mb-4">{cert.description}</p>
-                  
-                  <div className="space-y-2 mb-4">
-                    <div className="flex justify-between text-xs">
-                      <span className="text-slate-500">Certificate No:</span>
-                      <span className="font-mono text-gray-900">{cert.certNo}</span>
+            {/* Key Certifications */}
+            <div>
+              <h3 className="text-xl font-bold text-gray-900 mb-6">Key Certifications</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {[
+                  {
+                    title: 'CE (RED EN 300 220)',
+                    description: 'For 433 MHz remotes',
+                    color: 'from-blue-500 to-blue-600'
+                  },
+                  {
+                    title: 'FCC Part 15',
+                    description: 'For 315/433 MHz devices',
+                    color: 'from-green-500 to-green-600'
+                  },
+                  {
+                    title: 'ISO 9001:2015',
+                    description: 'Quality Management System',
+                    color: 'from-purple-500 to-purple-600'
+                  },
+                  {
+                    title: 'RoHS Compliance',
+                    description: 'Environmental Protection',
+                    color: 'from-orange-500 to-orange-600'
+                  }
+                ].map((cert, index) => (
+                  <Card key={index} className="p-4 border-0 shadow hover:shadow-lg transition-all duration-300">
+                    <div className="flex items-start space-x-3">
+                      <div className={`w-10 h-10 bg-gradient-to-br ${cert.color} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                        <Award className="h-5 w-5 text-white" />
+                      </div>
+                      <div>
+                        <h4 className="text-base font-bold text-gray-900 mb-1">{cert.title}</h4>
+                        <p className="text-xs text-slate-600">{cert.description}</p>
+                      </div>
                     </div>
-                    <div className="flex justify-between text-xs">
-                      <span className="text-slate-500">Issuer:</span>
-                      <span className="text-gray-900">{cert.issuer}</span>
-                    </div>
-                    <div className="flex justify-between text-xs">
-                      <span className="text-slate-500">Valid Until:</span>
-                      <span className="text-gray-900">{cert.validTo}</span>
-                    </div>
-                  </div>
-                  
-                  <Button size="sm" variant="outline" className="w-full">
-                    <Download className="h-3 w-3 mr-2" />
-                    Download PDF
-                  </Button>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* OEM/ODM Process */}
-      <section id="process" className="py-32 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
-          >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">OEM/ODM Process</h2>
-            <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed px-4">
-              From concept to market in 12 weeks with transparent project management
-            </p>
-          </motion.div>
-
-          {/* Visual Process Timeline */}
-          <div className="relative px-4">
-            {/* Progress Line */}
-            <div className="absolute top-16 sm:top-20 lg:top-24 left-0 right-0 h-1 bg-slate-200 rounded-full" />
-            <div className="absolute top-16 sm:top-20 lg:top-24 left-0 h-1 bg-gradient-to-r from-blue-500 via-green-500 via-purple-500 to-orange-500 rounded-full" 
-                 style={{ width: '100%' }} />
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 relative">
-              {processSteps.map((step, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.15 }}
-                  viewport={{ once: true }}
-                  className="relative"
-                >
-                  {/* Circle Node */}
-                  <div className="flex justify-center mb-4 sm:mb-6 lg:mb-8">
-                    <div className={`w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-gradient-to-br ${step.color} rounded-full flex items-center justify-center shadow-lg relative z-10 group-hover:scale-110 transition-transform duration-300`}>
-                      <step.icon className="h-6 w-6 sm:h-8 sm:w-8 lg:h-10 lg:w-10 text-white" />
-                    </div>
-                  </div>
-                  
-                  {/* Step Card */}
-                  <Card className="text-center p-4 sm:p-6 lg:p-8 border-0 shadow-lg hover:shadow-xl transition-all duration-300 group">
-                    <div className={`inline-block px-3 py-1 sm:px-4 sm:py-2 bg-gradient-to-r ${step.color} text-white rounded-full text-xs sm:text-sm font-semibold mb-3 sm:mb-4`}>
-                      {step.duration}
-                    </div>
-                    <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-4">{step.phase}</h3>
-                    <p className="text-sm sm:text-base text-slate-600 leading-relaxed">{step.deliverables}</p>
-                    
-                    {/* Arrow Indicator */}
-                    {index < processSteps.length - 1 && (
-                      <div className="hidden lg:block absolute top-20 left-full w-8 h-0.5 bg-slate-300 -ml-4" />
-                    )}
                   </Card>
-                </motion.div>
-              ))}
+                ))}
+              </div>
+              
+              <div className="mt-6 text-center">
+                <Button variant="outline" size="sm" className="border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900">
+                  View All Certifications
+                </Button>
+              </div>
             </div>
           </div>
-
-          {/* Total Timeline */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            viewport={{ once: true }}
-            className="mt-16 text-center"
-          >
-            <div className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-orange-50 to-orange-100 rounded-2xl">
-              <Clock className="h-6 w-6 text-orange-600 mr-3" />
-              <span className="text-lg font-semibold text-gray-900">Total Timeline: </span>
-              <span className="text-xl font-bold text-orange-600 ml-2">12 Weeks</span>
-            </div>
-          </motion.div>
         </div>
       </section>
 
-      {/* Products Matrix */}
-      <section id="capabilities" className="py-32 bg-slate-50">
+      {/* Products Matrix - Simplified and integrated with Capabilities */}
+      <section id="capabilities" className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-20"
+            className="text-center mb-12"
           >
-            <h2 className="text-5xl font-bold text-gray-900 mb-6">Our Products</h2>
-            <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Our Capabilities & Products</h2>
+            <p className="text-base sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
               End-to-end manufacturing with in-house engineering and testing
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {capabilities.map((capability, index) => (
               <Card key={index} className="p-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">{capability.category}</h3>
@@ -854,6 +706,43 @@ const testimonials = [
                 </ul>
               </Card>
             ))}
+          </div>
+          
+          {/* Representative Products */}
+          <div className="text-center mb-8">
+            <h3 className="text-xl font-bold text-gray-900 mb-4">Featured Products</h3>
+            <p className="text-slate-600 mb-8">Examples of our most popular solutions</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {products.slice(0, 3).map((category, catIndex) => (
+              <Card key={catIndex} className="overflow-hidden bg-white shadow-lg hover:shadow-xl transition-all duration-300 border-0">
+                <div className={`h-2 bg-gradient-to-r ${category.items[0].color}`} />
+                <div className="p-6">
+                  <h3 className="text-lg font-bold text-gray-900 mb-2">{category.category}</h3>
+                  <p className="text-sm text-slate-600 mb-4">{category.description}</p>
+                  <div className="space-y-3">
+                    {category.items.slice(0, 2).map((product, prodIndex) => (
+                      <div key={prodIndex} className="flex items-center space-x-3">
+                        <div className={`w-8 h-8 bg-gradient-to-br ${product.color} rounded-lg flex items-center justify-center`}>
+                          <product.icon className="h-4 w-4 text-white" />
+                        </div>
+                        <div>
+                          <h4 className="text-sm font-semibold text-gray-900">{product.title}</h4>
+                          <p className="text-xs text-slate-500">{product.useCase}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
+          
+          <div className="text-center mt-8">
+            <Button variant="outline" className="border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900">
+              View Complete Product Catalog
+            </Button>
           </div>
         </div>
       </section>
@@ -1054,120 +943,6 @@ const testimonials = [
         </div>
       </section>
 
-      {/* OEM/ODM Process Flowchart */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
-          >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">Our OEM/ODM Partnership Process</h2>
-            <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed px-4">
-              Clear, transparent process from initial consultation to global delivery
-            </p>
-          </motion.div>
-
-          <div className="relative">
-            {/* Process Flow */}
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-6 relative">
-              {[
-                {
-                  step: '1',
-                  title: 'Initial Consultation',
-                  description: 'Requirements analysis, Technical feasibility, Cost estimation',
-                  icon: Users,
-                  color: 'from-blue-500 to-blue-600',
-                  duration: '1-2 days'
-                },
-                {
-                  step: '2',
-                  title: 'Solution Design & Engineering',
-                  description: 'Custom design, Prototyping, Technical specifications',
-                  icon: Cpu,
-                  color: 'from-green-500 to-green-600',
-                  duration: '1-2 weeks'
-                },
-                {
-                  step: '3',
-                  title: 'Prototyping & Testing',
-                  description: 'Functional samples, Performance testing, Validation',
-                  icon: Shield,
-                  color: 'from-purple-500 to-purple-600',
-                  duration: '2-3 weeks'
-                },
-                {
-                  step: '4',
-                  title: 'Tooling & Pilot Run',
-                  description: 'Mold development, Small batch production, Quality validation',
-                  icon: Factory,
-                  color: 'from-orange-500 to-orange-600',
-                  duration: '3-4 weeks'
-                },
-                {
-                  step: '5',
-                  title: 'Mass Production & QA',
-                  description: 'Full-scale production, Quality control, Testing',
-                  icon: Package,
-                  color: 'from-red-500 to-red-600',
-                  duration: '4-6 weeks'
-                },
-                {
-                  step: '6',
-                  title: 'Global Logistics',
-                  description: 'Packaging, Shipping, Customs clearance, After-sales support',
-                  icon: Globe,
-                  color: 'from-indigo-500 to-indigo-600',
-                  duration: '1-2 weeks'
-                }
-              ].map((phase, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="relative"
-                >
-                  <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 h-full">
-                    <div className={`w-12 h-12 bg-gradient-to-br ${phase.color} rounded-full flex items-center justify-center mb-4 mx-auto`}>
-                      <span className="text-white font-bold">{phase.step}</span>
-                    </div>
-                    <div className={`w-10 h-10 bg-gradient-to-br ${phase.color} rounded-xl flex items-center justify-center mb-4 mx-auto`}>
-                      <phase.icon className="h-5 w-5 text-white" />
-                    </div>
-                    <h3 className="text-lg font-bold text-gray-900 mb-2 text-center">{phase.title}</h3>
-                    <p className="text-sm text-slate-600 mb-3 text-center">{phase.description}</p>
-                    <div className={`text-center text-xs font-semibold px-3 py-1 bg-gradient-to-r ${phase.color} text-white rounded-full`}>
-                      {phase.duration}
-                    </div>
-                  </div>
-                  
-                  {/* Arrow Connector */}
-                  {index < 5 && (
-                    <div className="hidden lg:block absolute top-1/2 -right-3 z-10">
-                      <ChevronRight className="h-6 w-6 text-orange-500" />
-                    </div>
-                  )}
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          <div className="text-center mt-12">
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Total Project Timeline: 12-16 Weeks</h3>
-              <p className="text-slate-600 mb-6">From concept to delivery with dedicated project management</p>
-              <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white">
-                <Send className="h-5 w-5 mr-2" />
-                Start Your Project
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <ContactSection onOpenRfq={openRfqModal} />
 
