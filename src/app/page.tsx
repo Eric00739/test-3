@@ -515,7 +515,7 @@ const testimonials = [
             </p>
           </motion.div>
 
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-2 max-w-4xl mx-auto">
             {factoryGallery.map((item, index) => (
               <motion.figure
                 key={item.id}
@@ -551,11 +551,6 @@ const testimonials = [
 
       <ProductFinder onQuote={handleFinderQuote} onTrack={trackEvent} />
 
-      <ProcessSection onOpenRfq={openRfqModal} />
-
-      <CapabilitiesSection />
-
-      <ProductsSection onOpenRfq={openRfqModal} />
 
       <CaseStudiesSection />
 
@@ -748,23 +743,23 @@ const testimonials = [
       </section>
 
       {/* Testimonials */}
-      <section id="testimonials" className="py-32 bg-slate-50">
+      <section id="testimonials" className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-20"
+            className="text-center mb-12"
           >
-            <h2 className="text-5xl font-bold text-gray-900 mb-6">Customer Success Stories</h2>
-            <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Customer Success Stories</h2>
+            <p className="text-base sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
               Quantified results from long-term partnerships
             </p>
           </motion.div>
 
           {/* Testimonial Carousel */}
-          <div className="relative max-w-4xl mx-auto mb-20">
+          <div className="relative max-w-4xl mx-auto mb-12">
             <div className="overflow-hidden">
               <motion.div 
                 className="flex"
@@ -810,42 +805,39 @@ const testimonials = [
           </div>
 
           {/* Competitor Comparison */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
             viewport={{ once: true }}
           >
-            <Card className="p-10 bg-white shadow-xl border-0">
-              <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center">Why Choose FastFun Remote as Your Manufacturing Supplier</h3>
+            <Card className="p-6 bg-white shadow-xl border-0">
+              <h3 className="text-xl font-bold text-gray-900 mb-4 text-center">Why Choose FastFun Remote</h3>
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="border-b-2 border-slate-200">
-                      <th className="text-left py-4 px-6 text-lg font-semibold text-gray-900">Feature</th>
-                      <th className="text-center py-4 px-6 text-lg font-bold text-green-600">FastFun Remote</th>
-                      <th className="text-center py-4 px-6 text-lg text-slate-500">Typical Competitors</th>
+                    <tr className="border-b border-slate-200">
+                      <th className="text-left py-2 px-4 text-sm font-semibold text-gray-900">Feature</th>
+                      <th className="text-center py-2 px-4 text-sm font-bold text-green-600">FastFun Remote</th>
+                      <th className="text-center py-2 px-4 text-sm text-slate-500">Competitors</th>
                     </tr>
                   </thead>
                   <tbody>
                     {[
-                      { feature: 'Rapid Prototyping', us: '3-Day Samples, 15-Day Tooling', them: '7-10 Days Samples' },
-                      { feature: 'Proprietary RF Tech', us: '30% Longer Battery Life', them: 'Standard Battery Life' },
-                      { feature: 'Quality Control', us: 'Defect Rate < 0.1%', them: 'Defect Rate 0.5-1%' },
-                      { feature: 'Service Level', us: 'Dedicated Project Manager', them: 'Account Manager' },
-                      { feature: 'FPY Rate', us: '98.7%', them: '95-97%' },
+                      { feature: 'Rapid Prototyping', us: '3-Day Samples', them: '7-10 Days' },
+                      { feature: 'Quality Control', us: 'Defect Rate < 0.1%', them: '0.5-1%' },
                       { feature: 'Lead Time', us: '12 weeks', them: '16-20 weeks' },
                       { feature: '24h Response', us: 'Guaranteed', them: '48-72h' }
                     ].map((row, index) => (
                       <tr key={index} className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
-                        <td className="py-4 px-6 font-medium text-gray-900">{row.feature}</td>
-                        <td className="text-center py-4 px-6">
-                          <span className="inline-flex items-center px-4 py-2 bg-green-100 text-green-800 rounded-full font-semibold">
+                        <td className="py-2 px-4 font-medium text-gray-900 text-sm">{row.feature}</td>
+                        <td className="text-center py-2 px-4">
+                          <span className="inline-flex items-center px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">
                             {row.us}
-                            <Check className="h-4 w-4 ml-2" />
+                            <Check className="h-3 w-3 ml-1" />
                           </span>
                         </td>
-                        <td className="text-center py-4 px-6 text-slate-600">{row.them}</td>
+                        <td className="text-center py-2 px-4 text-slate-600 text-sm">{row.them}</td>
                       </tr>
                     ))}
                   </tbody>
