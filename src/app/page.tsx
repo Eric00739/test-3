@@ -26,7 +26,6 @@ import { Phone, MessageCircle, Globe, Factory, Check, Clock, Star, Users, Cpu, S
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState('hero')
-  const [currentTestimonial, setCurrentTestimonial] = useState(0)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
   const [isWhatsAppOpen, setIsWhatsAppOpen] = useState(false)
@@ -50,7 +49,25 @@ const testimonials = [
       company: 'US Home Automation Company',
       result: '99.8% Field Reliability',
       savings: '$1.8M Reduction in Support Costs'
+    },
+    {
+      quote: 'Their RF/IoT co-design team helped us launch a dual-protocol smart socket without schedule slips or compliance issues.',
+      company: 'APAC Lighting Solutions',
+      result: 'Zero Certification Rejections',
+      savings: 'Launched 3 SKUs in 12 Weeks'
+    },
+    {
+      quote: 'FastFunRC absorbed our legacy tooling and improved DPPM to under 300, keeping our automotive clients delighted.',
+      company: 'Global Automotive Aftermarket Brand',
+      result: '60% Fewer Warranty Returns',
+      savings: '$950K Annual Service Cost Reduction'
     }
+  ]
+
+  const testimonialHighlights = [
+    { value: '99.8%', label: 'Field reliability across deployments' },
+    { value: '42%', label: 'Faster time-to-market vs. OEM average' },
+    { value: '24h', label: 'Response SLA for engineering support' }
   ]
 
   // Performance monitoring
@@ -83,14 +100,6 @@ const testimonials = [
       return () => observer.disconnect()
     }
   }, [])
-
-  // Auto-switch testimonials
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)
-    }, 5000)
-    return () => clearInterval(interval)
-  }, [testimonials])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -739,7 +748,7 @@ const testimonials = [
       </section>
 
       {/* Testimonials */}
-      <section id="testimonials" className="py-20 bg-slate-50">
+      <section id="testimonials" className="py-20 bg-slate-900/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -748,56 +757,61 @@ const testimonials = [
             viewport={{ once: true }}
             className="text-center mb-12"
           >
+            <Badge className="mb-4 bg-orange-500/10 text-orange-600 border border-orange-500/30">Customer Proof</Badge>
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Customer Success Stories</h2>
             <p className="text-base sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
-              Quantified results from long-term partnerships
+              Quantified results from long-term partnerships across smart home, automotive, and industrial sectors.
             </p>
           </motion.div>
 
-          {/* Testimonial Carousel */}
-          <div className="relative max-w-4xl mx-auto mb-12">
-            <div className="overflow-hidden">
-              <motion.div 
-                className="flex"
-                animate={{ x: -currentTestimonial * 100 + '%' }}
-                transition={{ duration: 0.5, ease: 'easeInOut' }}
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-12">
+            {testimonialHighlights.map((metric, index) => (
+              <motion.div
+                key={metric.label}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="rounded-2xl bg-white shadow-sm border border-slate-200/60 px-6 py-5 text-left"
               >
-                {testimonials.map((testimonial, index) => (
-                  <div key={index} className="w-full flex-shrink-0 px-4">
-                    <Card className="p-12 bg-white shadow-xl border-0">
-                      <div className="text-center mb-8">
-                        <div className="text-4xl font-bold text-green-600 mb-4">{testimonial.result}</div>
-                        <p className="text-2xl text-slate-700 italic mb-8 leading-relaxed">"{testimonial.quote}"</p>
-                        <div className="text-lg text-slate-600">
-                          <div className="font-bold text-gray-900 text-xl mb-2">{testimonial.company}</div>
-                          <div className="text-orange-600 font-semibold">{testimonial.savings}</div>
-                        </div>
-                      </div>
-                      <div className="flex justify-center mb-6">
+                <div className="text-3xl font-bold text-orange-600 mb-1">{metric.value}</div>
+                <div className="text-sm text-slate-600">{metric.label}</div>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3 mb-16">
+            {testimonials.map((testimonial, index) => (
+              <motion.div
+                key={`${testimonial.company}-${index}`}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: (index % 3) * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <Card className="h-full bg-white/95 shadow-lg hover:shadow-xl transition-shadow border border-slate-200/60">
+                  <div className="p-6 flex flex-col h-full">
+                    <div className="flex items-center gap-2 mb-4">
+                      <span className="inline-flex items-center rounded-full bg-green-100 text-green-700 text-xs font-semibold px-3 py-1">
+                        {testimonial.result}
+                      </span>
+                      <div className="hidden sm:flex items-center gap-1 text-yellow-400">
                         {[...Array(5)].map((_, i) => (
-                          <Star key={i} className="h-6 w-6 text-yellow-400 fill-current" />
+                          <Star key={i} className="h-4 w-4 fill-current" />
                         ))}
                       </div>
-                    </Card>
+                    </div>
+                    <p className="text-base text-slate-700 italic leading-relaxed mb-6">
+                      “{testimonial.quote}”
+                    </p>
+                    <div className="mt-auto">
+                      <div className="text-sm uppercase tracking-wide text-slate-500">{testimonial.company}</div>
+                      <div className="text-sm font-semibold text-orange-600 mt-1">{testimonial.savings}</div>
+                    </div>
                   </div>
-                ))}
+                </Card>
               </motion.div>
-            </div>
-            
-            {/* Carousel Indicators */}
-            <div className="flex justify-center mt-8 space-x-2">
-              {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentTestimonial(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    index === currentTestimonial 
-                      ? 'bg-orange-500 w-8' 
-                      : 'bg-slate-300 hover:bg-slate-400'
-                  }`}
-                />
-              ))}
-            </div>
+            ))}
           </div>
 
           {/* Competitor Comparison */}
