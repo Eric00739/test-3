@@ -72,7 +72,7 @@ export function HeaderBar({
               className="text-xs sm:text-sm px-2 sm:px-4 bg-orange-500 hover:bg-orange-600 text-white"
               onClick={() => onOpenRfq("header_quote")}
             >
-              <span className="hidden sm:inline">Get a Custom Quote</span>
+              <span className="hidden sm:inline">Get Quote</span>
               <span className="sm:hidden">Quote</span>
             </Button>
             <Button variant="ghost" size="sm" className="md:hidden" onClick={onToggleMenu}>
