@@ -208,7 +208,7 @@ const testimonials = [
 
   const navLinks = [
     { label: 'Home', target: 'hero' },
-    { label: 'About us', target: 'about' },
+    { label: 'About', href: '/about' },
     { label: 'Products', href: '/products' },
     { label: 'Blog', href: '/blog' },
     { label: 'Contact', href: '/contact' },

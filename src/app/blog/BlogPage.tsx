@@ -93,9 +93,9 @@ export function BlogPage() {
   const navLinks = [
     { label: "Home", href: "/" },
     { label: "Products", href: "/#products" },
-    { label: "About", href: "/#about" },
+    { label: "About", href: "/about" },
     { label: "Blog", href: "/blog" },
-    { label: "Contact", href: "/#contact" },
+    { label: "Contact", href: "/contact" },
   ]
   
   const handleNavClick = (target: string) => {
