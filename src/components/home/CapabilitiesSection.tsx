@@ -59,61 +59,6 @@ const customizationServices = [
 export function CapabilitiesSection() {
   return (
     <>
-      {/* Customization Capabilities Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
-          >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">What We Customize</h2>
-            <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed px-4">
-              Full customization capabilities with transparent MOQ and pricing
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            {customizationServices.map((service, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <Card className="p-6 border-0 shadow-lg hover:shadow-xl transition-all duration-300 h-full">
-                  <div className="space-y-2 mb-4">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-slate-500">MOQ:</span>
-                      <span className="font-semibold text-orange-600">{service.moq}</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-slate-500">Cost:</span>
-                      <span className="font-semibold text-gray-900">{service.cost}</span>
-                    </div>
-                  </div>
-                  
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">{service.title}</h3>
-                  <p className="text-sm text-slate-600 mb-4">{service.description}</p>
-                  
-                  <div className="space-y-1">
-                    {service.features.map((feature, idx) => (
-                      <div key={idx} className="flex items-center text-xs text-slate-600">
-                        <Check className="h-3 w-3 text-green-500 mr-2" />
-                        {feature}
-                      </div>
-                    ))}
-                  </div>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Factory Capabilities Section */}
       <section className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
