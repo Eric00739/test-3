@@ -11,7 +11,7 @@ export interface RfqModalProps {
   open: boolean;
   onClose: () => void;
   onSubmit: (result: {
-    status: 'success' | 'error' | 'whatsapp';
+    status: 'success' | 'error' | 'whatsapp' | 'mailto';
     message?: string;
     data?: any;
   }) => void;
@@ -202,7 +202,7 @@ export function RfqModal({ open, onClose, onSubmit, source = 'default' }: RfqMod
     
     // 通知父组件
     onSubmit({
-      status: 'whatsapp',
+      status: 'mailto',
       message: 'Opening email client...',
       data: { mailtoUrl }
     });
