@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, Send, Check, AlertCircle, Upload, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -186,7 +186,7 @@ export function RfqModal({ open, onClose, onSubmit, source = 'default' }: RfqMod
       `Email: ${email}`,
       country && `Country: ${country}`,
       message && `Message: ${message}`,
-      attachedFiles.length > 0 && `Attachments: ${attachedFiles.map(f => f.name).join(', ')}`,
+      attachedFiles.length > 0 && `Attachments: ${attachedFiles.map((f: File) => f.name).join(', ')}`,
       '',
       `Please send me your product catalog and current pricing information.`,
       '',
@@ -242,31 +242,32 @@ export function RfqModal({ open, onClose, onSubmit, source = 'default' }: RfqMod
     }
   }, [open]);
 
-  // 条件渲染而不是使用AnimatePresence
-  if (!open) return null;
-
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
-      <motion.button
-        type="button"
-        className="absolute inset-0 bg-slate-900/70"
-        onClick={onClose}
-        aria-label="Close RFQ overlay"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-      />
-      
-      <motion.div
-        role="dialog"
-        aria-modal="true"
-        aria-label="Request a custom quotation"
-        className="relative z-10 w-full max-w-lg sm:max-w-xl rounded-2xl bg-white p-6 shadow-2xl overflow-y-auto"
-        style={{ maxHeight: '700px' } as any}
-        initial={{ scale: 0.95, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.95, opacity: 0 }}
-      >
+    <AnimatePresence>
+      {open && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+          <motion.button
+            type="button"
+            className="absolute inset-0 bg-slate-900/70"
+            onClick={onClose}
+            aria-label="Close RFQ overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          />
+          
+          <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Request a custom quotation"
+            className="relative z-10 w-full max-w-lg sm:max-w-xl rounded-2xl bg-white p-6 shadow-2xl overflow-y-auto"
+            style={{ maxHeight: '700px' } as any}
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.95, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
         {/* 成功状态 */}
         {isSubmitted ? (
           <div className="text-center py-10">
@@ -505,8 +506,10 @@ export function RfqModal({ open, onClose, onSubmit, source = 'default' }: RfqMod
               </div>
             </div>
           </>
-        )}
-      </motion.div>
-    </div>
+          )}
+        </motion.div>
+      </div>
+      )}
+    </AnimatePresence>
   );
 }

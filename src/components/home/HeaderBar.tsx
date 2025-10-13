@@ -28,7 +28,7 @@ export function HeaderBar({
         <div className="flex justify-between items-center h-16 sm:h-20">
           <Link href="/" className="flex items-center gap-2 mr-2" aria-label="FastFun Remote home">
             <Image
-              src="/logo.svg"
+              src="/logo-fastfun-remote.png"
               alt="FastFun Remote wordmark"
               width={300}
               height={72}

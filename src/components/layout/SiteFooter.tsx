@@ -16,7 +16,7 @@ export function SiteFooter({ className = "" }: SiteFooterProps) {
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center mb-6" aria-label="FastFun Remote">
               <Image
-                src="/logo.svg"
+                src="/logo-fastfun-remote.png"
                 alt="FastFun Remote wordmark"
                 width={300}
                 height={72}

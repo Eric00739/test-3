@@ -28,7 +28,7 @@ export default function Remote433Page() {
       <article className="grid gap-10 md:grid-cols-2">
         <div className="relative aspect-square overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
           <Image
-            src="/logo.svg"
+            src="/logo-fastfun-remote.png"
             alt="FastFunRC 433MHz 4-button remote"
             width={300}
             height={72}
