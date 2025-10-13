@@ -20,7 +20,7 @@ export interface HeroSectionProps {
 export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProps) {
   return (
     <section id="hero" className="relative pt-16 min-h-screen flex items-center">
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50" />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-20">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -107,8 +107,8 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
                   priority
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
-                <div className="absolute inset-0 bg-slate-900/30 backdrop-blur-[1px]" />
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 text-center text-white px-6">
+                <div className="pointer-events-none absolute inset-0 bg-slate-900/30 backdrop-blur-[1px]" />
+                <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 text-center text-white px-6">
                   <span className="rounded-full border border-white/40 bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.35em]">
                     Factory line
                   </span>

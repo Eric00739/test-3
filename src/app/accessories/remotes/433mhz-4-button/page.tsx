@@ -1,7 +1,8 @@
-import Image from "next/image";
 import { QuoteButtons } from "@/components/seo/QuoteButtons";
 import { AccessoriesLayout } from "@/components/accessories/AccessoriesLayout";
 import { createPageMetadata } from "@/lib/metadata";
+import Image from "next/image";
+import { getAssetPath } from "@/lib/assets";
 
 export const metadata = createPageMetadata({
   title: "433MHz 4-Button RF Remote | FastFunRC",
@@ -18,6 +19,8 @@ const breadcrumbItems = [
 ];
 
 export default function Remote433Page() {
+  const logoSrc = getAssetPath("/logo-fastfun-remote.png");
+
   return (
     <AccessoriesLayout
       title="433MHz 4-Button RF Remote"
@@ -27,9 +30,11 @@ export default function Remote433Page() {
     >
       <article className="grid gap-10 md:grid-cols-2">
         <div className="relative aspect-square overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
-          <img
-            src="/logo-fastfun-remote.png"
+          <Image
+            src={logoSrc}
             alt="FastFunRC 433MHz 4-button remote"
+            width={600}
+            height={60}
             className="object-contain p-8 w-full h-full"
             style={{ maxWidth: '300px', maxHeight: '72px', margin: 'auto' }}
           />

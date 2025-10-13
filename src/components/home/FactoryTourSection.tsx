@@ -70,7 +70,7 @@ export function FactoryTourSection() {
               <Card className="overflow-hidden group hover:shadow-xl transition-shadow">
                 <div className="bg-gray-100 h-48 flex items-center justify-center relative overflow-hidden">
                   <Factory className="h-16 w-16 text-gray-400 group-hover:scale-110 transition-transform" />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
+                  <div className="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
                 </div>
                 <CardContent className="p-6">
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">{facility.title}</h3>

@@ -1,7 +1,8 @@
-import Image from "next/image"
 import Link from "next/link"
 import { Globe, Shield, Phone, Send, Factory, MessageCircle } from "lucide-react"
 import { ReactNode } from "react"
+import Image from "next/image"
+import { getAssetPath } from "@/lib/assets"
 
 interface SiteFooterProps {
   className?: string
@@ -9,17 +10,20 @@ interface SiteFooterProps {
 }
 
 export function SiteFooter({ className = "" }: SiteFooterProps) {
+  const logoSrc = getAssetPath("/logo-fastfun-remote.png")
+
   return (
     <footer className={`bg-slate-900 text-white ${className}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center mb-6" aria-label="FastFun Remote">
-              <img
-                src="/logo-fastfun-remote.png"
+              <Image
+                src={logoSrc}
                 alt="FastFun Remote wordmark"
+                width={600}
+                height={60}
                 className="h-10 sm:h-12 w-auto"
-                style={{ width: 'auto' }}
               />
             </Link>
             <p className="text-slate-300 leading-relaxed mb-6 max-w-md">
