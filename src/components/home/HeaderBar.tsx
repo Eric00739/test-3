@@ -27,14 +27,11 @@ export function HeaderBar({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 sm:h-20">
           <Link href="/" className="flex items-center gap-2 mr-2" aria-label="FastFun Remote home">
-            <Image
+            <img
               src="/logo-fastfun-remote.png"
               alt="FastFun Remote wordmark"
-              width={300}
-              height={72}
-              priority
               className="h-8 sm:h-10 lg:h-12 w-auto"
-              sizes="(max-width: 640px) 150px, (max-width: 1024px) 200px, 300px"
+              style={{ width: 'auto' }}
             />
           </Link>
           <div className="hidden md:flex flex-1 justify-center space-x-6 lg:space-x-8">

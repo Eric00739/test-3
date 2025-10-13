@@ -15,14 +15,11 @@ export function SiteFooter({ className = "" }: SiteFooterProps) {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center mb-6" aria-label="FastFun Remote">
-              <Image
+              <img
                 src="/logo-fastfun-remote.png"
                 alt="FastFun Remote wordmark"
-                width={300}
-                height={72}
                 className="h-10 sm:h-12 w-auto"
-                loading="lazy"
-                sizes="(max-width: 768px) 180px, 300px"
+                style={{ width: 'auto' }}
               />
             </Link>
             <p className="text-slate-300 leading-relaxed mb-6 max-w-md">

@@ -27,14 +27,11 @@ export default function Remote433Page() {
     >
       <article className="grid gap-10 md:grid-cols-2">
         <div className="relative aspect-square overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
-          <Image
+          <img
             src="/logo-fastfun-remote.png"
             alt="FastFunRC 433MHz 4-button remote"
-            width={300}
-            height={72}
-            className="object-contain p-8"
-            sizes="(max-width: 768px) 100vw, 300px"
-            priority
+            className="object-contain p-8 w-full h-full"
+            style={{ maxWidth: '300px', maxHeight: '72px', margin: 'auto' }}
           />
         </div>
         <div>
