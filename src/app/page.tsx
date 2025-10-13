@@ -954,7 +954,7 @@ const testimonials = [
               <h3 className="text-xl font-bold text-gray-900 mb-3">Still have questions?</h3>
               <p className="text-sm text-slate-600 mb-4">Our expert engineers are ready to help with your project requirements</p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <Button size="sm" className="bg-orange-500 hover:bg-orange-600" onClick={() => openRfqModal('faq_consult')}>
+                <Button size="sm" className="bg-orange-500 hover:bg-orange-600 text-white" onClick={() => openRfqModal('faq_consult')}>
                   <Phone className="h-4 w-4 mr-2" />
                   Consult Engineers
                 </Button>

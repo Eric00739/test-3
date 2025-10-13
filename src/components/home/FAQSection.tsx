@@ -115,7 +115,7 @@ export function FAQSection({ onOpenRfq }: FAQSectionProps) {
             <h3 className="text-xl font-bold text-gray-900 mb-3">Still have questions?</h3>
             <p className="text-sm text-slate-600 mb-4">Our expert engineers are ready to help with your project requirements</p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Button size="sm" className="bg-orange-500 hover:bg-orange-600" onClick={() => onOpenRfq('faq_consult')}>
+              <Button size="sm" className="bg-orange-500 hover:bg-orange-600 text-white" onClick={() => onOpenRfq('faq_consult')}>
                 <Phone className="h-4 w-4 mr-2" />
                 Consult Engineers
               </Button>

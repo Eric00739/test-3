@@ -175,7 +175,7 @@ export function ContactSection({ onOpenRfq }: ContactSectionProps) {
             
             {/* Submit Button */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-orange-500 hover:bg-orange-600 px-8 py-4 text-lg" type="button" onClick={() => onOpenRfq('contact_form')}>
+              <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 text-lg" type="button" onClick={() => onOpenRfq('contact_form')}>
                 <Send className="h-5 w-5 mr-2" />
                 Submit Request
               </Button>
