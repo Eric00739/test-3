@@ -1,4 +1,5 @@
 import type { NextConfig } from "next"
+import createNextIntlPlugin from "next-intl/plugin"
 
 const isProd = process.env.NODE_ENV === "production"
 const rawBasePath = process.env.NEXT_PUBLIC_BASE_PATH?.replace(/\/$/, "") ?? ""
@@ -42,4 +43,6 @@ const nextConfig: NextConfig = {
   compress: true,
 }
 
-export default nextConfig
+const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts")
+
+export default withNextIntl(nextConfig)

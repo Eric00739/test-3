@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
-import { BlogPage } from './BlogPage'
+import { BlogPage, type BlogArticle } from './BlogPage'
+import { getAllBlogPosts } from '@/lib/markdown'
 
 export const metadata: Metadata = {
   title: 'FastFunRC Blog - Innovation & Insights',
@@ -7,5 +8,22 @@ export const metadata: Metadata = {
 }
 
 export default function Blog() {
-  return <BlogPage />
+  const articles = getAllBlogPosts().map<BlogArticle>((post, index) => ({
+    id: index + 1,
+    slug: post.slug,
+    title: post.title,
+    excerpt: post.excerpt,
+    content: post.content,
+    author: post.author,
+    date: post.date,
+    readTime: post.readTime,
+    category: post.category,
+    tags: post.tags,
+    image: post.image,
+    featured: post.featured || false,
+    views: Math.floor(Math.random() * 10000) + 1000,
+    likes: Math.floor(Math.random() * 500) + 50,
+  }))
+
+  return <BlogPage articles={articles} />
 }

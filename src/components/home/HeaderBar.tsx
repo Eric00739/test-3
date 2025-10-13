@@ -11,23 +11,32 @@ import { Link } from "@/i18n/routing"
 const logoSrc = getAssetPath("/logo-fastfun-remote.png")
 
 export interface HeaderBarProps {
-  activeSection: string
-  onNavClick: (target: string) => void
-  onToggleMenu: () => void
-  onOpenRfq: (source: string) => void
-  isMobileMenuOpen: boolean
+  activeSection?: string
+  onNavClick?: (target: string) => void
+  onToggleMenu?: () => void
+  onOpenRfq?: (source: string) => void
+  isMobileMenuOpen?: boolean
   navLinks: { label: string; target?: string; href?: string }[]
 }
 
 export function HeaderBar({
-  activeSection,
+  activeSection = "",
   onNavClick,
   onToggleMenu,
   onOpenRfq,
-  isMobileMenuOpen,
+  isMobileMenuOpen = false,
   navLinks,
 }: HeaderBarProps) {
   const t = useTranslations("header")
+  const handleNavClick = (target: string) => {
+    onNavClick?.(target)
+  }
+  const handleToggleMenu = () => {
+    onToggleMenu?.()
+  }
+  const handleOpenRfq = (source: string) => {
+    onOpenRfq?.(source)
+  }
 
   return (
     <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-md z-50 border-b border-gray-100">
@@ -58,7 +67,7 @@ export function HeaderBar({
                 <button
                   key={key}
                   type="button"
-                  onClick={() => link.target && onNavClick(link.target)}
+                  onClick={() => link.target && handleNavClick(link.target)}
                   className={`text-xs sm:text-sm font-medium transition-colors cursor-pointer hover:text-orange-500 ${
                     link.target && activeSection === link.target ? "text-orange-600 font-semibold" : "text-gray-600"
                   }`}
@@ -77,7 +86,7 @@ export function HeaderBar({
               size="sm"
               className="hidden sm:flex text-xs sm:text-sm"
               type="button"
-              onClick={() => onOpenRfq("header_catalog")}
+              onClick={() => handleOpenRfq("header_catalog")}
             >
               <Download className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
               <span className="hidden sm:inline">{t("catalog")}</span>
@@ -90,12 +99,12 @@ export function HeaderBar({
               size="sm"
               type="button"
               className="text-xs sm:text-sm px-2 sm:px-4 bg-orange-500 hover:bg-orange-600 text-white"
-              onClick={() => onOpenRfq("header_quote")}
+              onClick={() => handleOpenRfq("header_quote")}
             >
               <span className="hidden sm:inline">{t("quote")}</span>
               <span className="sm:hidden">{t("quoteShort")}</span>
             </Button>
-            <Button variant="ghost" size="sm" className="md:hidden" onClick={onToggleMenu}>
+            <Button variant="ghost" size="sm" className="md:hidden" onClick={handleToggleMenu}>
               <span className="sr-only">{t("toggleMenu")}</span>
               <div className="w-5 h-5 flex flex-col justify-center items-center">
                 <span
@@ -132,7 +141,7 @@ export function HeaderBar({
                   key={link.href}
                   href={link.href}
                   className="block w-full text-left py-2 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-50 hover:text-orange-500"
-                  onClick={onToggleMenu}
+                  onClick={handleToggleMenu}
                 >
                   {link.label}
                 </Link>
@@ -145,7 +154,7 @@ export function HeaderBar({
                   }`}
                   onClick={() => {
                     if (link.target) {
-                      onNavClick(link.target)
+                      handleNavClick(link.target)
                     }
                   }}
                 >
@@ -158,12 +167,12 @@ export function HeaderBar({
                 variant="outline"
                 size="sm"
                 className="w-full mb-2 text-sm"
-                onClick={() => onOpenRfq("header_catalog")}
+                onClick={() => handleOpenRfq("header_catalog")}
               >
                 <Download className="h-4 w-4 mr-2" />
                 {t("catalog")}
               </Button>
-              <Button size="sm" className="w-full text-sm" onClick={() => onOpenRfq("header_quote")}>
+              <Button size="sm" className="w-full text-sm" onClick={() => handleOpenRfq("header_quote")}>
                 <ArrowRight className="h-4 w-4 mr-2" />
                 {t("quote")}
               </Button>

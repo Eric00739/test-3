@@ -1,34 +1,33 @@
-import { notFound } from 'next/navigation'
-import { getBlogPostBySlug, getAllBlogPosts } from '@/lib/markdown'
-import { MarkdownRenderer } from '@/components/ui/markdown-renderer'
-import { HeaderBar } from '@/components/home/HeaderBar'
-import { SiteFooter } from '@/components/layout/SiteFooter'
-import { Breadcrumb } from '@/components/seo/Breadcrumb'
-import Image from 'next/image'
-import Link from 'next/link'
-import { Calendar, Clock3, User, ArrowLeft, Share2, Heart, Eye } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-
-interface BlogPostPageProps {
-  params: {
-    slug: string
-    locale: string
-  }
-}
+import { notFound } from "next/navigation"
+import { getBlogPostBySlug, getAllBlogPosts } from "@/lib/markdown"
+import { MarkdownRenderer } from "@/components/ui/markdown-renderer"
+import { HeaderBar } from "@/components/home/HeaderBar"
+import { SiteFooter } from "@/components/layout/SiteFooter"
+import { Breadcrumb } from "@/components/seo/Breadcrumb"
+import Image from "next/image"
+import { Link } from "@/i18n/routing"
+import { locales } from "@/i18n/config"
+import { getAssetPath } from "@/lib/assets"
+import { Calendar, Clock3, User, ArrowLeft, Share2, Heart, Eye } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 export async function generateStaticParams() {
   const posts = getAllBlogPosts()
-  return posts.map((post) => ({
-    slug: post.slug,
-  }))
+  return locales.flatMap((locale) =>
+    posts.map((post) => ({
+      locale,
+      slug: post.slug,
+    })),
+  )
 }
 
-export async function generateMetadata({ params }: BlogPostPageProps) {
-  const post = getBlogPostBySlug(params.slug)
-  
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const post = getBlogPostBySlug(slug)
+
   if (!post) {
     return {
-      title: 'Blog Post Not Found',
+      title: "Blog Post Not Found",
     }
   }
 
@@ -38,20 +37,21 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
     openGraph: {
       title: post.title,
       description: post.excerpt,
-      images: [post.image],
+      images: [getAssetPath(post.image)],
     },
   }
 }
 
-export default function BlogPostPage({ params }: BlogPostPageProps) {
-  const post = getBlogPostBySlug(params.slug)
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string; locale: string }> }) {
+  const { slug } = await params
+  const post = getBlogPostBySlug(slug)
 
   if (!post) {
     notFound()
   }
 
   const relatedPosts = getAllBlogPosts()
-    .filter(p => p.slug !== params.slug && p.category === post.category)
+    .filter((p) => p.slug !== slug && p.category === post.category)
     .slice(0, 3)
 
   return (
@@ -59,10 +59,6 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
       {/* Header */}
       <HeaderBar
         activeSection="blog"
-        onNavClick={() => {}}
-        onToggleMenu={() => {}}
-        onOpenRfq={() => {}}
-        isMobileMenuOpen={false}
         navLinks={[
           { label: "Home", href: "/" },
           { label: "Products", href: "/#products" },
@@ -77,7 +73,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         <section className="relative h-64 sm:h-80">
           <div className="absolute inset-0">
             <Image
-              src={post.image}
+              src={getAssetPath(post.image)}
               alt={post.title}
               fill
               className="object-cover"
@@ -94,7 +90,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
                 items={[
                   { name: "Home", url: "/" },
                   { name: "Blog", url: "/blog" },
-                  { name: post.title, url: `/blog/${post.slug}` }
+                  { name: post.title, url: `/blog/${post.slug}` },
                 ]}
                 className="mb-4 text-white/80"
               />
@@ -196,7 +192,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
                   >
                     <div className="relative h-40">
                       <Image
-                        src={relatedPost.image}
+                        src={getAssetPath(relatedPost.image)}
                         alt={relatedPost.title}
                         fill
                         className="object-cover"

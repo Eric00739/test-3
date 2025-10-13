@@ -29,9 +29,26 @@ import { Breadcrumb } from "@/components/seo/Breadcrumb"
 import { SiteFooter } from "@/components/layout/SiteFooter"
 import { MarkdownRenderer } from "@/components/ui/markdown-renderer"
 import styles from "./BlogPage.module.css"
-import { blogData, type BlogArticle } from "./BlogData"
+export interface BlogArticle {
+  id: number
+  slug: string
+  title: string
+  excerpt: string
+  content: string
+  author: string
+  date: string
+  readTime: string
+  category: string
+  tags: string[]
+  image: string
+  featured: boolean
+  views: number
+  likes: number
+}
 
-// Import only needed components
+interface BlogPageProps {
+  articles: BlogArticle[]
+}
 
 const statsNumberFormatter = new Intl.NumberFormat("en", {
   notation: "compact",
@@ -73,7 +90,7 @@ const sortOptions: { value: SortOption; label: string }[] = [
 
 const FALLBACK_ORIGIN = "https://fastfunrc.com"
 
-export function BlogPage() {
+export function BlogPage({ articles }: BlogPageProps) {
   const [category, setCategory] = useState<string>("all")
   const [searchTerm, setSearchTerm] = useState("")
   const [displayedCount, setDisplayedCount] = useState(INITIAL_COUNT)
@@ -115,13 +132,13 @@ export function BlogPage() {
   }
 
   const categories = useMemo(() => {
-    const counts = blogData.reduce<Record<string, number>>((acc, item) => {
+    const counts = articles.reduce<Record<string, number>>((acc, item) => {
       acc[item.category] = (acc[item.category] ?? 0) + 1
       return acc
     }, {})
 
     return [
-      { key: "all", label: "All Articles", count: blogData.length },
+      { key: "all", label: "All Articles", count: articles.length },
       ...Object.entries(counts).map(([key, count]) => ({
         key,
         label: key[0].toUpperCase() + key.slice(1),
@@ -153,7 +170,7 @@ export function BlogPage() {
 
   useEffect(() => {
     setLikes(
-      blogData.reduce<Record<number, number>>((acc, item) => {
+      articles.reduce<Record<number, number>>((acc, item) => {
         acc[item.id] = item.likes
         return acc
       }, {}),
@@ -175,7 +192,7 @@ export function BlogPage() {
   }, [])
 
   const filteredArticles = useMemo(() => {
-    let result = [...blogData]
+    let result = [...articles]
     if (category !== "all") {
       result = result.filter((article) => article.category === category)
     }
@@ -239,7 +256,7 @@ export function BlogPage() {
     const lower = searchTerm.toLowerCase()
     const suggestionList: Suggestion[] = []
 
-    for (const article of blogData) {
+    for (const article of articles) {
       if (article.title.toLowerCase().includes(lower)) {
         suggestionList.push({ type: "article", text: article.title, articleId: article.id })
       }
@@ -247,7 +264,7 @@ export function BlogPage() {
 
     const allTags = new Set<string>()
     const allAuthors = new Set<string>()
-    blogData.forEach((article) => {
+    articles.forEach((article) => {
       article.tags.forEach((tag) => allTags.add(tag))
       allAuthors.add(article.author)
     })
@@ -302,7 +319,7 @@ export function BlogPage() {
     setShowSuggestions(false)
 
     if (suggestion.type === "article" && suggestion.articleId) {
-      const article = blogData.find((item) => item.id === suggestion.articleId)
+      const article = articles.find((item) => item.id === suggestion.articleId)
       if (article) {
         setModalArticle(article)
       }
