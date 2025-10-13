@@ -2,9 +2,11 @@
 
 import { ArrowRight, Download } from "lucide-react"
 import Image from "next/image"
-import Link from "next/link"
+import { useTranslations } from "next-intl"
 import { Button } from "@/components/ui/button"
 import { getAssetPath } from "@/lib/assets"
+import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher"
+import { Link } from "@/i18n/routing"
 
 const logoSrc = getAssetPath("/logo-fastfun-remote.png")
 
@@ -25,6 +27,8 @@ export function HeaderBar({
   isMobileMenuOpen,
   navLinks,
 }: HeaderBarProps) {
+  const t = useTranslations("header")
+
   return (
     <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-md z-50 border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -65,6 +69,9 @@ export function HeaderBar({
             })}
           </div>
           <div className="flex items-center space-x-2 sm:space-x-4">
+            <div className="hidden md:block">
+              <LanguageSwitcher />
+            </div>
             <Button
               variant="outline"
               size="sm"
@@ -73,20 +80,23 @@ export function HeaderBar({
               onClick={() => onOpenRfq("header_catalog")}
             >
               <Download className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-              <span className="hidden sm:inline">Catalog</span>
-              <span className="sm:hidden">Cat</span>
+              <span className="hidden sm:inline">{t("catalog")}</span>
+              <span className="sm:hidden">{t("catalogShort")}</span>
             </Button>
+            <div className="md:hidden">
+              <LanguageSwitcher className="min-w-0 w-[118px]" />
+            </div>
             <Button
               size="sm"
               type="button"
               className="text-xs sm:text-sm px-2 sm:px-4 bg-orange-500 hover:bg-orange-600 text-white"
               onClick={() => onOpenRfq("header_quote")}
             >
-              <span className="hidden sm:inline">Get Quote</span>
-              <span className="sm:hidden">Quote</span>
+              <span className="hidden sm:inline">{t("quote")}</span>
+              <span className="sm:hidden">{t("quoteShort")}</span>
             </Button>
             <Button variant="ghost" size="sm" className="md:hidden" onClick={onToggleMenu}>
-              <span className="sr-only">Toggle menu</span>
+              <span className="sr-only">{t("toggleMenu")}</span>
               <div className="w-5 h-5 flex flex-col justify-center items-center">
                 <span
                   className={`bg-gray-600 block transition-all duration-300 ease-out h-0.5 w-5 rounded-sm ${
@@ -113,6 +123,9 @@ export function HeaderBar({
           }`}
         >
           <div className="py-4 border-t border-gray-100">
+            <div className="px-4 pb-3">
+              <LanguageSwitcher variant="menu" />
+            </div>
             {navLinks.map((link) => (
               link.href ? (
                 <Link
@@ -141,14 +154,18 @@ export function HeaderBar({
               )
             ))}
             <div className="px-4 pt-2">
-              <Button variant="outline" size="sm" className="w-full mb-2 text-sm" onClick={() => onOpenRfq("header_catalog")}
+              <Button
+                variant="outline"
+                size="sm"
+                className="w-full mb-2 text-sm"
+                onClick={() => onOpenRfq("header_catalog")}
               >
                 <Download className="h-4 w-4 mr-2" />
-                Download Catalog
+                {t("catalog")}
               </Button>
               <Button size="sm" className="w-full text-sm" onClick={() => onOpenRfq("header_quote")}>
                 <ArrowRight className="h-4 w-4 mr-2" />
-                Get a Quote
+                {t("quote")}
               </Button>
             </div>
           </div>

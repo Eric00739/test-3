@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Script from 'next/script'
+import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -31,6 +32,7 @@ export default function Home() {
   const [isWhatsAppOpen, setIsWhatsAppOpen] = useState(false)
   const [isRfqOpen, setIsRfqOpen] = useState(false)
   const [rfqSource, setRfqSource] = useState('default')
+  const tNav = useTranslations('nav')
 
   const trackEvent = (eventName: string, payload?: Record<string, unknown>) => {
     console.log(eventName, payload ?? {})
@@ -195,11 +197,11 @@ const testimonials = [
   }
 
   const navLinks = [
-    { label: 'Home', target: 'hero' },
-    { label: 'About', href: '/about' },
-    { label: 'Products', href: '/products' },
-    { label: 'Blog', href: '/blog' },
-    { label: 'Contact', href: '/contact' },
+    { label: tNav('home'), target: 'hero' },
+    { label: tNav('about'), href: '/about' },
+    { label: tNav('products'), href: '/products' },
+    { label: tNav('blog'), href: '/blog' },
+    { label: tNav('contact'), href: '/contact' },
   ];
 
   const factoryGallery = [

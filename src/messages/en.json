@@ -1,0 +1,113 @@
+{
+  "languageSwitcher": {
+    "label": "Select language"
+  },
+  "header": {
+    "catalog": "Catalog",
+    "catalogShort": "Catalog",
+    "quote": "Get Quote",
+    "quoteShort": "Quote",
+    "toggleMenu": "Toggle menu"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "products": "Products",
+    "blog": "Blog",
+    "contact": "Contact"
+  },
+  "hero": {
+    "headline": "OEM/ODM Manufacturing for RF Remotes, Receivers & Wi-Fi Switches",
+    "subheadline": "From design to certification to mass production—one partner, full accountability.",
+    "keyPoints": {
+      "0": "Certificate IDs on request",
+      "1": "DFM/DFT reviews included",
+      "2": "Pilot runs before ramp"
+    },
+    "primaryCta": "Talk to sales",
+    "secondaryCta": "WhatsApp sales team",
+    "process": {
+      "0": "Requirements (24h)",
+      "1": "Functional Sample (7-10 days)",
+      "2": "Mass Production (20-30 days)"
+    },
+    "video": {
+      "alt": "FastFunRC SMT line snapshot",
+      "tag": "Factory line",
+      "title": "15s Factory Montage",
+      "cta": "Watch video",
+      "caption": "SMT | AOI | RF Test | Burn-in | Packing"
+    },
+    "badges": {
+      "0": {
+        "title": "Business",
+        "subtitle": "Business License"
+      },
+      "1": {
+        "title": "ISO",
+        "subtitle": "ISO Certifications"
+      },
+      "2": {
+        "title": "Client",
+        "subtitle": "Client Audits"
+      },
+      "cta": "View PDF"
+    }
+  },
+  "mobileActionBar": {
+    "label": "Mobile quick actions",
+    "whatsapp": "WhatsApp",
+    "samples": "Samples",
+    "catalog": "Catalog",
+    "whatsappAria": "Open WhatsApp chat",
+    "samplesAria": "Request product samples",
+    "catalogAria": "Download catalog"
+  },
+  "footer": {
+    "tagline": "FastFun Remote — your trusted IoT partner since 2010. ISO-certified electronics manufacturing delivering precision smart devices with 98.7% FPY. 15 years experience, 47 NPI projects annually.",
+    "badges": {
+      "shipping": "Global Shipping",
+      "certified": "ISO 9001 Certified"
+    },
+    "sections": {
+      "products": {
+        "title": "Products",
+        "items": {
+          "rfRemoteControls": "RF Remote Controls",
+          "rfReceivers": "RF Receivers",
+          "rfKits": "RF Kits",
+          "carRemotes": "Car Remotes",
+          "wifiSwitches": "Wi-Fi Switches",
+          "wifiSockets": "Wi-Fi Sockets",
+          "customOem": "Custom OEM/ODM"
+        }
+      },
+      "support": {
+        "title": "Support",
+        "items": {
+          "documentation": "Technical Documentation",
+          "compliance": "Compliance Certificates",
+          "quality": "Quality Assurance",
+          "factoryTour": "Factory Tour",
+          "contact": "Contact Support"
+        }
+      }
+    },
+    "contact": {
+      "phoneLabel": "Direct Phone",
+      "emailLabel": "Sales Email",
+      "factoryLabel": "Factory Address",
+      "whatsappLabel": "WhatsApp",
+      "phone": "+86 158 9964 8898",
+      "email": "eric@fastfunrc.com",
+      "whatsapp": "+86 158 9964 8898",
+      "address": "8F, Building 1, Huawei Ke Valley, Dalingshan Town, Dongguan, Guangdong, China"
+    },
+    "legal": {
+      "rights": "© {year} FastFun Remote. All rights reserved.",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "compliance": "Compliance"
+    }
+  }
+}

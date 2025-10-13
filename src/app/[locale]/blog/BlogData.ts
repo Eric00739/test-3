@@ -1,6 +1,9 @@
 
+import { getAllBlogPosts } from '@/lib/markdown'
+
 export interface BlogArticle {
   id: number
+  slug: string
   title: string
   excerpt: string
   content: string
@@ -15,9 +18,32 @@ export interface BlogArticle {
   likes: number
 }
 
-export const blogData: BlogArticle[] = [
+// Get blog posts from Markdown files
+const markdownPosts = getAllBlogPosts()
+
+// Convert markdown posts to BlogArticle format
+export const blogData: BlogArticle[] = markdownPosts.map((post, index) => ({
+  id: index + 1,
+  slug: post.slug,
+  title: post.title,
+  excerpt: post.excerpt,
+  content: post.content,
+  author: post.author,
+  date: post.date,
+  readTime: post.readTime,
+  category: post.category,
+  tags: post.tags,
+  image: post.image,
+  featured: post.featured || false,
+  views: Math.floor(Math.random() * 10000) + 1000, // Random views for demo
+  likes: Math.floor(Math.random() * 500) + 50, // Random likes for demo
+}))
+
+// Legacy blog data (keeping for reference)
+export const legacyBlogData: BlogArticle[] = [
   {
     id: 1,
+    slug: 'revolutionary-rc-technology',
     title: 'Revolutionary RC Technology: The Future of Remote Control',
     excerpt:
       "Explore the cutting-edge advancements in RC technology that are reshaping the industry. From AI-powered controls to next-generation battery systems, discover what's next.",
@@ -47,6 +73,7 @@ export const blogData: BlogArticle[] = [
   },
   {
     id: 2,
+    slug: 'rc-drone-maintenance-guide',
     title: 'Complete Guide to RC Drone Maintenance',
     excerpt:
       'Learn the essential maintenance procedures to keep your RC drone in peak condition. This comprehensive guide covers everything from basic checks to advanced troubleshooting.',
@@ -77,6 +104,7 @@ export const blogData: BlogArticle[] = [
   },
   {
     id: 3,
+    slug: 'rc-market-trends-2024',
     title: 'Industry Report: RC Market Trends 2024',
     excerpt:
       'An in-depth analysis of the RC market trends for 2024. Discover emerging opportunities, consumer preferences, and technological shifts driving the industry forward.',
@@ -107,6 +135,7 @@ export const blogData: BlogArticle[] = [
   },
   {
     id: 4,
+    slug: 'top-10-rc-cars-2024',
     title: 'Top 10 RC Cars of 2024: Expert Reviews',
     excerpt:
       'Our expert team reviews the top 10 RC cars of 2024. From speed demons to off-road beasts, find your perfect match with our detailed analysis.',
@@ -137,6 +166,7 @@ export const blogData: BlogArticle[] = [
   },
   {
     id: 5,
+    slug: 'building-first-rc-robot',
     title: "Building Your First RC Robot: A Beginner's Journey",
     excerpt:
       "Step-by-step tutorial for building your first RC robot. Learn about components, assembly, programming, and testing in this comprehensive guide.",
@@ -167,6 +197,7 @@ export const blogData: BlogArticle[] = [
   },
   {
     id: 6,
+    slug: 'impact-5g-rc-technology',
     title: 'The Impact of 5G on RC Technology',
     excerpt:
       'How 5G connectivity is revolutionizing RC technology. Explore low-latency control, real-time video streaming, and enhanced user experiences.',

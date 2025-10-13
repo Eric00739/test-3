@@ -27,6 +27,7 @@ import { Button } from "@/components/ui/button"
 import { HeaderBar } from "@/components/home/HeaderBar"
 import { Breadcrumb } from "@/components/seo/Breadcrumb"
 import { SiteFooter } from "@/components/layout/SiteFooter"
+import { MarkdownRenderer } from "@/components/ui/markdown-renderer"
 import styles from "./BlogPage.module.css"
 import { blogData, type BlogArticle } from "./BlogData"
 
@@ -542,7 +543,11 @@ export function BlogPage() {
             {featuredArticles.length ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {featuredArticles.map((article) => (
-                  <div key={article.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                  <Link
+                    key={article.id}
+                    href={`/blog/${article.slug}`}
+                    className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow block"
+                  >
                     <div className="relative h-32">
                       <Image
                         src={article.image}
@@ -566,7 +571,7 @@ export function BlogPage() {
                         <span>{article.readTime}</span>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             ) : (
@@ -605,10 +610,10 @@ export function BlogPage() {
               <>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {visibleArticles.map((article) => (
-                    <article
+                    <Link
                       key={article.id}
-                      id={`article-${article.id}`}
-                      className={`bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow ${
+                      href={`/blog/${article.slug}`}
+                      className={`bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow block ${
                         article.featured ? 'ring-2 ring-orange-500' : ''
                       }`}
                     >
@@ -690,18 +695,17 @@ export function BlogPage() {
                             >
                               <Share2 size={18} />
                             </button>
-                            <button
-                              type="button"
+                            <Link
+                              href={`/blog/${article.slug}`}
                               className="p-2 text-gray-400 hover:text-gray-600"
-                              onClick={() => setReadingArticle(article)}
                               aria-label="Read article"
                             >
                               <BookOpen size={18} />
-                            </button>
+                            </Link>
                           </div>
                         </div>
                       </div>
-                    </article>
+                    </Link>
                   ))}
                 </div>
 
@@ -829,7 +833,9 @@ export function BlogPage() {
                 sizes="(min-width: 1024px) 960px, 100vw"
               />
 
-              <div className={styles.modalContentText} dangerouslySetInnerHTML={{ __html: modalArticle.content }} />
+              <div className={styles.modalContentText}>
+                <MarkdownRenderer content={modalArticle.content} />
+              </div>
 
               <div className="mt-6 flex flex-wrap gap-2">
                 {modalArticle.tags.map((tag) => (
@@ -868,7 +874,9 @@ export function BlogPage() {
                 {formatDate(readingArticle.date)}
               </span>
             </div>
-            <div className={styles.readingText} dangerouslySetInnerHTML={{ __html: readingArticle.content }} />
+            <div className={styles.readingText}>
+              <MarkdownRenderer content={readingArticle.content} />
+            </div>
           </div>
         </div>
       )}

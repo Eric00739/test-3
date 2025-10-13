@@ -1,0 +1,113 @@
+{
+  "languageSwitcher": {
+    "label": "Seleccionar idioma"
+  },
+  "header": {
+    "catalog": "Catálogo",
+    "catalogShort": "Catálogo",
+    "quote": "Solicitar cotización",
+    "quoteShort": "Cotizar",
+    "toggleMenu": "Mostrar u ocultar menú"
+  },
+  "nav": {
+    "home": "Inicio",
+    "about": "Sobre nosotros",
+    "products": "Productos",
+    "blog": "Blog",
+    "contact": "Contacto"
+  },
+  "hero": {
+    "headline": "Fabricación OEM/ODM de mandos RF, receptores e interruptores Wi-Fi",
+    "subheadline": "Del diseño a la certificación y la producción masiva: un solo socio con responsabilidad total.",
+    "keyPoints": {
+      "0": "Certificados disponibles a petición",
+      "1": "Revisiones DFM/DFT incluidas",
+      "2": "Lotes piloto antes del lanzamiento"
+    },
+    "primaryCta": "Habla con ventas",
+    "secondaryCta": "Equipo de ventas en WhatsApp",
+    "process": {
+      "0": "Requisitos (24 h)",
+      "1": "Muestra funcional (7-10 días)",
+      "2": "Producción masiva (20-30 días)"
+    },
+    "video": {
+      "alt": "Instantánea de la línea SMT de FastFunRC",
+      "tag": "Línea de fábrica",
+      "title": "Montaje de fábrica en 15 s",
+      "cta": "Ver video",
+      "caption": "SMT | AOI | Prueba RF | Burn-in | Empaque"
+    },
+    "badges": {
+      "0": {
+        "title": "Licencia",
+        "subtitle": "Licencia comercial"
+      },
+      "1": {
+        "title": "ISO",
+        "subtitle": "Certificaciones ISO"
+      },
+      "2": {
+        "title": "Cliente",
+        "subtitle": "Auditorías de clientes"
+      },
+      "cta": "Ver PDF"
+    }
+  },
+  "mobileActionBar": {
+    "label": "Acciones rápidas en móvil",
+    "whatsapp": "WhatsApp",
+    "samples": "Muestras",
+    "catalog": "Catálogo",
+    "whatsappAria": "Abrir chat de WhatsApp",
+    "samplesAria": "Solicitar muestras de producto",
+    "catalogAria": "Descargar catálogo"
+  },
+  "footer": {
+    "tagline": "FastFun Remote — su socio IoT de confianza desde 2010. Fabricación electrónica certificada ISO que entrega dispositivos inteligentes de precisión con 98,7% FPY. 15 años de experiencia, 47 proyectos NPI al año.",
+    "badges": {
+      "shipping": "Envío global",
+      "certified": "Certificación ISO 9001"
+    },
+    "sections": {
+      "products": {
+        "title": "Productos",
+        "items": {
+          "rfRemoteControls": "Controles remotos RF",
+          "rfReceivers": "Receptores RF",
+          "rfKits": "Kits RF",
+          "carRemotes": "Controles para automóvil",
+          "wifiSwitches": "Interruptores Wi-Fi",
+          "wifiSockets": "Tomacorrientes Wi-Fi",
+          "customOem": "OEM/ODM a medida"
+        }
+      },
+      "support": {
+        "title": "Soporte",
+        "items": {
+          "documentation": "Documentación técnica",
+          "compliance": "Certificados de conformidad",
+          "quality": "Aseguramiento de calidad",
+          "factoryTour": "Visita a la fábrica",
+          "contact": "Soporte de contacto"
+        }
+      }
+    },
+    "contact": {
+      "phoneLabel": "Teléfono directo",
+      "emailLabel": "Correo de ventas",
+      "factoryLabel": "Dirección de la fábrica",
+      "whatsappLabel": "WhatsApp",
+      "phone": "+86 158 9964 8898",
+      "email": "eric@fastfunrc.com",
+      "whatsapp": "+86 158 9964 8898",
+      "address": "Edificio 1, Piso 8, Huawei Ke Valley, Dalingshan, Dongguan, Guangdong, China"
+    },
+    "legal": {
+      "rights": "© {year} FastFun Remote. Todos los derechos reservados.",
+      "privacy": "Política de privacidad",
+      "terms": "Términos del servicio",
+      "compliance": "Cumplimiento"
+    }
+  }
+}

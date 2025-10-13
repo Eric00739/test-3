@@ -6,7 +6,6 @@ const normalizedBasePath = rawBasePath && !rawBasePath.startsWith("/") ? `/${raw
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-
   typescript: {
     ignoreBuildErrors: false,
   },
