@@ -77,7 +77,7 @@ export function HeaderBar({
               )
             })}
           </div>
-          <div className="flex items-center space-x-2 sm:space-x-4">
+          <div className="flex items-center space-x-4 sm:space-x-6">
             <div className="hidden md:block">
               <LanguageSwitcher />
             </div>
@@ -93,7 +93,7 @@ export function HeaderBar({
               <span className="sm:hidden">{t("catalogShort")}</span>
             </Button>
             <div className="md:hidden">
-              <LanguageSwitcher className="min-w-0 w-[118px]" />
+              <LanguageSwitcher className="min-w-0 w-[140px]" />
             </div>
             <Button
               size="sm"
@@ -132,7 +132,7 @@ export function HeaderBar({
           }`}
         >
           <div className="py-4 border-t border-gray-100">
-            <div className="px-4 pb-3">
+            <div className="px-4 pb-4">
               <LanguageSwitcher variant="menu" />
             </div>
             {navLinks.map((link) => (
