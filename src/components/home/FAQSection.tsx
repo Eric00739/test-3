@@ -12,34 +12,39 @@ interface FAQSectionProps {
 
 const faqItems = [
   {
-    question: 'What is your MOQ and pricing structure?',
+    question: '距离为什么不一致？',
     answer:
-      'MOQ starts from 50 units for standard products with flexible volume discounts. Our direct manufacturing model offers significant cost advantages compared to local sourcing, with pricing structures tailored to your specific requirements and order volume.',
+      '与环境、天线、安装位置有关；页面数据为空旷典型值。',
   },
   {
-    question: 'What are your lead times for samples and mass production?',
+    question: '没有原型号也能做替代吗？',
     answer:
-      'Sample lead time: 7-10 days for standard products, 10-15 days for custom samples. Mass production: 20-30 days after sample approval. Rush orders available with 15% surcharge.',
+      '最好能提供 2–5 套样品用于比对与测试；也可以只提供照片与频段/编码信息，我们会给出 A/B/C 方案并说明差异与注意事项。',
   },
   {
-    question: 'Which frequency bands and protocols do you support?',
+    question: '学习型与拷贝型有什么区别？',
     answer:
-      'We support 315MHz, 433.92MHz, 868MHz, and 915MHz bands. Protocols: Fixed code, Rolling code (EV1527, PT2262), Learning code, ASK/FSK modulation. Custom frequency development available.',
+      '我们提供的"学习型"仅适用于明文固定码（如 EV1527/PT2262）；不涉及滚动码/加密算法的复制或破解。滚动码场景请采用匹配接收器或桥接方案。',
   },
   {
-    question: 'What certifications can you provide for our target market?',
+    question: '滚动码能兼容吗？',
     answer:
-      'We provide CE (RED EN 300 220), FCC Part 15, RoHS, REACH, ISO 9001:2015, and IATF 16949:2016 certifications. Additional certifications (UL, ETL, etc.) can be obtained based on requirements.',
+      '需确认接收器是否支持；不支持时建议更换接收器或使用桥接器。',
   },
   {
-    question: 'What customization options are available for ODM projects?',
+    question: '是否支持贴牌与小改外观？',
     answer:
-      'Full ODM support: Private tooling, custom PCB design, firmware development, custom housing (injection molding), logo printing, custom packaging, custom frequency/protocol development. MOQ for private tooling: 1000-5000 units depending on complexity.',
+      '支持按键/颜色/丝印等轻定制；MOQ 50–200 件。',
   },
   {
-    question: 'What is your warranty and RMA process?',
+    question: '样品与小批交期？',
     answer:
-      'Standard warranty: 12 months for all products. Extended warranty (24 months) available for bulk orders. RMA process: Report issue within warranty period → Return analysis → Replacement/refund within 7 days. DPPM rate: <500.',
+      '资料齐全时 2–5 天给出样品/可行性。小批优先走选配化；超出范围将进入评审并告知 MOQ / NRE / 时间表。',
+  },
+  {
+    question: '合规如何处理？',
+    answer:
+      '按销售地区提供对应认证版本（CE/FCC/KC等）；可提供全套认证资料用于清关与上市。',
   },
 ]
 

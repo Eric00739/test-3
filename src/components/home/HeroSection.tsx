@@ -41,24 +41,15 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
               {t("subheadline")}
             </p>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-8 max-w-4xl">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-8 max-w-4xl">
               {keyPoints.map((item, index) => (
                 <div
                   key={`key-point-${index}`}
-                  className="flex items-center gap-2 rounded-full bg-orange-50 text-orange-700 px-3 py-1 text-xs sm:text-sm font-medium"
+                  className="flex items-center gap-2 rounded-full bg-orange-50 text-orange-700 px-3 py-2 text-sm font-medium"
                 >
                   <Check className="h-4 w-4" />
                   <span>{item}</span>
                 </div>
-              ))}
-            </div>
-
-            <div className="flex items-center justify-center text-sm sm:text-base text-slate-500 mb-6 sm:mb-8 gap-3 sm:gap-4">
-              {keyPoints.map((item, index) => (
-                <span key={`key-point-inline-${index}`} className="flex items-center gap-3">
-                  {index !== 0 && <span className="hidden sm:inline text-slate-400">|</span>}
-                  {item}
-                </span>
               ))}
             </div>
 
@@ -73,16 +64,12 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
                 {t("primaryCta")}
                 <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
               </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-5 border-green-500 text-green-600 hover:bg-green-50 w-full sm:w-auto"
-                type="button"
-                onClick={() => onWhatsApp("hero")}
-                aria-label={t("secondaryCta")}
-              >
-                {t("secondaryCta")}
-              </Button>
+            </div>
+
+            <div className="bg-gradient-to-r from-orange-50 to-orange-100 rounded-2xl p-4 mb-8">
+              <p className="text-sm text-slate-700 text-center">
+                <strong>{t("promise")}</strong>
+              </p>
             </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 sm:gap-6 px-4 py-4 bg-gradient-to-r from-orange-50 to-orange-100 rounded-2xl">
@@ -96,6 +83,26 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
                 </div>
               ))}
             </div>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mt-6">
+              <Button variant="outline" size="sm" className="border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900" onClick={() => onOpenRfq('hero_compatibility')}>
+                {t("compatibilityCta")}
+              </Button>
+              <Button variant="outline" size="sm" className="border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900" onClick={() => onOpenRfq('hero_catalog')}>
+                {t("catalogCta")}
+              </Button>
+            </div>
+
+            {/* Bullet Disclaimers */}
+            <div className="mt-6 p-4 bg-slate-50 rounded-xl">
+              <h4 className="text-sm font-semibold text-gray-900 mb-2">{t("disclaimerTitle")}</h4>
+              <ul className="space-y-1 text-xs text-slate-600">
+                <li>{t("disclaimer.0")}</li>
+                <li>{t("disclaimer.1")}</li>
+                <li>{t("disclaimer.2")}</li>
+                <li>{t("disclaimer.3")}</li>
+              </ul>
+            </div>
           </motion.div>
 
           <motion.div
@@ -108,7 +115,7 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
               <div className="relative aspect-video">
                 <Image
                   src="/images/factory-montage.webp"
-                  alt={t("video.alt")}
+                  alt="FastFunRC SMT line snapshot"
                   fill
                   className="object-cover"
                   priority

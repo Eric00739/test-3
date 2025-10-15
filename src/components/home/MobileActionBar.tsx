@@ -1,6 +1,6 @@
 'use client'
 
-import { MessageCircle, Package, Download } from 'lucide-react'
+import { MessageCircle, Package, Download, Send } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 
@@ -34,10 +34,10 @@ export function MobileActionBar({ onOpenRfq, onWhatsApp }: MobileActionBarProps)
           <Button
             size="sm"
             className="flex items-center bg-orange-500 text-white hover:bg-orange-600"
-            onClick={() => onOpenRfq('mobile_samples')}
+            onClick={() => onOpenRfq('mobile_quote')}
             aria-label={t('samplesAria')}
           >
-            <Package className="mr-2 h-4 w-4" aria-hidden="true" />
+            <Send className="mr-2 h-4 w-4" aria-hidden="true" />
             {t('samples')}
           </Button>
         </li>
@@ -46,7 +46,7 @@ export function MobileActionBar({ onOpenRfq, onWhatsApp }: MobileActionBarProps)
             variant="outline"
             size="sm"
             className="flex items-center border-slate-300 text-slate-700 hover:bg-slate-50"
-            onClick={() => onOpenRfq('mobile_catalog')}
+            onClick={() => onOpenRfq('mobile_download')}
             aria-label={t('catalogAria')}
           >
             <Download className="mr-2 h-4 w-4" aria-hidden="true" />

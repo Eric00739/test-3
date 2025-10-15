@@ -497,21 +497,21 @@ const testimonials = [
             {[
               {
                 icon: Factory,
-                value: '15+ Years',
-                label: 'Manufacturing Experience',
-                description: 'ISO 9001:2015 certified with 47 NPI projects annually'
+                value: '15+ 年',
+                label: '制造经验',
+                description: 'ISO 9001:2015 认证，每年处理 47 个新产品导入项目'
               },
               {
                 icon: Shield,
                 value: '99.8%',
-                label: 'Field Reliability',
-                description: 'Industry-leading quality with DPPM under 500'
+                label: '现场可靠性',
+                description: '行业领先的质量，DPPM 低于 500'
               },
               {
                 icon: MessageCircle,
                 value: '24h',
-                label: 'Response SLA',
-                description: 'Dedicated engineering support for all projects'
+                label: '响应 SLA',
+                description: '为所有项目提供专业工程支持'
               }
             ].map((metric, index) => (
               <motion.div
@@ -535,10 +535,10 @@ const testimonials = [
           <div className="mt-12 text-center">
             <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3" onClick={() => openRfqModal('hero_metrics')}>
               <Send className="h-5 w-5 mr-2" />
-              Start Your Project
+              开始您的项目
             </Button>
             <p className="mt-3 text-sm text-slate-500">
-              Average response time: <span className="font-semibold text-orange-600">under 10 minutes</span>
+              平均响应时间: <span className="font-semibold text-orange-600">10分钟以内</span>
             </p>
           </div>
         </div>
@@ -597,6 +597,192 @@ const testimonials = [
 
       <ProductFinder onQuote={handleFinderQuote} onTrack={trackEvent} />
 
+      {/* Product Lines Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <Badge className="mb-4 bg-orange-500/10 text-orange-600 border border-orange-500/30">产品线</Badge>
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">按产品线分类</h2>
+            <p className="text-base sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
+              兼容/替代与高性价比成品，一站搞定
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            {[
+              {
+                title: '315/433MHz 遥控器',
+                description: '固定码 / 滚动码 / 学习型（仅限固定码）',
+                features: ['30-100m 范围', 'CE/FCC 认证', '定制丝印', 'MOQ 50-200'],
+                image: '/images/rf-remote.webp'
+              },
+              {
+                title: '接收器板/盒',
+                description: '超外差 / 超再生，多通道输出',
+                features: ['-110dBm 灵敏度', '学习码配对', '继电器输出', 'DIN 导轨安装'],
+                image: '/images/rf-receiver.webp'
+              },
+              {
+                title: '套装组合',
+                description: '遥控器 + 接收器，即插即用',
+                features: ['预配对', '完整文档', '多语言手册', 'OEM 包装'],
+                image: '/images/rf-kit.webp'
+              },
+              {
+                title: 'Wi-Fi 开关/插座',
+                description: '2.4GHz，APP 控制，定时/场景',
+                features: ['语音控制', '能耗监测', 'OTA 升级', '云/本地控制'],
+                image: '/images/wifi-switch.webp'
+              },
+              {
+                title: '汽车遥控器',
+                description: '315/433MHz，钥匙壳，芯片编程',
+                features: ['ID46/47 芯片', '翻盖设计', '紧急按钮', '防盗匹配'],
+                image: '/images/car-remote.webp'
+              },
+              {
+                title: '定制开发',
+                description: '私模，PCBA，固件，APP，认证',
+                features: ['NRE 分摊', '专属工程', '快速原型', '全程跟进'],
+                image: '/images/custom-development.webp'
+              }
+            ].map((product, index) => (
+              <motion.div
+                key={product.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden"
+              >
+                <div className="relative h-48">
+                  <Image
+                    src={product.image}
+                    alt={product.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">{product.title}</h3>
+                  <p className="text-slate-600 mb-4">{product.description}</p>
+                  <ul className="space-y-2 mb-6">
+                    {product.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-center text-sm text-gray-600">
+                        <Check className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900"
+                    onClick={() => openRfqModal(`product_${index}`)}
+                  >
+                    获取报价
+                  </Button>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Download Center Section */}
+      <section className="py-20 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <Badge className="mb-4 bg-orange-500/10 text-orange-600 border border-orange-500/30">下载中心</Badge>
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">产品资料下载</h2>
+            <p className="text-base sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
+              规格书、认证证书、用户手册、3D模型、APP下载
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {[
+              {
+                title: '产品规格书',
+                description: '详细技术参数、电气特性、尺寸图',
+                icon: Download,
+                color: 'from-blue-500 to-blue-600',
+                files: 12
+              },
+              {
+                title: '认证证书',
+                description: 'CE、FCC、RoHS、REACH、ISO认证',
+                icon: Shield,
+                color: 'from-green-500 to-green-600',
+                files: 8
+              },
+              {
+                title: '用户手册',
+                description: '多语言操作指南、安装说明、故障排除',
+                icon: Package,
+                color: 'from-purple-500 to-purple-600',
+                files: 15
+              },
+              {
+                title: '3D模型',
+                description: 'STEP、IGES、DWG格式，用于结构设计',
+                icon: Settings,
+                color: 'from-orange-500 to-orange-600',
+                files: 6
+              }
+            ].map((category, index) => (
+              <motion.div
+                key={category.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-6"
+              >
+                <div className={`w-14 h-14 bg-gradient-to-br ${category.color} rounded-xl flex items-center justify-center mb-4`}>
+                  <category.icon className="h-7 w-7 text-white" />
+                </div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">{category.title}</h3>
+                <p className="text-sm text-slate-600 mb-4">{category.description}</p>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-semibold text-orange-600">{category.files} 个文件</span>
+                  <Button variant="outline" size="sm" className="border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900">
+                    下载
+                  </Button>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-xl p-8">
+            <h3 className="text-xl font-bold text-gray-900 mb-4 text-center">需要特定产品的资料？</h3>
+            <p className="text-center text-slate-600 mb-6">联系我们的销售团队，获取完整的产品资料包</p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white" onClick={() => openRfqModal('download_request')}>
+                <Send className="h-5 w-5 mr-2" />
+                请求资料包
+              </Button>
+              <Button variant="outline" size="lg" className="border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900" onClick={() => openWhatsApp('download_whatsapp')}>
+                <MessageCircle className="h-5 w-5 mr-2" />
+                WhatsApp 咨询
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <CaseStudiesSection />
 
