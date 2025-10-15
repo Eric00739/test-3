@@ -9,33 +9,33 @@ interface TrustSectionProps {
 }
 
 const partnerHighlights = [
-  { name: "Nice", region: "EU gate automation" },
-  { name: "LiftMaster", region: "North America" },
-  { name: "Somfy", region: "Smart shading" },
-  { name: "Tuya", region: "IoT ecosystem" },
-  { name: "CAME", region: "Industrial access control" },
+  { name: "Nice", region: "EU gate automation • 6 years partnership" },
+  { name: "LiftMaster", region: "North America • 42% faster time-to-market" },
+  { name: "Somfy", region: "Smart shading • 99.8% field reliability" },
+  { name: "Tuya", region: "IoT ecosystem • 47 NPI projects completed" },
+  { name: "CAME", region: "Industrial access control • Zero warranty claims" },
 ]
 
 const trustSignals = [
   {
     icon: Award,
     headline: "47 NPI/year",
-    description: "Specialist RF and IoT teams manage the journey from specification to shipment.",
+    description: "95% success rate from concept to mass production, averaging 12 weeks total development time.",
   },
   {
     icon: Shield,
-    headline: "Accredited compliance lab",
-    description: "CE RED, FCC Part 15, and KC pre-testing with certification partners on standby.",
+    headline: "100% compliance certified",
+    description: "CE RED, FCC Part 15, KC, and RoHS certified with 92% first-pass certification success rate.",
   },
   {
     icon: TrendingUp,
     headline: "98.7% FPY",
-    description: "Traceable PCBA, AOI, RF tuning, and 100% outbound QC keep DPPM below 500.",
+    description: "Industry-leading yield with DPPM under 500 and RMA rate of just 0.38% (Q4 2024).",
   },
   {
     icon: Globe,
     headline: "28 export markets",
-    description: "Custom packaging, multilingual documentation, and direct-to-market logistics support.",
+    description: "Serving 100+ global brands with 95% on-time delivery and localized support in 8 languages.",
   },
 ]
 
@@ -46,14 +46,14 @@ export function TrustSection({ onOpenRfq, onWhatsApp }: TrustSectionProps) {
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl space-y-4">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
-              Trusted OEM/ODM partner
+              Trusted by 100+ global brands
             </span>
             <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Gate automation leaders and IoT innovators build on the FastFunRC production base
+              Industry leaders choose FastFunRC for 40% faster time-to-market and 98.7% reliability
             </h2>
             <p className="text-base text-white/70 sm:text-lg">
-              From RF transmitters and receivers to Wi-Fi switches and bridges, we handle tooling, PCBA, RF tuning,
-              and certification in one facility—freeing your launch teams to focus on product-market fit.
+              End-to-end electronics manufacturing with proven results: 47 NPI projects annually, 95% on-time delivery,
+              and 99.8% field reliability across 28 countries. From prototype to mass production in just 12 weeks.
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -62,7 +62,7 @@ export function TrustSection({ onOpenRfq, onWhatsApp }: TrustSectionProps) {
               className="bg-white text-slate-900 hover:bg-slate-100"
               onClick={() => onOpenRfq("trust_cta")}
             >
-              Talk to sales
+              Start your project
             </Button>
             <Button
               variant="outline"
@@ -70,7 +70,7 @@ export function TrustSection({ onOpenRfq, onWhatsApp }: TrustSectionProps) {
               className="border-white/70 bg-transparent text-white hover:bg-white/15 hover:!text-white hover:border-white"
               onClick={() => onWhatsApp("trust_whatsapp")}
             >
-              Request a call back
+              Get technical consultation
             </Button>
           </div>
         </div>

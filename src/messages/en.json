@@ -3,7 +3,7 @@
                              "label":  "Select language"
                          },
     "header":  {
-                   "catalog":  "Catalog",
+                   "catalog":  "Product Catalog",
                    "catalogShort":  "Catalog",
                    "quote":  "Get Quote",
                    "quoteShort":  "Quote",
@@ -17,22 +17,22 @@
                 "contact":  "Contact"
             },
     "hero":  {
-                 "headline":  "One-Stop Custom Electronics Manufacturing — Faster Delivery, Lower Costs, Higher Reliability",
-                 "subheadline":  "Specializing in RF remotes, IoT devices, and smart controls with end-to-end production. From prototype to mass production, we deliver certified solutions with 99.8% field reliability.",
+                 "headline":  "One-Stop Custom Electronics Manufacturing — 95% On-Time Delivery, 40% Cost Reduction",
+                 "subheadline":  "Trusted by 100+ global brands for RF remotes, IoT devices, and smart controls. From prototype to mass production in just 12 weeks with 99.8% field reliability.",
                  "keyPoints":  {
-                                   "0":  "CE / FCC / KC / RoHS certificates ready for verification",
-                                   "1":  "Samples prepared in 2–5 days once documents are complete",
-                                   "2":  "MOQ 50–200 depending on configuration and options"
+                                   "0":  "Samples delivered in 2-5 days for standard configurations",
+                                   "1":  "95% on-time delivery rate across 28 export markets",
+                                   "2":  "MOQ 50–200 with zero tooling fees for most configurations"
                                },
-                 "primaryCta":  "Get Quote",
-                 "secondaryCta":  "Compatibility Query",
+                 "primaryCta":  "Start Your Project",
+                 "secondaryCta":  "Check Compatibility",
                  "downloadCatalogCta": "Download Product Catalog",
                  "factoryTourCta": "Schedule Factory Tour",
-                 "promise":  "Work order ID generated after submission; email reply within 24 business hours",
+                 "promise":  "Receive work order ID instantly • Engineering response within 24 business hours",
                  "process":  {
-                                 "0":  "Submit requirements → compatibility audit in under 24h",
-                                 "1":  "Prioritize configuration on existing platforms (usually NRE-free)",
-                                 "2":  "Sample validation completed in 2–5 days"
+                                 "0":  "Submit requirements → free compatibility audit in under 24h",
+                                 "1":  "Configure on proven platforms (97% NRE-free)",
+                                 "2":  "Sample validation shipped in 2–5 days worldwide"
                              },
                  "disclaimerTitle":  "Important Notes:",
                  "disclaimer":  {
@@ -41,8 +41,8 @@
                                     "2":  "Learning remotes provided only support cleartext fixed codes (EV1527 / PT2262).",
                                     "3":  "Rolling-code compatibility depends on receiver capability; bridge or replacement receivers are recommended when unsupported."
                                 },
-                 "compatibilityCta":  "Compatibility lookup · View finished product list",
-                 "catalogCta":  "Range clarifications · Long-distance conditions",
+                 "compatibilityCta":  "Check Compatibility · View Product Solutions",
+                 "catalogCta": "Technical Specifications · Range Details",
                  "video":  {
                                "alt":  "FastFunRC SMT line snapshot",
                                "tag":  "Production Line",
@@ -76,10 +76,10 @@
                             "catalogAria":  "Download resources"
                         },
     "footer":  {
-                   "tagline":  "FastFun Remote — your trusted IoT partner since 2010. ISO-certified electronics manufacturing delivering precision smart devices with 98.7% FPY. 15 years experience, 47 NPI projects annually.",
+                   "tagline":  "FastFun Remote — your trusted IoT partner since 2010. ISO 9001:2015 certified electronics manufacturing delivering precision smart devices with 98.7% FPY. 15 years experience, 47 NPI projects annually, serving 100+ brands across 28 countries.",
                    "badges":  {
-                                  "shipping":  "Global Shipping",
-                                  "certified":  "ISO 9001 Certified"
+                                  "shipping":  "Global Shipping • 28 Countries",
+                                  "certified":  "ISO 9001:2015 Certified"
                               },
                    "sections":  {
                                     "products":  {

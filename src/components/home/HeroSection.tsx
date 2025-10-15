@@ -234,17 +234,18 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
               {trustBadges.map((badge, index) => (
                 <motion.div
                   key={`badge-${index}`}
-                  className="bg-white rounded-lg p-3 shadow-md hover:shadow-xl transition-all duration-300 text-center group cursor-pointer"
+                  className="bg-white rounded-lg p-3 shadow-md hover:shadow-xl transition-all duration-300 text-center group"
                   whileHover={{ y: -5 }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 + index * 0.1 }}
+                  onClick={() => onOpenRfq(`badge_${badge.title.toLowerCase()}`)}
                 >
                   <div className="aspect-square bg-gradient-to-br from-orange-50 to-orange-100 group-hover:from-orange-100 group-hover:to-orange-200 rounded mb-2 flex items-center justify-center transition-all duration-300">
                     <span className="font-bold text-orange-700 text-sm">{badge.title}</span>
                   </div>
                   <p className="text-xs font-medium text-gray-900 mb-1">{badge.subtitle}</p>
-                  <p className="text-xs text-orange-600 font-semibold group-hover:text-orange-700 transition-colors duration-300">{t("badges.cta")}</p>
+                  <p className="text-xs text-orange-600 font-semibold group-hover:text-orange-700 transition-colors duration-300 cursor-pointer">{t("badges.cta")}</p>
                 </motion.div>
               ))}
             </div>

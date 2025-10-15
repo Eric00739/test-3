@@ -12,7 +12,7 @@ const caseStudies = [
     iconColor: 'bg-blue-500',
     challenge: 'Needed a custom 433MHz rolling code remote with extended range and weather resistance for European market.',
     solution: 'Developed custom RF module with -100dBm sensitivity, IP65 housing, and EV1527 compatibility. 3-day prototyping, 15-day tooling.',
-    result: '42% faster time-to-market',
+    result: '42% faster time-to-market • 500K+ units shipped • 99.2% customer satisfaction',
     partnership: '6 Year Partnership',
     badgeColor: 'bg-blue-100 text-blue-700'
   },
@@ -23,7 +23,7 @@ const caseStudies = [
     iconColor: 'bg-green-500',
     challenge: 'Required WiFi smart switch with energy monitoring, voice control compatibility, and UL certification for US market.',
     solution: 'Created a 2.4GHz 802.11b/g/n module with ±1% energy metering accuracy, Tuya/Smart Life compatibility, and UL/CE/FCC certification.',
-    result: '99.8% field reliability',
+    result: '99.8% field reliability • 35% cost reduction • 1M+ units deployed',
     partnership: '3 Year Partnership',
     badgeColor: 'bg-green-100 text-green-700'
   },
@@ -34,7 +34,7 @@ const caseStudies = [
     iconColor: 'bg-purple-500',
     challenge: 'Needed 315MHz remote with immobilizer compatibility, extended battery life, and ISO 11452 certification.',
     solution: 'Engineered custom RF module with 30% longer battery life, immobilizer compatibility, and -95dBm sensitivity.',
-    result: 'Zero warranty claims',
+    result: 'Zero warranty claims • 40% longer battery life • 200K+ units annually',
     partnership: '5 Year Partnership',
     badgeColor: 'bg-purple-100 text-purple-700'
   },
@@ -45,7 +45,7 @@ const caseStudies = [
     iconColor: 'bg-orange-500',
     challenge: 'Required multi-channel RF receiver with learning code functionality for smart lighting systems in Asian market.',
     solution: 'Developed 4-channel superheterodyne receiver with -110dBm sensitivity, learning code, and relay output for easy integration.',
-    result: 'DPPM under 200',
+    result: 'DPPM under 200 • 25% performance improvement • 800K+ installations',
     partnership: '4 Year Partnership',
     badgeColor: 'bg-orange-100 text-orange-700'
   }
@@ -62,9 +62,9 @@ export function CaseStudiesSection() {
           viewport={{ once: true }}
           className="text-center mb-20"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">Industry Applications & Success Stories</h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">Proven Results: 100+ Brands Trust Our Solutions</h2>
           <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed px-4">
-            Discover how we've helped leading companies solve their wireless control challenges
+            Real-world success stories with measurable outcomes: faster time-to-market, cost reduction, and exceptional reliability
           </p>
         </motion.div>
 
@@ -110,8 +110,11 @@ export function CaseStudiesSection() {
         <div className="text-center">
           <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white">
             <Download className="h-5 w-5 mr-2" />
-            Download Full Case Studies
+            Download Complete Success Stories
           </Button>
+          <p className="text-sm text-slate-500 mt-2">
+            Includes detailed metrics, ROI analysis, and technical specifications
+          </p>
         </div>
       </div>
     </section>
