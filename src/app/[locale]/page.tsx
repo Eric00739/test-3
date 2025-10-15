@@ -20,6 +20,8 @@ import { ContactSection } from '@/components/home/ContactSection'
 import { CaseStudiesSection } from '@/components/home/CaseStudiesSection'
 import { FactoryTourSection } from '@/components/home/FactoryTourSection'
 import { ProcessTimelineSection } from '@/components/home/ProcessTimelineSection'
+import { SocialProofSection } from '@/components/home/SocialProofSection'
+import { BrandStorySection } from '@/components/home/BrandStorySection'
 import { ComparisonProvider } from '@/contexts/ComparisonContext'
 import { ComparisonBar } from '@/components/product/ComparisonBar'
 import { SiteFooter } from '@/components/layout/SiteFooter'
@@ -793,6 +795,8 @@ const testimonials = [
         </div>
       </section>
 
+      <SocialProofSection />
+      <BrandStorySection />
       <CaseStudiesSection />
 
       {/* Quality & Compliance Section - Combined */}
@@ -1169,7 +1173,7 @@ const testimonials = [
       <ContactSection onOpenRfq={openRfqModal} />
 
       <StickyActions
-        onContactScroll={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+        onOpenRfq={openRfqModal}
         onWhatsApp={openWhatsApp}
       />
 
