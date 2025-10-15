@@ -41,7 +41,7 @@ export function HeaderBar({
   return (
     <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-md z-50 border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16 sm:h-20">
+        <div className="flex justify-between items-center h-16 sm:h-20 gap-3">
           <Link href="/" className="flex items-center gap-2 mr-2" aria-label="FastFun Remote home">
             <Image
               src={logoSrc}
@@ -77,9 +77,9 @@ export function HeaderBar({
               )
             })}
           </div>
-          <div className="flex items-center space-x-4 sm:space-x-6">
+          <div className="flex items-center space-x-4 sm:space-x-6 md:pl-6 md:ml-6 md:border-l md:border-gray-200">
             <div className="hidden md:block">
-              <LanguageSwitcher />
+              <LanguageSwitcher className="max-w-[220px]" />
             </div>
             <Button
               variant="outline"
@@ -93,7 +93,7 @@ export function HeaderBar({
               <span className="sm:hidden">{t("catalogShort")}</span>
             </Button>
             <div className="md:hidden">
-              <LanguageSwitcher className="min-w-0 w-[140px]" />
+              <LanguageSwitcher className="min-w-0 w-[160px]" />
             </div>
             <Button
               size="sm"
