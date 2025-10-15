@@ -43,48 +43,73 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-8 max-w-4xl">
               {keyPoints.map((item, index) => (
-                <div
+                <motion.div
                   key={`key-point-${index}`}
-                  className="flex items-center gap-2 rounded-full bg-orange-50 text-orange-700 px-3 py-2 text-sm font-medium"
+                  className="flex items-center gap-2 rounded-full bg-gradient-to-r from-orange-50 to-orange-100 text-orange-700 px-3 py-2 text-sm font-medium shadow-sm hover:shadow-md transition-all duration-300"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 + index * 0.1 }}
+                  whileHover={{ scale: 1.05 }}
                 >
                   <Check className="h-4 w-4" />
                   <span>{item}</span>
-                </div>
+                </motion.div>
               ))}
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start mb-8">
-              <Button
-                size="lg"
-                className="text-base sm:text-lg px-6 sm:px-8 lg:px-10 py-4 sm:py-6 bg-orange-500 hover:bg-orange-600 shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto"
-                type="button"
-                onClick={() => onOpenRfq("hero_quote")}
-                aria-label={t("primaryCta")}
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
-                {t("primaryCta")}
-                <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
-              </Button>
+                <Button
+                  size="lg"
+                  className="text-base sm:text-lg px-6 sm:px-8 lg:px-10 py-4 sm:py-6 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto relative overflow-hidden group"
+                  type="button"
+                  onClick={() => onOpenRfq("hero_quote")}
+                  aria-label={t("primaryCta")}
+                >
+                  <span className="relative z-10 flex items-center">
+                    {t("primaryCta")}
+                    <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform duration-300" aria-hidden="true" />
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </Button>
+              </motion.div>
             </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-6">
-              <Button
-                variant="outline"
-                size="sm"
-                className="border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900 flex items-center gap-2"
-                onClick={() => window.open('/assets/rfq-checklist.pdf', '_blank')}
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
-                <Download className="h-4 w-4" />
-                {t("downloadCatalogCta")}
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                className="border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900 flex items-center gap-2"
-                onClick={() => onOpenRfq('factory_tour')}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="border-orange-300 text-orange-700 bg-orange-50 hover:bg-orange-100 hover:border-orange-400 hover:text-orange-800 flex items-center gap-2 shadow-md hover:shadow-lg transition-all duration-300"
+                  onClick={() => window.open('/assets/rfq-checklist.pdf', '_blank')}
+                >
+                  <Download className="h-4 w-4" />
+                  {t("downloadCatalogCta")}
+                </Button>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
-                <ArrowRight className="h-4 w-4" />
-                {t("factoryTourCta")}
-              </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="border-orange-300 text-orange-700 bg-orange-50 hover:bg-orange-100 hover:border-orange-400 hover:text-orange-800 flex items-center gap-2 shadow-md hover:shadow-lg transition-all duration-300"
+                  onClick={() => onOpenRfq('factory_tour')}
+                >
+                  <ArrowRight className="h-4 w-4" />
+                  {t("factoryTourCta")}
+                </Button>
+              </motion.div>
             </div>
 
             <div className="bg-gradient-to-r from-orange-50 to-orange-100 rounded-2xl p-4 mb-8">
@@ -93,17 +118,29 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 sm:gap-6 px-4 py-4 bg-gradient-to-r from-orange-50 to-orange-100 rounded-2xl">
+            <motion.div
+              className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 sm:gap-6 px-4 py-4 bg-gradient-to-r from-orange-100 to-orange-200 rounded-2xl shadow-md"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+            >
               {processSteps.map((step, idx) => (
-                <div key={`process-step-${idx}`} className="flex items-center text-sm sm:text-base text-slate-700">
-                  <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold mr-3">
+                <motion.div
+                  key={`process-step-${idx}`}
+                  className="flex items-center text-sm sm:text-base text-slate-700"
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.6 + idx * 0.1 }}
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <div className="w-8 h-8 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center text-white font-bold mr-3 shadow-sm">
                     {idx + 1}
                   </div>
                   <span className="font-medium">{step}</span>
-                  {idx < processSteps.length - 1 && <ChevronRight className="h-4 w-4 text-orange-400 hidden sm:block ml-4" aria-hidden="true" />}
-                </div>
+                  {idx < processSteps.length - 1 && <ChevronRight className="h-4 w-4 text-orange-500 hidden sm:block ml-4" aria-hidden="true" />}
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
 
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mt-6">
               <Button variant="outline" size="sm" className="border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900" onClick={() => onOpenRfq('hero_compatibility')}>
@@ -132,47 +169,83 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
             transition={{ duration: 0.8, delay: 0.2 }}
             className="space-y-6"
           >
-            <div className="relative overflow-hidden rounded-2xl shadow-xl">
+            <motion.div
+              className="relative overflow-hidden rounded-2xl shadow-xl group"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+            >
               <div className="relative aspect-video">
                 <Image
                   src="/images/factory-montage.webp"
                   alt="FastFunRC SMT line snapshot"
                   fill
-                  className="object-cover"
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
                   priority
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
-                <div className="pointer-events-none absolute inset-0 bg-slate-900/30 backdrop-blur-[1px]" />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-900/60 via-slate-900/30 to-transparent backdrop-blur-[1px]" />
                 <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 text-center text-white px-6">
-                  <span className="rounded-full border border-white/40 bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.35em]">
-                    {t("video.tag")}
-                  </span>
-                  <p className="text-lg font-semibold sm:text-xl">{t("video.title")}</p>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="border-white/80 bg-white/15 text-white hover:bg-white/30 hover:!text-white"
-                    onClick={() => window.open("https://youtu.be/ByoHrKslf54?si=fa2Di21q31sxnHJv", "_blank", "noopener")}
-                    aria-label={t("video.cta")}
+                  <motion.span
+                    className="rounded-full border border-white/40 bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.35em]"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
                   >
-                    {t("video.cta")}
-                  </Button>
+                    {t("video.tag")}
+                  </motion.span>
+                  <motion.p
+                    className="text-lg font-semibold sm:text-xl"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                  >
+                    {t("video.title")}
+                  </motion.p>
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="border-white/80 bg-white/15 text-white hover:bg-white/30 hover:!text-white hover:border-white hover:shadow-lg transition-all duration-300"
+                      onClick={() => window.open("https://youtu.be/ByoHrKslf54?si=fa2Di21q31sxnHJv", "_blank", "noopener")}
+                      aria-label={t("video.cta")}
+                    >
+                      {t("video.cta")}
+                    </Button>
+                  </motion.div>
                 </div>
               </div>
-              <div className="absolute bottom-4 left-4 bg-black/70 text-white px-3 py-1 rounded-full text-xs">
+              <motion.div
+                className="absolute bottom-4 left-4 bg-gradient-to-r from-orange-600 to-orange-700 text-white px-4 py-2 rounded-full text-xs font-medium shadow-lg"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.5 }}
+              >
                 {t("video.caption")}
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
             <div className="grid grid-cols-3 gap-4">
               {trustBadges.map((badge, index) => (
-                <div key={`badge-${index}`} className="bg-white rounded-lg p-3 shadow hover:shadow-lg transition-shadow text-center">
-                  <div className="aspect-square bg-gradient-to-br from-slate-100 to-slate-200 rounded mb-2 flex items-center justify-center">
-                    <span className="font-semibold text-slate-600 text-sm">{badge.title}</span>
+                <motion.div
+                  key={`badge-${index}`}
+                  className="bg-white rounded-lg p-3 shadow-md hover:shadow-xl transition-all duration-300 text-center group cursor-pointer"
+                  whileHover={{ y: -5 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 + index * 0.1 }}
+                >
+                  <div className="aspect-square bg-gradient-to-br from-orange-50 to-orange-100 group-hover:from-orange-100 group-hover:to-orange-200 rounded mb-2 flex items-center justify-center transition-all duration-300">
+                    <span className="font-bold text-orange-700 text-sm">{badge.title}</span>
                   </div>
-                  <p className="text-xs font-medium text-gray-900">{badge.subtitle}</p>
-                  <p className="text-xs text-blue-600">{t("badges.cta")}</p>
-                </div>
+                  <p className="text-xs font-medium text-gray-900 mb-1">{badge.subtitle}</p>
+                  <p className="text-xs text-orange-600 font-semibold group-hover:text-orange-700 transition-colors duration-300">{t("badges.cta")}</p>
+                </motion.div>
               ))}
             </div>
           </motion.div>
