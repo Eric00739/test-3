@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, Check, ChevronRight } from "lucide-react"
+import { ArrowRight, Check, ChevronRight, Download } from "lucide-react"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import { useTranslations } from "next-intl"
@@ -63,6 +63,27 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
               >
                 {t("primaryCta")}
                 <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
+              </Button>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-6">
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900 flex items-center gap-2"
+                onClick={() => window.open('/assets/rfq-checklist.pdf', '_blank')}
+              >
+                <Download className="h-4 w-4" />
+                {t("downloadCatalogCta")}
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900 flex items-center gap-2"
+                onClick={() => onOpenRfq('factory_tour')}
+              >
+                <ArrowRight className="h-4 w-4" />
+                {t("factoryTourCta")}
               </Button>
             </div>
 

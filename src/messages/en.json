@@ -17,8 +17,8 @@
                 "contact":  "Contact"
             },
     "hero":  {
-                 "headline":  "Drop-in replacements and value-driven finished products, delivered end-to-end",
-                 "subheadline":  "Covering 315 / 433.92 / 446 / 447 / 868 / 915 MHz (regional variants available) across fixed code, rolling code, and learning type (fixed code only). Typical open-field range 30–100 m; indoor performance depends on installation. Long-range options reach 1–3 km with compliant power, tuned antennas, and reduced data rates. Support for compatibility replacements and configurable small batches.",
+                 "headline":  "One-Stop Custom Electronics Manufacturing — Faster Delivery, Lower Costs, Higher Reliability",
+                 "subheadline":  "Specializing in RF remotes, IoT devices, and smart controls with end-to-end production. From prototype to mass production, we deliver certified solutions with 99.8% field reliability.",
                  "keyPoints":  {
                                    "0":  "CE / FCC / KC / RoHS certificates ready for verification",
                                    "1":  "Samples prepared in 2–5 days once documents are complete",
@@ -26,6 +26,8 @@
                                },
                  "primaryCta":  "Get Quote",
                  "secondaryCta":  "Compatibility Query",
+                 "downloadCatalogCta": "Download Product Catalog",
+                 "factoryTourCta": "Schedule Factory Tour",
                  "promise":  "Work order ID generated after submission; email reply within 24 business hours",
                  "process":  {
                                  "0":  "Submit requirements → compatibility audit in under 24h",
