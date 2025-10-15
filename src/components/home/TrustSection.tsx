@@ -9,33 +9,33 @@ interface TrustSectionProps {
 }
 
 const partnerHighlights = [
-  { name: 'Nice', region: '欧盟门控系统' },
-  { name: 'LiftMaster', region: '北美' },
-  { name: 'Somfy', region: '智能遮阳' },
-  { name: 'Tuya', region: 'IoT联盟' },
-  { name: 'CAME', region: '工业通道' },
+  { name: "Nice", region: "EU gate automation" },
+  { name: "LiftMaster", region: "North America" },
+  { name: "Somfy", region: "Smart shading" },
+  { name: "Tuya", region: "IoT ecosystem" },
+  { name: "CAME", region: "Industrial access control" },
 ]
 
 const trustSignals = [
   {
     icon: Award,
-    headline: '47 NPI/年',
-    description: '从规格到出货，专门处理RF和IoT产品。',
+    headline: "47 NPI/year",
+    description: "Specialist RF and IoT teams manage the journey from specification to shipment.",
   },
   {
     icon: Shield,
-    headline: '合格实验室',
-    description: 'CE RED、FCC Part 15、UKCA预检和认证合作伙伴。',
+    headline: "Accredited compliance lab",
+    description: "CE RED, FCC Part 15, and KC pre-testing with certification partners on standby.",
   },
   {
     icon: TrendingUp,
-    headline: '98.7% FPY',
-    description: '可追溯PCBA、AOI、RF调谐和100%出厂QC。',
+    headline: "98.7% FPY",
+    description: "Traceable PCBA, AOI, RF tuning, and 100% outbound QC keep DPPM below 500.",
   },
   {
     icon: Globe,
-    headline: '28个出口市场',
-    description: '定制包装、多语言手册和直接发货支持。',
+    headline: "28 export markets",
+    description: "Custom packaging, multilingual documentation, and direct-to-market logistics support.",
   },
 ]
 
@@ -46,31 +46,31 @@ export function TrustSection({ onOpenRfq, onWhatsApp }: TrustSectionProps) {
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl space-y-4">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
-              值得信赖的OEM/ODM合作伙伴
+              Trusted OEM/ODM partner
             </span>
             <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              门控巨头和IoT初创公司都建立在FastFunRC生产基础上
+              Gate automation leaders and IoT innovators build on the FastFunRC production base
             </h2>
             <p className="text-base text-white/70 sm:text-lg">
-              从遥控发射器和接收器到Wi-Fi开关，我们在一个屋檐下处理工具、PCBA、RF调谐和认证，
-              让您的发布团队专注于产品市场匹配。
+              From RF transmitters and receivers to Wi-Fi switches and bridges, we handle tooling, PCBA, RF tuning,
+              and certification in one facility—freeing your launch teams to focus on product-market fit.
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
             <Button
               size="lg"
               className="bg-white text-slate-900 hover:bg-slate-100"
-              onClick={() => onOpenRfq('trust_cta')}
+              onClick={() => onOpenRfq("trust_cta")}
             >
-              联系销售
+              Talk to sales
             </Button>
             <Button
               variant="outline"
               size="lg"
               className="border-white/70 bg-transparent text-white hover:bg-white/15 hover:!text-white hover:border-white"
-              onClick={() => onWhatsApp('trust_whatsapp')}
+              onClick={() => onWhatsApp("trust_whatsapp")}
             >
-              请求回电
+              Request a call back
             </Button>
           </div>
         </div>

@@ -1,4 +1,4 @@
-ï»¿'use client'
+'use client'
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
@@ -44,7 +44,7 @@ const testimonials = [
       quote: 'FastFun Remote delivered exceptional quality with 42% faster time-to-market. Their engineering team solved our RF challenges that other vendors couldn\'t.',
       company: 'Leading EU Gate Control Brand',
       result: '42% Faster Time-to-Market',
-      savings: 'â‚¬2.3M Savings Over 3 Years'
+      savings: '€2.3M Savings Over 3 Years'
     },
     {
       quote: 'The reliability is outstanding - 99.8% field reliability with zero warranty claims. Their responsive engineering support made all the difference.',
@@ -122,7 +122,7 @@ const testimonials = [
     {
       question: 'Can you build a replacement if I do not have the original part number?',
       answer:
-        'Providing 2â€“5 sample sets delivers the fastest validation. If samples are unavailable, detailed photos plus frequency and encoding information workâ€”we will respond with A/B/C compatibility options and call out any caveats.',
+        'Providing 2¨C5 sample sets delivers the fastest validation. If samples are unavailable, detailed photos plus frequency and encoding information work¡ªwe will respond with A/B/C compatibility options and call out any caveats.',
     },
     {
       question: 'What is the difference between learning and cloning remotes?',
@@ -142,12 +142,12 @@ const testimonials = [
     {
       question: 'What are the turn times for samples and small batches?',
       answer:
-        'With complete documentation we ship samples in 2â€“5 days and small lots in 7â€“15 days. Requests outside the quick configuration scope enter engineering review with confirmed MOQ, NRE, and timeline.',
+        'With complete documentation we ship samples in 2¨C5 days and small lots in 7¨C15 days. Requests outside the quick configuration scope enter engineering review with confirmed MOQ, NRE, and timeline.',
     },
     {
       question: 'How do you handle compliance and certification?',
       answer:
-        'We follow the regulations of your target marketâ€”CE, FCC, KC, RoHS, and other regional directives as required. Testing and filing support is available on demand, with fees and lead times quoted separately.',
+        'We follow the regulations of your target market¡ªCE, FCC, KC, RoHS, and other regional directives as required. Testing and filing support is available on demand, with fees and lead times quoted separately.',
     },
   ]
 
@@ -214,7 +214,7 @@ const testimonials = [
       id: 'factory-image-01',
       src: '/images/smt-production-line.webp',
       title: 'SMT Production Line',
-      description: 'Dongguan 8,000mÂ² facility | 5 SMT lines | 200K units/month capacity'
+      description: 'Dongguan 8,000m2 facility | 5 SMT lines | 200K units/month capacity'
     },
     {
       id: 'factory-image-02',
@@ -301,7 +301,7 @@ const testimonials = [
     { name: 'Somfy', region: 'France' },
     { name: 'Chamberlain', region: 'USA' },
     { name: 'NICE', region: 'Italy' },
-    { name: 'HÃ¶rmann', region: 'Germany' },
+    { name: 'H?rmann', region: 'Germany' },
     { name: 'Marantec', region: 'Germany' }
   ]
 
@@ -405,7 +405,7 @@ const testimonials = [
           title: '8-Channel Universal',
           icon: Settings,
           color: 'from-purple-500 to-purple-600',
-          specs: 'Frequency: 433/868MHz | Range: 150m | Battery: AAA 1.5VÃ—2',
+          specs: 'Frequency: 433/868MHz | Range: 150m | Battery: AAA 1.5V¡Á2',
           features: ['Learning Code', 'Backlit', 'Multi-device', 'LCD Display'],
           useCase: 'Smart Home',
           certification: 'CE RED',
@@ -562,7 +562,7 @@ const testimonials = [
             <Badge className="mb-4 bg-orange-500/10 text-orange-600 border border-orange-500/30">Manufacturing Excellence</Badge>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">Our Production Facilities</h2>
             <p className="text-base sm:text-lg text-slate-600 max-w-3xl mx-auto">
-              8,000mÂ² state-of-the-art facility in Dongguan, supporting 47 new product introductions annually
+              8,000m2 state-of-the-art facility in Dongguan, supporting 47 new product introductions annually
             </p>
           </motion.div>
 
@@ -624,7 +624,7 @@ const testimonials = [
               {
                 title: '315 / 433MHz Transmitters',
                 description: 'Fixed code, rolling code, and learning models (learning supports fixed code only).',
-                features: ['30â€“100 m open-field range', 'CE / FCC ready', 'Custom branding and key layouts', 'MOQ 50â€“200 units'],
+                features: ['30¨C100 m open-field range', 'CE / FCC ready', 'Custom branding and key layouts', 'MOQ 50¨C200 units'],
                 image: '/images/rf-remote.webp'
               },
               {
@@ -721,29 +721,29 @@ const testimonials = [
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {[
               {
-                title: 'Spec Sheets',
-                description: 'Electrical specifications, mechanical drawings, and interface pinouts.',
+                title: '²úÆ·¹æ¸ñÊé',
+                description: 'ÏêÏ¸¼¼Êõ²ÎÊý¡¢µçÆøÌØÐÔ¡¢³ß´çÍ¼',
                 icon: Download,
                 color: 'from-blue-500 to-blue-600',
                 files: 12
               },
               {
-                title: 'Compliance Certificates',
-                description: 'CE, FCC, RoHS, REACH, KC, and ISO documentation for verification.',
+                title: 'ÈÏÖ¤Ö¤Êé',
+                description: 'CE¡¢FCC¡¢RoHS¡¢REACH¡¢ISOÈÏÖ¤',
                 icon: Shield,
                 color: 'from-green-500 to-green-600',
                 files: 8
               },
               {
-                title: 'User Manuals',
-                description: 'Multilingual guides, installation steps, pairing, and troubleshooting.',
+                title: 'ÓÃ»§ÊÖ²á',
+                description: '¶àÓïÑÔ²Ù×÷Ö¸ÄÏ¡¢°²×°ËµÃ÷¡¢¹ÊÕÏÅÅ³ý',
                 icon: Package,
                 color: 'from-purple-500 to-purple-600',
                 files: 15
               },
               {
-                title: '3D Assets',
-                description: 'STEP, IGES, and DWG files for enclosure tooling and fixture design.',
+                title: '3DÄ£ÐÍ',
+                description: 'STEP¡¢IGES¡¢DWG¸ñÊ½£¬ÓÃÓÚ½á¹¹Éè¼Æ',
                 icon: Settings,
                 color: 'from-orange-500 to-orange-600',
                 files: 6
@@ -763,13 +763,9 @@ const testimonials = [
                 <h3 className="text-lg font-bold text-gray-900 mb-2">{category.title}</h3>
                 <p className="text-sm text-slate-600 mb-4">{category.description}</p>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-semibold text-orange-600">{category.files} files</span>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900"
-                  >
-                    Download
+                  <span className="text-sm font-semibold text-orange-600">{category.files} ¸öÎÄ¼þ</span>
+                  <Button variant="outline" size="sm" className="border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900">
+                    ÏÂÔØ
                   </Button>
                 </div>
               </motion.div>
@@ -777,16 +773,16 @@ const testimonials = [
           </div>
 
           <div className="bg-white rounded-2xl shadow-xl p-8">
-            <h3 className="text-xl font-bold text-gray-900 mb-4 text-center">Need documents for a specific project?</h3>
-            <p className="text-center text-slate-600 mb-6">Tell us the target product or retrofit scenario and we will curate the right files.</p>
+            <h3 className="text-xl font-bold text-gray-900 mb-4 text-center">ÐèÒªÌØ¶¨²úÆ·µÄ×ÊÁÏ£¿</h3>
+            <p className="text-center text-slate-600 mb-6">ÁªÏµÎÒÃÇµÄÏúÊÛÍÅ¶Ó£¬»ñÈ¡ÍêÕûµÄ²úÆ·×ÊÁÏ°ü</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white" onClick={() => openRfqModal('download_request')}>
                 <Send className="h-5 w-5 mr-2" />
-                Request document pack
+                ÇëÇó×ÊÁÏ°ü
               </Button>
               <Button variant="outline" size="lg" className="border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900" onClick={() => openWhatsApp('download_whatsapp')}>
                 <MessageCircle className="h-5 w-5 mr-2" />
-                WhatsApp consult
+                WhatsApp ×ÉÑ¯
               </Button>
             </div>
           </div>
@@ -823,7 +819,7 @@ const testimonials = [
               },
               {
                 title: 'Shielded Rooms',
-                spec: '2 x 3Ã—3Ã—3m Chambers',
+                spec: '2 x 3¡Á3¡Á3m Chambers',
                 usage: 'FCC/CE Pre-certification',
                 icon: Shield,
                 color: 'from-green-500 to-green-600'
@@ -1300,13 +1296,5 @@ const testimonials = [
     </ComparisonProvider>
   )
 }
-
-
-
-
-
-
-
-
 
 

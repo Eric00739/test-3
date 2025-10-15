@@ -1,4 +1,4 @@
-import { Card } from '@/components/ui/card'
+﻿import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Radio, Wifi, Settings, Zap, Download } from 'lucide-react'
@@ -22,7 +22,7 @@ const caseStudies = [
     icon: Wifi,
     iconColor: 'bg-green-500',
     challenge: 'Required WiFi smart switch with energy monitoring, voice control compatibility, and UL certification for US market.',
-    solution: 'Created 2.4GHz 802.11b/g/n module with 卤1% energy metering, Tuya/Smart Life compatibility, and UL/CE/FCC certification.',
+    solution: 'Created a 2.4GHz 802.11b/g/n module with ±1% energy metering accuracy, Tuya/Smart Life compatibility, and UL/CE/FCC certification.',
     result: '99.8% field reliability',
     partnership: '3 Year Partnership',
     badgeColor: 'bg-green-100 text-green-700'
@@ -117,3 +117,6 @@ export function CaseStudiesSection() {
     </section>
   )
 }
+
+
+

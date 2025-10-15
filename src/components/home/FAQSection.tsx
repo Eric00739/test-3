@@ -1,10 +1,10 @@
 "use client"
 
-import { useState } from 'react'
+import { useState } from "react"
 import { motion } from "framer-motion"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { ChevronRight, Phone, MessageCircle, Cpu, Wifi, Settings } from "lucide-react"
+import { ChevronRight, Phone, MessageCircle } from "lucide-react"
 
 interface FAQSectionProps {
   onOpenRfq: (source: string) => void
@@ -12,39 +12,39 @@ interface FAQSectionProps {
 
 const faqItems = [
   {
-    question: '距离为什么不一致？',
+    question: "Why does actual range differ from the specification?",
     answer:
-      '与环境、天线、安装位置有关；页面数据为空旷典型值。',
+      "Published distances reference open-field typical values. Indoor performance depends on antenna choice, mounting position, surrounding materials, and the interference profile of the site.",
   },
   {
-    question: '没有原型号也能做替代吗？',
+    question: "Can you build a replacement without the original part number?",
     answer:
-      '最好能提供 2–5 套样品用于比对与测试；也可以只提供照片与频段/编码信息，我们会给出 A/B/C 方案并说明差异与注意事项。',
+      "Sending 2–5 sample sets is the fastest path to validation. If samples are unavailable, detailed photos plus frequency and encoding details work—we will respond with A/B/C compatibility options and list any caveats.",
   },
   {
-    question: '学习型与拷贝型有什么区别？',
+    question: "What is the difference between learning and cloning remotes?",
     answer:
-      '我们提供的"学习型"仅适用于明文固定码（如 EV1527/PT2262）；不涉及滚动码/加密算法的复制或破解。滚动码场景请采用匹配接收器或桥接方案。',
+      "Our learning remotes support cleartext fixed codes such as EV1527 or PT2262. We do not reproduce rolling-code or encrypted algorithms. For rolling-code systems, pair our transmitters with compatible receivers or bridge modules.",
   },
   {
-    question: '滚动码能兼容吗？',
+    question: "Can rolling-code systems be made compatible?",
     answer:
-      '需确认接收器是否支持；不支持时建议更换接收器或使用桥接器。',
+      "Compatibility depends on the existing receiver. When it cannot enroll new rolling-code transmitters, we recommend replacing it or adding a bridge that learns both sides.",
   },
   {
-    question: '是否支持贴牌与小改外观？',
+    question: "Do you support white labelling and cosmetic tweaks?",
     answer:
-      '支持按键/颜色/丝印等轻定制；MOQ 50–200 件。',
+      "Yes. Button count, color, logo, silk print, and similar light customizations are available with MOQs between 50 and 200 units depending on the configuration.",
   },
   {
-    question: '样品与小批交期？',
+    question: "What are the timelines for samples and small batches?",
     answer:
-      '资料齐全时 2–5 天给出样品/可行性。小批优先走选配化；超出范围将进入评审并告知 MOQ / NRE / 时间表。',
+      "With complete documentation, samples ship in 2–5 days and small-lot production in 7–15 days. Requests outside the quick-configuration scope move into an engineering review with confirmed MOQ, NRE, and timeline.",
   },
   {
-    question: '合规如何处理？',
+    question: "How do you handle compliance and certification?",
     answer:
-      '按销售地区提供对应认证版本（CE/FCC/KC等）；可提供全套认证资料用于清关与上市。',
+      "We follow the regulations for your target market—CE, FCC, KC, RoHS, and regional directives as required. Testing and filing support is available on demand with fees and lead times quoted separately.",
   },
 ]
 
@@ -63,14 +63,14 @@ export function FAQSection({ onOpenRfq }: FAQSectionProps) {
         >
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
           <p className="text-base sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            Common questions about our RF & IoT control solutions
+            Quick answers to the most common RF compatibility and smart device manufacturing questions.
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
           {faqItems.map((faq, index) => (
             <motion.div
-              key={index}
+              key={faq.question}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.05 }}
@@ -90,14 +90,16 @@ export function FAQSection({ onOpenRfq }: FAQSectionProps) {
                     </div>
                     <ChevronRight
                       className={`h-4 w-4 text-gray-400 transition-transform duration-300 flex-shrink-0 ${
-                        expandedFaq === index ? 'rotate-90' : ''
+                        expandedFaq === index ? "rotate-90" : ""
                       }`}
                     />
                   </div>
                 </button>
-                <div className={`overflow-hidden transition-all duration-300 ${
-                  expandedFaq === index ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
-                }`}>
+                <div
+                  className={`overflow-hidden transition-all duration-300 ${
+                    expandedFaq === index ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
+                  }`}
+                >
                   <div className="px-4 pb-4 pt-1">
                     <div className="pl-10">
                       <p className="text-sm text-slate-600 leading-relaxed">{faq.answer}</p>
@@ -118,15 +120,27 @@ export function FAQSection({ onOpenRfq }: FAQSectionProps) {
         >
           <Card className="p-6 bg-gradient-to-r from-blue-50 to-indigo-50 border-0">
             <h3 className="text-xl font-bold text-gray-900 mb-3">Still have questions?</h3>
-            <p className="text-sm text-slate-600 mb-4">Our expert engineers are ready to help with your project requirements</p>
+            <p className="text-sm text-slate-600 mb-4">
+              Our engineering team can review your files and recommend compatibility paths within 24 hours.
+            </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Button size="sm" className="bg-orange-500 hover:bg-orange-600 text-white" onClick={() => onOpenRfq('faq_consult')}>
+              <Button
+                size="sm"
+                className="bg-orange-500 hover:bg-orange-600 text-white"
+                onClick={() => onOpenRfq("faq_consult")}
+              >
                 <Phone className="h-4 w-4 mr-2" />
-                Consult Engineers
+                Consult engineers
               </Button>
-              <Button variant="outline" size="sm" className="border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900" type="button" onClick={() => onOpenRfq('faq_quote')}>
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900"
+                type="button"
+                onClick={() => onOpenRfq("faq_quote")}
+              >
                 <MessageCircle className="h-4 w-4 mr-2" />
-                Get Quote
+                Get a quote
               </Button>
             </div>
           </Card>

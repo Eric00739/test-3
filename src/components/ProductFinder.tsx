@@ -88,13 +88,13 @@ export function ProductFinder({ onQuote, onTrack }: ProductFinderProps) {
         <div className="mb-12 text-center">
           <div className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-xs font-semibold text-orange-600 shadow">
             <Sparkles className="h-4 w-4" />
-            Product Categories
+            Choose your path
           </div>
           <h2 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Main Product Categories
+            What do you need to accomplish today?
           </h2>
           <p className="mt-3 text-base text-slate-600">
-            Explore our comprehensive range of wireless control solutions. For detailed specifications, visit our Products page.
+            Quickly locate drop-in replacements, configure small-batch variants, or source value-driven finished devices ready for shipment.
           </p>
         </div>
 
@@ -145,7 +145,7 @@ export function ProductFinder({ onQuote, onTrack }: ProductFinderProps) {
 
         <div className="mt-12 text-center">
           <p className="text-slate-600 mb-4">
-            Need a customized solution not listed here? Our engineering team can develop specialized products to meet your exact requirements.
+            Need a configuration that is not listed here? Share the target device, region, and quantity—our engineering pod will outline the fastest compatibility route.
           </p>
           <Button
             className="bg-slate-800 hover:bg-slate-900 text-white"

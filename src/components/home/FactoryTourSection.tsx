@@ -1,4 +1,4 @@
-import { Card, CardContent } from '@/components/ui/card'
+﻿import { Card, CardContent } from '@/components/ui/card'
 import { Factory } from 'lucide-react'
 import { motion } from 'framer-motion'
 
@@ -27,7 +27,7 @@ const facilities = [
   {
     title: 'Environmental Testing',
     machine: 'Climatic Chambers',
-    capacity: '-40掳C to +85掳C',
+    capacity: '-40°C to +85°C',
     yield: 'Validated Reliability',
     description: 'Temperature, humidity, and vibration testing for harsh environments'
   },
@@ -89,3 +89,5 @@ export function FactoryTourSection() {
     </section>
   )
 }
+
+
