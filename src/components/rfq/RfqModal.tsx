@@ -278,7 +278,7 @@ export function RfqModal({ open, onClose, onSubmit, source = 'default' }: RfqMod
               RFQ Sent Successfully!
             </h3>
             <p className="text-base text-slate-600 mb-4">
-              Thanks for reaching out. Our engineering team will respond within 24 hours.
+              Thanks for reaching out. Our sales representative will contact you within 12 hours.
             </p>
             <div className="bg-blue-50 rounded-lg p-4 mb-4">
               <p className="text-sm text-blue-800 font-medium">
@@ -294,10 +294,10 @@ export function RfqModal({ open, onClose, onSubmit, source = 'default' }: RfqMod
             {/* Header */}
             <header className="mb-6 text-center">
               <h3 className="text-xl font-semibold text-gray-900 mb-1">
-                Get your RFQ in 24h
+                Get your RFQ in 12h
               </h3>
               <p className="text-sm text-slate-500">
-                Two quick fields. We'll reply within 12 hours.
+                Two quick fields. Sales representative will contact you within 12 hours.
               </p>
             </header>
 

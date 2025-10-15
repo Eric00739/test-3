@@ -1,12 +1,13 @@
 "use client";
 
 import Image from "next/image"
-import { Globe, Shield, Phone, Send, Factory, MessageCircle } from "lucide-react"
+import { Globe, Shield, Phone, Send, Factory, MessageCircle, Mail, Facebook, Twitter, Linkedin, Youtube } from "lucide-react"
 import { ReactNode } from "react"
 import { useTranslations } from "next-intl"
 import { Link } from "@/i18n/routing"
 import { getAssetPath } from "@/lib/assets"
 import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher"
+import { Button } from "@/components/ui/button"
 
 interface SiteFooterProps {
   className?: string
@@ -88,6 +89,63 @@ export function SiteFooter({ className = "" }: SiteFooterProps) {
                 </li>
               ))}
             </ul>
+          </div>
+        </div>
+
+        {/* Newsletter Subscription */}
+        <div className="border-t border-slate-800 pt-8 mb-8">
+          <div className="max-w-2xl mx-auto text-center">
+            <h3 className="text-lg font-semibold mb-4">Stay Updated with Industry Insights</h3>
+            <p className="text-slate-400 mb-6">Get exclusive access to product updates, technical trends, and market analysis. Join 5,000+ professionals.</p>
+            <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="flex-1 px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-orange-500"
+              />
+              <Button className="bg-orange-500 hover:bg-orange-600 text-white px-6">
+                <Mail className="h-4 w-4 mr-2" />
+                Subscribe
+              </Button>
+            </div>
+            <p className="text-xs text-slate-500 mt-3">No spam • Unsubscribe anytime • Weekly digest</p>
+          </div>
+        </div>
+
+        {/* Social Media Links */}
+        <div className="border-t border-slate-800 pt-8 mb-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="text-center md:text-left">
+              <h4 className="text-sm font-semibold mb-3">Follow Us</h4>
+              <div className="flex space-x-4 justify-center md:justify-start">
+                <a href="#" className="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:bg-slate-700 transition-colors">
+                  <Linkedin className="h-5 w-5 text-slate-300" />
+                </a>
+                <a href="#" className="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:bg-slate-700 transition-colors">
+                  <Twitter className="h-5 w-5 text-slate-300" />
+                </a>
+                <a href="#" className="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:bg-slate-700 transition-colors">
+                  <Facebook className="h-5 w-5 text-slate-300" />
+                </a>
+                <a href="#" className="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:bg-slate-700 transition-colors">
+                  <Youtube className="h-5 w-5 text-slate-300" />
+                </a>
+              </div>
+            </div>
+            <div className="text-center md:text-right">
+              <h4 className="text-sm font-semibold mb-3">Download Resources</h4>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-end">
+                <a href="/assets/rfq-checklist.pdf" className="text-slate-300 hover:text-orange-500 transition-colors text-sm">
+                  📄 Product Catalog
+                </a>
+                <a href="#" className="text-slate-300 hover:text-orange-500 transition-colors text-sm">
+                  📋 RFQ Checklist
+                </a>
+                <a href="#" className="text-slate-300 hover:text-orange-500 transition-colors text-sm">
+                  🔧 Technical Guide
+                </a>
+              </div>
+            </div>
           </div>
         </div>
 

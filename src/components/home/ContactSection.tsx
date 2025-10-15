@@ -21,14 +21,14 @@ export function ContactSection({ onOpenRfq }: ContactSectionProps) {
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">Request Your Quote</h2>
           <p className="text-base sm:text-lg md:text-xl text-slate-600 mb-8 sm:mb-12 max-w-4xl mx-auto leading-relaxed px-4">
-            Share your requirements and receive pricing or sample plans within 24 business hours.
+            Share your requirements and receive pricing or sample plans within 12 hours.
           </p>
 
           <div className="bg-gradient-to-r from-orange-50 to-orange-100 rounded-2xl p-6 mb-8">
             <div className="flex items-center justify-center mb-4">
               <Shield className="h-6 w-6 text-orange-600 mr-2" />
               <span className="text-lg font-semibold text-orange-800">
-                Work order ID generated after submission; email response guaranteed within 24 business hours
+                Sales representative will contact you within 12 hours • 95% customer satisfaction rate
               </span>
             </div>
           </div>
@@ -58,7 +58,7 @@ export function ContactSection({ onOpenRfq }: ContactSectionProps) {
               </ul>
               <div className="mt-6 pt-6 border-t border-orange-200">
                 <p className="text-sm font-semibold text-orange-800">
-                  Average response time: <span className="block text-lg">under 10 minutes</span>
+                  Average response time: <span className="block text-lg">under 12 hours</span> • 5000+ successful projects
                 </p>
               </div>
             </div>
@@ -231,15 +231,19 @@ export function ContactSection({ onOpenRfq }: ContactSectionProps) {
           </div>
         </div>
 
-        <div className="mt-12 flex justify-center">
+        <div className="mt-12 flex flex-col md:flex-row gap-4 justify-center items-center">
           <Button
             size="lg"
             className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4"
             onClick={() => onOpenRfq("contact_start")}
           >
             <Send className="h-5 w-5 mr-2" />
-            Launch quote workflow
+            Start Quick Quote (3 steps)
           </Button>
+          <div className="flex items-center text-sm text-slate-600">
+            <Check className="h-4 w-4 text-green-600 mr-2" />
+            <span>12-hour response guarantee</span>
+          </div>
         </div>
       </div>
     </section>
