@@ -35,6 +35,7 @@ jobs:
         
     - name: Setup Pages
       uses: actions/configure-pages@v4
+      id: pages
       
     - name: Install dependencies
       run: npm ci
@@ -47,8 +48,6 @@ jobs:
       
     - name: Build with Next.js
       run: npm run build
-      env:
-        NEXT_PUBLIC_BASE_URL: ${{ steps.pages.outputs.base_url }}
         
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
