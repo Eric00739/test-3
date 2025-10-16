@@ -92,25 +92,6 @@ export function SiteFooter({ className = "" }: SiteFooterProps) {
           </div>
         </div>
 
-        {/* Newsletter Subscription */}
-        <div className="border-t border-slate-800 pt-8 mb-8">
-          <div className="max-w-2xl mx-auto text-center">
-            <h3 className="text-lg font-semibold mb-4">Stay Updated with Industry Insights</h3>
-            <p className="text-slate-400 mb-6">Get exclusive access to product updates, technical trends, and market analysis. Join 5,000+ professionals.</p>
-            <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-orange-500"
-              />
-              <Button className="bg-orange-500 hover:bg-orange-600 text-white px-6">
-                <Mail className="h-4 w-4 mr-2" />
-                Subscribe
-              </Button>
-            </div>
-            <p className="text-xs text-slate-500 mt-3">No spam • Unsubscribe anytime • Weekly digest</p>
-          </div>
-        </div>
 
         {/* Social Media Links */}
         <div className="border-t border-slate-800 pt-8 mb-8">
