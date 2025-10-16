@@ -25,7 +25,7 @@
 
 ### 4. New Components Created
 - **HeroTrustSection**: Combined hero and trust section for immediate impact
-- **QuickNav**: Floating navigation for easy section access
+- ~~**QuickNav**~~ Removed after evaluation to reduce visual clutter
 - **UnifiedCTA**: Consistent call-to-action component with variants
 - **LazySection**: Wrapper for lazy loading non-critical sections
 

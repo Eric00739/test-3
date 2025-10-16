@@ -57,9 +57,9 @@
 **Monitoring**: Verify all images load properly, especially the factory montage image in HeroTrustSection.
 
 ### 3. Scroll Position
-**Risk**: The QuickNav might not correctly track scroll position after dynamic loading.
+**Risk**: Header highlighting might drift if section IDs change.
 
-**Monitoring**: Test QuickNav functionality after all sections are loaded.
+**Monitoring**: After major content edits, scroll the page end-to-end to confirm the header updates as expected.
 
 ### 4. Mobile Responsiveness
 **Risk**: New component structure might have mobile responsiveness issues.
@@ -72,7 +72,7 @@
 - [ ] ESLint passes without errors
 - [ ] Next.js build completes successfully
 - [ ] All sections load correctly
-- [ ] QuickNav works properly
+- [ ] Header navigation highlights the correct sections
 - [ ] All CTAs function correctly
 - [ ] Mobile responsiveness maintained
 - [ ] Images load correctly

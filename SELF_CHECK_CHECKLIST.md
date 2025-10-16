@@ -21,7 +21,6 @@
 
 ### Component Architecture
 - [x] Hero+Trust combined into single section
-- [x] QuickNav component created for navigation
 - [x] UnifiedCTA component for consistent actions
 - [x] Lazy loading implemented for non-critical sections
 - [x] Dynamic imports properly typed

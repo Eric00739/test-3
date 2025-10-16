@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic'
 import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import { HeroTrustSection } from '@/components/home/HeroTrustSection'
-import { QuickNav } from '@/components/home/QuickNav'
 import { UnifiedCTA } from '@/components/home/UnifiedCTA'
 import { ComparisonProvider } from '@/contexts/ComparisonContext'
 import { RfqModal } from '@/components/rfq/RfqModal'
@@ -46,6 +45,8 @@ const StickyActions = dynamic(() => import('@/components/home/StickyActions').th
   loading: () => null
 })
 
+const SECTION_IDS = ['hero', 'task-routing', 'compatibility', 'process', 'evidence', 'resources', 'faq', 'contact'] as const
+
 export function HomeClient() {
   const [activeSection, setActiveSection] = useState('hero')
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -54,18 +55,6 @@ export function HomeClient() {
   const [rfqSource, setRfqSource] = useState('default')
   const tNav = useTranslations('nav')
 
-  // Navigation sections for QuickNav
-  const quickNavSections = [
-    { id: 'hero', label: 'Home' },
-    { id: 'task-routing', label: 'Get Started' },
-    { id: 'compatibility', label: 'Compatibility' },
-    { id: 'process', label: 'Process' },
-    { id: 'evidence', label: 'Case Studies' },
-    { id: 'resources', label: 'About Us' },
-    { id: 'faq', label: 'FAQ' },
-    { id: 'contact', label: 'Contact' },
-  ]
-
   const trackEvent = (eventName: string, payload?: Record<string, unknown>) => {
     console.log(eventName, payload ?? {})
   }
@@ -73,9 +62,8 @@ export function HomeClient() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 100
-      const sections = quickNavSections.map(section => section.id)
 
-      for (const section of sections) {
+      for (const section of SECTION_IDS) {
         const element = document.getElementById(section)
         if (element) {
           const { offsetTop, offsetHeight } = element
@@ -253,9 +241,6 @@ export function HomeClient() {
         <section id="contact" className="py-16 bg-white">
           <ContactSection onOpenRfq={openRfqModal} />
         </section>
-
-        {/* Quick Navigation */}
-        <QuickNav sections={quickNavSections} />
 
         {/* Sticky Actions */}
         <StickyActions
