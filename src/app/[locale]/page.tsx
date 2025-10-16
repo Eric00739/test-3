@@ -12,6 +12,12 @@ import { HeaderBar } from '@/components/home/HeaderBar'
 import { HeroSection } from '@/components/home/HeroSection'
 import { StickyActions } from '@/components/home/StickyActions'
 import { MobileActionBar } from '@/components/home/MobileActionBar'
+import { TaskRoutingSection } from '@/components/home/TaskRoutingSection'
+import { CompatibilityCenterSection } from '@/components/home/CompatibilityCenterSection'
+import { ProcessTimelineSectionNew } from '@/components/home/ProcessTimelineSectionNew'
+import { DeliveryThresholdsSection } from '@/components/home/DeliveryThresholdsSection'
+import { ExtendedProductsSection } from '@/components/home/ExtendedProductsSection'
+import { DownloadsSection } from '@/components/home/DownloadsSection'
 import { ProductFinder } from '@/components/ProductFinder'
 import { RfqModal } from '@/components/rfq/RfqModal'
 import { TrustSection } from '@/components/home/TrustSection'
@@ -96,7 +102,7 @@ const testimonials = [
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['hero', 'about', 'products', 'process', 'capabilities', 'testimonials', 'contact']
+      const sections = ['hero', 'task-routing', 'compatibility', 'process-new', 'delivery', 'extended-products', 'downloads', 'about', 'products', 'process', 'capabilities', 'testimonials', 'contact']
       const scrollPosition = window.scrollY + 100
 
       for (const section of sections) {
@@ -497,6 +503,36 @@ const testimonials = [
         />
 
       <HeroSection onOpenRfq={openRfqModal} onWhatsApp={openWhatsApp} onWeChat={openWeChat} />
+
+      {/* Interest Section - Task Routing */}
+      <section id="task-routing">
+        <TaskRoutingSection />
+      </section>
+
+      {/* Compatibility/Replacement Center */}
+      <section id="compatibility">
+        <CompatibilityCenterSection />
+      </section>
+
+      {/* Desire Section - Process Timeline */}
+      <section id="process-new">
+        <ProcessTimelineSectionNew />
+      </section>
+
+      {/* Delivery & Thresholds */}
+      <section id="delivery">
+        <DeliveryThresholdsSection />
+      </section>
+
+      {/* Extended Product Line */}
+      <section id="extended-products">
+        <ExtendedProductsSection />
+      </section>
+
+      {/* Downloads Section */}
+      <section id="downloads">
+        <DownloadsSection />
+      </section>
 
       {/* Key Metrics Section - High Value Density */}
       <section className="py-16 bg-gradient-to-b from-white to-slate-50">
@@ -1086,7 +1122,8 @@ const testimonials = [
 
       <FactoryTourSection />
 
-      <ProcessTimelineSection />
+      {/* Original Process Timeline - Commented out to avoid duplication */}
+      {/* <ProcessTimelineSection /> */}
 
       <FAQSection onOpenRfq={openRfqModal} />
 

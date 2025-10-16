@@ -12,39 +12,39 @@ interface FAQSectionProps {
 
 const faqItems = [
   {
-    question: "Why does actual range differ from the specification?",
+    question: "Why does actual range differ from the specs?",
     answer:
-      "Published distances reference open-field typical values. Real-world performance varies based on antenna placement, building materials, and interference. Our solutions typically achieve 70-85% of specified range in standard indoor environments.",
+      "Range data reflects open-field typical values. Indoor distance depends on antenna selection, mounting position, interference sources, and the surrounding environment.",
   },
   {
-    question: "Can you build a replacement without the original part number?",
+    question: "No original model available?",
     answer:
-      "Yes! 95% of replacements are successfully identified from 2-5 sample sets or detailed photos. Our engineering team responds within 24 hours with compatibility options. We maintain a database of 10,000+ verified configurations.",
+      "Providing 2–5 sample sets delivers the fastest validation. If samples are unavailable, detailed photos plus frequency and encoding information work—we will respond with A/B/C compatibility options and call out any caveats.",
   },
   {
-    question: "What is the difference between learning and cloning remotes?",
+    question: "What is learning type (fixed-code only)?",
     answer:
-      "Learning remotes support cleartext fixed codes (EV1527/PT2262) with 99% success rate. We don't replicate encrypted rolling codes. Instead, we offer compatible receiver replacements that maintain security while eliminating compatibility issues.",
+      "Our learning remotes support cleartext fixed codes such as EV1527 or PT2262. We do not replicate rolling-code or encrypted algorithms; for those applications, pair our remotes with matched receivers or a bridge.",
   },
   {
     question: "Can rolling-code systems be made compatible?",
     answer:
-      "Yes, through our bridge receiver solutions with 98% compatibility success rate. When direct enrollment isn't possible, our bridge modules learn both original and new transmitters, maintaining security while expanding compatibility.",
+      "It depends on the receiver. When the existing receiver does not accept new rolling-code transmitters, we recommend replacing it or adding a bridge module that learns both sides.",
   },
   {
-    question: "Do you support white labelling and cosmetic tweaks?",
+    question: "Do you support private-label/light appearance changes?",
     answer:
-      "Absolutely! We support complete branding customization: button layout, colors, logos, and packaging. 90% of customizations ship within standard timelines. MOQs start at just 50 units for most configurations.",
+      "Yes. Button count, color, logo, silk print, and similar light customizations are available with MOQs between 50 and 200 units depending on the configuration.",
   },
   {
-    question: "What are the timelines for samples and small batches?",
+    question: "What are the lead times?",
     answer:
-      "Standard samples: 2-5 days (95% on-time delivery). Small production: 7-15 days. Our rapid prototyping process has helped 100+ brands reduce time-to-market by an average of 40%.",
+      "With complete documentation we ship samples in 2–5 days and small lots in 7–15 days. Requests outside the quick configuration scope enter engineering review with confirmed MOQ, NRE, and timeline.",
   },
   {
     question: "How do you handle compliance and certification?",
     answer:
-      "We maintain 100% compliance record across CE, FCC, KC, and RoHS certifications. Our in-house pre-testing achieves 92% first-pass certification success, saving clients 3-4 weeks in typical certification cycles.",
+      "We follow the regulations of your target market—CE, FCC, KC, RoHS, and other regional directives as required. Testing and filing support is available on demand, with fees and lead times quoted separately.",
   },
 ]
 

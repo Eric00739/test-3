@@ -23,11 +23,11 @@ export function MobileActionBar({ onOpenRfq, onWhatsApp }: MobileActionBarProps)
             variant="outline"
             size="sm"
             className="flex items-center border-slate-300 text-slate-700 hover:bg-slate-50"
-            onClick={() => onWhatsApp('mobile_bar')}
-            aria-label={t('whatsappAria')}
+            onClick={() => onOpenRfq('mobile_compatibility')}
+            aria-label={t('catalogAria')}
           >
-            <MessageCircle className="mr-2 h-4 w-4" aria-hidden="true" />
-            {t('whatsapp')}
+            <Package className="mr-2 h-4 w-4" aria-hidden="true" />
+            {t('catalog')}
           </Button>
         </li>
         <li>
@@ -46,11 +46,11 @@ export function MobileActionBar({ onOpenRfq, onWhatsApp }: MobileActionBarProps)
             variant="outline"
             size="sm"
             className="flex items-center border-slate-300 text-slate-700 hover:bg-slate-50"
-            onClick={() => onOpenRfq('mobile_download')}
-            aria-label={t('catalogAria')}
+            onClick={() => onWhatsApp('mobile_bar')}
+            aria-label={t('whatsappAria')}
           >
-            <Download className="mr-2 h-4 w-4" aria-hidden="true" />
-            {t('catalog')}
+            <MessageCircle className="mr-2 h-4 w-4" aria-hidden="true" />
+            {t('whatsapp')}
           </Button>
         </li>
       </ul>

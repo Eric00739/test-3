@@ -198,6 +198,12 @@ export function SiteFooter({ className = "" }: SiteFooterProps) {
             </div>
             <LanguageSwitcher variant="menu" className="md:max-w-[180px]" />
           </div>
+          
+          <div className="mt-4 pt-4 border-t border-slate-800">
+            <p className="text-xs text-slate-500 text-center">
+              Compatibility info only. Non-OEM / not affiliated. All trademarks belong to their owners.
+            </p>
+          </div>
         </div>
       </div>
     </footer>

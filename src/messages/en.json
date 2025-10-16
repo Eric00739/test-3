@@ -17,18 +17,24 @@
                 "contact":  "Contact"
             },
     "hero":  {
-                 "headline":  "One-Stop Custom Electronics Manufacturing — 95% On-Time Delivery, 40% Cost Reduction",
-                 "subheadline":  "Trusted by 100+ global brands for RF remotes, IoT devices, and smart controls. From prototype to mass production in just 12 weeks with 99.8% field reliability.",
+                 "headline":  "Compatibility/Replacement solutions and value-priced finished products — all in one.",
+                 "subheadline":  "315 / 433.92 / 446 / 447 / 868 / 915 MHz bands • Fixed code / Rolling code / Learning type (fixed-code only) • Typical open-field 30–100 m range¹",
                  "keyPoints":  {
-                                   "0":  "Samples delivered in 2-5 days for standard configurations",
-                                   "1":  "95% on-time delivery rate across 28 export markets",
-                                   "2":  "MOQ 50–200 with zero tooling fees for most configurations"
+                                   "0":  "CE / FCC / KC / RoHS certified",
+                                   "1":  "Samples 2–5 days (with complete docs)",
+                                   "2":  "MOQ 50–200 (depending on options)"
                                },
-                 "primaryCta":  "Start Your Project",
-                 "secondaryCta":  "Check Compatibility",
+                 "primaryCta":  "Get a Quote",
+                 "primaryCtaOptions":  {
+                                    "0":  "Get a Quote — Creates ticket instantly",
+                                    "1":  "Request Quote — Business-hours reply",
+                                    "2":  "Submit RFQ — Engineer response within 24h"
+                                },
+                 "compatibilityCta":  "Compatibility/Replacement Lookup",
+                 "catalogCta": "Browse Finished Products",
                  "downloadCatalogCta": "Download Product Catalog",
                  "factoryTourCta": "Schedule Factory Tour",
-                 "promise":  "Receive work order ID instantly • Engineering response within 24 business hours",
+                 "promise":  "Creates support ticket instantly • Business-hours reply guaranteed",
                  "process":  {
                                  "0":  "Submit requirements → free compatibility audit in under 24h",
                                  "1":  "Configure on proven platforms (97% NRE-free)",
@@ -41,8 +47,7 @@
                                     "2":  "Learning remotes provided only support cleartext fixed codes (EV1527 / PT2262).",
                                     "3":  "Rolling-code compatibility depends on receiver capability; bridge or replacement receivers are recommended when unsupported."
                                 },
-                 "compatibilityCta":  "Check Compatibility · View Product Solutions",
-                 "catalogCta": "Technical Specifications · Range Details",
+                 "longRangeFootnote":  "¹Optional long-range 1–3 km available with low data rate, compliant TX power, and external/high-gain or directional antenna. Not standard handheld configuration.",
                  "video":  {
                                "alt":  "FastFunRC SMT line snapshot",
                                "tag":  "Production Line",
@@ -69,11 +74,11 @@
     "mobileActionBar":  {
                             "label":  "Mobile quick actions",
                             "whatsapp":  "WhatsApp",
-                            "samples":  "Get Quote",
-                            "catalog":  "Downloads",
+                            "samples":  "Get a Quote",
+                            "catalog":  "Compatibility Lookup",
                             "whatsappAria":  "Open WhatsApp chat",
-                            "samplesAria":  "Request quote",
-                            "catalogAria":  "Download resources"
+                            "samplesAria":  "Get a Quote",
+                            "catalogAria":  "Compatibility Lookup"
                         },
     "footer":  {
                    "tagline":  "FastFun Remote — your trusted IoT partner since 2010. ISO 9001:2015 certified electronics manufacturing delivering precision smart devices with 98.7% FPY. 15 years experience, 47 NPI projects annually, serving 100+ brands across 28 countries.",
@@ -93,7 +98,7 @@
                                                                    "wifiSockets":  "Wi-Fi Sockets",
                                                                    "customOem":  "Custom OEM/ODM"
                                                                }
-                                                 },
+                                                   },
                                     "support":  {
                                                     "title":  "Support",
                                                     "items":  {
@@ -116,10 +121,272 @@
                                    "address":  "8F, Building 1, Huawei Ke Valley, Dalingshan Town, Dongguan, Guangdong, China"
                                },
                    "legal":  {
-                                 "rights":  "© {year} FastFun Remote. All rights reserved.",
+                                 "rights":  "© {year} Dongguan FastFun Remote Electronics Co., Ltd.",
                                  "privacy":  "Privacy Policy",
                                  "terms":  "Terms of Service",
                                  "compliance":  "Compliance"
                              }
-               }
+               },
+    "faq":  {
+                "title":  "Frequently Asked Questions",
+                "subtitle":  "Practical answers to common technical and procurement questions",
+                "items":  [
+                    {
+                        "question":  "Why does actual range differ from the specs?",
+                        "answer":  "Range data reflects open-field typical values. Indoor distance depends on antenna selection, mounting position, interference sources, and the surrounding environment."
+                    },
+                    {
+                        "question":  "No original model available?",
+                        "answer":  "Providing 2–5 sample sets delivers the fastest validation. If samples are unavailable, detailed photos plus frequency and encoding information work—we will respond with A/B/C compatibility options and call out any caveats."
+                    },
+                    {
+                        "question":  "What is learning type (fixed-code only)?",
+                        "answer":  "Our learning remotes support cleartext fixed codes such as EV1527 or PT2262. We do not replicate rolling-code or encrypted algorithms; for those applications, pair our remotes with matched receivers or a bridge."
+                    },
+                    {
+                        "question":  "Can rolling-code systems be made compatible?",
+                        "answer":  "It depends on the receiver. When the existing receiver does not accept new rolling-code transmitters, we recommend replacing it or adding a bridge module that learns both sides."
+                    },
+                    {
+                        "question":  "Do you support private-label/light appearance changes?",
+                        "answer":  "Yes. Button count, color, logo, silk print, and similar light customizations are available with MOQs between 50 and 200 units depending on the configuration."
+                    },
+                    {
+                        "question":  "What are the lead times?",
+                        "answer":  "With complete documentation we ship samples in 2–5 days and small lots in 7–15 days. Requests outside the quick configuration scope enter engineering review with confirmed MOQ, NRE, and timeline."
+                    },
+                    {
+                        "question":  "How do you handle compliance and certification?",
+                        "answer":  "We follow the regulations of your target market—CE, FCC, KC, RoHS, and other regional directives as required. Testing and filing support is available on demand, with fees and lead times quoted separately."
+                    }
+                ]
+            },
+    "compatibility":  {
+                          "title":  "Compatibility/Replacement Center",
+                          "subtitle":  "Find the right solution for your existing system",
+                          "template":  {
+                                          "recommendedModel":  "Recommended model/combination:",
+                                          "compatibilityGrade":  "Compatibility grade:",
+                                          "keyCaveats":  "Key caveats:",
+                                          "requestSamples":  "Request Samples",
+                                          "legalNotice":  "Compatibility info only. Non-OEM / not affiliated. All trademarks belong to their owners."
+                                      }
+                      },
+    "delivery":  {
+                     "title":  "Delivery & Thresholds",
+                     "subtitle":  "Transparent delivery options and minimum quantities",
+                     "headers":  {
+                                      "option":  "Option",
+                                      "moq":  "MOQ",
+                                      "nre":  "NRE",
+                                      "leadTime":  "Lead Time",
+                                      "notes":  "Notes"
+                                  },
+                     "rows":  [
+                         {
+                             "option":  "In-stock/Generic",
+                             "moq":  "50–200 units",
+                             "nre":  "None",
+                             "leadTime":  "2–5 days (samples), 7–15 days (production)",
+                             "notes":  "Standard configurations only"
+                         },
+                         {
+                             "option":  "Configurable (small-batch)",
+                             "moq":  "200–500 units",
+                             "nre":  "Usually none",
+                             "leadTime":  "7–15 days (samples), 15–25 days (production)",
+                             "notes":  "Band/code/buttons/appearance/MOQ variations"
+                         },
+                         {
+                             "option":  "Deep customization",
+                             "moq":  "500+ units",
+                             "nre":  "Varies by project",
+                             "leadTime":  "15–30 days (samples), 30–45 days (production)",
+                             "notes":  "Custom tooling, firmware, app development"
+                         }
+                     ],
+                     "rebateClause":  "NRE rebate available after {period} months with {threshold} unit orders — {rebate}% rebate on NRE fees."
+                 },
+    "process":  {
+                    "title":  "Our Process",
+                    "subtitle":  "From requirements to delivery",
+                    "steps":  [
+                        {
+                            "title":  "Requirements Review",
+                            "duration":  "≤24h",
+                            "deliverable":  "Sample DFM/compat table (PDF)",
+                            "description":  "Technical analysis and feasibility assessment"
+                        },
+                        {
+                            "title":  "Configuration",
+                            "duration":  "Usually no NRE",
+                            "deliverable":  "Config matrix (band/code/buttons/appearance/MOQ)",
+                            "description":  "Config-first approach for rapid development"
+                        },
+                        {
+                            "title":  "Sample Production",
+                            "duration":  "2–5 days",
+                            "deliverable":  "60-second pairing/wiring video",
+                            "description":  "Fast sample turnaround with complete documentation"
+                        },
+                        {
+                            "title":  "Compliance Support",
+                            "duration":  "As needed",
+                            "deliverable":  "Sample certificates PDF (CE/FCC/KC/RoHS)",
+                            "description":  "Full compliance assistance for target markets"
+                        },
+                        {
+                            "title":  "Production & Traceability",
+                            "duration":  "Based on order",
+                            "deliverable":  "Redacted release-record screenshot",
+                            "description":  "Quality-controlled production with full traceability"
+                        }
+                    ]
+                },
+    "extendedProducts":  {
+                           "title":  "Extended Product Line",
+                           "subtitle":  "Additional solutions for specialized applications",
+                           "automotive":  {
+                                              "title":  "Automotive Aftermarket Remote",
+                                              "description":  "315 / 433 MHz housings that accept immobilizer programming",
+                                              "boundary":  "Does not involve OEM immobilizer pairing; compatible with aftermarket central lock/receivers.",
+                                              "cta":  "Learn More"
+                                          },
+                           "wifiSwitch":  {
+                                              "title":  "Wi-Fi Wall Switch",
+                                              "description":  "2.4 GHz app-connected lighting control",
+                                              "boundary":  "Single-live vs neutral-required versions available. Professional installation recommended for high-load applications.",
+                                              "cta":  "Learn More"
+                                          },
+                           "wifiPlug":  {
+                                            "title":  "Wi-Fi Plug",
+                                            "description":  "Smart socket with energy monitoring",
+                                            "boundary":  "Regional compliance standards apply. Rated current varies by region. Professional installation recommended for commercial applications.",
+                                            "cta":  "Learn More"
+                                        }
+                       },
+    "downloads":  {
+                     "title":  "Downloads",
+                     "subtitle":  "Technical documentation and resources",
+                     "items":  [
+                         {
+                             "title":  "Datasheets",
+                             "description":  "Technical specifications and performance characteristics",
+                             "icon":  "datasheet"
+                         },
+                         {
+                             "title":  "Wiring Diagrams",
+                             "description":  "Installation and connection guides",
+                             "icon":  "wiring"
+                         },
+                         {
+                             "title":  "Pairing Guides",
+                             "description":  "Step-by-step pairing instructions",
+                             "icon":  "pairing"
+                         },
+                         {
+                             "title":  "Enclosure Drawings",
+                             "description":  "Mechanical dimensions and mounting details",
+                             "icon":  "enclosure"
+                         },
+                         {
+                             "title":  "Compatibility Matrix",
+                             "description":  "Cross-reference for replacement parts (Excel)",
+                             "icon":  "matrix"
+                         }
+                     ]
+                 },
+    "taskRouting":  {
+                        "title":  "How can we help you today?",
+                        "subtitle":  "Select your primary need to get started",
+                        "cards":  [
+                            {
+                                "title":  "Find Compatibility/Replacement",
+                                "description":  "Identify the right solution for your existing system",
+                                "cta":  "Start Search",
+                                "icon":  "search"
+                            },
+                            {
+                                "title":  "Small-Batch Configuration",
+                                "description":  "Customize features for your specific requirements",
+                                "cta":  "Configure Now",
+                                "icon":  "settings"
+                            },
+                            {
+                                "title":  "Buy Value-Priced Finished Products",
+                                "description":  "Browse our catalog of ready-to-ship solutions",
+                                "cta":  "Browse Products",
+                                "icon":  "shopping"
+                            }
+                        ]
+                    },
+    "rfqForm":  {
+                    "step1Title":  "Tell us about your project",
+                    "step1Subtitle":  "Required information to get started",
+                    "useCase":  {
+                                   "label":  "Use case",
+                                   "placeholder":  "Describe your application"
+                               },
+                    "productType":  {
+                                       "label":  "Product type",
+                                       "options":  {
+                                                       "inStock":  "In-stock/Replacement",
+                                                       "config":  "Configurable",
+                                                       "custom":  "Custom development"
+                                                   }
+                                   },
+                    "quantity":  {
+                                    "label":  "Quantity tier",
+                                    "options":  {
+                                                    "sample":  "Sample (1-10)",
+                                                    "small":  "Small batch (50-200)",
+                                                    "medium":  "Medium batch (200-500)",
+                                                    "large":  "Large batch (500+)"
+                                                }
+                                },
+                    "band":  {
+                                "label":  "Frequency band",
+                                "options":  {
+                                                "315":  "315 MHz",
+                                                "433":  "433.92 MHz",
+                                                "446":  "446 MHz",
+                                                "447":  "447 MHz",
+                                                "868":  "868 MHz",
+                                                "915":  "915 MHz"
+                                            }
+                            },
+                    "contact":  {
+                                   "label":  "Contact information",
+                                   "name":  "Full name",
+                                   "email":  "Email address",
+                                   "company":  "Company (optional)",
+                                   "phone":  "Phone (optional)"
+                               },
+                    "step2Title":  "Additional details",
+                    "step2Subtitle":  "Help us understand your specific requirements",
+                    "replacement":  {
+                                       "title":  "Replacement details",
+                                       "originalBrand":  "Original brand/model",
+                                       "photos":  "Photos (front/back & terminal + FCC ID)",
+                                       "encoding":  "Encoding/chip information",
+                                       "targetRange":  "Target range requirement"
+                                   },
+                    "config":  {
+                                  "title":  "Configuration details",
+                                  "codeChange":  "Code change requirements",
+                                  "buttons":  "Button layout/color/branding",
+                                  "receiver":  "Receiver needed (relay/logic/UART)"
+                              },
+                    "uploads":  {
+                                    "label":  "Upload files (optional)",
+                                    "hint":  "PDF, DOC, DWG, STEP files (Max 10MB)",
+                                    "dragText":  "Click to upload or drag and drop"
+                                },
+                    "submit":  "Submit Request",
+                    "success":  {
+                                   "title":  "Request submitted successfully!",
+                                   "message":  "Ticket #{ticketId} created. We'll respond within business hours with samples/feasibility in 2–5 days with complete docs.",
+                                   "subtitle":  "Business-hours reply guaranteed"
+                               }
+                }
 }

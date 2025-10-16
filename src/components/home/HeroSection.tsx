@@ -40,6 +40,9 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
             <p className="text-sm sm:text-base md:text-lg lg:text-xl text-slate-600 mb-6 sm:mb-8 max-w-3xl leading-relaxed font-light">
               {t("subheadline")}
             </p>
+            <p className="text-xs text-slate-500 mb-4">
+              {t("longRangeFootnote")}
+            </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-8 max-w-4xl">
               {keyPoints.map((item, index) => (
@@ -71,7 +74,7 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
                   aria-label={t("primaryCta")}
                 >
                   <span className="relative z-10 flex items-center">
-                    {t("primaryCta")}
+                    {t("primaryCtaOptions.0")}
                     <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform duration-300" aria-hidden="true" />
                   </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -80,37 +83,14 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
             </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-6">
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              >
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="border-orange-300 text-orange-700 bg-orange-50 hover:bg-orange-100 hover:border-orange-400 hover:text-orange-800 flex items-center gap-2 shadow-md hover:shadow-lg transition-all duration-300"
-                  onClick={() => window.open('/assets/rfq-checklist.pdf', '_blank')}
-                >
-                  <Download className="h-4 w-4" />
-                  {t("downloadCatalogCta")}
-                </Button>
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              >
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="border-orange-300 text-orange-700 bg-orange-50 hover:bg-orange-100 hover:border-orange-400 hover:text-orange-800 flex items-center gap-2 shadow-md hover:shadow-lg transition-all duration-300"
-                  onClick={() => onOpenRfq('factory_tour')}
-                >
-                  <ArrowRight className="h-4 w-4" />
-                  {t("factoryTourCta")}
-                </Button>
-              </motion.div>
+              <Button variant="outline" size="sm" className="border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900" onClick={() => onOpenRfq('hero_compatibility')}>
+                {t("compatibilityCta")}
+              </Button>
+              <Button variant="outline" size="sm" className="border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900" onClick={() => onOpenRfq('hero_catalog')}>
+                {t("catalogCta")}
+              </Button>
             </div>
+
 
             <div className="bg-gradient-to-r from-orange-50 to-orange-100 rounded-2xl p-4 mb-8">
               <p className="text-sm text-slate-700 text-center">
@@ -142,14 +122,6 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
               ))}
             </motion.div>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mt-6">
-              <Button variant="outline" size="sm" className="border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900" onClick={() => onOpenRfq('hero_compatibility')}>
-                {t("compatibilityCta")}
-              </Button>
-              <Button variant="outline" size="sm" className="border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900" onClick={() => onOpenRfq('hero_catalog')}>
-                {t("catalogCta")}
-              </Button>
-            </div>
 
             {/* Bullet Disclaimers */}
             <div className="mt-6 p-4 bg-slate-50 rounded-xl">
