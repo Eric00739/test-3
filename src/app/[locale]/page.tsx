@@ -14,7 +14,7 @@ import { StickyActions } from '@/components/home/StickyActions'
 import { MobileActionBar } from '@/components/home/MobileActionBar'
 import { TaskRoutingSection } from '@/components/home/TaskRoutingSection'
 import { CompatibilityCenterSection } from '@/components/home/CompatibilityCenterSection'
-import { ProcessTimelineSectionNew } from '@/components/home/ProcessTimelineSectionNew'
+import { ProcessTimelineSection } from '@/components/home/ProcessTimelineSection'
 import { DeliveryThresholdsSection } from '@/components/home/DeliveryThresholdsSection'
 import { ExtendedProductsSection } from '@/components/home/ExtendedProductsSection'
 import { DownloadsSection } from '@/components/home/DownloadsSection'
@@ -25,7 +25,6 @@ import { FAQSection } from '@/components/home/FAQSection'
 import { ContactSection } from '@/components/home/ContactSection'
 import { CaseStudiesSection } from '@/components/home/CaseStudiesSection'
 import { FactoryTourSection } from '@/components/home/FactoryTourSection'
-import { ProcessTimelineSection } from '@/components/home/ProcessTimelineSection'
 import { SocialProofSection } from '@/components/home/SocialProofSection'
 import { BrandStorySection } from '@/components/home/BrandStorySection'
 import { StepFormSection } from '@/components/home/StepFormSection'
@@ -516,7 +515,7 @@ const testimonials = [
 
       {/* Desire Section - Process Timeline */}
       <section id="process-new">
-        <ProcessTimelineSectionNew />
+        <ProcessTimelineSection />
       </section>
 
       {/* Delivery & Thresholds */}
@@ -1122,8 +1121,6 @@ const testimonials = [
 
       <FactoryTourSection />
 
-      {/* Original Process Timeline - Commented out to avoid duplication */}
-      {/* <ProcessTimelineSection /> */}
 
       <FAQSection onOpenRfq={openRfqModal} />
 
