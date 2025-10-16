@@ -25,14 +25,14 @@ export function UnifiedCTA({
   showWhatsApp = true,
   className = ""
 }: UnifiedCTAProps) {
-  const baseClasses = "bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
-  const whatsappClasses = "border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900"
+  const baseClasses = "bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-full shadow-md hover:shadow-lg transition-all duration-300"
+  const whatsappClasses = "border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900 rounded-full"
 
   if (variant === "compact") {
     return (
       <div className={`flex gap-3 ${className}`}>
         <Button
-          className={`${baseClasses} group relative overflow-hidden`}
+          className={`${baseClasses} group relative overflow-hidden px-8 py-3`}
           onClick={() => onOpenRfq(source)}
         >
           <span className="relative z-10 flex items-center">
@@ -45,7 +45,7 @@ export function UnifiedCTA({
         {showWhatsApp && (
           <Button
             variant="outline"
-            className={`${whatsappClasses}`}
+            className={`${whatsappClasses} px-8 py-3`}
             onClick={() => onWhatsApp(`${source}_whatsapp`)}
           >
             <MessageCircle className="h-4 w-4 mr-2" />
@@ -76,7 +76,7 @@ export function UnifiedCTA({
           >
             <Button
               size="lg"
-              className={`${baseClasses} group relative overflow-hidden`}
+              className={`${baseClasses} group relative overflow-hidden px-8 py-3`}
               onClick={() => onOpenRfq(source)}
             >
               <span className="relative z-10 flex items-center">
@@ -91,7 +91,7 @@ export function UnifiedCTA({
             <Button
               size="lg"
               variant="outline"
-              className={`${whatsappClasses}`}
+              className={`${whatsappClasses} px-8 py-3`}
               onClick={() => onWhatsApp(`${source}_whatsapp`)}
             >
               <MessageCircle className="h-5 w-5 mr-2" />
@@ -123,7 +123,7 @@ export function UnifiedCTA({
         >
           <Button
             size="lg"
-            className={`${baseClasses} group relative overflow-hidden w-full sm:w-auto`}
+            className={`${baseClasses} group relative overflow-hidden w-full sm:w-auto px-8 py-3`}
             onClick={() => onOpenRfq(source)}
           >
             <span className="relative z-10 flex items-center">
@@ -138,7 +138,7 @@ export function UnifiedCTA({
           <Button
             size="lg"
             variant="outline"
-            className={`${whatsappClasses} w-full sm:w-auto`}
+            className={`${whatsappClasses} w-full sm:w-auto px-8 py-3`}
             onClick={() => onWhatsApp(`${source}_whatsapp`)}
           >
             <MessageCircle className="h-5 w-5 mr-2" />

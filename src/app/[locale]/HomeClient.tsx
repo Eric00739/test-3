@@ -3,7 +3,8 @@
 import dynamic from 'next/dynamic'
 import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
-import { HeroTrustSection } from '@/components/home/HeroTrustSection'
+import { HeroSectionNew } from '@/components/home/HeroSectionNew'
+import { TrustStripSection } from '@/components/home/TrustStripSection'
 import { UnifiedCTA } from '@/components/home/UnifiedCTA'
 import { ComparisonProvider } from '@/contexts/ComparisonContext'
 import { RfqModal } from '@/components/rfq/RfqModal'
@@ -45,7 +46,7 @@ const StickyActions = dynamic(() => import('@/components/home/StickyActions').th
   loading: () => null
 })
 
-const SECTION_IDS = ['hero', 'task-routing', 'compatibility', 'process', 'evidence', 'resources', 'faq', 'contact'] as const
+const SECTION_IDS = ['hero', 'trust-strip', 'task-routing', 'compatibility', 'process', 'evidence', 'resources', 'faq', 'contact'] as const
 
 export function HomeClient() {
   const [activeSection, setActiveSection] = useState('hero')
@@ -162,11 +163,17 @@ export function HomeClient() {
           navLinks={navLinks}
         />
 
-        {/* Attention Block: Hero + Trust Combined */}
-        <HeroTrustSection 
-          onOpenRfq={openRfqModal} 
-          onWhatsApp={openWhatsApp} 
-          onWeChat={openWeChat} 
+        {/* Attention Block: Simplified Hero */}
+        <HeroSectionNew
+          onOpenRfq={openRfqModal}
+          onWhatsApp={openWhatsApp}
+          onWeChat={openWeChat}
+        />
+
+        {/* Trust Strip - Moved Below Hero */}
+        <TrustStripSection
+          onOpenRfq={openRfqModal}
+          onWhatsApp={openWhatsApp}
         />
 
         {/* Interest Block: Task Routing - How can we help you today? */}
