@@ -22,7 +22,7 @@ const CompatibilityCenterSection = dynamic(() => import('@/components/home/Compa
   loading: () => <div className="py-20 flex justify-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500"></div></div>
 })
 
-const ProcessTimelineSection = dynamic(() => import('@/components/home/ProcessTimelineSection').then(mod => ({ default: mod.ProcessTimelineSection })), {
+const ProcessTimelineSection = dynamic(() => import('@/components/home/ProcessTimelineSectionNew').then(mod => ({ default: mod.ProcessTimelineSectionNew })), {
   loading: () => <div className="py-20 flex justify-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500"></div></div>
 })
 
