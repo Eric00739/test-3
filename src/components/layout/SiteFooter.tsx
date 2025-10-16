@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image"
-import { Globe, Shield, Phone, Send, Factory, MessageCircle, Mail, Facebook, Twitter, Linkedin, Youtube } from "lucide-react"
+import { Globe, Shield, Phone, Send, Factory, MessageCircle, Facebook, Twitter, Linkedin, Youtube } from "lucide-react"
 import { ReactNode } from "react"
 import { useTranslations } from "next-intl"
 import { Link } from "@/i18n/routing"
@@ -37,6 +37,18 @@ export function SiteFooter({ className = "" }: SiteFooterProps) {
   ]
 
   const currentYear = new Date().getFullYear()
+  const socialLinks = [
+    { href: "#", label: t("social.links.linkedin"), icon: Linkedin },
+    { href: "#", label: t("social.links.twitter"), icon: Twitter },
+    { href: "#", label: t("social.links.facebook"), icon: Facebook },
+    { href: "#", label: t("social.links.youtube"), icon: Youtube },
+  ]
+
+  const downloadLinks = [
+    { href: "/assets/rfq-checklist.pdf", label: t("downloads.items.catalog") },
+    { href: "#", label: t("downloads.items.rfqChecklist") },
+    { href: "#", label: t("downloads.items.technicalGuide") },
+  ]
 
   return (
     <footer className={`bg-slate-900 text-white ${className}`}>
@@ -95,36 +107,34 @@ export function SiteFooter({ className = "" }: SiteFooterProps) {
 
         {/* Social Media Links */}
         <div className="border-t border-slate-800 pt-8 mb-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
             <div className="text-center md:text-left">
-              <h4 className="text-sm font-semibold mb-3">Follow Us</h4>
-              <div className="flex space-x-4 justify-center md:justify-start">
-                <a href="#" className="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:bg-slate-700 transition-colors">
-                  <Linkedin className="h-5 w-5 text-slate-300" />
-                </a>
-                <a href="#" className="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:bg-slate-700 transition-colors">
-                  <Twitter className="h-5 w-5 text-slate-300" />
-                </a>
-                <a href="#" className="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:bg-slate-700 transition-colors">
-                  <Facebook className="h-5 w-5 text-slate-300" />
-                </a>
-                <a href="#" className="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:bg-slate-700 transition-colors">
-                  <Youtube className="h-5 w-5 text-slate-300" />
-                </a>
+              <h4 className="mb-3 text-sm font-semibold">{t("social.title")}</h4>
+              <div className="flex justify-center space-x-4 md:justify-start">
+                {socialLinks.map(({ href, label, icon: Icon }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    aria-label={label}
+                    className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-800 text-slate-300 transition-colors hover:bg-slate-700"
+                  >
+                    <Icon className="h-5 w-5" aria-hidden="true" />
+                  </a>
+                ))}
               </div>
             </div>
             <div className="text-center md:text-right">
-              <h4 className="text-sm font-semibold mb-3">Download Resources</h4>
-              <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-end">
-                <a href="/assets/rfq-checklist.pdf" className="text-slate-300 hover:text-orange-500 transition-colors text-sm">
-                  📄 Product Catalog
-                </a>
-                <a href="#" className="text-slate-300 hover:text-orange-500 transition-colors text-sm">
-                  📋 RFQ Checklist
-                </a>
-                <a href="#" className="text-slate-300 hover:text-orange-500 transition-colors text-sm">
-                  🔧 Technical Guide
-                </a>
+              <h4 className="mb-3 text-sm font-semibold">{t("downloads.title")}</h4>
+              <div className="flex flex-col gap-3 text-sm sm:flex-row sm:justify-end">
+                {downloadLinks.map((item) => (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    className="text-slate-300 transition-colors hover:text-orange-500"
+                  >
+                    {item.label}
+                  </a>
+                ))}
               </div>
             </div>
           </div>

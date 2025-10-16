@@ -61,21 +61,33 @@ export function HomeClient() {
   }
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + 100
+    let ticking = false
+
+    const updateActiveSection = () => {
+      const scrollPosition = window.scrollY + 120
 
       for (const section of SECTION_IDS) {
         const element = document.getElementById(section)
-        if (element) {
-          const { offsetTop, offsetHeight } = element
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section)
-            break
-          }
+        if (!element) continue
+        const { top, height } = element.getBoundingClientRect()
+        const offsetTop = top + window.scrollY
+        if (scrollPosition >= offsetTop && scrollPosition < offsetTop + height) {
+          setActiveSection(section)
+          break
         }
       }
     }
 
+    const handleScroll = () => {
+      if (ticking) return
+      ticking = true
+      window.requestAnimationFrame(() => {
+        updateActiveSection()
+        ticking = false
+      })
+    }
+
+    updateActiveSection()
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
@@ -164,11 +176,7 @@ export function HomeClient() {
         />
 
         {/* Attention Block: Simplified Hero */}
-        <HeroSectionNew
-          onOpenRfq={openRfqModal}
-          onWhatsApp={openWhatsApp}
-          onWeChat={openWeChat}
-        />
+        <HeroSectionNew onOpenRfq={openRfqModal} onWhatsApp={openWhatsApp} />
 
         {/* Trust Strip - Moved Below Hero */}
         <TrustStripSection
