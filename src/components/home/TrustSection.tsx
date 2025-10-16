@@ -25,7 +25,7 @@ const trustSignals = [
   {
     icon: Shield,
     headline: "100% compliance certified",
-    description: "CE RED, FCC Part 15, KC, and RoHS certified with 92% first-pass certification success rate.",
+    description: "CE RED, FCC Part 15, KC pre-check and accredited partners with 92% first-pass certification success rate.",
   },
   {
     icon: TrendingUp,
@@ -85,6 +85,12 @@ export function TrustSection({ onOpenRfq, onWhatsApp }: TrustSectionProps) {
               <div className="mt-1 text-xs uppercase tracking-wide text-white/60">{partner.region}</div>
             </div>
           ))}
+        </div>
+        
+        <div className="mt-4 text-center">
+          <p className="text-xs text-white/50">
+            Third-party brands are referenced for compatibility or project context only. Non-OEM / not affiliated. Trademarks belong to their owners.
+          </p>
         </div>
 
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">

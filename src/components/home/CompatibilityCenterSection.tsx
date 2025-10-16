@@ -43,7 +43,7 @@ export function CompatibilityCenterSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">{t("title")}</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Compatibility/Replacement Finder</h2>
           <p className="text-base sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
             {t("subtitle")}
           </p>
@@ -62,7 +62,7 @@ export function CompatibilityCenterSection() {
               <div className="flex-1">
                 <input
                   type="text"
-                  placeholder="Enter original brand/model or describe your requirements..."
+                  placeholder="Enter original brand / model / band (e.g., Somfy / TELIS-4 / 433.42)"
                   className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                 />
               </div>

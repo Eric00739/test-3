@@ -109,16 +109,19 @@ export function ProcessTimelineSection() {
             <div className="text-3xl font-bold text-green-600 mb-2">98.7%</div>
             <div className="text-sm text-gray-600 mb-1">Final Production Yield (FPY)</div>
             <div className="text-xs text-slate-500">Industry average: 95-96% • 2.7% above standard</div>
+            <div className="text-xs text-slate-400 mt-1">Based on rolling 12-month QA reports; details available on request.</div>
           </Card>
           <Card className="p-6 text-center">
             <div className="text-3xl font-bold text-blue-600 mb-2">0.38%</div>
             <div className="text-sm text-gray-600 mb-1">RMA Rate (Q4 2024)</div>
             <div className="text-xs text-slate-500">Industry average: 1-2% • 62% below average</div>
+            <div className="text-xs text-slate-400 mt-1">Based on rolling 12-month QA reports; details available on request.</div>
           </Card>
           <Card className="p-6 text-center">
             <div className="text-3xl font-bold text-purple-600 mb-2">12 weeks</div>
             <div className="text-sm text-gray-600 mb-1">Total Development Time</div>
             <div className="text-xs text-slate-500">40% faster than industry average of 20 weeks</div>
+            <div className="text-xs text-slate-400 mt-1">Based on rolling 12-month QA reports; details available on request.</div>
           </Card>
         </div>
       </div>

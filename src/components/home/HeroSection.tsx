@@ -15,7 +15,6 @@ export interface HeroSectionProps {
 export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProps) {
   const t = useTranslations("hero")
   const keyPoints = [t("keyPoints.0"), t("keyPoints.1"), t("keyPoints.2")]
-  const processSteps = [t("process.0"), t("process.1"), t("process.2")]
   const trustBadges = [
     { title: t("badges.0.title"), subtitle: t("badges.0.subtitle") },
     { title: t("badges.1.title"), subtitle: t("badges.1.subtitle") },
@@ -41,7 +40,7 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
               {t("subheadline")}
             </p>
             <p className="text-xs text-slate-500 mb-4">
-              {t("longRangeFootnote")}
+              Long-range (1–3 km) achievable only with low data rate, compliant TX power, and external/high-gain or directional antennas; not the default handheld configuration.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-8 max-w-4xl">
@@ -79,6 +78,9 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
                   </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </Button>
+                <p className="text-xs text-slate-500 mt-2 text-center sm:text-left">
+                  Business-hours reply; samples/feasibility in 2–5 days with complete docs.
+                </p>
               </motion.div>
             </div>
 
@@ -104,7 +106,12 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
             >
-              {processSteps.map((step, idx) => (
+              {[
+                "≤24h feasibility review → DFM/compat PDF sample",
+                "Config-first (usually no NRE) → Config matrix (band/code/buttons/appearance/MOQ)",
+                "Samples in 2–5 days → 60-second pairing/wiring video",
+                "Compliance assist (as needed) → CE/FCC/KC/RoHS certificate samples"
+              ].map((step, idx) => (
                 <motion.div
                   key={`process-step-${idx}`}
                   className="flex items-center text-sm sm:text-base text-slate-700"
@@ -117,7 +124,7 @@ export function HeroSection({ onOpenRfq, onWhatsApp, onWeChat }: HeroSectionProp
                     {idx + 1}
                   </div>
                   <span className="font-medium">{step}</span>
-                  {idx < processSteps.length - 1 && <ChevronRight className="h-4 w-4 text-orange-500 hidden sm:block ml-4" aria-hidden="true" />}
+                  {idx < 3 && <ChevronRight className="h-4 w-4 text-orange-500 hidden sm:block ml-4" aria-hidden="true" />}
                 </motion.div>
               ))}
             </motion.div>

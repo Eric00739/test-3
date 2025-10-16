@@ -330,7 +330,7 @@ export function RfqModal({ open, onClose, onSubmit, source = 'default' }: RfqMod
               Request submitted successfully!
             </h3>
             <p className="text-base text-slate-600 mb-4">
-              Ticket #{ticketId} created. We'll respond within business hours with samples/feasibility in 2–5 days with complete docs.
+              Ticket #{ticketId} created. We'll reply within business hours; with complete docs, samples/feasibility in 2–5 days.
             </p>
             <div className="bg-blue-50 rounded-lg p-4 mb-4">
               <p className="text-sm text-blue-800 font-medium">

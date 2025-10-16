@@ -27,7 +27,7 @@ export function MobileActionBar({ onOpenRfq, onWhatsApp }: MobileActionBarProps)
             aria-label={t('catalogAria')}
           >
             <Package className="mr-2 h-4 w-4" aria-hidden="true" />
-            {t('catalog')}
+            Compatibility/Replacement Lookup
           </Button>
         </li>
         <li>
@@ -38,19 +38,7 @@ export function MobileActionBar({ onOpenRfq, onWhatsApp }: MobileActionBarProps)
             aria-label={t('samplesAria')}
           >
             <Send className="mr-2 h-4 w-4" aria-hidden="true" />
-            {t('samples')}
-          </Button>
-        </li>
-        <li>
-          <Button
-            variant="outline"
-            size="sm"
-            className="flex items-center border-slate-300 text-slate-700 hover:bg-slate-50"
-            onClick={() => onWhatsApp('mobile_bar')}
-            aria-label={t('whatsappAria')}
-          >
-            <MessageCircle className="mr-2 h-4 w-4" aria-hidden="true" />
-            {t('whatsapp')}
+            Get a Quote
           </Button>
         </li>
       </ul>
