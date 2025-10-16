@@ -327,10 +327,10 @@ export function RfqModal({ open, onClose, onSubmit, source = 'default' }: RfqMod
               <Check className="h-10 w-10 text-green-600" />
             </div>
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
-              RFQ Sent Successfully!
+              Request submitted successfully!
             </h3>
             <p className="text-base text-slate-600 mb-4">
-              Thanks for reaching out. Our sales representative will contact you within 12 hours.
+              Ticket #{ticketId} created. We'll respond within business hours with samples/feasibility in 2–5 days with complete docs.
             </p>
             <div className="bg-blue-50 rounded-lg p-4 mb-4">
               <p className="text-sm text-blue-800 font-medium">
