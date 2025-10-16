@@ -734,8 +734,12 @@ export default function ProductsPage() {
       </section>
 
       <StickyActions
-        onContactScroll={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-        onWhatsApp={() => window.open('https://wa.me/8615899648898', '_blank', 'noopener')}
+        onOpenRfq={(source) => {
+          if (source === 'sticky_quote') {
+            openRfqModal(source);
+          }
+        }}
+        onWhatsApp={(source) => window.open('https://wa.me/8615899648898', '_blank', 'noopener')}
       />
 
       <RfqModal
