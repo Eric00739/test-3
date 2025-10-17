@@ -35,10 +35,30 @@ async function sendEmailWithResend(emailData: {
   attachments?: any[];
 }) {
   const RESEND_API_KEY = process.env.RESEND_API_KEY;
+  const RESEND_FROM_EMAIL = process.env.RESEND_FROM_EMAIL;
+  const RFQ_TO_EMAIL = process.env.RFQ_TO_EMAIL;
+  
+  console.log('🔍 Resend Debug - Environment variables:', {
+    hasApiKey: !!RESEND_API_KEY,
+    apiKeyPrefix: RESEND_API_KEY ? `${RESEND_API_KEY.substring(0, 8)}...` : 'missing',
+    fromEmail: RESEND_FROM_EMAIL,
+    toEmail: RFQ_TO_EMAIL
+  });
   
   if (!RESEND_API_KEY) {
+    console.error('❌ Resend Debug - RESEND_API_KEY is not configured');
     throw new Error('RESEND_API_KEY is not configured');
   }
+
+  const requestBody = {
+    from: emailData.from,
+    to: [emailData.to],
+    subject: emailData.subject,
+    text: emailData.text,
+    attachments: emailData.attachments,
+  };
+  
+  console.log('🔍 Resend Debug - Request body:', JSON.stringify(requestBody, null, 2));
 
   const response = await fetch('https://api.resend.com/emails', {
     method: 'POST',
@@ -46,21 +66,21 @@ async function sendEmailWithResend(emailData: {
       'Authorization': `Bearer ${RESEND_API_KEY}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      from: emailData.from,
-      to: [emailData.to],
-      subject: emailData.subject,
-      text: emailData.text,
-      attachments: emailData.attachments,
-    }),
+    body: JSON.stringify(requestBody),
   });
 
+  console.log('🔍 Resend Debug - Response status:', response.status);
+  console.log('🔍 Resend Debug - Response headers:', Object.fromEntries(response.headers.entries()));
+
   if (!response.ok) {
-    const error = await response.json();
-    throw new Error(`Failed to send email: ${error.message}`);
+    const error = await response.text();
+    console.error('❌ Resend Debug - Error response:', error);
+    throw new Error(`Failed to send email: ${error}`);
   }
 
-  return response.json();
+  const result = await response.json();
+  console.log('✅ Resend Debug - Success response:', result);
+  return result;
 }
 
 // Formspree API function for free static environments
@@ -176,10 +196,18 @@ function buildEmailContent({
 
 export async function POST(request: NextRequest) {
   try {
+    console.log('🔍 POST Debug - Starting RFQ submission...');
+    
     const formData = await request.formData();
+    console.log('🔍 POST Debug - Form data received:', {
+      keys: Array.from(formData.keys()),
+      hasAttachments: formData.getAll('attachments').length > 0,
+      attachmentCount: formData.getAll('attachments').length
+    });
 
     const honeypot = formData.get('website');
     if (typeof honeypot === 'string' && honeypot.trim().length > 0) {
+      console.log('🔍 POST Debug - Honeypot triggered, returning success');
       return NextResponse.json({ success: true });
     }
 
@@ -251,8 +279,15 @@ export async function POST(request: NextRequest) {
 
     // Try to send email using various services in order of preference
     // 1. Resend API (paid, but reliable)
+    console.log('🔍 Main Debug - Checking Resend availability:', {
+      hasApiKey: !!process.env.RESEND_API_KEY,
+      hasFromEmail: !!process.env.RESEND_FROM_EMAIL,
+      hasToEmail: !!process.env.RFQ_TO_EMAIL
+    });
+    
     if (process.env.RESEND_API_KEY) {
       try {
+        console.log('🔍 Main Debug - Attempting Resend API call...');
         await sendEmailWithResend({
           from: process.env.RESEND_FROM_EMAIL || ensureEnv('RFQ_FROM_EMAIL'),
           to: ensureEnv('RFQ_TO_EMAIL'),
@@ -261,14 +296,17 @@ export async function POST(request: NextRequest) {
           attachments: attachmentList.length > 0 ? attachmentList : undefined,
         });
 
+        console.log('✅ Main Debug - Resend API succeeded');
         return NextResponse.json({
           success: true,
           message: 'RFQ submitted successfully. We will contact you soon.'
         });
       } catch (resendError) {
-        console.error('Resend API failed:', resendError);
+        console.error('❌ Main Debug - Resend API failed:', resendError);
         // Fall back to next service
       }
+    } else {
+      console.log('⚠️ Main Debug - RESEND_API_KEY not found, skipping Resend');
     }
     
     // 2. Formspree (free tier available - 50 submissions/month)

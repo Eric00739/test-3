@@ -1,0 +1,17 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "regions": ["hkg1", "sin1"],
+  "functions": {
+    "src/app/api/rfq/route.ts": {
+      "runtime": "nodejs18.x"
+    }
+  },
+  "env": {
+    "RESEND_API_KEY": "@resend-api-key",
+    "RESEND_FROM_EMAIL": "@resend-from-email",
+    "RFQ_TO_EMAIL": "@rfq-to-email"
+  }
+}

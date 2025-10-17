@@ -15,10 +15,12 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: false,
   },
 
-  output: "export",
+  // Removed static export for Vercel deployment
+  // output: "export",
   trailingSlash: true,
 
   images: {
+    // Keep unoptimized for now, but Vercel can handle optimized images
     unoptimized: true,
     formats: ["image/webp", "image/avif"],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
@@ -28,15 +30,17 @@ const nextConfig: NextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 
-  assetPrefix: isProd && normalizedBasePath ? normalizedBasePath : undefined,
-  basePath: isProd && normalizedBasePath ? normalizedBasePath : undefined,
+  // Remove asset prefix and base path for Vercel
+  // assetPrefix: isProd && normalizedBasePath ? normalizedBasePath : undefined,
+  // basePath: isProd && normalizedBasePath ? normalizedBasePath : undefined,
 
   experimental: {
     optimizePackageImports: ["lucide-react"],
   },
 
   compiler: {
-    removeConsole: isProd,
+    // Keep console logs for debugging in production
+    removeConsole: false,
   },
 
   poweredByHeader: false,
