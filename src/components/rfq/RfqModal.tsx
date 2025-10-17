@@ -206,70 +206,115 @@ export function RfqModal({ open, onClose, onSubmit, source = 'default' }: RfqMod
     // 记录提交时间
     setLastSubmitTime(now);
     
-      // 设置提交状态
-      setIsSubmitting(true);
+    // 设置提交状态
+    setIsSubmitting(true);
     
     // 生成工单ID
     const newTicketId = `FF-${Date.now().toString().slice(-8)}`;
     setTicketId(newTicketId);
     
-    // 构建邮件内容
-    const body = [
-      `Hi FastFunRC team,`,
-      '',
-      `I'd like to request a quotation for your wireless control solutions.`,
-      '',
-      `Ticket ID: ${newTicketId}`,
-      `Name: ${name}`,
-      `Email: ${email}`,
-      `Use Case: ${useCase}`,
-      `Product Type: ${productType}`,
-      `Quantity: ${quantity}`,
-      `Frequency Band: ${band}`,
-      country && `Company: ${country}`,
-      '',
-      ...productType === 'inStock' ? [
-        `Original Brand/Model: ${originalBrand}`,
-        `Encoding/Chip: ${encoding}`,
-        `Target Range: ${targetRange}`,
-      ] : [],
-      ...productType === 'config' ? [
-        `Code Change: ${codeChange}`,
-        `Buttons/Appearance: ${buttons}`,
-        `Receiver Type: ${receiver}`,
-      ] : [],
-      attachedFiles.length > 0 && `Attachments: ${attachedFiles.map((f: File) => f.name).join(', ')}`,
-      '',
-      `Please send me your product catalog and current pricing information.`,
-      '',
-      `Thank you!`
-    ].filter(Boolean).join('\n');
-    
-    const params = new URLSearchParams({
-      subject: `RFQ received - Ticket ${newTicketId} — we'll reply within business hours`,
-      body,
-    });
-    
-    const mailtoUrl = `mailto:eric@fastfunrc.com?${params.toString()}`;
-    
-    // 通知父组件
-    onSubmit({
-      status: 'mailto',
-      message: 'Opening email client...',
-      data: { mailtoUrl }
-    });
-    
-    // 设置成功状态
-    setIsSubmitted(true);
-    
-    // 延迟关闭弹窗和打开邮件客户端
-    setTimeout(() => {
-      onClose();
-      setIsSubmitted(false);
+    try {
+      // 准备表单数据
+      const formData = new FormData();
+      formData.append('name', name.trim());
+      formData.append('email', email.trim());
+      formData.append('country', country.trim());
+      formData.append('message', `Use Case: ${useCase}\nProduct Type: ${productType}\nQuantity: ${quantity}\nFrequency Band: ${band}\n${productType === 'inStock' ? `Original Brand/Model: ${originalBrand}\nEncoding/Chip: ${encoding}\nTarget Range: ${targetRange}` : ''}${productType === 'config' ? `Code Change: ${codeChange}\nButtons/Appearance: ${buttons}\nReceiver Type: ${receiver}` : ''}`);
+      formData.append('source', source);
+      
+      // 添加附件
+      attachedFiles.forEach((file) => {
+        formData.append('attachments', file);
+      });
+      
+      // 发送API请求
+      const response = await fetch('/api/rfq', {
+        method: 'POST',
+        body: formData,
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        // 服务器成功发送邮件
+        onSubmit({
+          status: 'success',
+          message: result.message || 'RFQ submitted successfully. We will contact you soon.',
+          data: { ticketId: newTicketId }
+        });
+        
+        setIsSubmitted(true);
+        
+        // 延迟关闭弹窗
+        setTimeout(() => {
+          onClose();
+          setIsSubmitted(false);
+          setIsSubmitting(false);
+        }, 3000);
+      } else if (result.fallback) {
+        // 服务器无法发送邮件，使用客户端回退
+        const body = [
+          `Hi FastFunRC team,`,
+          '',
+          `I'd like to request a quotation for your wireless control solutions.`,
+          '',
+          `Ticket ID: ${newTicketId}`,
+          `Name: ${name}`,
+          `Email: ${email}`,
+          `Use Case: ${useCase}`,
+          `Product Type: ${productType}`,
+          `Quantity: ${quantity}`,
+          `Frequency Band: ${band}`,
+          country && `Company: ${country}`,
+          '',
+          ...productType === 'inStock' ? [
+            `Original Brand/Model: ${originalBrand}`,
+            `Encoding/Chip: ${encoding}`,
+            `Target Range: ${targetRange}`,
+          ] : [],
+          ...productType === 'config' ? [
+            `Code Change: ${codeChange}`,
+            `Buttons/Appearance: ${buttons}`,
+            `Receiver Type: ${receiver}`,
+          ] : [],
+          attachedFiles.length > 0 && `Attachments: ${attachedFiles.map((f: File) => f.name).join(', ')}`,
+          '',
+          `Please send me your product catalog and current pricing information.`,
+          '',
+          `Thank you!`
+        ].filter(Boolean).join('\n');
+        
+        const params = new URLSearchParams({
+          subject: `RFQ received - Ticket ${newTicketId} — we'll reply within business hours`,
+          body,
+        });
+        
+        const mailtoUrl = `mailto:eric@fastfunrc.com?${params.toString()}`;
+        
+        onSubmit({
+          status: 'mailto',
+          message: result.message || 'Server email services are unavailable. Opening your email client...',
+          data: { mailtoUrl, ticketId: newTicketId }
+        });
+        
+        setIsSubmitted(true);
+        
+        // 延迟关闭弹窗和打开邮件客户端
+        setTimeout(() => {
+          onClose();
+          setIsSubmitted(false);
+          setIsSubmitting(false);
+          window.location.href = mailtoUrl;
+        }, 3000);
+      } else {
+        // 发生错误
+        throw new Error(result.error || 'Failed to submit RFQ');
+      }
+    } catch (error) {
+      console.error('RFQ submission error:', error);
+      setSubmitError(error instanceof Error ? error.message : 'Failed to submit RFQ. Please try again.');
       setIsSubmitting(false);
-      // 打开邮件客户端
-      window.location.href = mailtoUrl;
-    }, 2200);
+    }
   };
 
   // 重置表单
@@ -334,7 +379,7 @@ export function RfqModal({ open, onClose, onSubmit, source = 'default' }: RfqMod
             </p>
             <div className="bg-blue-50 rounded-lg p-4 mb-4">
               <p className="text-sm text-blue-800 font-medium">
-                We&apos;re opening your email client now. Just press “Send” in the email window to complete the request.
+                We&apos;re received and will be processed now. Just press “Send” in the email window to complete the request.
               </p>
             </div>
             <p className="text-xs text-slate-400">

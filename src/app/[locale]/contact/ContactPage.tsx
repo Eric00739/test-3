@@ -164,18 +164,58 @@ export function ContactPage() {
     setIsSubmitting(true)
     
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500))
-      setSubmitStatus("success")
-      setFormData({
-        name: "",
-        email: "",
-        company: "",
-        phone: "",
-        subject: "",
-        message: ""
+      // 准备表单数据
+      const apiFormData = new FormData()
+      apiFormData.append('name', formData.name.trim())
+      apiFormData.append('email', formData.email.trim())
+      apiFormData.append('country', formData.company.trim())
+      apiFormData.append('message', formData.message.trim())
+      apiFormData.append('source', 'contact_page')
+      
+      // 发送API请求
+      const response = await fetch('/api/rfq', {
+        method: 'POST',
+        body: apiFormData,
       })
+      
+      const result = await response.json()
+      
+      if (result.success) {
+        // 服务器成功发送邮件
+        setSubmitStatus("success")
+        setFormData({
+          name: "",
+          email: "",
+          company: "",
+          phone: "",
+          subject: "",
+          message: ""
+        })
+      } else if (result.fallback) {
+        // 服务器无法发送邮件，使用客户端回退
+        const params = new URLSearchParams({
+          subject: `Contact Form: ${formData.subject}`,
+          body: `Name: ${formData.name}\nEmail: ${formData.email}\nCompany: ${formData.company}\nPhone: ${formData.phone}\n\nMessage:\n${formData.message}`,
+        })
+        
+        const mailtoUrl = `mailto:eric@fastfunrc.com?${params.toString()}`
+        window.location.href = mailtoUrl
+        
+        setSubmitStatus("success")
+        setFormData({
+          name: "",
+          email: "",
+          company: "",
+          phone: "",
+          subject: "",
+          message: ""
+        })
+      } else {
+        // 发生错误
+        throw new Error(result.error || 'Failed to submit contact form')
+      }
     } catch (error) {
+      console.error('Contact form submission error:', error)
       setSubmitStatus("error")
     } finally {
       setIsSubmitting(false)
