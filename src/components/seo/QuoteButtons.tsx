@@ -1,4 +1,6 @@
-﻿"use client";
+'use client';
+
+import { RFQ_MAILTO_EMAIL } from '@/config/rfq-config';
 
 interface QuoteButtonsProps {
   productName: string;
@@ -22,7 +24,7 @@ export function QuoteButtons({ productName, onOpenRfq }: QuoteButtonsProps) {
       const body = encodeURIComponent(
         `Hi FastFunRC team,%0D%0AWe are interested in the ${productName}. Please share MOQ, pricing tiers, lead times, and certification options.%0D%0A`
       );
-      window.location.href = `mailto:eric@fastfunrc.com?subject=${subject}&body=${body}`;
+      window.location.href = `mailto:${RFQ_MAILTO_EMAIL}?subject=${subject}&body=${body}`;
     }
   };
 

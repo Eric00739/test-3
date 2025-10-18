@@ -1,5 +1,6 @@
 "use client"
 
+import { RFQ_MAILTO_EMAIL } from "@/config/rfq-config"
 import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
@@ -198,7 +199,7 @@ export function ContactPage() {
           body: `Name: ${formData.name}\nEmail: ${formData.email}\nCompany: ${formData.company}\nPhone: ${formData.phone}\n\nMessage:\n${formData.message}`,
         })
         
-        const mailtoUrl = `mailto:eric@fastfunrc.com?${params.toString()}`
+        const mailtoUrl = `mailto:${RFQ_MAILTO_EMAIL}?${params.toString()}`
         window.location.href = mailtoUrl
         
         setSubmitStatus("success")

@@ -1,5 +1,6 @@
 'use client';
 
+import { RFQ_MAILTO_EMAIL } from '@/config/rfq-config';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
@@ -110,7 +111,7 @@ export function ProductComparison({
   const shareComparison = () => {
     const subject = 'Product Comparison from FastFun Remote';
     const body = `I'm comparing these products from FastFun Remote:\n\n${products.map(p => `- ${p.name}: ${p.description}`).join('\n')}\n\nPlease help me choose the right one.`;
-    window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:${RFQ_MAILTO_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
   if (products.length === 0) {

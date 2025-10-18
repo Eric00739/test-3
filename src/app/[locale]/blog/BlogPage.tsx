@@ -3,6 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useMemo, useState } from "react"
+import { RFQ_MAILTO_EMAIL } from "@/config/rfq-config"
 import {
   BookOpen,
   Calendar,
@@ -793,7 +794,9 @@ export function BlogPage({ articles }: BlogPageProps) {
             <Button
               variant="outline"
               className="border-orange-500 text-orange-500 hover:bg-orange-50"
-              onClick={() => window.open('mailto:eric@fastfunrc.com?subject=Newsletter Subscription')}
+              onClick={() =>
+                window.open(`mailto:${RFQ_MAILTO_EMAIL}?subject=Newsletter Subscription`)
+              }
             >
               <Mail size={16} className="mr-2" />
               Subscribe

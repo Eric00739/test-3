@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import { NextRequest, NextResponse } from 'next/server';
 
+import { getServerRfqConfig } from '@/config/rfq-config';
+
 // Only import nodemailer when running in Node.js environment
 let nodemailer: any;
 let AttachmentType: any;
@@ -18,14 +20,6 @@ export const runtime = 'nodejs';
 
 const MAX_TOTAL_ATTACHMENT_SIZE = 10 * 1024 * 1024; // 10MB
 
-function ensureEnv(name: string): string {
-  const value = process.env[name];
-  if (!value) {
-    throw new Error(`Missing environment variable: ${name}`);
-  }
-  return value;
-}
-
 // Resend API function for static environments
 async function sendEmailWithResend(emailData: {
   to: string;
@@ -36,13 +30,13 @@ async function sendEmailWithResend(emailData: {
 }) {
   const RESEND_API_KEY = process.env.RESEND_API_KEY;
   const RESEND_FROM_EMAIL = process.env.RESEND_FROM_EMAIL;
-  const RFQ_TO_EMAIL = process.env.RFQ_TO_EMAIL;
   
   console.log('🔍 Resend Debug - Environment variables:', {
     hasApiKey: !!RESEND_API_KEY,
     apiKeyPrefix: RESEND_API_KEY ? `${RESEND_API_KEY.substring(0, 8)}...` : 'missing',
-    fromEmail: RESEND_FROM_EMAIL,
-    toEmail: RFQ_TO_EMAIL
+    providedFrom: emailData.from,
+    configuredResendFrom: RESEND_FROM_EMAIL,
+    toEmail: emailData.to
   });
   
   if (!RESEND_API_KEY) {
@@ -121,26 +115,35 @@ async function sendEmailWithEmailJS(emailData: {
   from: string;
   subject: string;
   text: string;
+  serviceId: string;
+  templateId: string;
+  publicKey: string;
 }) {
-  const EMAILJS_SERVICE_ID = process.env.EMAILJS_SERVICE_ID;
-  const EMAILJS_TEMPLATE_ID = process.env.EMAILJS_TEMPLATE_ID;
-  const EMAILJS_PUBLIC_KEY = process.env.EMAILJS_PUBLIC_KEY;
+  const {
+    to,
+    from,
+    subject,
+    text,
+    serviceId,
+    templateId,
+    publicKey,
+  } = emailData;
   
-  if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
+  if (!serviceId || !templateId || !publicKey) {
     throw new Error('EmailJS configuration is missing');
   }
 
   // Extract form data from the text
-  const nameMatch = emailData.text.match(/Name: (.+)/);
-  const emailMatch = emailData.text.match(/Email: (.+)/);
-  const messageMatch = emailData.text.match(/Message: ([\s\S]+)/);
+  const nameMatch = text.match(/Name: (.+)/);
+  const emailMatch = text.match(/Email: (.+)/);
+  const messageMatch = text.match(/Message: ([\s\S]+)/);
   
   const templateParams = {
     from_name: nameMatch?.[1] || 'Unknown',
-    from_email: emailMatch?.[1] || emailData.from,
-    to_email: emailData.to,
-    subject: emailData.subject,
-    message: messageMatch?.[1] || emailData.text,
+    from_email: emailMatch?.[1] || from,
+    to_email: to,
+    subject,
+    message: messageMatch?.[1] || text,
   };
 
   const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
@@ -149,9 +152,9 @@ async function sendEmailWithEmailJS(emailData: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      service_id: EMAILJS_SERVICE_ID,
-      template_id: EMAILJS_TEMPLATE_ID,
-      user_id: EMAILJS_PUBLIC_KEY,
+      service_id: serviceId,
+      template_id: templateId,
+      user_id: publicKey,
       template_params: templateParams,
     }),
   });
@@ -277,20 +280,32 @@ export async function POST(request: NextRequest) {
 
     const attachmentList = attachments.filter(Boolean);
 
+    const rfqConfig = getServerRfqConfig();
+
     // Try to send email using various services in order of preference
     // 1. Resend API (paid, but reliable)
-    console.log('🔍 Main Debug - Checking Resend availability:', {
+    console.log('🔍 Main Debug - RFQ configuration snapshot:', {
       hasApiKey: !!process.env.RESEND_API_KEY,
-      hasFromEmail: !!process.env.RESEND_FROM_EMAIL,
-      hasToEmail: !!process.env.RFQ_TO_EMAIL
+      resendFromEmail: rfqConfig.resendFromEmail,
+      effectiveFromEmail: rfqConfig.fromEmail,
+      effectiveToEmail: rfqConfig.toEmail,
+      formspreeConfigured: !!rfqConfig.formspreeFormId,
+      emailJsConfigured:
+        !!rfqConfig.emailJs.serviceId &&
+        !!rfqConfig.emailJs.templateId &&
+        !!rfqConfig.emailJs.publicKey,
+      smtpConfigured:
+        !!rfqConfig.smtp.host &&
+        !!rfqConfig.smtp.user &&
+        !!rfqConfig.smtp.pass,
     });
     
     if (process.env.RESEND_API_KEY) {
       try {
         console.log('🔍 Main Debug - Attempting Resend API call...');
         await sendEmailWithResend({
-          from: process.env.RESEND_FROM_EMAIL || ensureEnv('RFQ_FROM_EMAIL'),
-          to: ensureEnv('RFQ_TO_EMAIL'),
+          from: rfqConfig.resendFromEmail || rfqConfig.fromEmail,
+          to: rfqConfig.toEmail,
           subject: 'New RFQ submission',
           text: emailContent,
           attachments: attachmentList.length > 0 ? attachmentList : undefined,
@@ -310,14 +325,14 @@ export async function POST(request: NextRequest) {
     }
     
     // 2. Formspree (free tier available - 50 submissions/month)
-    if (process.env.FORMSPREE_FORM_ID) {
+    if (rfqConfig.formspreeFormId) {
       try {
         await sendEmailWithFormspree({
           from: email.trim(),
-          to: ensureEnv('RFQ_TO_EMAIL'),
+          to: rfqConfig.toEmail,
           subject: 'New RFQ submission',
           text: emailContent,
-          formId: process.env.FORMSPREE_FORM_ID,
+          formId: rfqConfig.formspreeFormId,
         });
 
         return NextResponse.json({
@@ -331,13 +346,17 @@ export async function POST(request: NextRequest) {
     }
     
     // 3. EmailJS (free tier available - 200 emails/month)
-    if (process.env.EMAILJS_SERVICE_ID && process.env.EMAILJS_TEMPLATE_ID && process.env.EMAILJS_PUBLIC_KEY) {
+    const { serviceId, templateId, publicKey } = rfqConfig.emailJs;
+    if (serviceId && templateId && publicKey) {
       try {
         await sendEmailWithEmailJS({
           from: email.trim(),
-          to: ensureEnv('RFQ_TO_EMAIL'),
+          to: rfqConfig.toEmail,
           subject: 'New RFQ submission',
           text: emailContent,
+          serviceId,
+          templateId,
+          publicKey,
         });
 
         return NextResponse.json({
@@ -351,17 +370,22 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if nodemailer is available (for server environments)
-    if (nodemailer) {
+    if (
+      nodemailer &&
+      rfqConfig.smtp.host &&
+      rfqConfig.smtp.user &&
+      rfqConfig.smtp.pass
+    ) {
       try {
-        const smtpPort = Number(process.env.RFQ_SMTP_PORT ?? 587);
+        const smtpPort = rfqConfig.smtp.port ?? 587;
 
         const transporter = nodemailer.createTransport({
-          host: ensureEnv('RFQ_SMTP_HOST'),
+          host: rfqConfig.smtp.host,
           port: smtpPort,
           secure: smtpPort === 465,
           auth: {
-            user: ensureEnv('RFQ_SMTP_USER'),
-            pass: ensureEnv('RFQ_SMTP_PASS'),
+            user: rfqConfig.smtp.user,
+            pass: rfqConfig.smtp.pass,
           },
         });
 
@@ -382,8 +406,8 @@ export async function POST(request: NextRequest) {
         const nodemailerAttachmentList = nodemailerAttachments.filter(Boolean) as typeof AttachmentType[];
 
         await transporter.sendMail({
-          from: ensureEnv('RFQ_FROM_EMAIL'),
-          to: ensureEnv('RFQ_TO_EMAIL'),
+          from: rfqConfig.fromEmail,
+          to: rfqConfig.toEmail,
           replyTo: email.trim(),
           subject: 'New RFQ submission',
           text: emailContent,
@@ -398,6 +422,8 @@ export async function POST(request: NextRequest) {
         console.error('Nodemailer failed:', nodemailerError);
         // Fall back to client-side submission
       }
+    } else if (nodemailer) {
+      console.warn('⚠️ Nodemailer is available but SMTP configuration is incomplete, skipping transporter setup.');
     }
 
     // Final fallback: return form data for client-side mailto

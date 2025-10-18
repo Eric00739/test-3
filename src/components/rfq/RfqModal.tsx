@@ -6,6 +6,7 @@ import { MessageCircle, Send, Check, AlertCircle, Upload, X, ChevronRight } from
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { RFQ_MAILTO_EMAIL } from '@/config/rfq-config';
 
 export interface RfqModalProps {
   open: boolean;
@@ -289,7 +290,7 @@ export function RfqModal({ open, onClose, onSubmit, source = 'default' }: RfqMod
           body,
         });
         
-        const mailtoUrl = `mailto:eric@fastfunrc.com?${params.toString()}`;
+        const mailtoUrl = `mailto:${RFQ_MAILTO_EMAIL}?${params.toString()}`;
         
         onSubmit({
           status: 'mailto',
