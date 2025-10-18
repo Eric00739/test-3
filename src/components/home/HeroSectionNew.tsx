@@ -8,12 +8,12 @@ import { Button } from "@/components/ui/button"
 
 export interface HeroSectionNewProps {
   onOpenRfq: (source: string) => void
-  onWhatsApp: (source: string) => void
 }
 
-export function HeroSectionNew({ onOpenRfq, onWhatsApp }: HeroSectionNewProps) {
+export function HeroSectionNew({ onOpenRfq }: HeroSectionNewProps) {
   const t = useTranslations("hero")
   const keyPoints = [t("keyPoints.0"), t("keyPoints.1")]
+  const heroPromise = t("promise")
 
   return (
     <section id="hero" className="relative bg-white py-24 lg:py-32">
@@ -48,7 +48,7 @@ export function HeroSectionNew({ onOpenRfq, onWhatsApp }: HeroSectionNewProps) {
               ))}
             </div>
 
-            <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
+            <div className="mt-10 flex justify-center lg:justify-start">
               <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                 <Button
                   size="lg"
@@ -59,36 +59,10 @@ export function HeroSectionNew({ onOpenRfq, onWhatsApp }: HeroSectionNewProps) {
                   <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
                 </Button>
               </motion.div>
-
-              <Button
-                size="lg"
-                variant="outline"
-                className="rounded-full border-slate-300 px-8 py-3 text-slate-700 transition-colors duration-200 hover:bg-slate-50 hover:text-slate-900 focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2"
-                onClick={() => onOpenRfq("hero_compatibility")}
-              >
-                {t("compatibilityCta")}
-              </Button>
             </div>
 
+            <p className="mt-6 text-sm text-slate-500 lg:max-w-2xl">{heroPromise}</p>
             <div className="mt-4 text-sm text-slate-500 lg:max-w-2xl">{t("longRangeFootnote")}</div>
-
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-sm text-slate-500 lg:justify-start">
-              <button
-                type="button"
-                className="underline-offset-4 transition-colors hover:text-orange-600 focus-visible:outline-none focus-visible:underline"
-                onClick={() => onOpenRfq("hero_catalog")}
-              >
-                {t("catalogCta")}
-              </button>
-              <span className="hidden h-1 w-1 rounded-full bg-slate-300 lg:inline-flex" aria-hidden="true" />
-              <button
-                type="button"
-                className="underline-offset-4 transition-colors hover:text-orange-600 focus-visible:outline-none focus-visible:underline"
-                onClick={() => onWhatsApp("hero_whatsapp")}
-              >
-                {t("compatibilityCtaSecondary")}
-              </button>
-            </div>
           </motion.div>
 
           <motion.div

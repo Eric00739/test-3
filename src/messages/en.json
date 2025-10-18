@@ -80,9 +80,17 @@
                             "catalog":  "Compatibility/Replacement Lookup",
                             "whatsappAria":  "Open WhatsApp chat",
                             "samplesAria":  "Get a Quote",
-                            "catalogAria":  "Compatibility/Replacement Lookup"
-                        },
-    "footer":  {
+      "catalogAria":  "Compatibility/Replacement Lookup"
+  },
+  "stickyActions":  {
+    "title":  "Need help?",
+    "description":  "Chat with an engineer or open an RFQ ticket in seconds.",
+    "quote":  "Get a Quote",
+    "whatsapp":  "WhatsApp Chat",
+    "hide":  "Hide",
+    "show":  "Show quick actions"
+  },
+  "footer":  {
                    "tagline":  "FastFun Remote — your trusted IoT partner since 2010. ISO 9001:2015 certified electronics manufacturing delivering precision smart devices with 98.7% FPY. 15 years experience, 47 NPI projects annually, serving 100+ brands across 28 countries.",
                    "badges":  {
                                   "shipping":  "Global Shipping • 28 Countries",

@@ -63,6 +63,14 @@
     "samplesAria": "Richiedi campioni prodotto",
     "catalogAria": "Scarica il catalogo"
   },
+  "stickyActions": {
+    "title": "Serve aiuto?",
+    "description": "Parla con un ingegnere o apri un ticket RFQ in pochi secondi.",
+    "quote": "Richiedi preventivo",
+    "whatsapp": "Chat WhatsApp",
+    "hide": "Nascondi",
+    "show": "Mostra azioni rapide"
+  },
   "footer": {
     "tagline": "FastFun Remote — il tuo partner IoT di fiducia dal 2010. Produzione elettronica certificata ISO che consegna dispositivi smart di precisione con FPY al 98,7%. 15 anni di esperienza, 47 progetti NPI l’anno.",
     "badges": {

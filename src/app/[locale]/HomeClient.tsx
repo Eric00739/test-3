@@ -8,7 +8,6 @@ import { TrustStripSection } from '@/components/home/TrustStripSection'
 import { UnifiedCTA } from '@/components/home/UnifiedCTA'
 import { ComparisonProvider } from '@/contexts/ComparisonContext'
 import { RfqModal } from '@/components/rfq/RfqModal'
-import { MobileActionBar } from '@/components/home/MobileActionBar'
 import { SiteFooter } from '@/components/layout/SiteFooter'
 import { HeaderBar } from '@/components/home/HeaderBar'
 import { MessageCircle } from 'lucide-react'
@@ -176,7 +175,7 @@ export function HomeClient() {
         />
 
         {/* Attention Block: Simplified Hero */}
-        <HeroSectionNew onOpenRfq={openRfqModal} onWhatsApp={openWhatsApp} />
+        <HeroSectionNew onOpenRfq={openRfqModal} />
 
         {/* Trust Strip - Moved Below Hero */}
         <TrustStripSection
@@ -254,7 +253,7 @@ export function HomeClient() {
 
         {/* Action Block: Contact Section */}
         <section id="contact" className="py-16 bg-white">
-          <ContactSection onOpenRfq={openRfqModal} />
+          <ContactSection onOpenRfq={openRfqModal} onWhatsApp={openWhatsApp} />
         </section>
 
         {/* Sticky Actions */}
@@ -262,9 +261,6 @@ export function HomeClient() {
           onOpenRfq={openRfqModal}
           onWhatsApp={openWhatsApp}
         />
-
-        {/* Mobile Action Bar */}
-        <MobileActionBar onOpenRfq={openRfqModal} onWhatsApp={openWhatsApp} />
 
         {/* Modals */}
         {isWhatsAppOpen && (

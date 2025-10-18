@@ -7,7 +7,6 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { HeaderBar } from '@/components/home/HeaderBar'
 import { StickyActions } from '@/components/home/StickyActions'
-import { MobileActionBar } from '@/components/home/MobileActionBar'
 import { RfqModal } from '@/components/rfq/RfqModal'
 import { ComparisonProvider } from '@/contexts/ComparisonContext'
 import { ComparisonBar } from '@/components/product/ComparisonBar'
@@ -734,12 +733,10 @@ export default function ProductsPage() {
       </section>
 
       <StickyActions
-        onOpenRfq={(source) => {
-          if (source === 'sticky_quote') {
-            openRfqModal(source);
-          }
+        onOpenRfq={openRfqModal}
+        onWhatsApp={() => {
+          window.open('https://wa.me/8615899648898', '_blank', 'noopener')
         }}
-        onWhatsApp={(source) => window.open('https://wa.me/8615899648898', '_blank', 'noopener')}
       />
 
       <RfqModal
@@ -748,8 +745,6 @@ export default function ProductsPage() {
         onSubmit={handleRfqSubmit}
         source={rfqSource}
       />
-
-      <MobileActionBar onOpenRfq={openRfqModal} onWhatsApp={() => window.open('https://wa.me/8615899648898', '_blank', 'noopener')} />
 
       {/* Structured Data */}
       <Script
