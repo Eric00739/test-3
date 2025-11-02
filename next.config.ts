@@ -11,9 +11,10 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: false,
   },
 
-  eslint: {
-    ignoreDuringBuilds: false,
-  },
+  // Remove eslint config to avoid compilation issues
+  // eslint: {
+  //   ignoreDuringBuilds: false,
+  // },
 
   // Removed static export for Vercel deployment
   // output: "export",

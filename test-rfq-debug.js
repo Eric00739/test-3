@@ -1,7 +1,10 @@
 // Test script to debug RFQ email functionality
 // Run this with: node test-rfq-debug.js
 
-const fetch = require('node-fetch');
+// Load environment variables from .env.local
+require('dotenv').config({ path: '.env.local' });
+
+const { default: fetch } = require('node-fetch');
 
 async function testRfqSubmission() {
   console.log('🧪 Testing RFQ submission...');

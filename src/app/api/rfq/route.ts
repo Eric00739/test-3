@@ -86,13 +86,13 @@ async function sendEmailWithFormspree(emailData: {
   formId: string;
 }) {
   const FORMSPREE_ENDPOINT = `https://formspree.io/f/${emailData.formId}`;
-  
+
   const formData = new FormData();
   formData.append('name', emailData.text.match(/Name: (.+)/)?.[1] || '');
   formData.append('email', emailData.from);
   formData.append('subject', emailData.subject);
   formData.append('message', emailData.text);
-  
+
   const response = await fetch(FORMSPREE_ENDPOINT, {
     method: 'POST',
     body: formData,
@@ -119,16 +119,8 @@ async function sendEmailWithEmailJS(emailData: {
   templateId: string;
   publicKey: string;
 }) {
-  const {
-    to,
-    from,
-    subject,
-    text,
-    serviceId,
-    templateId,
-    publicKey,
-  } = emailData;
-  
+  const { to, from, subject, text, serviceId, templateId, publicKey } = emailData;
+
   if (!serviceId || !templateId || !publicKey) {
     throw new Error('EmailJS configuration is missing');
   }
@@ -137,7 +129,7 @@ async function sendEmailWithEmailJS(emailData: {
   const nameMatch = text.match(/Name: (.+)/);
   const emailMatch = text.match(/Email: (.+)/);
   const messageMatch = text.match(/Message: ([\s\S]+)/);
-  
+
   const templateParams = {
     from_name: nameMatch?.[1] || 'Unknown',
     from_email: emailMatch?.[1] || from,
