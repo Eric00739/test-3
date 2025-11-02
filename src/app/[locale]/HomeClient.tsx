@@ -135,7 +135,6 @@ export function HomeClient() {
   }) => {
     if (result.status === 'success') {
       trackEvent('rfq_submit', { source: rfqSource })
-      closeRfqModal()
     } else if (result.status === 'mailto') {
       const mailtoUrl: string | undefined = result.data?.mailtoUrl
       if (mailtoUrl) {

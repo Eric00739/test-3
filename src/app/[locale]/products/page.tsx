@@ -259,7 +259,7 @@ export default function ProductsPage() {
     data?: any;
   }) => {
     if (result.status === 'success') {
-      closeRfqModal()
+      return
     } else if (result.status === 'mailto') {
       const mailtoUrl: string | undefined = result.data?.mailtoUrl
       if (mailtoUrl) {
