@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FastFun Remote Control - Soluzioni di Telecomando RF e WiFi</title>
+    <title>FastFun RC - Soluzioni di Telecomando RF e WiFi</title>
     <meta name="description" content="Produttore leader di telecomandi RF, controller, interruttori WiFi e soluzioni di telecomando per auto dal 2010.">
     <meta name="keywords" content="telecomando RF, interruttore intelligente WiFi, telecomando auto aftermarket, controller RF, kit RF">
     <meta name="author" content="FastFun Remote Control">
     <meta name="robots" content="index, follow">
-    <meta property="og:title" content="FastFun Remote Control - Soluzioni di Telecomando RF e WiFi">
+    <meta property="og:title" content="FastFun RC - Soluzioni di Telecomando RF e WiFi">
     <meta property="og:description" content="Produttore leader di telecomandi RF, controller, interruttori WiFi e soluzioni di telecomando per auto dal 2010.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://fastfunrc.com/it/">
     <meta property="og:image" content="https://fastfunrc.com/images/og-image.jpg">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="FastFun Remote Control - Soluzioni di Telecomando RF e WiFi">
+    <meta name="twitter:title" content="FastFun RC - Soluzioni di Telecomando RF e WiFi">
     <meta name="twitter:description" content="Produttore leader di telecomandi RF, controller, interruttori WiFi e soluzioni di telecomando per auto dal 2010.">
     <meta name="twitter:image" content="https://fastfunrc.com/images/og-image.jpg">
     
@@ -317,8 +317,10 @@ a.btn:visited {
     <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
 </head>
 <body>
+    <!-- Main content target for skip links -->
+    <main id="main-content">
     <!-- Navigation -->
-    <nav class="navbar" id="navbar">
+    <nav class="navbar" id="navbar" id="navigation">
         <div class="navbar-container">
             <a href="../index.html" class="logo" aria-label="FastFun RC Home">
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -329,12 +331,12 @@ a.btn:visited {
                 <span class="sr-only">FastFun RC</span>
             </a>
             
-            <ul class="nav-menu" id="navMenu" role="navigation" aria-label="Navigazione principale">
+            <ul class="nav-menu" id="navMenu" role="navigation" aria-label="Main navigation">
                 <li><a href="../index.html" class="nav-link" data-i18n="nav.home">Home</a></li>
-                <li><a href="../about.html" class="nav-link" data-i18n="nav.about">Chi Siamo</a></li>
-                <li><a href="../products.html" class="nav-link" data-i18n="nav.products">Prodotti</a></li>
-                <li><a href="../blog.html" class="nav-link" data-i18n="nav.blog">Blog</a></li>
-                <li><a href="../contact.html" class="nav-link" data-i18n="nav.contact">Contatto</a></li>
+                <li><a href="about.html" class="nav-link" data-i18n="nav.about">Chi Siamo</a></li>
+                <li><a href="products.html#compatibility" class="nav-link" data-i18n="nav.products">Prodotti</a></li>
+                <li><a href="blog.html" class="nav-link" data-i18n="nav.blog">Blog</a></li>
+                <li><a href="contact.html" class="nav-link" data-i18n="nav.contact">Contatto</a></li>
                 <li>
                     <div class="language-selector">
                         <button class="language-dropdown" id="languageDropdown">
@@ -345,16 +347,16 @@ a.btn:visited {
                         </button>
                         <div class="language-menu" id="languageMenu">
                             <a href="../index.html" class="language-option" data-lang="en">English</a>
-                            <a href="../es/index.html" class="language-option" data-lang="es">Español</a>
-                            <a href="../pt/index.html" class="language-option" data-lang="pt">Português</a>
-                            <a href="../fr/index.html" class="language-option" data-lang="fr">Français</a>
+                            <a href="../es/" class="language-option" data-lang="es">Español</a>
+                            <a href="../pt/" class="language-option" data-lang="pt">Português</a>
+                            <a href="../fr/" class="language-option" data-lang="fr">Français</a>
                             <a href="#" class="language-option active" data-lang="it">Italiano</a>
                         </div>
                     </div>
                 </li>
             </ul>
             
-            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Attiva/disattiva menu di navigazione" aria-controls="navMenu" aria-expanded="false">
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu" aria-controls="navMenu" aria-expanded="false">
                 <div class="hamburger"></div>
             </button>
         </div>
@@ -363,40 +365,16 @@ a.btn:visited {
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <div class="hero-content animate-fade-in-up">
+            <div class="hero-content animate-on-scroll">
                 <h1 class="hero-title" data-i18n="home.heroTitle">Soluzioni Innovative di Telecomando</h1>
                 <p class="hero-subtitle" data-i18n="home.heroSubtitle">Telecomandi RF Professionali, Interruttori WiFi e Soluzioni Aftermarket per Auto</p>
                 <div class="hero-buttons">
-                    <a href="https://wa.me/8615899648898?text=Interessato alle soluzioni di telecomando RF - FastFun RC" class="btn btn-primary btn-large hero-cta-primary" data-i18n="home.heroCtaPrimary">Ottieni un Preventivo</a>
-                    <a href="../products.html" class="btn btn-outline btn-large hero-cta-secondary" data-i18n="home.heroCtaSecondary">Scarica il Catalogo</a>
+                    <a href="https://wa.me/8615899648898?text=Interested in RF remote solutions - FastFun RC" class="btn btn-primary btn-large hero-cta-primary" data-i18n="home.heroCtaPrimary" onclick="trackCTAClick('Get Quote Now', 'hero_section'); trackContactClick('WhatsApp', '+8615899648898');">Ottieni un Preventivo</a>
+                    <a href="products.html" class="btn btn-outline btn-large hero-cta-secondary" data-i18n="home.heroCtaSecondary" onclick="trackCTAClick('Download Catalog', 'hero_section');">Scarica il Catalogo</a>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Main Content -->
-    <main id="main-content" class="container">
-        <section class="section">
-            <div class="text-center">
-                <h2 data-i18n="home.features.title">Perché Scegliere FastFun?</h2>
-                <p data-i18n="home.features.subtitle">Leader nelle soluzioni di telecomando professionale dal 2010</p>
-            </div>
-            
-            <div class="grid grid-3">
-                <div class="feature-card">
-                    <h3 data-i18n="home.features.quality.title">Qualità Premium</h3>
-                    <p data-i18n="home.features.quality.description">Produzione certificata ISO con controllo qualità rigoroso</p>
-                </div>
-                <div class="feature-card">
-                    <h3 data-i18n="home.features.innovation.title">Tecnologia All'avanguardia</h3>
-                    <p data-i18n="home.features.innovation.description">Ultima tecnologia RF e WiFi per prestazioni affidabili</p>
-                </div>
-                <div class="feature-card">
-                    <h3 data-i18n="home.features.support.title">Supporto Esperto</h3>
-                    <p data-i18n="home.features.support.description">Supporto tecnico professionale e servizi di personalizzazione</p>
-                </div>
-            </div>
-        </section>
     </main>
 
     <!-- Footer -->
@@ -405,39 +383,160 @@ a.btn:visited {
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>FastFun Remote Control</h3>
-                    <p>Produttore leader di soluzioni di telecomando professionale dal 2010. Approvato da oltre 50.000 professionisti in tutto il mondo.</p>
+                    <p>Produttore leader di soluzioni di controllo remoto professionale dal 2010. Affidato da oltre 50.000 professionisti in tutto il mondo.</p>
                 </div>
                 <div class="footer-section">
                     <h3>Prodotti</h3>
                     <ul class="footer-links">
-                        <li><a href="../products.html#rf-remote">Telecomando RF</a></li>
-                        <li><a href="../products.html#rf-controller">Controller RF</a></li>
-                        <li><a href="../products.html#rf-kit">Kit RF</a></li>
-                        <li><a href="../products.html#wifi-switch">Interruttore WiFi</a></li>
+                        <li><a href="products.html#rf-remote" data-i18n="products.rfRemote.title">Telecomando RF</a></li>
+                        <li><a href="products.html#rf-controller" data-i18n="products.rfController.title">Controller RF</a></li>
+                        <li><a href="products.html#rf-kit" data-i18n="products.rfKit.title">Kit RF</a></li>
+                        <li><a href="products.html#wifi-switch" data-i18n="products.wifiSwitch.title">Interruttore WiFi</a></li>
+                        <li><a href="products.html#car-remote" data-i18n="products.carRemote.title">Telecomando Auto</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h3>Azienda</h3>
                     <ul class="footer-links">
-                        <li><a href="../about.html">Chi Siamo</a></li>
-                        <li><a href="../blog.html">Blog</a></li>
-                        <li><a href="../contact.html">Contatto</a></li>
+                        <li><a href="about.html" data-i18n="nav.about">Chi Siamo</a></li>
+                        <li><a href="blog.html" data-i18n="nav.blog">Blog</a></li>
+                        <li><a href="contact.html" data-i18n="nav.contact">Contatto</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h3>Contatto</h3>
                     <p>Email: eric@fastfunrc.com</p>
-                    <p>Telefono/WhatsApp: <a href="tel:+8615899648898">+86 158 9964 8898</a></p>
-                    <p>8° Piano, Edificio 1, Huawei Kegu<br>Dalingshan Town, Dongguan City<br>Provincia di Guangdong, Cina</p>
+                    <p>Telefono/WhatsApp: <a href="tel:+8615899648898" onclick="trackContactClick('Phone', '+8615899648898');">+86 158 9964 8898</a></p>
+                    <p>8th Floor, Building 1, Huawei Kegu<br>Dalingshan Town, Dongguan City<br>Guangdong Province, China</p>
+                    <p><a href="mailto:eric@fastfunrc.com" onclick="trackContactClick('Email', 'eric@fastfunrc.com');">eric@fastfunrc.com</a></p>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p data-i18n="footer.copyright">© 2024 FastFun Remote Control. Tutti i diritti riservati.</p>
+                <p data-i18n="footer.copyright">&copy; 2025 FastFun Remote. Tutti i diritti riservati.</p>
             </div>
         </div>
     </footer>
 
-    <!-- JavaScript -->
+    <!-- Google Analytics with proper configuration -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        
+        // GA4 Configuration with enhanced features
+        gtag('config', 'G-XXXXXXXXXX', {
+            page_title: document.title,
+            page_location: window.location.href,
+            content_group1: 'B2B RF Solutions',
+            send_page_view: true,
+            allow_google_signals: true,
+            allow_ad_personalization_signals: true,
+            custom_map: {
+                'custom_parameter_1': 'product_category',
+                'custom_parameter_2': 'user_language',
+                'custom_parameter_3': 'form_type'
+            }
+        });
+        
+        // Custom event tracking setup
+        window.trackEvent = function(eventName, parameters) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', eventName, parameters);
+            }
+        };
+        
+        // E-commerce tracking setup
+        window.trackEcommerceEvent = function(eventName, parameters) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', eventName, {
+                    ...parameters,
+                    currency: 'USD',
+                    value: parameters.value || 0
+                });
+            }
+        };
+        
+        // Form submission tracking
+        window.trackFormSubmission = function(formType, formLocation) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'generate_lead', {
+                    form_type: formType,
+                    form_location: formLocation,
+                    user_language: document.documentElement.lang || 'en'
+                });
+            }
+        };
+        
+        // CTA button tracking
+        window.trackCTAClick = function(ctaText, ctaLocation) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'select_content', {
+                    content_type: 'button',
+                    item_id: ctaText,
+                    location: ctaLocation,
+                    user_language: document.documentElement.lang || 'en'
+                });
+            }
+        };
+        
+        // WhatsApp/Phone contact tracking
+        window.trackContactClick = function(contactMethod, contactValue) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'contact', {
+                    method: contactMethod,
+                    value: contactValue,
+                    user_language: document.documentElement.lang || 'en'
+                });
+            }
+        };
+        
+        // File download tracking
+        window.trackFileDownload = function(fileName, fileType) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'file_download', {
+                    file_name: fileName,
+                    file_type: fileType,
+                    link_url: window.location.href,
+                    user_language: document.documentElement.lang || 'en'
+                });
+            }
+        };
+        
+        // Language change tracking
+        window.trackLanguageChange = function(fromLang, toLang) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'language_change', {
+                    from_language: fromLang,
+                    to_language: toLang,
+                    user_language: toLang
+                });
+            }
+        };
+        
+        // Performance tracking
+        window.trackPagePerformance = function() {
+            if (typeof gtag !== 'undefined' && window.performance && window.performance.timing) {
+                const loadTime = window.performance.timing.loadEventEnd - window.performance.timing.navigationStart;
+                const domContentLoaded = window.performance.timing.domContentLoadedEventEnd - window.performance.timing.navigationStart;
+                
+                gtag('event', 'page_performance', {
+                    custom_map: {
+                        load_time: loadTime,
+                        dom_content_loaded: domContentLoaded
+                    }
+                });
+            }
+        };
+        
+        // Track performance on page load
+        if (document.readyState === 'complete') {
+            window.trackPagePerformance();
+        } else {
+            window.addEventListener('load', window.trackPagePerformance);
+        }
+    </script>
+
     <script src="../script.js"></script>
 </body>
 </html>

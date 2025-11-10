@@ -180,6 +180,8 @@ function setLanguage(lang, updateUrl = true) {
         return;
     }
     
+    // Capture previous language before updating for analytics
+    const previousLanguage = currentLanguage;
     currentLanguage = lang;
     localStorage.setItem('preferredLanguage', lang);
     
@@ -212,8 +214,8 @@ function setLanguage(lang, updateUrl = true) {
     updateHreflangLinks(lang);
     
     // Track language change
-    if (typeof trackLanguageChange !== 'undefined' && currentLanguage !== lang) {
-        trackLanguageChange(currentLanguage, lang);
+    if (typeof trackLanguageChange !== 'undefined' && previousLanguage !== lang) {
+        trackLanguageChange(previousLanguage, lang);
     }
     
     // Announce language change to screen readers
@@ -412,17 +414,30 @@ function navigateToLanguageVersion(lang, currentPath) {
         pageName = 'index.html';
     }
     
-    // Build the new URL
-    let newUrl;
-    if (lang === 'en') {
-        newUrl = `/${pageName}`;
-    } else {
-        newUrl = `/${lang}/${pageName}`;
+    // Check if the localized version exists before navigating
+    const checkUrl = lang === 'en' ? `/${pageName}` : `/${lang}/${pageName}`;
+    
+    // For non-English pages, check if the translation exists
+    if (lang !== 'en') {
+        // Check if we have translations for this page
+        const pageKey = pageName.replace('.html', '');
+        const hasTranslation = translations[lang] && (
+            translations[lang][pageKey] ||
+            translations[lang].nav ||
+            translations[lang].site
+        );
+        
+        if (!hasTranslation) {
+            console.warn(`No translation available for page ${pageKey} in language ${lang}`);
+            // Fall back to English if translation doesn't exist
+            window.location.href = `/${pageName}`;
+            return;
+        }
     }
     
     // Navigate to the new language version
-    console.log('Navigating to:', newUrl, 'from:', currentPath, 'language:', lang);
-    window.location.href = newUrl;
+    console.log('Navigating to:', checkUrl, 'from:', currentPath, 'language:', lang);
+    window.location.href = checkUrl;
 }
 
 // Detect language from URL
@@ -990,14 +1005,15 @@ function initializeAnimations() {
     const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('animate-fade-in-up');
+                // Add a different class for animation trigger
+                entry.target.classList.add('is-visible');
                 observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
     
-    // Observe elements with animation classes
-    document.querySelectorAll('.animate-fade-in-up').forEach(el => {
+    // Observe elements with animation classes (use different class name)
+    document.querySelectorAll('.animate-on-scroll').forEach(el => {
         observer.observe(el);
     });
 }
@@ -1007,13 +1023,26 @@ function initializeSmoothScrolling() {
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            
+            // Skip empty or hash-only links that don't target actual elements
+            if (href === '#' || href === '#!' || href === '#top') {
+                e.preventDefault();
+                // Scroll to top for hash-only links
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+                return;
+            }
+            
             e.preventDefault();
             
-            const target = document.querySelector(this.getAttribute('href'));
+            const target = document.querySelector(href);
             if (target) {
                 const offsetTop = target.offsetTop - 80; // Account for fixed navbar
                 
-                target.focus(); // 添加焦点以支持键盘导航
+                target.focus(); // Add focus for keyboard navigation
                 window.scrollTo({
                     top: offsetTop,
                     behavior: 'smooth'
@@ -1021,7 +1050,7 @@ function initializeSmoothScrolling() {
             }
         });
         
-        // 添加键盘支持
+        // Add keyboard support
         anchor.addEventListener('keydown', function(e) {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
