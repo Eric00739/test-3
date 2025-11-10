@@ -14,7 +14,12 @@
       "getQuote": "Get Quote",
       "whatsapp": "WhatsApp",
       "whatsappCta": "Chat on WhatsApp",
-      "wechat": "WeChat"
+      "wechat": "WeChat",
+      "communication": {
+        "whatsapp": "WhatsApp",
+        "wechat": "WeChat",
+        "phone": "Call Us"
+      }
     },
     "home": {
       "heroTitle": "Industry-Leading RF Remote Control Solutions Since 2010",
@@ -300,7 +305,12 @@
       "getQuote": "Cotizar",
       "whatsapp": "WhatsApp",
       "whatsappCta": "Chatear por WhatsApp",
-      "wechat": "WeChat"
+      "wechat": "WeChat",
+      "communication": {
+        "whatsapp": "WhatsApp",
+        "wechat": "WeChat",
+        "phone": "Llámanos"
+      }
     },
     "home": {
       "heroTitle": "Soluciones Innovadoras de Control Remoto",
@@ -452,7 +462,12 @@
       "getQuote": "Orçar",
       "whatsapp": "WhatsApp",
       "whatsappCta": "Converse no WhatsApp",
-      "wechat": "WeChat"
+      "wechat": "WeChat",
+      "communication": {
+        "whatsapp": "WhatsApp",
+        "wechat": "WeChat",
+        "phone": "Ligue para nós"
+      }
     },
     "home": {
       "heroTitle": "Soluções Inovadoras de Controle Remoto",
@@ -604,7 +619,12 @@
       "getQuote": "Devis",
       "whatsapp": "WhatsApp",
       "whatsappCta": "Discuter sur WhatsApp",
-      "wechat": "WeChat"
+      "wechat": "WeChat",
+      "communication": {
+        "whatsapp": "WhatsApp",
+        "wechat": "WeChat",
+        "phone": "Appelez-nous"
+      }
     },
     "home": {
       "heroTitle": "Solutions Innovantes de Contrôle à Distance",
@@ -756,7 +776,12 @@
       "getQuote": "Preventivo",
       "whatsapp": "WhatsApp",
       "whatsappCta": "Chatta su WhatsApp",
-      "wechat": "WeChat"
+      "wechat": "WeChat",
+      "communication": {
+        "whatsapp": "WhatsApp",
+        "wechat": "WeChat",
+        "phone": "Chiama ora"
+      }
     },
     "home": {
       "heroTitle": "Soluzioni Innovative di Telecomando",

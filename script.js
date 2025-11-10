@@ -30,6 +30,7 @@ async function initializeApp() {
         initializeSmoothScrolling();
         initializeAccessibility();
         initializeWhatsApp();
+        initializeCommunicationSidebar();
         
         // Detect language from URL or use saved preference
         const urlLanguage = detectLanguageFromUrl();
@@ -1541,6 +1542,98 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
+// Communication Sidebar Initialization
+function initializeCommunicationSidebar() {
+    try {
+        // Add hover effects for communication items
+        const communicationItems = document.querySelectorAll('.communication-item a');
+        
+        communicationItems.forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateX(-8px) scale(1.05)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateX(-5px) scale(1)';
+            });
+            
+            // Add click tracking
+            item.addEventListener('click', function() {
+                const type = this.classList.contains('whatsapp-link') ? 'WhatsApp' :
+                          this.classList.contains('wechat-link') ? 'WeChat' : 'Phone';
+                
+                if (typeof trackContactClick !== 'undefined') {
+                    const contactValue = type === 'WhatsApp' ? '+8615899648898' :
+                                         type === 'WeChat' ? 'WeChat QR' : '+8615899648898';
+                    trackContactClick(type, contactValue);
+                }
+            });
+        });
+        
+        // Add animation on page load
+        setTimeout(() => {
+            const sidebar = document.querySelector('.communication-sidebar');
+            if (sidebar) {
+                sidebar.style.animation = 'slideInRight 0.5s ease-out';
+            }
+        }, 1000);
+        
+        // Add slide-in animation CSS if not already present
+        if (!document.querySelector('#communication-sidebar-animations')) {
+            const style = document.createElement('style');
+            style.id = 'communication-sidebar-animations';
+            style.textContent = `
+                @keyframes slideInRight {
+                    from {
+                        transform: translateX(100%);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                }
+                
+                @keyframes pulse {
+                    0% { transform: scale(1); }
+                    50% { transform: scale(1.1); }
+                    100% { transform: scale(1); }
+                }
+                
+                .communication-sidebar {
+                    animation: slideInRight 0.5s ease-out;
+                }
+                
+                .notification-badge {
+                    animation: pulse 2s infinite;
+                }
+                
+                @media (max-width: 768px) {
+                    @keyframes slideInUp {
+                        from {
+                            transform: translateY(100%);
+                            opacity: 0;
+                        }
+                        to {
+                            transform: translateY(0);
+                            opacity: 1;
+                        }
+                    }
+                    
+                    .communication-sidebar {
+                        animation: slideInUp 0.5s ease-out;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        console.log('Communication sidebar initialized successfully');
+    } catch (error) {
+        console.error('Error initializing communication sidebar:', error);
+    }
+}
+
 // Export functions for potential use in other scripts
 window.FastFunRC = {
     setLanguage,
@@ -1550,5 +1643,6 @@ window.FastFunRC = {
     closeWeChatQR,
     trackWhatsAppClick,
     getWhatsAppMessage,
-    updateWhatsAppStatus
+    updateWhatsAppStatus,
+    initializeCommunicationSidebar
 };
