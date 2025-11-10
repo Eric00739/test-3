@@ -11,13 +11,17 @@
       "products": "Products",
       "blog": "Blog",
       "contact": "Contact",
-      "getQuote": "Get Quote"
+      "getQuote": "Get Quote",
+      "whatsapp": "WhatsApp",
+      "whatsappCta": "Chat on WhatsApp",
+      "wechat": "WeChat"
     },
     "home": {
       "heroTitle": "Industry-Leading RF Remote Control Solutions Since 2010",
       "heroSubtitle": "Trusted by 50,000+ Professionals Worldwide | ISO 9001:2015 Certified | 80% Brand Compatibility",
       "heroCtaPrimary": "Get Expert Consultation",
       "heroCtaSecondary": "View Product Catalog",
+      "whatsappChatText": "Chat with us",
       "features": {
         "title": "Why Industry Leaders Choose FastFun RC",
         "manufacturing": {
@@ -195,7 +199,9 @@
         "title": "RF Remote",
         "description": "High-performance RF remote controls with reliable signal transmission and long battery life.",
         "features": ["433MHz frequency", "100m range", "Low power consumption", "Customizable buttons"],
-        "cta": "Get Quote"
+        "cta": "Get Quote",
+        "whatsappCta": "Chat on WhatsApp",
+        "whatsappCtaText": "Chat on WhatsApp"
       },
       "rfController": {
         "title": "RF Controller",
@@ -291,13 +297,17 @@
       "products": "Productos",
       "blog": "Blog",
       "contact": "Contacto",
-      "getQuote": "Cotizar"
+      "getQuote": "Cotizar",
+      "whatsapp": "WhatsApp",
+      "whatsappCta": "Chatear por WhatsApp",
+      "wechat": "WeChat"
     },
     "home": {
       "heroTitle": "Soluciones Innovadoras de Control Remoto",
       "heroSubtitle": "Controles Remotos RF Profesionales, Interruptores WiFi y Soluciones Aftermarket para Automóviles",
       "heroCtaPrimary": "Obtener Cotización Ahora",
       "heroCtaSecondary": "Descargar Catálogo",
+      "whatsappChatText": "Chatea con nosotros",
       "features": {
         "title": "¿Por Qué Elegir FastFun?",
         "quality": {
@@ -340,7 +350,9 @@
         "title": "Control Remoto RF",
         "description": "Controles remotos RF de alto rendimiento con transmisión de señal confiable y larga duración de batería.",
         "features": ["Frecuencia 433MHz", "Alcance 100m", "Bajo consumo de energía", "Botones personalizables"],
-        "cta": "Cotizar"
+        "cta": "Cotizar",
+        "whatsappCta": "Chatear por WhatsApp",
+        "whatsappCtaText": "Chatear por WhatsApp"
       },
       "rfController": {
         "title": "Controlador RF",
@@ -437,13 +449,17 @@
       "products": "Produtos",
       "blog": "Blog",
       "contact": "Contato",
-      "getQuote": "Orçar"
+      "getQuote": "Orçar",
+      "whatsapp": "WhatsApp",
+      "whatsappCta": "Converse no WhatsApp",
+      "wechat": "WeChat"
     },
     "home": {
       "heroTitle": "Soluções Inovadoras de Controle Remoto",
       "heroSubtitle": "Controles Remotos RF Profissionais, Interruptores WiFi e Soluções Aftermarket para Automóveis",
       "heroCtaPrimary": "Obter Cotação Agora",
       "heroCtaSecondary": "Baixar Catálogo",
+      "whatsappChatText": "Converse conosco",
       "features": {
         "title": "Por Que Escolher FastFun?",
         "quality": {
@@ -486,7 +502,9 @@
         "title": "Controle Remoto RF",
         "description": "Controles remotos RF de alto desempenho com transmissão de sinal confiável e longa vida útil da bateria.",
         "features": ["Frequência 433MHz", "Alcance 100m", "Baixo consumo de energia", "Botões personalizáveis"],
-        "cta": "Orçar"
+        "cta": "Orçar",
+        "whatsappCta": "Converse no WhatsApp",
+        "whatsappCtaText": "Converse no WhatsApp"
       },
       "rfController": {
         "title": "Controlador RF",
@@ -583,13 +601,17 @@
       "products": "Produits",
       "blog": "Blog",
       "contact": "Contact",
-      "getQuote": "Devis"
+      "getQuote": "Devis",
+      "whatsapp": "WhatsApp",
+      "whatsappCta": "Discuter sur WhatsApp",
+      "wechat": "WeChat"
     },
     "home": {
       "heroTitle": "Solutions Innovantes de Contrôle à Distance",
       "heroSubtitle": "Télécommandes RF Professionnelles, Interrupteurs WiFi et Solutions Aftermarket pour Voitures",
       "heroCtaPrimary": "Obtenir un Devis",
       "heroCtaSecondary": "Télécharger le Catalogue",
+      "whatsappChatText": "Discutez avec nous",
       "features": {
         "title": "Pourquoi Choisir FastFun?",
         "quality": {
@@ -632,7 +654,9 @@
         "title": "Télécommande RF",
         "description": "Télécommandes RF haute performance avec transmission de signal fiable et longue durée de vie de batterie.",
         "features": ["Fréquence 433MHz", "Portée 100m", "Faible consommation d'énergie", "Boutons personnalisables"],
-        "cta": "Devis"
+        "cta": "Devis",
+        "whatsappCta": "Discuter sur WhatsApp",
+        "whatsappCtaText": "Discuter sur WhatsApp"
       },
       "rfController": {
         "title": "Contrôleur RF",
@@ -729,13 +753,17 @@
       "products": "Prodotti",
       "blog": "Blog",
       "contact": "Contatto",
-      "getQuote": "Preventivo"
+      "getQuote": "Preventivo",
+      "whatsapp": "WhatsApp",
+      "whatsappCta": "Chatta su WhatsApp",
+      "wechat": "WeChat"
     },
     "home": {
       "heroTitle": "Soluzioni Innovative di Telecomando",
       "heroSubtitle": "Telecomandi RF Professionali, Interruttori WiFi e Soluzioni Aftermarket per Auto",
       "heroCtaPrimary": "Ottieni un Preventivo",
       "heroCtaSecondary": "Scarica il Catalogo",
+      "whatsappChatText": "Chatta con noi",
       "features": {
         "title": "Perché Scegliere FastFun?",
         "quality": {
@@ -778,7 +806,9 @@
         "title": "Telecomando RF",
         "description": "Telecomandi RF ad alte prestazioni con trasmissione del segnale affidabile e lunga durata della batteria.",
         "features": ["Frequenza 433MHz", "Raggio 100m", "Basso consumo energetico", "Pulsanti personalizzabili"],
-        "cta": "Preventivo"
+        "cta": "Preventivo",
+        "whatsappCta": "Chatta su WhatsApp",
+        "whatsappCtaText": "Chatta su WhatsApp"
       },
       "rfController": {
         "title": "Controller RF",

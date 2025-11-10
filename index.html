@@ -407,6 +407,15 @@ a.btn:visited {
                 <li><a href="blog.html" class="nav-link" data-i18n="nav.blog">Blog</a></li>
                 <li><a href="contact.html" class="nav-link" data-i18n="nav.contact">Contact</a></li>
                 <li>
+                    <a href="https://wa.me/8615899648898?text=I'm interested in FastFun RC products" class="nav-whatsapp" onclick="trackContactClick('WhatsApp', '+8615899648898');">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.27-.099-.471-.048-.673.149-.194.198-.402.448-.602.746-.221.336-.448.717-.448 1.138 0 .705.299 1.34.896 1.34.269 0 .563.104.783.299.099.22.149.473.099.673-.149.194-.198.402-.448.602-.746.221-.336.448-.717.448-1.138 0-.705-.299-1.34-.896-1.34-.269 0-.563-.104-.783-.299-.099-.22-.149-.473-.099-.673.149-.198.402-.448.602-.746.221-.336.448-.717.448-1.138 0-.705-.299-1.34-.896-1.34-.269 0-.563-.104-.783-.299-.099-.22-.149-.473-.099-.673.149-.198.402-.448.602-.746.221-.336.448-.717.448-1.138 0-.705-.299-1.34-.896-1.34z"/>
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                        </svg>
+                        <span data-i18n="nav.whatsapp">WhatsApp</span>
+                    </a>
+                </li>
+                <li>
                     <div class="language-selector">
                         <button class="language-dropdown" id="languageDropdown">
                             <span id="currentLanguage">EN</span>
@@ -439,6 +448,13 @@ a.btn:visited {
                 <p class="hero-subtitle" data-i18n="home.heroSubtitle">14+ Years Manufacturing Excellence | 20+ Brand Compatibility | ODM/OEM Available</p>
                 <div class="hero-buttons">
                     <a href="https://wa.me/8615899648898?text=Interested in RF remote solutions - FastFun RC" class="btn btn-primary btn-large hero-cta-primary" data-i18n="home.heroCtaPrimary" onclick="trackCTAClick('Get Quote Now', 'hero_section'); trackContactClick('WhatsApp', '+8615899648898');">Get Quote Now</a>
+                    <a href="https://wa.me/8615899648898?text=I'm interested in your products and would like to chat via WhatsApp - FastFun RC" class="btn btn-whatsapp btn-large" onclick="trackCTAClick('WhatsApp Chat', 'hero_section'); trackContactClick('WhatsApp', '+8615899648898');">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.27-.099-.471-.048-.673.149-.194.198-.402.448-.602.746-.221.336-.448.717-.448 1.138 0 .705.299 1.34.896 1.34 1.34 0 .269.104.563.299.783.099.22.149.473.099.673-.149.198-.402-.448-.602-.746-.221-.336-.448-.717-.448-1.138 0-.705-.299-1.34-.896-1.34-.269 0-.563.104-.783.299-.099.22-.149.473-.099.673.149.198.402.448.602.746.221.336.448.717.448 1.138 0 .705-.299 1.34-.896 1.34-.269 0-.563-.104-.783-.299-.099-.22-.149-.473-.099-.673.149-.198-.402-.448-.602-.746-.221-.336-.448-.717-.448-1.138 0-.705.299-1.34.896-1.34.269 0 .563-.104.783-.299.099-.22.149-.473.099-.673-.149-.198-.402-.448-.602-.746-.221-.336-.448-.717-.448-1.138 0-.705.299-1.34.896-1.34z"/>
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                        </svg>
+                        <span data-i18n="home.whatsappCta">Chat on WhatsApp</span>
+                    </a>
                     <a href="products.html" class="btn btn-outline btn-large hero-cta-secondary" data-i18n="home.heroCtaSecondary" onclick="trackCTAClick('Download Catalog', 'hero_section');">Download Catalog</a>
                 </div>
             </div>
@@ -1166,6 +1182,41 @@ a.btn:visited {
             window.addEventListener('load', window.trackPagePerformance);
         }
     </script>
+
+    <!-- WhatsApp Floating Button -->
+    <div class="whatsapp-float">
+        <a href="https://wa.me/8615899648898?text=I'm interested in FastFun RC products" target="_blank" rel="noopener noreferrer" onclick="trackContactClick('WhatsApp', '+8615899648898');">
+            <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.27-.099-.471-.048-.673.149-.194.198-.402.448-.602.746-.221.336-.448.717-.448 1.138 0 .705.299 1.34.896 1.34.269 0 .563.104.783.299.099.22.149.473.099.673-.149.194-.198.402-.448.602-.746.221-.336.448-.717.448-1.138 0-.705-.299-1.34-.896-1.34-.269 0-.563-.104-.783-.299-.099-.22-.149-.473-.099-.673.149-.198.402-.448.602-.746.221-.336.448-.717.448-1.138 0-.705-.299-1.34-.896-1.34-.269 0-.563-.104-.783-.299-.099-.22-.149-.473-.099-.673.149-.198.402-.448.602-.746.221-.336.448-.717.448-1.138 0-.705-.299-1.34-.896-1.34z"/>
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+            </svg>
+            <span class="whatsapp-text" data-i18n="whatsapp.chatText">Chat with us</span>
+            <span class="notification-badge">1</span>
+        </a>
+    </div>
+
+    <!-- WeChat Floating Button -->
+    <div class="wechat-float">
+        <a href="#" onclick="showWeChatQR(); return false;" title="Scan QR code to add us on WeChat">
+            <svg class="wechat-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 2.992 5.447L2.291 18l2.988-1.799c1.201.498 2.578.768 4.064.768 4.8 0 8.691-3.289 8.691-7.342 0-4.053-3.891-7.342-8.691-7.342zm-.716 10.949c-2.346 0-4.342-.835-5.79-2.179h-.001l-.798 1.584.932-.563c1.201.498 2.578.768 4.064.768 4.8 0 8.691-3.289 8.691-7.342 0-4.053-3.891-7.342-8.691-7.342z"/>
+                <path d="M23.535 8.941c0-3.242-3.764-5.871-8.404-5.871-1.357 0-2.617.376-3.679 1.018l-2.452-1.459 1.896 1.154c.821.34 1.727.529 2.699.529 3.398 0 6.16-2.403 6.16-5.357 0-2.954-2.762-5.357-6.16-5.357-1.357 0-2.617.376-3.679 1.018l-2.452-1.459 1.896 1.154c.821.34 1.727.529 2.699.529 3.398 0 6.16-2.403 6.16-5.357 0-2.954-2.762-5.357-6.16-5.357z"/>
+                <path d="M18.479 9.5c0 .553-.447 1-1 1s-1-.447-1-1 .447-1 1-1 1 .447 1 1zM14.479 9.5c0 .553-.447 1-1 1s-1-.447-1-1 .447-1 1-1 1 .447 1 1z"/>
+            </svg>
+        </a>
+    </div>
+
+    <!-- WeChat QR Code Modal -->
+    <div id="wechatModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeWeChatQR()">&times;</span>
+            <h3 data-i18n="wechat.title">Add us on WeChat</h3>
+            <div style="text-align: center; padding: 20px;">
+                <img src="images/wechat-qr-code.png" alt="WeChat QR Code" style="width: 200px; height: 200px; border: 1px solid #ddd;">
+                <p data-i18n="wechat.scanInstruction">Scan this QR code with WeChat to add us</p>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

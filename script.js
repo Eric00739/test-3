@@ -29,6 +29,7 @@ async function initializeApp() {
         initializeAnimations();
         initializeSmoothScrolling();
         initializeAccessibility();
+        initializeWhatsApp();
         
         // Detect language from URL or use saved preference
         const urlLanguage = detectLanguageFromUrl();
@@ -1432,9 +1433,122 @@ function hideLoadingState() {
     }
 }
 
+// WhatsApp and WeChat Functions
+function showWeChatQR() {
+    const modal = document.getElementById('wechatModal');
+    if (modal) {
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+        
+        // Track WeChat QR code view
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'view_wechat_qr', {
+                'event_category': 'social_media',
+                'event_label': 'wechat_qr_code'
+            });
+        }
+    }
+}
+
+function closeWeChatQR() {
+    const modal = document.getElementById('wechatModal');
+    if (modal) {
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+}
+
+// Enhanced WhatsApp click tracking
+function trackWhatsAppClick(location, message = '') {
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'whatsapp_click', {
+            'event_category': 'social_media',
+            'event_label': location,
+            'custom_parameter_1': message
+        });
+    }
+}
+
+// WhatsApp message customization based on page
+function getWhatsAppMessage(page, product = '') {
+    const messages = {
+        'home': "I'm interested in FastFun RC products and would like to chat via WhatsApp",
+        'products': `I'm interested in ${product} and would like more information`,
+        'contact': "I'd like to get in touch via WhatsApp",
+        'about': "I'd like to know more about FastFun RC via WhatsApp"
+    };
+    
+    return messages[page] || messages['home'];
+}
+
+// WhatsApp status indicator
+function updateWhatsAppStatus() {
+    const statusIndicator = document.querySelector('.whatsapp-status');
+    if (!statusIndicator) return;
+    
+    const currentHour = new Date().getHours();
+    const businessHours = currentHour >= 9 && currentHour < 18;
+    
+    if (businessHours) {
+        statusIndicator.innerHTML = '<span class="status-dot online"></span>Online now';
+        statusIndicator.className = 'whatsapp-status online';
+    } else {
+        statusIndicator.innerHTML = '<span class="status-dot offline"></span>We\'ll reply tomorrow';
+        statusIndicator.className = 'whatsapp-status offline';
+    }
+}
+
+// Initialize WhatsApp functionality
+function initializeWhatsApp() {
+    // Update WhatsApp links with dynamic messages
+    document.querySelectorAll('a[href^="https://wa.me/"]').forEach(link => {
+        const page = document.body.getAttribute('data-page') || 'home';
+        const product = link.getAttribute('data-product') || '';
+        const message = getWhatsAppMessage(page, product);
+        
+        if (message && !link.getAttribute('data-customized')) {
+            link.href = `https://wa.me/8615899648898?text=${encodeURIComponent(message)}`;
+            link.setAttribute('data-customized', 'true');
+        }
+    });
+    
+    // Initialize WhatsApp status
+    updateWhatsAppStatus();
+    setInterval(updateWhatsAppStatus, 60000); // Update every minute
+    
+    // Add click handlers to WhatsApp links
+    document.querySelectorAll('a[href^="https://wa.me/"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            const location = this.getAttribute('data-location') || 'unknown';
+            const message = this.getAttribute('data-message') || '';
+            trackWhatsAppClick(location, message);
+        });
+    });
+}
+
+// Modal close on outside click
+document.addEventListener('click', function(e) {
+    const wechatModal = document.getElementById('wechatModal');
+    if (wechatModal && e.target === wechatModal) {
+        closeWeChatQR();
+    }
+});
+
+// Modal close on escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeWeChatQR();
+    }
+});
+
 // Export functions for potential use in other scripts
 window.FastFunRC = {
     setLanguage,
     currentLanguage: () => currentLanguage,
-    translations: () => translations
+    translations: () => translations,
+    showWeChatQR,
+    closeWeChatQR,
+    trackWhatsAppClick,
+    getWhatsAppMessage,
+    updateWhatsAppStatus
 };
