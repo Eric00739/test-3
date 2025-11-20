@@ -326,7 +326,7 @@ async function handleContactForm(e) {
 ## 📞 联系信息
 
 **修复负责人**: 开发团队  
-**技术支持**: Eric@fastfunrc.com  
+**技术支持**: eric@fastfunrc.com  
 **紧急联系**: +86 158 9964 8898
 
 ---

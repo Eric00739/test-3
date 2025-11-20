@@ -116,8 +116,8 @@ Key responsive features:
    ```
 
 4. **Configure DNS**
-   - Add CNAME record: www → fastfunrc.com
-   - Add A record: @ → 185.199.108.153 (GitHub Pages IP)
+   - Add CNAME record: www -> fastfunrc.com
+   - Add A record: @ -> 185.199.108.153 (GitHub Pages IP)
 
 ### Alternative Deployment Options
 

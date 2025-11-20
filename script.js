@@ -3,6 +3,16 @@
 // Global variables
 let currentLanguage = 'en';
 let translations = {};
+const supportedLanguages = ['en', 'es', 'pt', 'fr', 'it', 'de'];
+const languageLabels = {
+    en: 'English',
+    es: 'Español',
+    pt: 'Português',
+    fr: 'Français',
+    it: 'Italiano',
+    de: 'Deutsch'
+};
+const languagePrefixRegex = new RegExp(`^/(${supportedLanguages.filter(lang => lang !== 'en').join('|')})/`);
 
 // DOM Content Loaded
 document.addEventListener('DOMContentLoaded', function() {
@@ -115,6 +125,11 @@ async function loadTranslations() {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         translations = await response.json();
+        
+        // Ensure German fallback exists
+        if (translations.en && !translations.de) {
+            translations.de = translations.en;
+        }
         return true;
     } catch (error) {
         console.error('Error loading translations:', error);
@@ -175,50 +190,53 @@ async function loadTranslations() {
 
 // Language Management
 function setLanguage(lang, updateUrl = true) {
-    if (!translations[lang]) {
-        console.warn(`Translation for language '${lang}' not found`);
+    const targetLang = translations[lang] ? lang : 'en';
+    
+    if (!translations[targetLang]) {
+        console.warn(`Translation for language '${lang}' not found and no fallback available`);
         return;
     }
     
-    currentLanguage = lang;
-    localStorage.setItem('preferredLanguage', lang);
+    const previousLanguage = currentLanguage;
+    currentLanguage = targetLang;
+    localStorage.setItem('preferredLanguage', targetLang);
     
     // Update language display
     const currentLangElement = document.getElementById('currentLanguage');
     if (currentLangElement) {
-        currentLangElement.textContent = lang.toUpperCase();
+        currentLangElement.textContent = targetLang.toUpperCase();
     }
     
     // Update language option active states
     document.querySelectorAll('.language-option').forEach(option => {
-        option.classList.toggle('active', option.dataset.lang === lang);
+        option.classList.toggle('active', option.dataset.lang === targetLang);
     });
     
     // Update all translatable elements
     updateTranslations();
     
     // Update HTML lang attribute
-    document.documentElement.lang = lang;
+    document.documentElement.lang = targetLang;
     
     // Update page title and meta tags
-    updatePageMetadata(lang);
+    updatePageMetadata(targetLang);
     
     // Update URL if requested
     if (updateUrl) {
-        updateLanguageUrl(lang);
+        updateLanguageUrl(targetLang);
     }
     
     // Update hreflang links
-    updateHreflangLinks(lang);
+    updateHreflangLinks(targetLang);
     
     // Track language change
-    if (typeof trackLanguageChange !== 'undefined' && currentLanguage !== lang) {
-        trackLanguageChange(currentLanguage, lang);
+    if (typeof trackLanguageChange !== 'undefined' && previousLanguage !== currentLanguage) {
+        trackLanguageChange(previousLanguage, currentLanguage);
     }
     
     // Announce language change to screen readers
     if (typeof announceToScreenReader !== 'undefined') {
-        announceToScreenReader(`Language changed to ${lang.toUpperCase()}`);
+        announceToScreenReader(`Language changed to ${targetLang.toUpperCase()}`);
     }
 }
 
@@ -226,7 +244,7 @@ function updateLanguageUrl(lang) {
     if (lang === 'en') {
         // For English, remove language prefix
         const currentPath = window.location.pathname;
-        const langPrefixRegex = /^\/(es|pt|fr|it)\//;
+        const langPrefixRegex = languagePrefixRegex;
         
         if (langPrefixRegex.test(currentPath)) {
             const newPath = currentPath.replace(langPrefixRegex, '/');
@@ -235,7 +253,7 @@ function updateLanguageUrl(lang) {
     } else {
         // For other languages, add/update language prefix
         const currentPath = window.location.pathname;
-        const langPrefixRegex = /^\/(es|pt|fr|it)\//;
+        const langPrefixRegex = languagePrefixRegex;
         
         if (langPrefixRegex.test(currentPath)) {
             // Replace existing language prefix
@@ -250,7 +268,6 @@ function updateLanguageUrl(lang) {
 }
 
 function updateHreflangLinks(currentLang) {
-    const supportedLanguages = ['en', 'es', 'pt', 'fr', 'it'];
     const baseUrl = window.location.origin;
     
     supportedLanguages.forEach(lang => {
@@ -360,6 +377,18 @@ function initializeLanguageSelector() {
     
     if (!dropdown || !menu) return;
     
+    // Ensure all supported languages appear in the dropdown
+    supportedLanguages.forEach(lang => {
+        if (!menu.querySelector(`.language-option[data-lang="${lang}"]`)) {
+            const option = document.createElement('a');
+            option.href = '#';
+            option.className = 'language-option';
+            option.dataset.lang = lang;
+            option.textContent = languageLabels[lang] || lang.toUpperCase();
+            menu.appendChild(option);
+        }
+    });
+    
     // Toggle dropdown
     dropdown.addEventListener('click', function(e) {
         e.stopPropagation();
@@ -399,7 +428,7 @@ function navigateToLanguageVersion(lang, currentPath) {
     let pageName = currentPath;
     
     // Remove language prefix if present
-    const langPrefixRegex = /^\/(es|pt|fr|it)\//;
+    const langPrefixRegex = languagePrefixRegex;
     if (langPrefixRegex.test(pageName)) {
         pageName = pageName.replace(langPrefixRegex, '/');
     }
@@ -428,7 +457,7 @@ function navigateToLanguageVersion(lang, currentPath) {
 // Detect language from URL
 function detectLanguageFromUrl() {
     const path = window.location.pathname;
-    const langMatch = path.match(/^\/(es|pt|fr|it)\//);
+    const langMatch = path.match(languagePrefixRegex);
     
     if (langMatch) {
         return langMatch[1];

@@ -38,7 +38,7 @@
         "areaServed": "Worldwide",
         "availableLanguage": ["English", "Spanish", "Portuguese", "French", "Italian", "Chinese", "German", "Japanese"],
         "hoursAvailable": "24/7",
-        "email": "support@fastfunrc.com"
+        "email": "eric@fastfunrc.com"
       },
       {
         "@type": "ContactPoint",
@@ -47,7 +47,7 @@
         "areaServed": "Worldwide",
         "availableLanguage": ["English", "Spanish", "Portuguese", "French", "Italian", "Chinese", "German", "Japanese"],
         "hoursAvailable": "24/7",
-        "email": "technical@fastfunrc.com"
+        "email": "eric@fastfunrc.com"
       },
       {
         "@type": "ContactPoint",
@@ -56,7 +56,7 @@
         "areaServed": "Worldwide",
         "availableLanguage": ["English", "Spanish", "Portuguese", "French", "Italian", "Chinese", "German", "Japanese"],
         "hoursAvailable": "Mon-Fri 9:00-18:00",
-        "email": "sales@fastfunrc.com"
+        "email": "eric@fastfunrc.com"
       }
     ],
     "sameAs": [
